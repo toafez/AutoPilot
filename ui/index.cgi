@@ -251,12 +251,12 @@ if [ $(synogetkeyvalue /etc.defaults/VERSION majorversion) -ge 7 ]; then
 					help_modal "autopilot_setup_via_terminal" "${txt_link_help_terminal}"
 					if [[ "${udev_rule}" == "true" ]] ;then
 						if [[ "${rewrite_udev}" == "true" ]]; then
-							help_modal "autopilot_status" "${txt_link_help_activate}"
+							help_modal "autopilot_status" "${txt_link_help_install}"
 						else
-							help_modal "autopilot_status" "${txt_link_help_deactivate}"
+							help_modal "autopilot_status" "${txt_link_help_uninstall}"
 						fi
 					else
-						help_modal "autopilot_status" "${txt_link_help_activate}"
+						help_modal "autopilot_status" "${txt_link_help_install}"
 					fi
 
 					# Hinweis Badges

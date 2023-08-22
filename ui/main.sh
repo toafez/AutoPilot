@@ -58,22 +58,22 @@ if [[ "${get[page]}" == "main" && "${get[section]}" == "start" ]]; then
 										if [[ "${udev_rule}" == "true" ]]; then
 											if [[ "${rewrite_udev}" == "true" ]]; then
 												echo '
-												'${txt_autopilot_service}' <span class="text-danger">'${txt_autopilot_is_inactive}'</span>
+												'${txt_autopilot_service}' <span class="text-danger">'${txt_autopilot_is_not_installed}'</span>
 												<td class="text-end">
-													<button type="button" class="btn btn-light btn-sm text-success text-decoration-none" data-bs-toggle="modal" data-bs-target="#help-autopilot_status">'${txt_button_activate}'</button>
+													<button type="button" class="btn btn-light btn-sm text-success text-decoration-none" data-bs-toggle="modal" data-bs-target="#help-autopilot_status">'${txt_button_install}'</button>
 												</td>'
 											else
 												echo '
-												'${txt_autopilot_service}' <span class="text-success">'${txt_autopilot_is_active}'</span>
+												'${txt_autopilot_service}' <span class="text-success">'${txt_autopilot_is_installed}'</span>
 												<td class="text-end">
-													<button type="button" class="btn btn-light btn-sm text-danger text-decoration-none" data-bs-toggle="modal" data-bs-target="#help-autopilot_status">'${txt_button_deactivate}'</button>
+													<button type="button" class="btn btn-light btn-sm text-danger text-decoration-none" data-bs-toggle="modal" data-bs-target="#help-autopilot_status">'${txt_button_uninstall}'</button>
 												</td>'
 											fi
 										else
 											echo '
-											'${txt_autopilot_service}' <span class="text-danger">'${txt_autopilot_is_inactive}'</span>
+											'${txt_autopilot_service}' <span class="text-danger">'${txt_autopilot_is_not_installed}'</span>
 											<td class="text-end">
-												<button type="button" class="btn btn-light btn-sm text-success text-decoration-none" data-bs-toggle="modal" data-bs-target="#help-autopilot_status">'${txt_button_activate}'</button>
+												<button type="button" class="btn btn-light btn-sm text-success text-decoration-none" data-bs-toggle="modal" data-bs-target="#help-autopilot_status">'${txt_button_install}'</button>
 											</td>'
 										fi
 										echo '

@@ -36,8 +36,8 @@
 	txt_button_Save="Speichern"
 	txt_button_delete="Löschen"
 	txt_button_delete_now="Jetzt löschen"
-	txt_button_activate="Aktivieren"
-	txt_button_deactivate="Deaktivieren"
+	txt_button_install="Installieren"
+	txt_button_uninstall="Deinstallieren"
 
 	txt_popup_input_error="Eingabefehler!"
 	txt_popup_delete_conf="Löschbestätigung!"
@@ -49,8 +49,8 @@
 	txt_link_help_external_storage="Einen externen Datenträger für AutoPilot einrichten"
 	txt_link_help_terminal="AutoPilot für einen externen Datenträger über die Konsole einrichten"
 	txt_link_help_dsm="AutoPilot für einen externen Datenträger über den DSM einrichten"
-	txt_link_help_activate="AutoPilot Gerätetreiber für die Erkennung externer USB/SATA-Datenträger aktivieren"
-	txt_link_help_deactivate="AutoPilot Gerätetreiber für die Erkennung externer USB/SATA-Datenträger deaktivieren"
+	txt_link_help_install="AutoPilot Gerätetreiber für die Erkennung externer USB/SATA-Datenträger installieren"
+	txt_link_help_uninstall="AutoPilot Gerätetreiber für die Erkennung externer USB/SATA-Datenträger deinstallieren"
 
 # main.sh
 # --------------------------------------------------------------
@@ -58,8 +58,8 @@
 	txt_link_usbautopilot="USB/SATA-AutoPilot"
 	txt_autopilot_status="System"
 	txt_autopilot_service="Der AutoPilot Gerätetreiber für die Erkennung externer USB/SATA-Datenträger ist"
-	txt_autopilot_is_active="aktiviert"
-	txt_autopilot_is_inactive="deaktiviert"
+	txt_autopilot_is_installed="installiert"
+	txt_autopilot_is_not_installed="nicht installiert"
 	txt_autopilot_settings="Einstellungen"
 	txt_autopilot_connect="Nach dem anschließen des externen Datenträgers die AutoPilot Scriptdatei <span class=\"text-success\">autopilot</span> automatisch ausführen"
 	txt_autopilot_disconnect="Nach der Ausführung der AutoPilot Scriptdatei <span class=\"text-success\">autopilot</span> den externen Datenträger:"
@@ -70,10 +70,10 @@
 
 # autopilot_status.sh
 # --------------------------------------------------------------
-	txt_help_status_aktivate_terminal="Gerätetreiber über die Konsole aktivieren"
-	txt_help_status_deaktivate_terminal="Gerätetreiber über die Konsole deaktivieren"
-	txt_help_status_aktivate_dsm="Gerätetreiber über den DSM Aufgabenplaner aktivieren"
-	txt_help_status_deaktivate_dsm="Gerätetreiber über den DSM Aufgabenplaner deaktivieren"
+	txt_help_status_install_terminal="Gerätetreiber über die Konsole installieren"
+	txt_help_status_uninstall_terminal="Gerätetreiber über die Konsole deinstallieren"
+	txt_help_status_install_dsm="Gerätetreiber über den DSM Aufgabenplaner installieren"
+	txt_help_status_uninstall_dsm="Gerätetreiber über den DSM Aufgabenplaner deinstallieren"
 	txt_help_status_step_1="Melde dich als Benutzer <span class=\"text-danger fst-italic\">root</span> auf der Konsole deiner DiskStation an und führe folgenden Befehl aus"
 	txt_help_status_step_2="Öffne im DSM unter <span class=\"text-danger fst-italic\">Hauptmenü</span> > <span class=\"text-danger fst-italic\">Systemsteuerung</span> den <span class=\"text-danger fst-italic\">Aufgabenplaner</span>."
 	txt_help_status_step_3="Wähle im Aufgabenplaner über die Schaltfläche <span class=\"text-danger fst-italic\">Erstellen</span> > <span class=\"text-danger fst-italic\">Geplante Aufgabe</span> > <span class=\"text-danger fst-italic\">Benutzerdefiniertes Script</span> aus."
@@ -121,3 +121,4 @@
 	txt_help_setup_step_3="Nachdem die Shellscript Anweisung ausgeführt wurde, wird in der Regel ein sogenannter Exit-Code an das System übergeben, dessen Zahlenwert über ein"
 	txt_help_setup_step_4="ausgelesen werden kann. Ist das Ergebnis 0, wurde die zuletzt ausgeführte Shellscript Anweisung fehlerfrei ausgeführt. AutoPilot würde in diesem Fall den externen Datenträger automatisch auszuwerfen. Erhält man hingegen einen Zahlenwert zwischen 1 und 255 deutet dies auf einen Hinweis, eine Warnung, einen Fehler oder einen Abbruch der zuletzt ausgeführten Shellscript Anweisung hin. In diesem Fall würde der externe Datenträger von AutoPilot nicht automatisch ausgeworfen. Dieses grundlegende Verhalten kann in den AutoPilot Einstellungen individuell angepasst werden. Alternativ dazu kann anstelle des vom System übergebenen Exit-Code, auch ein eigener und damit fest eingestellter Exit-Code an AutoPilot übergeben werden, wobei ein"
 	txt_help_setup_step_5="AutoPilot mitteilt, das unabhängig vom tatsächlich übergebenen Exit-Code, der externe Datenträger immer ausgeworfen wird. Nachfolgend nochmal das komplette Beispiel-Script."
+

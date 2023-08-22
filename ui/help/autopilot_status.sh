@@ -30,12 +30,12 @@ echo '
 	<div class="col">'
 		if [[ "${udev_rule}" == "true" ]]; then
 			if [[ "${rewrite_udev}" == "true" ]]; then
-				echo '<h5>'${txt_help_status_aktivate_terminal}'</h5>'
+				echo '<h5>'${txt_help_status_install_terminal}'</h5>'
 			else
-				echo '<h5>'${txt_help_status_deaktivate_terminal}'</h5>'
+				echo '<h5>'${txt_help_status_uninstall_terminal}'</h5>'
 			fi
 		else
-			echo '<h5>'${txt_help_status_aktivate_terminal}'</h5>'
+			echo '<h5>'${txt_help_status_install_terminal}'</h5>'
 		fi
 		echo '
 		<ul class="list-unstyled ps-4">
@@ -62,12 +62,12 @@ echo '
 		<br />'
 		if [[ "${udev_rule}" == "true" ]]; then
 			if [[ "${rewrite_udev}" == "true" ]]; then
-				echo '<h5>'${txt_help_status_aktivate_dsm}'</h5>'
+				echo '<h5>'${txt_help_status_install_dsm}'</h5>'
 			else
-				echo '<h5>'${txt_help_status_deaktivate_dsm}'</h5>'
+				echo '<h5>'${txt_help_status_uninstall_dsm}'</h5>'
 			fi
 		else
-			echo '<h5>'${txt_help_status_aktivate_dsm}'</h5>'
+			echo '<h5>'${txt_help_status_install_dsm}'</h5>'
 		fi
 		echo '	
 		<ul class="list-unstyled ps-4">
