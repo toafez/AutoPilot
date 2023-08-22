@@ -44,7 +44,7 @@ Download the **latest version** of AutoPilot from the [Releases](https://github.
          - Close and re-enter AutoPilot for the changes to take effect.
 
 - ## Set up AutoPilot for an external USB/SATA data carrier
-         - In the AutoPilot app, under the **Help** menu item, you will find detailed instructions on how to set up an external USB/SATA data carrier either via the console or via the DSM task scheduler.
+  In the AutoPilot app, under the **Help** menu item, you will find detailed instructions on how to set up an external USB/SATA data carrier either via the console or via the DSM task scheduler.
 
 # History
 - You can find details on the version history in the [CHANGELOG](CHANGELOG) file.
