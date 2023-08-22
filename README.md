@@ -44,7 +44,7 @@ Lade dir die **jeweils aktuellste Version** von AutoPilot aus dem Bereich [Relea
         - Schließe die AutoPilot und rufe sie erneut auf, damit die Änderungen wirksam werden.
 
 - ## AutoPilot für einen externen USB/SATA-Datenträger einrichten
-        - In der AutoPilot App findest du unter dem Menüpunkt **Hilfe** detailierte Anleitungen, wie du einen externen USB/SATA-Datenträger entweder über die Konsole oder aber über den DSM-Aufgabenplaner einrichten kannst.
+  In der AutoPilot App findest du unter dem Menüpunkt **Hilfe** detailierte Anleitungen, wie du einen externen USB/SATA-Datenträger entweder über die Konsole oder aber über den DSM-Aufgabenplaner einrichten kannst.
 
 # Versionsgeschichte
 - Details zur Versionsgeschichte finest du in der Datei [CHANGELOG](CHANGELOG).
