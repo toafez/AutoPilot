@@ -1,0 +1,29 @@
+html {
+	font-size: 0.9rem;
+}
+
+.hide {
+	display: none;
+}
+
+.show {
+	display: block;
+}
+
+.text-blue {
+	color: #2A588C;
+}
+
+.text-orange {
+	color: #FF8C00;
+}
+
+.list-style-square {
+	list-style-type: square; 
+	list-style-position: inside;
+}
+
+.accordion-glow-off {
+	outline: 0 !important;
+	box-shadow: 0 0 0 0 rgba(0, 0, 0, 0) !important;
+}

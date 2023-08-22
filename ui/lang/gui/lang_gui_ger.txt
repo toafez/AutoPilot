@@ -1,0 +1,123 @@
+#!/bin/bash
+# Filename: lang_ger - coded in utf-8
+
+#                       AutoPilot
+#
+#        Copyright (C) 2023 by Tommes | License GNU GPLv3
+#         Member of the German Synology Community Forum
+#
+# Extract from  GPL3   https://www.gnu.org/licenses/gpl-3.0.html
+#                                     ...
+# This program is free software: you can redistribute it  and/or
+# modify it under the terms of the GNU General Public License as
+# published by the Free Software Foundation, either version 3 of
+# the License, or (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+#
+# See the GNU General Public License for more details.You should
+# have received a copy of the GNU General Public  License  along
+# with this program. If not, see http://www.gnu.org/licenses/  !
+
+
+# Globale Sprachvariablen
+# --------------------------------------------------------------
+	#txtAppTitle="AutoPilot für DSM 7"
+	txt_update_available="Ein <span class=\"text-danger fst-italic\">Update</span> steht zur Verfügung. Bitte aktualisiere deine ${app_name} Version ${local_version} auf die Version"
+
+	txt_link_note="Hinweis"
+
+	txt_button_Continue="Weiter"
+	txt_button_Back="Zurück"
+	txt_button_Cancel="Abbruch"
+	txt_button_Close="Schließen"
+	txt_button_Save="Speichern"
+	txt_button_delete="Löschen"
+	txt_button_delete_now="Jetzt löschen"
+	txt_button_activate="Aktivieren"
+	txt_button_deactivate="Deaktivieren"
+
+	txt_popup_input_error="Eingabefehler!"
+	txt_popup_delete_conf="Löschbestätigung!"
+
+# index.cgi
+# --------------------------------------------------------------
+	app_title="AutoPilot für externe USB/SATA-Datenträger"
+	txt_link_help="Hilfe"
+	txt_link_help_external_storage="Einen externen Datenträger für AutoPilot einrichten"
+	txt_link_help_terminal="AutoPilot für einen externen Datenträger über die Konsole einrichten"
+	txt_link_help_dsm="AutoPilot für einen externen Datenträger über den DSM einrichten"
+	txt_link_help_activate="AutoPilot Gerätetreiber für die Erkennung externer USB/SATA-Datenträger aktivieren"
+	txt_link_help_deactivate="AutoPilot Gerätetreiber für die Erkennung externer USB/SATA-Datenträger deaktivieren"
+
+# main.sh
+# --------------------------------------------------------------
+    txt_label_logfile="Protokoll"
+	txt_link_usbautopilot="USB/SATA-AutoPilot"
+	txt_autopilot_status="System"
+	txt_autopilot_service="Der AutoPilot Gerätetreiber für die Erkennung externer USB/SATA-Datenträger ist"
+	txt_autopilot_is_active="aktiviert"
+	txt_autopilot_is_inactive="deaktiviert"
+	txt_autopilot_settings="Einstellungen"
+	txt_autopilot_connect="Nach dem anschließen des externen Datenträgers die AutoPilot Scriptdatei <span class=\"text-success\">autopilot</span> automatisch ausführen"
+	txt_autopilot_disconnect="Nach der Ausführung der AutoPilot Scriptdatei <span class=\"text-success\">autopilot</span> den externen Datenträger:"
+	txt_autopilot_disconnect_never="niemals auswerfen"
+	txt_autopilot_disconnect_auto="nur auswerfen, wenn die Aufgabe durch einen <span class=\"text-success\">exit 0</span> Rückgabewert fehlerfrei abgearbeitet wurde"
+	txt_autopilot_disconnect_manual="immer auswerfen, wenn die Aufgabe durch einen <span class=\"text-success\">exit 100</span> Rückgabewert manuell beendet wurde"
+	txt_autopilot_signal="Optische und akustische Signalausgaben deiner DiskStation während der Ausführung von AutoPilot auslösen"
+
+# autopilot_status.sh
+# --------------------------------------------------------------
+	txt_help_status_aktivate_terminal="Gerätetreiber über die Konsole aktivieren"
+	txt_help_status_deaktivate_terminal="Gerätetreiber über die Konsole deaktivieren"
+	txt_help_status_aktivate_dsm="Gerätetreiber über den DSM Aufgabenplaner aktivieren"
+	txt_help_status_deaktivate_dsm="Gerätetreiber über den DSM Aufgabenplaner deaktivieren"
+	txt_help_status_step_1="Melde dich als Benutzer <span class=\"text-danger fst-italic\">root</span> auf der Konsole deiner DiskStation an und führe folgenden Befehl aus"
+	txt_help_status_step_2="Öffne im DSM unter <span class=\"text-danger fst-italic\">Hauptmenü</span> > <span class=\"text-danger fst-italic\">Systemsteuerung</span> den <span class=\"text-danger fst-italic\">Aufgabenplaner</span>."
+	txt_help_status_step_3="Wähle im Aufgabenplaner über die Schaltfläche <span class=\"text-danger fst-italic\">Erstellen</span> > <span class=\"text-danger fst-italic\">Geplante Aufgabe</span> > <span class=\"text-danger fst-italic\">Benutzerdefiniertes Script</span> aus."
+	txt_help_status_step_4="In dem sich nun öffnenden Pop-up-Fenster gibst du im Reiter <span class=\"text-danger fst-italic\">Allgemein</span> > <span class=\"text-danger fst-italic\">Allgemeine Einstellungen</span> der Aufgabe einen individuellen Namen und wählst als Benutzer <span class=\"text-danger fst-italic\">root</span> aus. Anschließend entfernst du noch den Haken bei <span class=\"text-danger fst-italic\">Aktiviert</span>."
+	txt_help_status_step_5="Füge im Reiter <span class=\"text-danger fst-italic\">Aufgabeneinstellungen</span> > <span class=\"text-danger fst-italic\">Befehl ausführen</span> > <span class=\"text-danger fst-italic\">Benutzerdefiniertes Script</span> den nachfolgenden Befehl in das Textfeld ein..."
+	txt_help_status_step_6="Bestätige deine Eingaben mit die Schaltfläche <span class=\"text-danger fst-italic\">OK</span> und akzeptiere die anschließende Warnmeldung ebenfalls mit <span class=\"text-danger fst-italic\">OK</span>."
+	txt_help_status_step_7="Damit die Aufgabe dem Aufgabenplaner hinzugefügt wird, musst du abschließend das Passwort deines aktuell am DSM angemeldeten Benutzers eingeben und den Vorgang über die Schaltfläche <span class=\"text-danger fst-italic\">Senden</span> bestätigen."
+	txt_help_status_step_8="In der Übersicht des Aufgabenplaners musst du nun die grade erstellte Aufgabe mit der Maus <span class=\"text-danger fst-italic\">markieren</span> die Zeile sollte nach dem markieren blau hinterlegt sein), jedoch <span class=\"text-decoration-underline\">keinen</span> Haken in der Checkbox setzen, um die Aufgabe dauerhaft zu aktivieren."
+	txt_help_status_step_9="Führe die Aufgabe nun durch betätigen der Schaltfläche <span class=\"text-danger fst-italic\">Ausführen</span> einmalig aus."
+	txt_help_status_step_10="Schließe die ${app_name} und rufe sie erneut auf, damit die Änderungen wirksam werden."
+
+# view.sh
+# --------------------------------------------------------------
+	txt_view_logfile="AutoPilot Protokoll"
+	txt_view_logfile_not_found="Keine Protokolleinträge vorhanden!"
+	txt_button_download_logfile="Protokoll herunterladen"
+	txt_button_delete_logfile="Protokoll löschen"
+	txt_popup_delete="Löschbestätigung!"
+	txt_popup_delete_logfile="Soll der Inhalt des Protokolls wirklich gelöscht werden?"
+
+# setup_via_dsm.sh
+# --------------------------------------------------------------
+	txt_help_setup_dsm_step_1="Installiere dir den <span class=\"text-danger fst-italic\">Text-Editor</span> aus dem DSM Paket-Zentrum."
+	txt_help_setup_dsm_step_2="Öffne den Text-Editor und erstelle über die Schaltfläche <span class=\"text-danger fst-italic\">Datei</span> > <span class=\"text-danger fst-italic\">Neu</span> eine neue Text- bzw. <span class=\"text-danger fst-italic\">Shell-Scriptdatei</span>. Beginne nun mit dem schreiben des eigentlichen Shellscriptes."
+	txt_help_setup_dsm_step_3="Speicher anschließend die grade erstellte Shell-Scriptdatei über die Schaltfläche <span class=\"text-danger fst-italic\">Datei</span> > <span class=\"text-danger fst-italic\">Speichern unter...</span> wähle als Speicherort das root Verzeichnis des gewünschten externen Datenträgers, wie z.B. /usbshare aus und gib als Dateiname <span class=\"text-danger fst-italic\">autopilot</span> ohne Dateiendung an. Bestätige deine Eingaben durch drücken der Schaltfläche <span class=\"text-danger fst-italic\">Speichern</span>."
+	txt_help_setup_dsm_step_4="Um sicherzustellen, das die Shell-Scriptdatei <span class=\"text-danger fst-italic\">autopilot</span> das Attribut <span class=\"text-danger fst-italic\">Ausführen</span> besitzt, öffne die <span class=\"text-danger fst-italic\">File Station</span> und wechsel auf den externen Datenträger, auf dem sich die Datei autopilot befindet. Ruf durch einen Rechtsklick auf die Datei autopilot das <span class=\"text-danger fst-italic\">Kontextmenü</span> auf und wähle dort den Punkt <span class=\"text-danger fst-italic\">Eigenschaften</span> aus."
+	txt_help_setup_dsm_step_5="Werden dir im Reiter <span class=\"text-danger fst-italic\">Berechtigung</span> mehrere Checkboxen angeboten, worüber du die <span class=\"text-danger fst-italic\">Lese-, Schreib- und Ausführberechtigung</span> für <span class=\"text-danger fst-italic\">Besitzer, Gruppe und Sonstige</span> festlegen kannst, dann stell sicher, das <span class=\"text-danger fst-italic\">alle</span> Checkboxen angehakt sind. Speicher mögliche Änderungen im Anschluss über die Schaltfläche <span class=\"text-danger fst-italic\">Speichern</span>."
+	txt_help_setup_dsm_step_6="Werden dir im Reiter <span class=\"text-danger fst-italic\">Berechtigung</span> die grade genannten Checkboxen nicht angeboten, dann erstelle über die Schaltfläche <span class=\"text-danger fst-italic\">Erstellen</span> eine neue Berechtigung. Wähle aus dem Auswahlmenü unter dem Punkt <span class=\"text-danger fst-italic\">Benutzer oder Gruppe</span>, Everyone und unter dem Punkt <span class=\"text-danger fst-italic\">Typ</span>, Zulassen aus. Hake unter dem Punkt <span class=\"text-danger fst-italic\">Berechtigungen</span> alle Checkboxen für <span class=\"text-danger fst-italic\">Administration, Lesen und Schreiben</span> an und klicke auf die Schaltfläche <span class=\"text-danger fst-italic\">Fertig</span>. Speicher deine Änderungen im Anschluss über die Schaltfläche <span class=\"text-danger fst-italic\">Speichern</span>."
+	txt_help_setup_dsm_step_7="Werfe den externen Datenträger über den DSM aus. Beim nächsten anstecken des externen Datenträgers wird der Inhalt der grade erstellten Scriptdatei ausgeführt."
+
+# setup_via_terminal.sh
+# --------------------------------------------------------------
+	txt_help_setup_terminal_step_1="Melde dich als Benutzer <span class=\"text-danger fst-italic\">root</span> auf der Konsole deiner DiskStation an."
+	txt_help_setup_terminal_step_2="Wechsel in das root Verzeichnis des externen Datenträgers, für den du die AutoPilot Funktion einrichten möchtest z.B."
+	txt_help_setup_terminal_step_3="Erstelle eine neue Shell-Scriptdatei mit dem Namen <span class=\"text-danger fst-italic\">autopilot</span> und passe die Dateirechte entsprechend an. (<span class=\"text-danger fst-italic\">Wichtig:</span> Die Shell-Scriptdatei muss in jedem Fall das Attribut <span class=\"text-danger fst-italic\">Ausführen</span> besitzen)."
+	txt_help_setup_terminal_step_4="Um nun die Shell-Scriptdatei mit Inhalten zu füllen stehen mehrere Möglichkeiten zur Verfügung. Eine davon wäre die Verwendung des Editors <span class=\"text-danger fst-italic\">vim</span>."
+	txt_help_setup_terminal_step_5="Nach dem Aufruf von vim befindest du dich zunächst im Kommandomodus. Daher wird dir der Inhalt der noch leeren Datei autopilot nur angezeigt. Um nun Text eingeben zu können musst du mit der Taste [<span class=\"text-danger\"> i </span>] in den Insert-Modus, also dem Texteinfüge-Modus wechseln (<span class=\"text-danger fst-italic\">Wichtig:</span> vorher keinen Text eingeben!). Beginne nun mit der Eingabe." 
+	txt_help_setup_terminal_step_6="Sind alle Eingaben erledigt, drücke die [<span class=\"text-danger\"> Esc </span>] Taste um zurück in den Kommandomodus zu gelangen. Um deine Eingaben zu speichern gib nun ein [<span class=\"text-danger\">:w </span>] gefolgt von der Return Taste ein. Um den Editor zu verlassen, gibst du ein [<span class=\"text-danger\"> :q </span>] wiederum gefolgt von der Return-Taste ein."
+	txt_help_setup_terminal_step_7="Werfe den externen Datenträger über den DSM aus. Beim nächsten anstecken des externen Datenträgers wird der Inhalt der grade erstellten Scriptdatei ausgeführt."
+
+# setup_via_dsm.sh and setup_via_terminal.sh
+# --------------------------------------------------------------
+	txt_help_setup_step_1="Jedes Shellscript beginnt mit der Shebang, also der Angabe des zu verwendeten Interpreter bzw. der zu verwendeten Shell."
+	txt_help_setup_step_2="Ab der zweiten Zeile folgen individuelle Shellscript Anweisungen, die AutoPilot ausführen soll. Im nachfolgenden Beispiel soll über das Programm rsync eine Datensicherung ausgeführt werden. An dieser Stelle könnte z.B. auch ein Basic Backup oder Hyper Backup Auftrag ausgeführt werden."
+	txt_help_setup_step_3="Nachdem die Shellscript Anweisung ausgeführt wurde, wird in der Regel ein sogenannter Exit-Code an das System übergeben, dessen Zahlenwert über ein"
+	txt_help_setup_step_4="ausgelesen werden kann. Ist das Ergebnis 0, wurde die zuletzt ausgeführte Shellscript Anweisung fehlerfrei ausgeführt. AutoPilot würde in diesem Fall den externen Datenträger automatisch auszuwerfen. Erhält man hingegen einen Zahlenwert zwischen 1 und 255 deutet dies auf einen Hinweis, eine Warnung, einen Fehler oder einen Abbruch der zuletzt ausgeführten Shellscript Anweisung hin. In diesem Fall würde der externe Datenträger von AutoPilot nicht automatisch ausgeworfen. Dieses grundlegende Verhalten kann in den AutoPilot Einstellungen individuell angepasst werden. Alternativ dazu kann anstelle des vom System übergebenen Exit-Code, auch ein eigener und damit fest eingestellter Exit-Code an AutoPilot übergeben werden, wobei ein"
+	txt_help_setup_step_5="AutoPilot mitteilt, das unabhängig vom tatsächlich übergebenen Exit-Code, der externe Datenträger immer ausgeworfen wird. Nachfolgend nochmal das komplette Beispiel-Script."

@@ -1,0 +1,29 @@
+#!/bin/sh
+
+case $1 in
+	start)
+		### Start this package.
+		AutoPilot "Start"
+		# echo "The package has been started" > $SYNOPKG_TEMP_LOGFILE
+		exit 0
+	;;
+	stop)
+		### Stop this package.
+		AutoPilot "Stop"
+		# echo "The package has been stopped" > $SYNOPKG_TEMP_LOGFILE
+		exit 0
+	;;
+	status)
+		### Check package alive.
+		if [ -h "/usr/local/bin/AutoPilot" ]; then
+			exit 0
+		else
+			exit 1
+		fi
+	;;
+	killall)
+        ;;
+	log)
+		exit 0
+	;;
+esac

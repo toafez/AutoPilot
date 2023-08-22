@@ -1,0 +1,11 @@
+[app]
+title="AutoPilot"
+subtitle="AutoPilot"
+autopilot_enabled="AutoPilot wurde aktiviert!"
+autopilot_disabled="AutoPilot wurde deaktiviert!"
+autopilot_start="Auf dem ext. Datenträger {0} wurde ein AutoPilot Script gefunden. Script wird ausgeführt..."
+autopilot_stop_a="Das auf dem ext. Datenträger {0} ausgeführte Script ist nun beendet und der ext. Datenträger wurde wieder ausgeworfen."
+autopilot_stop_b="Das auf dem ext. Datenträger {0} ausgeführte Script ist nun beendet. Der ext. Datenträger bleibt eingehängt."
+autopilot_warning_a="Das auf dem ext. Datenträger {0} ausgeführte Script ist nun beendet. Der ext. Datenträger konnte jedoch nicht ordnungsgemäß ausgeworfen werden!"
+autopilot_warning_b="Das auf dem ext. Datenträger {0} ausgeführte Script ist nun beendet, jedoch sind während der Ausführung Fehler aufgetreten! Der externe Datenträger bleibt eingehängt."
+autopilot_warning_c="Auf dem ext. Datenträger {0} wurde ein AutoPilot Script gefunden. Das Script kann wegen fehlender Berechtigung jedoch nicht ausgeführt werden. Bitte passen sie die Dateirechte entsprechend an..."

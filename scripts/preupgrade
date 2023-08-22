@@ -1,0 +1,30 @@
+#!/bin/sh
+
+# Script Environment Variables
+# -------------------------------------------------------------------------------------
+# SYNOPKG_PKGNAME				=	Package identify which is defined in INFO
+# SYNOPKG_PKGVER				=	Package version which is defined in INFO
+# SYNOPKG_PKGDEST				=	Package destination path
+# 									/volume[x]/@appstore/[Package Name]
+# SYNOPKG_TEMP_UPGRADE_FOLDER 	= 	Temporary upgrade folder
+#									/volume1/@tmp/synopkg.tmp/[Package Name]
+# -------------------------------------------------------------------------------------
+
+TIMESTAMP=$(date '+%Y-%m-%d%t%H:%M:%S')
+
+# Backup user settings
+# -------------------------------------------------------------------------------------
+if [ ! -d "${SYNOPKG_TEMP_UPGRADE_FOLDER}/usersettings" ]; then
+	mkdir -p -m 755 ${SYNOPKG_TEMP_UPGRADE_FOLDER}/usersettings
+fi
+
+echo ''${TIMESTAMP}' - Start package update --> '${SYNOPKG_PKGNAME}' '${SYNOPKG_PKGVER}'' >>/tmp/${SYNOPKG_PKGNAME}.history
+
+if [ -d "${SYNOPKG_PKGDEST}/ui/usersettings" ]; then
+    cp -rf ${SYNOPKG_PKGDEST}/ui/usersettings/* ${SYNOPKG_TEMP_UPGRADE_FOLDER}/usersettings
+	echo ''${TIMESTAMP}' - Backup user settings from '${SYNOPKG_PKGDEST}'/ui/usersettings to '${SYNOPKG_TEMP_UPGRADE_FOLDER}'/usersettings' >>/tmp/${SYNOPKG_PKGNAME}.history
+else
+		echo ''${TIMESTAMP}' - Backup user settings failed' >>/tmp/${SYNOPKG_PKGNAME}.history
+fi
+
+exit 0

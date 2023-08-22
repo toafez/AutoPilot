@@ -1,0 +1,49 @@
+#!/bin/bash
+# Filename: lang_pilot_enu - coded in utf-8
+
+#                       AutoPilot
+#
+#        Copyright (C) 2023 by Tommes | License GNU GPLv3
+#         Member of the German Synology Community Forum
+#
+# Extract from  GPL3   https://www.gnu.org/licenses/gpl-3.0.html
+#                                     ...
+# This program is free software: you can redistribute it  and/or
+# modify it under the terms of the GNU General Public License as
+# published by the Free Software Foundation, either version 3 of
+# the License, or (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+#
+# See the GNU General Public License for more details.You should
+# have received a copy of the GNU General Public  License  along
+# with this program. If not, see http://www.gnu.org/licenses/  !
+
+ttxt_autopilot_starts="AutoPilot is running"
+txt_autopilot_ends="AutoPilot finished"
+txt_ext_detected="External disk detected!"
+txt_disk_detected="Disk name"
+txt_device_detected="Device Name"
+txt_uuid_detected="UUID"
+txt_mountpoint="Mountpoint"
+
+txt_autopilot_script_search="Search AutoPilot script..."
+txt_autopilot_script_found="The AutoPilot script was found and will be executed"
+txt_please_wait="Please wait..."
+txt_script_not_executed="WARNING: The AutoPilot script could not be executed!"
+txt_script_check_rights="Please adjust the file rights accordingly."
+txt_backupjob_warning="WARNING: Errors occurred during execution!"
+txt_autopilot_script_success="The AutoPilot script has been executed successfully!"
+txt_autopilot_script_warning="WARNING: The AutoPilot script was terminated via the manual instruction<br />(exit 100). Please check if the task(s) in<br />the AutoPilot script was executed without errors!"
+
+txt_disk_remains_mount="The external disk remains mounted!"
+txt_disk_is_ejected="The external disk is ejected..."
+txt_disk_was_ejected="The external disk has been ejected successfully!"
+txt_disk_could_not_be_ejected="WARNING: The external disk could not be ejected!"
+txt_exit_code_error="Exit-Code error"
+txt_system_response="System response"
+
+txt_line_separator="-------------------------------------------------------------------------------------------------------------------"
+

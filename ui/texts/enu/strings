@@ -1,0 +1,11 @@
+[app]
+title="AutoPilot"
+subtitle="AutoPilot"
+autopilot_enabled="AutoPilot has been enabled!"
+autopilot_disabled="AutoPilot has been disabled!"
+autopilot_start="An AutoPilot script was found on ext. disk {0}. Script will be executed..."
+autopilot_stop_a="The script executed on ext. disk {0} has now ended and the ext. disk was ejected again."
+autopilot_stop_b="The script executed on the ext. disk {0} has now ended. The ext. disk remains mounted."
+autopilot_warning_a="The script executed on the ext. disk {0} has now ended. However, the ext. data medium could not be ejected properly!"
+autopilot_warning_b="The script executed on ext. disk {0} is now finished, but errors occurred during execution! The external disk remains mounted."
+autopilot_warning_c="An AutoPilot script was found on the ext. disk {0}. The script cannot be executed due to missing permissions. Please adjust the file permissions accordingly..."

@@ -1,0 +1,39 @@
+{
+	"AutoPilot.js": {
+		"SYNO.SDS.AutoPilot.Application": {
+			"type": "app",
+			"title": "AutoPilot",
+			"appWindow": "SYNO.SDS.AutoPilot.MainWindow",
+			"desc": "AutoPilot",
+			"icon": "images\/icon_{0}.png",
+			"allowMultiInstance": false,
+			"allowStandalone": true,
+			"allowSharing": true,
+			"allUsers": true,
+			"grantPrivilege": "all",
+			"advanceGrantPrivilege": true,
+			"texts": "texts",
+			"depend": ["SYNO.SDS.AutoPilot.MainWindow"],
+			"preloadTexts": [
+				"app:title",
+				"app:subtitle",
+				"app:autopilot_enabled",
+				"app:autopilot_disabled",
+				"app:autopilot_start",
+				"app:autopilot_stop_a",
+				"app:autopilot_stop_b",
+				"app:autopilot_alert_a",
+				"app:autopilot_alert_b",
+                "app:autopilot_alert_c"
+				]
+		},
+		"SYNO.SDS.AutoPilot.MainWindow": {
+			"type": "lib",
+			"title": "AutoPilot",
+			"icon": "images\/icon_{0}.png",	
+			"texts": "texts",
+			"depend": ["SYNO.SDS.AutoPilot.Utils"]
+		},
+		"SYNO.SDS.AutoPilot.Utils": []
+	}
+}
