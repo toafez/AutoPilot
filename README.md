@@ -1,17 +1,17 @@
 [English](README_en.md) | Deutsch
 
-# ![Package icon](/ui/images/icon_24.png) AutoPilot für externe USB/SATA-Datenträger
-AutoPilot ermöglicht das Ausführen von Shell-Script Anweisungen, die nach dem Anschluss eines externen USB/SATA-Datenträgers an eine Synology DiskStation automatisch ausgeführt werden. Nach der Ausführung kann der externe Datenträger auf Wunsch wieder automatisch ausgeworfen werden.
+# ![Package icon](/ui/images/icon_24.png) AutoPilot für externe Datenträger
+AutoPilot ermöglicht das Ausführen von Shell-Script Anweisungen, die nach dem Anschluss eines externen Datenträgers an eine Synology DiskStation automatisch ausgeführt werden. Nach der Ausführung kann der externe Datenträger auf Wunsch wieder automatisch ausgeworfen werden.
 
 # Systemvoraussetzungen
-**AutoPilot für externe USB/SATA-Datenträger** wurde speziell für die Verwendung auf **Synology NAS Systemen** entwickelt die das Betriebsystem **DiskStation Mangager 7** oder höher verwenden.
+**AutoPilot für externe Datenträger** wurde speziell für die Verwendung auf **Synology NAS Systemen** entwickelt die das Betriebsystem **DiskStation Mangager 7** oder höher verwenden.
 
 # Installationshinweise
 Lade dir die **jeweils aktuellste Version** von AutoPilot aus dem Bereich [Releases](https://github.com/toafez/AutoPilot/releases) herunter. Öffne anschließend im **DiskStation Manager (DSM)** das **Paket-Zentrum**, wähle oben rechts die Schaltfläche **Manuelle Installation** aus und folge dem **Assistenten**, um das neue **Paket** bzw. die entsprechende **.spk-Datei** hochzuladen und zu installieren. Dieser Vorgang ist sowohl für eine Erstinstallation als auch für die Durchführung eines Updates identisch.
 
 **Nach dem Start** von AutoPilot wird die lokal **installierte Version** mit der auf GitHub **verfügbaren Version** verglichen. Steht ein Update zur Verfügung, wird der Benutzer über die App darüber **informiert** und es wird ein entsprechender **Link** zu dem ensprechenden Release eingeblendet. Der Download sowie der anschließende Updatevorgang wurde bereits weiter oben erläutert.
 
-- ## Gerätetreiber für die Erkennung externer USB/SATA-Datenträger (de)-aktivieren
+- ## Gerätetreiber für die Erkennung externer Datenträger (de)-aktivieren
     - ### Gerätetreiber über die Konsole aktivieren
         - Melde dich als Benutzer root auf der Konsole deiner DiskStation an und führe folgenden Befehl aus
 
@@ -43,8 +43,8 @@ Lade dir die **jeweils aktuellste Version** von AutoPilot aus dem Bereich [Relea
         - Führe die Aufgabe nun durch betätigen der Schaltfläche Ausführen einmalig aus.
         - Schließe die AutoPilot und rufe sie erneut auf, damit die Änderungen wirksam werden.
 
-- ## AutoPilot für einen externen USB/SATA-Datenträger einrichten
-  In der AutoPilot App findest du unter dem Menüpunkt **Hilfe** detailierte Anleitungen, wie du einen externen USB/SATA-Datenträger entweder über die Konsole oder aber über den DSM-Aufgabenplaner einrichten kannst.
+- ## AutoPilot für einen externen Datenträger einrichten
+  In der AutoPilot App findest du unter dem Menüpunkt **Hilfe** detailierte Anleitungen, wie du einen externen Datenträger entweder über die Konsole oder aber über den DSM-Aufgabenplaner einrichten kannst.
 
 # Versionsgeschichte
 - Details zur Versionsgeschichte finest du in der Datei [CHANGELOG](CHANGELOG).

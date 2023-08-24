@@ -1,17 +1,17 @@
 English | [Deutsch](README.md)
 
-# ![Package icon](/ui/images/icon_24.png) AutoPilot for external USB/SATA drives
-AutoPilot allows executing shell script instructions that run automatically after connecting an external USB/SATA disk to a Synology DiskStation. After execution, the external data medium can be automatically ejected again if desired.
+# ![Package icon](/ui/images/icon_24.png) AutoPilot for external drives
+AutoPilot allows executing shell script instructions that run automatically after connecting an external disk to a Synology DiskStation. After execution, the external data medium can be automatically ejected again if desired.
 
 # System requirements
-**AutoPilot for external USB/SATA drives** is specially designed for use on **Synology NAS systems** running **DiskStation Mangager 7** or later operating system.
+**AutoPilot for external drives** is specially designed for use on **Synology NAS systems** running **DiskStation Mangager 7** or later operating system.
 
 # Installation instructions
 Download the **latest version** of AutoPilot from the [Releases](https://github.com/toafez/AutoPilot/releases) section. Then open the **Package Center** in the **DiskStation Manager (DSM)**, select the **Manual Installation** button at the top right and follow the **Wizard** to install the new **Package** or upload and install the corresponding **.spk file**. This process is identical for both an initial installation and for performing an update.
 
 **After starting** AutoPilot, the locally **installed version** is compared to the version **available** on GitHub. If an update is available, the user will be **informed** about it via the app and a corresponding **link** to the corresponding release will be displayed. The download and the subsequent update process have already been explained above.
 
-- ## (De)-activate device driver for detection of external USB/SATA data carriers
+- ## (De)-activate device driver for detection of external data carriers
      - ### Activate device driver via console
          - Log in to your DiskStation's console as root user and run the following command
 
@@ -43,8 +43,8 @@ Download the **latest version** of AutoPilot from the [Releases](https://github.
          - Execute the task once by pressing the Execute button.
          - Close and re-enter AutoPilot for the changes to take effect.
 
-- ## Set up AutoPilot for an external USB/SATA data carrier
-  In the AutoPilot app, under the **Help** menu item, you will find detailed instructions on how to set up an external USB/SATA data carrier either via the console or via the DSM task scheduler.
+- ## Set up AutoPilot for an external data carrier
+  In the AutoPilot app, under the **Help** menu item, you will find detailed instructions on how to set up an external data carrier either via the console or via the DSM task scheduler.
 
 # History
 - You can find details on the version history in the [CHANGELOG](CHANGELOG) file.
