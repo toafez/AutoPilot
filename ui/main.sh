@@ -53,7 +53,7 @@ if [[ "${get[page]}" == "main" && "${get[section]}" == "start" ]]; then
 						<tbody>
 							<tr>
 								<td scope="row" class="row-sm-auto">
-									'${txt_update_from}' <span class="text-danger">'${local_version}'</span> '${txt_update_to}' <span class="text-success">ggg'${git_version}'</span>
+									'${txt_update_from}' <span class="text-danger">'${local_version}'</span> '${txt_update_to}' <span class="text-success">'${git_version}'</span>
 									<td class="text-end"> 
 										<a href="https://github.com/toafez/'${app_name}'/releases" class="btn btn-light btn-sm text-success text-decoration-none" target="_blank">Update</a>
 									</td>
