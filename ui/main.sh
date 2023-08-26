@@ -46,33 +46,23 @@ if [[ "${get[page]}" == "main" && "${get[section]}" == "start" ]]; then
 		if dpkg --compare-versions ${git_version} gt ${local_version}; then
 			echo '
 			<div class="row">
-				<div class="col">
-					<div class="card border-0">
-						<div class="card-header ps-0 pb-0 bg-body border-0">
-							<h5>'${txt_autopilot_update}'</h5>
-						</div>
-					</div>
-					<div class="card-body">
-						<div class="row">
-							<div class="col-sm-12">
-								<table class="table table-borderless table-hover table-sm">
-									<thead></thead>
-									<tbody>
-										<tr>
-											<td scope="row" class="row-sm-auto">
-												'${txt_update_available}' '${git_version}'
-												<td class="text-end"> 
-													<a href="https://github.com/toafez/'${app_name}'/releases" class="btn btn-light btn-sm text-success text-decoration-none" target="_blank">Update</a>
-												</td>
-											</td>'
-												
-											echo '
-										</tr>
-									</tbody>
-								</table>
-							</div>
-						</div>
-					</div>
+				<div class="ol-sm-12">
+					<h5>'${txt_update_available}'</h5>
+					<table class="table table-borderless table-hover table-sm">
+						<thead></thead>
+						<tbody>
+							<tr>
+								<td scope="row" class="row-sm-auto">
+									'${txt_update_from}' <span class="text-danger">'${local_version}'</span> '${txt_update_to}' <span class="text-success">ggg'${git_version}'</span>
+									<td class="text-end"> 
+										<a href="https://github.com/toafez/'${app_name}'/releases" class="btn btn-light btn-sm text-success text-decoration-none" target="_blank">Update</a>
+									</td>
+								</td>'
+									
+								echo '
+							</tr>
+						</tbody>
+					</table><hr />
 				</div>
 			</div>'	
 		fi
@@ -80,242 +70,216 @@ if [[ "${get[page]}" == "main" && "${get[section]}" == "start" ]]; then
 
 	echo '
 	<div class="row">
-		<div class="col">
-			<div class="card border-0">
-			</div>
-			<div class="card-body">
-				<div class="row">
-					<div class="col-sm-12">'
-
-						function local_sources()
-						{
+		<div class="col-sm-12">'
+			function local_sources()
+			{
+				echo '
+				<table class="table table-borderless table-sm">
+					<thead></thead>
+					<tbody>'
+						while IFS= read -r volume; do
+							IFS="${backupIFS}"
+							[[ -z "${volume}" ]] && continue
+							found_volume="true"
 							echo '
-							<table class="table table-borderless table-sm">
-								<thead></thead>
-								<tbody>'
-									while IFS= read -r volume; do
-										IFS="${backupIFS}"
-										[[ -z "${volume}" ]] && continue
-										echo '
-										<tr>
-											<td colspan="4">
-												<i class="bi bi-hdd-fill text-secondary"></i>&nbsp;&nbsp;'${volume#*/}'
-											</td>
-										</tr>'	
+							<tr>
+								<td colspan="4">
+									<i class="bi bi-hdd-fill text-secondary"></i>&nbsp;&nbsp;'${volume#*/}'
+								</td>
+							</tr>'	
 
-										while IFS= read -r share; do
-											IFS="${backupIFS}"
-											[[ -z "${share}" ]] && continue
-											mountpoint=$(mount | grep -E "${volume}/${share##*/}")
-											dev=$(echo "${mountpoint}" | awk '{print $1}')
-											path=$(echo "${mountpoint}" | awk '{print $3}')
-											#uuid=$(blkid -s UUID -o value ${dev})
-											#type=$(blkid -s TYPE -o value ${dev})
-											#label=$(blkid -s LABEL -o value ${dev})
+							while IFS= read -r share; do
+								IFS="${backupIFS}"
+								[[ -z "${share}" ]] && continue
+								mountpoint=$(mount | grep -E "${volume}/${share##*/}")
+								dev=$(echo "${mountpoint}" | awk '{print $1}')
+								path=$(echo "${mountpoint}" | awk '{print $3}')
+								#uuid=$(blkid -s UUID -o value ${dev})
+								#type=$(blkid -s TYPE -o value ${dev})
+								#label=$(blkid -s LABEL -o value ${dev})
 
-											df=$(df -BG "${path}")
-											df=$(echo "${df}" | sed -e 's/%//g' | awk 'NR > 1 {print $2 " " $3 " " $4 " " $5 " " $6}')
-											disk_free=$(echo "${df}" | awk '{print $1}' | sed -e 's/G/ GB/g')
-											#disk_used=$(echo "${df}" | awk '{print $2}' | sed -e 's/G/ GB/g')
-											#disk_available=$(echo "${df}" | awk '{print $3}' | sed -e 's/G/ GB/g')
-											disk_used_percent=$(echo "${df}" | awk '{print $4}')
-											#disk_mountpoint=$(echo "$df" | awk '{print $5}')
+								df=$(df -BG "${path}")
+								df=$(echo "${df}" | sed -e 's/%//g' | awk 'NR > 1 {print $2 " " $3 " " $4 " " $5 " " $6}')
+								disk_free=$(echo "${df}" | awk '{print $1}' | sed -e 's/G/ GB/g')
+								#disk_used=$(echo "${df}" | awk '{print $2}' | sed -e 's/G/ GB/g')
+								#disk_available=$(echo "${df}" | awk '{print $3}' | sed -e 's/G/ GB/g')
+								disk_used_percent=$(echo "${df}" | awk '{print $4}')
+								#disk_mountpoint=$(echo "$df" | awk '{print $5}')
 
-											echo '
-											<tr>
-												<td class="ps-4" style="width: 160px">&nbsp;&nbsp;
-													<i class="bi bi-folder-fill text-warning"></i>&nbsp;&nbsp;'${share##*/}'
-												</td>
-												<td style="width: 220px">'
-													[ -f "${path}/autopilot" ] && echo '<span class="text-success">'${txt_autopilot_script_detected}'</span>'
-													echo '
-												</td>
-												<td class="text-end" style="width: 60px">
-													Info:
-												</td>
-												<td style="width: auto">
-													<div class="progress" role="progressbar" aria-label="Example with label" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100" style="height: 25px">
-														<div class="progress-bar overflow-visible text-dark bg-primary-subtle" style="width: '${disk_used_percent}'%">&nbsp;&nbsp;&nbsp;'${disk_used_percent}'% '${txt_autopilot_from}' '${disk_free}' '${txt_autopilot_use}'</div>
-													</div>
-												</td>
-											</tr>'
-										done <<< "$( find ${volume}/* -maxdepth 0 -type d ! -path '*/lost\+found' ! -path '*/\@*' ! -path '*/\$RECYCLE.BIN' ! -path '*/Repair' ! -path '*/System Volume Information' )"
-									done <<< "$( find ${1} -type d -maxdepth 0 )"
-									echo '
-								</tbody>
-							</table>'
-							unset volume share
-						}
-
-						local_sources "/volumeUSB[[:digit:]]"
-						local_sources "/volumeSATA[[:digit:]]"
-
-						echo '	
-					</div>
-				</div>
-			</div>'	
-
-			# USB/SATA-AutoPilot Einstellungen
-			# --------------------------------------------------
-			echo '
-			<div class="card border-0">
-				<div class="card-header ps-0 pb-0 bg-body border-0">
-					<h5>'${txt_autopilot_settings}'</h5>
-				</div>
-			</div>
-			<div class="card-body">
-				<div class="row">
-					<div class="col-sm-12"><hr />
-						<table class="table table-borderless table-hover table-sm">
-							<thead></thead>
-							<tbody>
+								echo '
 								<tr>
-									<td scope="row" class="row-sm-auto align-middle">'
-										if [[ "${udev_rule}" == "true" ]]; then
-											if [[ "${rewrite_udev}" == "true" ]]; then
-												echo '
-												'${txt_autopilot_service}' <span class="text-danger">'${txt_autopilot_is_not_installed}'</span>
-												<td class="text-end">
-													<button type="button" class="btn btn-light btn-sm text-success text-decoration-none" data-bs-toggle="modal" data-bs-target="#help-autopilot_status">'${txt_button_install}'</button>
-												</td>'
-											else
-												echo '
-												'${txt_autopilot_service}' <span class="text-success">'${txt_autopilot_is_installed}'</span>
-												<td class="text-end">
-													<button type="button" class="btn btn-light btn-sm text-danger text-decoration-none" data-bs-toggle="modal" data-bs-target="#help-autopilot_status">'${txt_button_uninstall}'</button>
-												</td>'
-											fi
-										else
-											echo '
-											'${txt_autopilot_service}' <span class="text-danger">'${txt_autopilot_is_not_installed}'</span>
-											<td class="text-end">
-												<button type="button" class="btn btn-light btn-sm text-success text-decoration-none" data-bs-toggle="modal" data-bs-target="#help-autopilot_status">'${txt_button_install}'</button>
-											</td>'
-										fi
+									<td class="ps-4" style="width: 160px">&nbsp;&nbsp;
+										<i class="bi bi-folder-fill text-warning"></i>&nbsp;&nbsp;'${share##*/}'
+									</td>
+									<td style="width: 220px">'
+										[ -f "${path}/autopilot" ] && echo '<span class="text-success">'${txt_autopilot_script_detected}'</span>'
 										echo '
 									</td>
-								</tr>
-								<tr>'
-									# Einhängen ein/aus
-									echo -n '
-									<td scope="row" class="row-sm-auto align-middle">
-										'${txt_autopilot_connect}'
+									<td class="text-end" style="width: 60px">
+										Info:
 									</td>
-									<td class="text-end">'
-										echo -n '
-										<a href="index.cgi?page=main&section=save&option=connect&'; \
-											if [[ "${connect}" == "true" ]]; then
-												echo -n 'query=false">
-												<i style="font-size: 2rem; color: #9ec5fe;" class="bi bi-toggle-on"></i>'
-											else
-												echo -n 'query=true">
-												<i style="font-size: 2rem; color: #adb5bd;" class="bi bi-toggle-off"></i>'
-											fi
-											echo -n '
-										</a>
+									<td style="width: auto">
+										<div class="progress" role="progressbar" aria-label="Example with label" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100" style="height: 25px">
+											<div class="progress-bar overflow-visible text-dark bg-primary-subtle" style="width: '${disk_used_percent}'%">&nbsp;&nbsp;&nbsp;'${disk_used_percent}'% '${txt_autopilot_from}' '${disk_free}' '${txt_autopilot_use}'</div>
+										</div>
 									</td>
-								</tr>
-								<tr>'
-									# Auswerfen ein/aus
-									echo -n '
-									<td scope="row" class="row-sm-auto align-middle">
-										'${txt_autopilot_disconnect}'
-									</td>
-									<td class="text-end"><span style="font-size: 2rem">&nbsp;</span></td>
-								</tr>
-								<tr>'
-									# Niemals auswerfen ein/aus
-									echo '
-									<td scope="row" class="row-sm-auto align-middle">
-										<span class="ps-3">
-											<i class="bi bi-dot"></i> '${txt_autopilot_disconnect_never}'
-										</span>
-									</td>
-									<td class="text-end">'
-										echo -n '
-										<a href="index.cgi?page=main&section=save&option=disconnect&'; \
-											if [[ "${disconnect}" == "false" ]]; then
-												echo -n 'query=">
-												<i style="font-size: 2rem; color: #9ec5fe;" class="bi bi-toggle-on"></i>'
-											else
-												echo -n 'query=false">
-												<i style="font-size: 2rem; color: #adb5bd;" class="bi bi-toggle-off"></i>'
-											fi
-											echo -n '
-										</a>
-									</td>
-								</tr>
-								<tr>'
-									# Automatisch auswerfen ein/aus
-									echo '
-									<td scope="row" class="row-sm-auto align-middle">
-										<span class="ps-3">
-											<i class="bi bi-dot"></i> '${txt_autopilot_disconnect_auto}'
-										</span>
-									</td>
-									<td class="text-end">'
-										echo -n '
-										<a href="index.cgi?page=main&section=save&option=disconnect&'; \
-											if [[ "${disconnect}" == "auto" ]]; then
-												echo -n 'query=">
-												<i style="font-size: 2rem; color: #9ec5fe;" class="bi bi-toggle-on"></i>'
-											else
-												echo -n 'query=auto">
-												<i style="font-size: 2rem; color: #adb5bd;" class="bi bi-toggle-off"></i>'
-											fi
-											echo -n '
-										</a>
-									</td>
-								</tr>
-								<tr>'
-									# Manuell auswerfen ein/aus
-									echo '
-									<td scope="row" class="row-sm-auto align-middle">
-										<span class="ps-3">
-											<i class="bi bi-dot"></i> '${txt_autopilot_disconnect_manual}'
-										</span>
-									</td>
-									<td class="text-end">'
-										echo -n '
-										<a href="index.cgi?page=main&section=save&option=disconnect&'; \
-											if [[ "${disconnect}" == "manual" ]]; then
-												echo -n 'query=">
-												<i style="font-size: 2rem; color: #9ec5fe;" class="bi bi-toggle-on"></i>'
-											else
-												echo -n 'query=manual">
-												<i style="font-size: 2rem; color: #adb5bd;" class="bi bi-toggle-off"></i>'
-											fi
-											echo -n '
-										</a>
-									</td>
-								</tr>
-								<tr>'
-									# Optische und akustische Signalausgabe ein/aus
-									echo '
-									<td scope="row" class="row-sm-auto align-middle">
-										'${txt_autopilot_signal}'
-									</td>
-									<td class="text-end">'
-										echo -n '
-										<a href="index.cgi?page=main&section=save&option=signal&'; \
-											if [[ "${signal}" == "true" ]]; then
-												echo -n 'query=">
-												<i style="font-size: 2rem; color: #9ec5fe;" class="bi bi-toggle-on"></i>'
-											else
-												echo -n 'query=true">
-												<i style="font-size: 2rem; color: #adb5bd;" class="bi bi-toggle-off"></i>'
-											fi
-											echo -n '
-										</a>
-									</td>
-								</tr>
-							</tbody>
-						</table>
-					</div>
-				</div>
-			</div>
+								</tr>'
+							done <<< "$( find ${volume}/* -maxdepth 0 -type d ! -path '*/lost\+found' ! -path '*/\@*' ! -path '*/\$RECYCLE.BIN' ! -path '*/Repair' ! -path '*/System Volume Information' )"
+						done <<< "$( find ${1} -type d -maxdepth 0 )"
+						echo '
+					</tbody>
+				</table>'
+				unset volume share
+			}
+			local_sources "/volumeUSB[[:digit:]]"
+			local_sources "/volumeSATA[[:digit:]]"
+			[[ "${found_volume}" == "true" ]] && echo "<hr />"
+			echo '	
 		</div>
-	</div>'
+	</div>'	
+
+	# USB/SATA-AutoPilot Einstellungen
+	# --------------------------------------------------
+	echo '
+	<div class="row">		
+		<div class="col-sm-12">
+				<table class="table table-borderless table-hover table-sm">
+					<thead></thead>
+					<tbody>
+						<tr>
+							<td scope="row" class="row-sm-auto align-middle">'
+								if [[ "${udev_rule}" == "true" ]]; then
+									if [[ "${rewrite_udev}" == "true" ]]; then
+										echo '
+										'${txt_autopilot_service}' <span class="text-danger">'${txt_autopilot_is_not_installed}'</span>
+										<td class="text-end">
+											<button type="button" class="btn btn-light btn-sm text-success text-decoration-none" data-bs-toggle="modal" data-bs-target="#help-autopilot_status">'${txt_button_install}'</button>
+										</td>'
+									else
+										echo '
+										'${txt_autopilot_service}' <span class="text-success">'${txt_autopilot_is_installed}'</span>
+										<td class="text-end">
+											<button type="button" class="btn btn-light btn-sm text-danger text-decoration-none" data-bs-toggle="modal" data-bs-target="#help-autopilot_status">'${txt_button_uninstall}'</button>
+										</td>'
+									fi
+								else
+									echo '
+									'${txt_autopilot_service}' <span class="text-danger">'${txt_autopilot_is_not_installed}'</span>
+									<td class="text-end">
+										<button type="button" class="btn btn-light btn-sm text-success text-decoration-none" data-bs-toggle="modal" data-bs-target="#help-autopilot_status">'${txt_button_install}'</button>
+									</td>'
+								fi
+								echo '
+							</td>
+						</tr>
+						<tr>'
+							# Einhängen ein/aus
+							echo -n '
+							<td scope="row" class="row-sm-auto align-middle">
+								'${txt_autopilot_connect}'
+							</td>
+							<td class="text-end">'
+								echo -n '
+								<a href="index.cgi?page=main&section=save&option=connect&'; \
+									if [[ "${connect}" == "true" ]]; then
+										echo -n 'query=false"><img src="images/toggle-on.png">'
+									else
+										echo -n 'query=true"><img src="images/toggle-off.png">'
+									fi
+									echo -n '
+								</a>
+							</td>
+						</tr>
+						<tr>'
+							# Auswerfen ein/aus
+							echo -n '
+							<td scope="row" class="row-sm-auto align-middle">
+								'${txt_autopilot_disconnect}'
+							</td>
+							<td class="text-end"><span style="font-size: 2rem">&nbsp;</span></td>
+						</tr>
+						<tr>'
+							# Niemals auswerfen ein/aus
+							echo '
+							<td scope="row" class="row-sm-auto align-middle">
+								<span class="ps-3">
+									<i class="bi bi-dot"></i> '${txt_autopilot_disconnect_never}'
+								</span>
+							</td>
+							<td class="text-end">'
+								echo -n '
+								<a href="index.cgi?page=main&section=save&option=disconnect&'; \
+									if [[ "${disconnect}" == "false" ]]; then
+										echo -n 'query="><img src="images/toggle-on.png">'
+									else
+										echo -n 'query=false"><img src="images/toggle-off.png">'
+									fi
+									echo -n '
+								</a>
+							</td>
+						</tr>
+						<tr>'
+							# Automatisch auswerfen ein/aus
+							echo '
+							<td scope="row" class="row-sm-auto align-middle">
+								<span class="ps-3">
+									<i class="bi bi-dot"></i> '${txt_autopilot_disconnect_auto}'
+								</span>
+							</td>
+							<td class="text-end">'
+								echo -n '
+								<a href="index.cgi?page=main&section=save&option=disconnect&'; \
+									if [[ "${disconnect}" == "auto" ]]; then
+										echo -n 'query="><img src="images/toggle-on.png">'
+									else
+										echo -n 'query=auto"><img src="images/toggle-off.png">'
+									fi
+									echo -n '
+								</a>
+							</td>
+						</tr>
+						<tr>'
+							# Manuell auswerfen ein/aus
+							echo '
+							<td scope="row" class="row-sm-auto align-middle">
+								<span class="ps-3">
+									<i class="bi bi-dot"></i> '${txt_autopilot_disconnect_manual}'
+								</span>
+							</td>
+							<td class="text-end">'
+								echo -n '
+								<a href="index.cgi?page=main&section=save&option=disconnect&'; \
+									if [[ "${disconnect}" == "manual" ]]; then
+										echo -n 'query="><img src="images/toggle-on.png">'
+									else
+										echo -n 'query=manual"><img src="images/toggle-off.png">'
+									fi
+									echo -n '
+								</a>
+							</td>
+						</tr>
+						<tr>'
+							# Optische und akustische Signalausgabe ein/aus
+							echo '
+							<td scope="row" class="row-sm-auto align-middle">
+								'${txt_autopilot_signal}'
+							</td>
+							<td class="text-end">'
+								echo -n '
+								<a href="index.cgi?page=main&section=save&option=signal&'; \
+									if [[ "${signal}" == "true" ]]; then
+										echo -n 'query="><img src="images/toggle-on.png">'
+									else
+										echo -n 'query=true"><img src="images/toggle-off.png">'
+									fi
+									echo -n '
+								</a>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>'
 fi
 
 # autoconfig - Speichern

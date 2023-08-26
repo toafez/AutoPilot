@@ -25,7 +25,9 @@
 # Globale Sprachvariablen
 # --------------------------------------------------------------
 	#txtAppTitle="AutoPilot für DSM 7""
-	txt_update_available="<span class=\"text-danger\">A new update is available on GitHub.</span></br >Please update your Backup Basic version ${local_version} to version"
+	txt_update_available="A new <span class=\"text-success fst-italic\">update</span> is available on GitHub."
+	txt_update_from="Please update your ${app_name} version"
+	txt_update_to="to version"
 
 	txt_link_note="Note"
 
@@ -60,11 +62,9 @@
 	txt_autopilot_script_detected="AutoPilot script file detected"
 	xt_autopilot_from="from"
 	txt_autopilot_use="use"
-	txt_autopilot_update="Update available!"
 	txt_autopilot_service="The AutoPilot device driver for external  disk detection is"
 	txt_autopilot_is_installed="installed"
 	txt_autopilot_is_not_installed="not installed"
-	txt_autopilot_settings="Settings"
 	txt_autopilot_connect="After connecting an external disk, run the AutoPilot script file <span class=\"text-success\">autopilot</span> automatically"
 	txt_autopilot_disconnect="After running the AutoPilot script file the external disk..."
 	txt_autopilot_disconnect_never="never eject"
@@ -125,5 +125,6 @@
 	txt_help_setup_step_3="After the shell script statement has been executed, a so-called exit code is usually passed to the system, whose numerical value has a"
 	txt_help_setup_step_4="can be read. If the result is 0, the last executed shell script statement was executed without errors. In this case, AutoPilot would automatically eject the external data carrier. If, on the other hand, you get a numerical value between 1 and 255, this indicates a note, a warning, an error or an abort of the last executed shell script instruction. In this case, AutoPilot would not automatically eject the external drive. This basic behavior can be customized in the AutoPilot settings. Alternatively, instead of the exit code transferred by the system, you can also transfer your own and thus permanently set exit code to AutoPilot, whereby a"
 	txt_help_setup_step_5="AutoPilot mitteilt, das unabhängig vom tatsächlich übergebenen Exit-Code, der externe Datenträger immer ausgeworfen wird. Nachfolgend nochmal das komplette Beispiel-Script."
+
 
 
