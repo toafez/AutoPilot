@@ -29,8 +29,6 @@
 	txt_update_from="Please update your ${app_name} version"
 	txt_update_to="to version"
 
-	txt_link_note="Note"
-
 	txt_button_Continue="More"
 	txt_button_Back="Back"
 	txt_button_Cancel="Cancel"
@@ -125,6 +123,7 @@
 	txt_help_setup_step_3="After the shell script statement has been executed, a so-called exit code is usually passed to the system, whose numerical value has a"
 	txt_help_setup_step_4="can be read. If the result is 0, the last executed shell script statement was executed without errors. In this case, AutoPilot would automatically eject the external data carrier. If, on the other hand, you get a numerical value between 1 and 255, this indicates a note, a warning, an error or an abort of the last executed shell script instruction. In this case, AutoPilot would not automatically eject the external drive. This basic behavior can be customized in the AutoPilot settings. Alternatively, instead of the exit code transferred by the system, you can also transfer your own and thus permanently set exit code to AutoPilot, whereby a"
 	txt_help_setup_step_5="AutoPilot mitteilt, das unabhängig vom tatsächlich übergebenen Exit-Code, der externe Datenträger immer ausgeworfen wird. Nachfolgend nochmal das komplette Beispiel-Script."
+
 
 
 

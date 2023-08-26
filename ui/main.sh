@@ -131,8 +131,8 @@ if [[ "${get[page]}" == "main" && "${get[section]}" == "start" ]]; then
 				</table>'
 				unset volume share
 			}
-			local_sources "/volumeUSB[[:digit:]]"
-			local_sources "/volumeSATA[[:digit:]]"
+			#local_sources "/volumeUSB[[:digit:]]"
+			#local_sources "/volumeSATA[[:digit:]]"
 			[[ "${found_volume}" == "true" ]] && echo "<hr />"
 			echo '	
 		</div>

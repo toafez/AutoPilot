@@ -262,12 +262,6 @@ if [ $(synogetkeyvalue /etc.defaults/VERSION majorversion) -ge 7 ]; then
 						help_modal "autopilot_status" "${txt_link_help_install}"
 					fi
 
-					# Hinweis Badges
-					# --------------------------------------------------------------
-					note="<span class=\"text-info text-uppercase\" title=\"${txt_link_note}\"><i class=\"bi bi-info-circle-fill\"></i></span>"
-
-
-
 				# Function: Include header
 				# --------------------------------------------------------------
 				function header()
