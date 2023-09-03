@@ -1,8 +1,8 @@
 source /pkgscripts/include/pkg_util.sh
 package="AutoPilot"
-displayname="AutoPilot"
-displayname_enu="AutoPilot"
-displayname_ger="AutoPilot"
+displayname="AutoPilot for external drives"
+displayname_enu="AutoPilot for external drives"
+displayname_ger="AutoPilot für externe Datenträger"
 version="1.0-000"
 firmware="7.0-40000"
 os_min_ver="7.0-40000"

@@ -1,12 +1,25 @@
 #!/bin/bash
 # Filename: index.cgi - coded in utf-8
 
-#                AutoPilot
+#                       AutoPilot
 #
-#        Copyright (C) 2023 by Tommes 
-# Member of the German Synology Community Forum
-#             License GNU GPLv3
-#   https://www.gnu.org/licenses/gpl-3.0.html
+#        Copyright (C) 2023 by Tommes | License GNU GPLv3
+#         Member of the German Synology Community Forum
+#
+# Extract from  GPL3   https://www.gnu.org/licenses/gpl-3.0.html
+#                                     ...
+# This program is free software: you can redistribute it  and/or
+# modify it under the terms of the GNU General Public License as
+# published by the Free Software Foundation, either version 3 of
+# the License, or (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+#
+# See the GNU General Public License for more details.You should
+# have received a copy of the GNU General Public  License  along
+# with this program. If not, see http://www.gnu.org/licenses/  !
 
 
 # Initiate system
@@ -177,8 +190,8 @@ if [ $(synogetkeyvalue /etc.defaults/VERSION majorversion) -ge 7 ]; then
 			<!-- Einbinden von bootstrap Icons 1.10.5 -->
 			<link rel="stylesheet" href="template/bootstrap/font/bootstrap-icons.css" />
 
-			<!-- Einbinden von jQuery 3.7.0 -->
-			<script src="template/jquery/jquery-3.7.0.min.js"></script>
+			<!-- Einbinden von jQuery 3.7.1 -->
+			<script src="template/jquery/jquery-3.7.1.min.js"></script>
 
 			<!-- Einbinden von JavaScript bzw. jQuery Funktionen im HTML Header  -->
 			<script src="template/js/head-functions.js"></script>
@@ -196,20 +209,16 @@ if [ $(synogetkeyvalue /etc.defaults/VERSION majorversion) -ge 7 ]; then
 						echo '
 						<nav class="navbar fixed-top navbar-expand-sm navbar-light bg-light">
 							<div class="container-fluid">
-								<span class="navbar-brand" style="color: #FF8C00;">'${app_title}'</span>
-								<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
-									<span class="navbar-toggler-icon"></span>
-								</button>
+								<a class="btn btn-sm text-dark text-decoration-none py-0" role="button" style="background-color: #e6e6e6;" href="index.cgi?page=main&section=reset" title="'${txt_button_refresh}'">
+									<i class="bi bi-arrow-repeat text-dark" style="font-size: 1.2rem;"></i>
+								</a>
 								<div class="float-end">
 									<ul class="navbar-nav">
-										<li class="nav-item">
-											<a class="nav-link" href="index.cgi?page=main&section=reset" title="'${txt_button_refresh}'"><i class="bi bi-arrow-repeat text-secondary h5"></i></a>
-										</li>
-										<li class="nav-item">
-											<a class="nav-link" href="index.cgi?page=view&section=autopilot&file='${usr_logfiles}'/autopilot.log">'${txt_label_logfile}'</a>
-										</li>
-										<li class="nav-item dropdown">
-											<a class="nav-link dropdown-toggle" href="#" id="navDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+										<li class="nav-item pt-1">
+											<a class="btn btn-sm text-dark text-decoration-none" aria-current="page" style="background-color: #e6e6e6;" href="index.cgi?page=view&section=autopilot&file='${usr_logfiles}'/autopilot.log">'${txt_label_logfile}'</a>
+										</li>&nbsp;&nbsp;
+										<li class="nav-item dropdown pt-1">
+											<a class="dropdown-toggle btn btn-sm text-dark text-decoration-none" style="background-color: #e6e6e6; href="#" id="navDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
 												'${txt_link_help}'
 											</a>
 											<ul class="dropdown-menu dropdown-menu-sm-end" aria-labelledby="navDropdown">
@@ -222,7 +231,7 @@ if [ $(synogetkeyvalue /etc.defaults/VERSION majorversion) -ge 7 ]; then
 							</div>
 						</nav>
 						<p>&nbsp;</p>
-						<p>&nbsp;</p>'
+						<br />'
 					}
 
 					# Funktion: Hilfeartikel im Popupfenster anzeigen

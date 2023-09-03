@@ -1,5 +1,22 @@
 AutoPilot Release Notes
 
+Version 1.0-100 vom 03.09.2023
+
+ -Deutsch
+    - Update jQuery auf 3.7.1
+    - Kleinere Designanpassungen.
+    - Der Inhalt der Scriptdatei autopilot.sh wurde in die Scriptdatei execute.sh verschoben.
+    - Die die von udev angesteuerte Scriptdatei autopilot.sh ruft nun die Scriptdatei execute.sh als Hintergrundprozess auf.
+    - Der Hintergrundprozess ruft wiederum das autopilot-Script auf und verhindert so Laufzeitbeschränkungen während der Ausführung.
+
+ -English
+    - Update jQuery to 3.7.1
+    - Minor design adjustments.
+    - The content of the autopilot.sh script file has been moved to the execute.sh script file.
+    - The autopilot.sh script file controlled by udev now calls the execute.sh script file as a background process.
+    - The background process in turn calls the autopilot script and thus avoids runtime limitations during execution.
+
+
 Version 1.0-000
 
  -Deutsch
