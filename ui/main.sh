@@ -38,6 +38,7 @@ mainnav
 # Startseite anzeigen
 # --------------------------------------------------------------
 if [[ "${get[page]}" == "main" && "${get[section]}" == "start" ]]; then
+
 	# Überprüfen des App-Versionsstandes
 	# --------------------------------------------------------------
 	local_version=$(cat "/var/packages/${app_name}/INFO" | grep ^version | cut -d '"' -f2)
@@ -68,6 +69,36 @@ if [[ "${get[page]}" == "main" && "${get[section]}" == "start" ]]; then
 		fi
 	fi
 
+	# Überprüfen der App-Berechtigung
+	# --------------------------------------------------------------
+	if [ -z "${app_permissions}" ] || [[ "${app_permissions}" == "false" ]]; then
+		echo '
+		<div class="row">
+			<div class="col-sm-12">
+				<div class="card">
+					<div class="card-header bg-danger-subtle"><strong>'${txt_group_status}'</strong></div>
+ 					<div class="card-body">
+						<table class="table table-borderless table-sm mb-0">
+							<thead></thead>
+							<tbody>
+								<tr>
+									<td scope="row" class="row-sm-auto">'${txt_group_status_false}'
+										<td class="text-end"> 
+											<a href="#help-permissions" class="btn btn-sm text-dark text-decoration-none" style="background-color: #e6e6e6;" data-bs-toggle="modal" data-bs-target="#help-app-permissions">'${txt_button_extend_permission}'</a>
+										</td>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div><br />'	
+	fi
+
+	taskname="DS115 Daten"
+	taskid=$(synoschedtask --get | awk -v pat="Name: \\\[$taskname\\\]" '$0~pat' RS= | grep dsmbackup | grep -Eo [0-9]+)
+	echo 'Task-ID: '${taskid}''
 	echo '
 	<div class="row">
 		<div class="col-sm-12">'

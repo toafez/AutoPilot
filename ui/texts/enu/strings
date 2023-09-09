@@ -9,3 +9,9 @@ autopilot_stop_b="The script executed on the ext. disk {0} has now ended. The ex
 autopilot_warning_a="The script executed on the ext. disk {0} has now ended. However, the ext. data medium could not be ejected properly!"
 autopilot_warning_b="The script executed on ext. disk {0} is now finished, but errors occurred during execution! The external disk remains mounted."
 autopilot_warning_c="An AutoPilot script was found on the ext. disk {0}. The script cannot be executed due to missing permissions. Please adjust the file permissions accordingly..."
+
+adduser_true="Execution successful. AutoPilot was added to the [ administrators ] group to allow extended system access."
+adduser_exists="Operation aborted. AutoPilot is already a member of the [ administrators ] group."
+
+deluser_true="Execution successful. AutoPilot has been removed from the [ administrators ] group due to restricted access to the system."
+deluser_notexist="Operation aborted. AutoPilot is not a member of the [ administrators ] group."

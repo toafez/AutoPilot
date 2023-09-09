@@ -9,3 +9,9 @@ autopilot_stop_b="Das auf dem ext. Datenträger {0} ausgeführte Script ist nun 
 autopilot_warning_a="Das auf dem ext. Datenträger {0} ausgeführte Script ist nun beendet. Der ext. Datenträger konnte jedoch nicht ordnungsgemäß ausgeworfen werden!"
 autopilot_warning_b="Das auf dem ext. Datenträger {0} ausgeführte Script ist nun beendet, jedoch sind während der Ausführung Fehler aufgetreten! Der externe Datenträger bleibt eingehängt."
 autopilot_warning_c="Auf dem ext. Datenträger {0} wurde ein AutoPilot Script gefunden. Das Script kann wegen fehlender Berechtigung jedoch nicht ausgeführt werden. Bitte passen sie die Dateirechte entsprechend an..."
+
+adduser_true="Ausführung erfolgreich. AutoPilot wurde der Gruppe [ administrators ] hinzugefügt um erweiterte Systemzugriffe zu ermöglichen."
+adduser_exists="Vorgang abgebrochen. AutoPilot ist bereits Mitglied der Gruppe [ administrators ]."
+
+deluser_true="Ausführung erfolgreich. AutoPilot wurde aus der Gruppe [ administrators ] entfernt wurdurch Zugriffe auf das System eingeschränkt wurden."
+deluser_notexist="Vorgang abgebrochen. AutoPilot ist kein Mitglied der Gruppe [ administrators ]."

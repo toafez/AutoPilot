@@ -61,6 +61,13 @@
 		unset OLD_REQUEST_METHOD
 	fi
 
+# Evaluate app permissions
+# --------------------------------------------------------------
+if cat /etc/group | grep ^administrators | grep -q ${app_name} ; then
+	app_permissions="true"
+else
+	app_permissions="false"
+fi
 
 # Set environment variables
 # --------------------------------------------------------------
@@ -218,6 +225,19 @@ if [ $(synogetkeyvalue /etc.defaults/VERSION majorversion) -ge 7 ]; then
 											<a class="btn btn-sm text-dark text-decoration-none" aria-current="page" style="background-color: #e6e6e6;" href="index.cgi?page=view&section=autopilot&file='${usr_logfiles}'/autopilot.log">'${txt_label_logfile}'</a>
 										</li>&nbsp;&nbsp;
 										<li class="nav-item dropdown pt-1">
+											<a class="dropdown-toggle btn btn-sm text-dark text-decoration-none" style="background-color: #e6e6e6;" href="#" id="navDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+												'${txt_link_settings}'
+											</a>
+											<ul class="dropdown-menu dropdown-menu-sm-end" aria-labelledby="navDropdown">'
+												if [[ "${app_permissions}" == "true" ]]; then
+													echo '<li><button type="button" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#help-app-permissions">'${txt_link_revoke_permissions}'</button></li>'
+												else
+													echo '<li><button type="button" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#help-app-permissions">'${txt_link_expand_permissions}'</button></li>'
+												fi
+												echo '
+											</ul>
+										</li>&nbsp;&nbsp;
+										<li class="nav-item dropdown pt-1">
 											<a class="dropdown-toggle btn btn-sm text-dark text-decoration-none" style="background-color: #e6e6e6; href="#" id="navDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
 												'${txt_link_help}'
 											</a>
@@ -269,6 +289,11 @@ if [ $(synogetkeyvalue /etc.defaults/VERSION majorversion) -ge 7 ]; then
 						fi
 					else
 						help_modal "autopilot_status" "${txt_link_help_install}"
+					fi
+					if [[ "${app_permissions}" == "true" ]]; then
+						help_modal "app-permissions" "${txt_link_revoke_permissions}"
+					else
+						help_modal "app-permissions" "${txt_link_expand_permissions}"
 					fi
 
 				# Function: Include header

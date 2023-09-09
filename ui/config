@@ -17,6 +17,8 @@
 			"preloadTexts": [
 				"app:title",
 				"app:subtitle",
+				"app:permissions_true",
+				"app:permissions_false",
 				"app:autopilot_enabled",
 				"app:autopilot_disabled",
 				"app:autopilot_start",
@@ -24,7 +26,11 @@
 				"app:autopilot_stop_b",
 				"app:autopilot_alert_a",
 				"app:autopilot_alert_b",
-                "app:autopilot_alert_c"
+                "app:autopilot_alert_c",
+				"app:adduser_true",
+				"app:adduser_exists",
+				"app:deluser_true",
+				"app:deluser_notexist"
 				]
 		},
 		"SYNO.SDS.AutoPilot.MainWindow": {
@@ -37,3 +43,4 @@
 		"SYNO.SDS.AutoPilot.Utils": []
 	}
 }
+

@@ -39,9 +39,32 @@
 	txt_button_install="Installieren"
 	txt_button_uninstall="Deinstallieren"
 	txt_button_refresh="Aktualisieren"
+	txt_button_extend_permission="Berechtigungen erweitern"
+	txt_button_revoke_permission="Berechtigungen zurücknehmen"
+
+	txt_link_settings="Systemeinstellungen"
+	txt_link_expand_permissions="App-Berechtigungen erweitern"
+	txt_link_revoke_permissions="App-Berechtigungen zurücknehmen"
 
 	txt_popup_input_error="Eingabefehler!"
 	txt_popup_delete_conf="Löschbestätigung!"
+
+# app-permissions.sh
+# --------------------------------------------------------------
+	txt_help_permissions_expand_terminal="App-Berechtigungen über die Konsole erweitern"
+	txt_help_permissions_revoke_terminal="App-Berechtigungen über die Konsole zurücknehmen"
+	txt_help_permissions_expand_dsm="App-Berechtigungen über den DSM Aufgabenplaner erweitern"
+	txt_help_permissions_revoke_dsm="App-Berechtigungen über den DSM Aufgabenplaner zurücknehmen"
+	txt_help_permissions_step_1="Melde dich als Benutzer <span class=\"text-danger fst-italic\">root</span> auf der Konsole deiner DiskStation an und führe folgenden Befehl aus"
+	txt_help_permissions_step_2="Öffne im DSM unter <span class=\"text-danger fst-italic\">Hauptmenü</span> > <span class=\"text-danger fst-italic\">Systemsteuerung</span> den <span class=\"text-danger fst-italic\">Aufgabenplaner</span>."
+	txt_help_permissions_step_3="Wähle im Aufgabenplaner über die Schaltfläche <span class=\"text-danger fst-italic\">Erstellen</span> > <span class=\"text-danger fst-italic\">Geplante Aufgabe</span> > <span class=\"text-danger fst-italic\">Benutzerdefiniertes Script</span> aus."
+	txt_help_permissions_step_4="In dem sich nun öffnenden Pop-up-Fenster gibst du im Reiter <span class=\"text-danger fst-italic\">Allgemein</span> > <span class=\"text-danger fst-italic\">Allgemeine Einstellungen</span> der Aufgabe einen individuellen Namen und wählst als Benutzer <span class=\"text-danger fst-italic\">root</span> aus. Anschließend entfernst du noch den Haken bei <span class=\"text-danger fst-italic\">Aktiviert</span>."
+	txt_help_permissions_step_5="Füge im Reiter <span class=\"text-danger fst-italic\">Aufgabeneinstellungen</span> > <span class=\"text-danger fst-italic\">Befehl ausführen</span> > <span class=\"text-danger fst-italic\">Benutzerdefiniertes Script</span> den nachfolgenden Befehl in das Textfeld ein..."
+	txt_help_permissions_step_6="Bestätige deine Eingaben mit die Schaltfläche <span class=\"text-danger fst-italic\">OK</span> und akzeptiere die anschließende Warnmeldung ebenfalls mit <span class=\"text-danger fst-italic\">OK</span>."
+	txt_help_permissions_step_7="Damit die Aufgabe dem Aufgabenplaner hinzugefügt wird, musst du abschließend das Passwort deines aktuell am DSM angemeldeten Benutzers eingeben und den Vorgang über die Schaltfläche <span class=\"text-danger fst-italic\">Senden</span> bestätigen."
+	txt_help_permissions_step_8="In der Übersicht des Aufgabenplaners musst du nun die grade erstellte Aufgabe mit der Maus <span class=\"text-danger fst-italic\">markieren</span> die Zeile sollte nach dem markieren blau hinterlegt sein), jedoch <span class=\"text-decoration-underline\">keinen</span> Haken in der Checkbox setzen, um die Aufgabe dauerhaft zu aktivieren."
+	txt_help_permissions_step_9="Führe die Aufgabe nun durch betätigen der Schaltfläche <span class=\"text-danger fst-italic\">Ausführen</span> einmalig aus."
+	txt_help_permissions_step_10="Schließe die ${app_name} und rufe sie erneut auf, damit die Änderungen wirksam werden."
 
 # index.cgi
 # --------------------------------------------------------------
@@ -52,6 +75,11 @@
 	txt_link_help_dsm="AutoPilot für einen externen Datenträger über den DSM einrichten"
 	txt_link_help_install="AutoPilot Gerätetreiber für die Erkennung externer Datenträger installieren"
 	txt_link_help_uninstall="AutoPilot Gerätetreiber für die Erkennung externer Datenträger deinstallieren"
+
+	# Notes - group membership
+	txt_group_status="App Berechtigungsstatus"
+	txt_group_status_true="${app_name} verfügt über erweiterte Systemberechtigungen"
+	txt_group_status_false="${app_name} verfügt nur über eingeschränkte App- bzw. Systemberechtigungen."
 
 # main.sh
 # --------------------------------------------------------------
@@ -123,6 +151,7 @@
 	txt_help_setup_step_3="Nachdem die Shellscript Anweisung ausgeführt wurde, wird in der Regel ein sogenannter Exit-Code an das System übergeben, dessen Zahlenwert über ein"
 	txt_help_setup_step_4="ausgelesen werden kann. Ist das Ergebnis 0, wurde die zuletzt ausgeführte Shellscript Anweisung fehlerfrei ausgeführt. AutoPilot würde in diesem Fall den externen Datenträger automatisch auszuwerfen. Erhält man hingegen einen Zahlenwert zwischen 1 und 255 deutet dies auf einen Hinweis, eine Warnung, einen Fehler oder einen Abbruch der zuletzt ausgeführten Shellscript Anweisung hin. In diesem Fall würde der externe Datenträger von AutoPilot nicht automatisch ausgeworfen. Dieses grundlegende Verhalten kann in den AutoPilot Einstellungen individuell angepasst werden. Alternativ dazu kann anstelle des vom System übergebenen Exit-Code, auch ein eigener und damit fest eingestellter Exit-Code an AutoPilot übergeben werden, wobei ein"
 	txt_help_setup_step_5="AutoPilot mitteilt, das unabhängig vom tatsächlich übergebenen Exit-Code, der externe Datenträger immer ausgeworfen wird. Nachfolgend nochmal das komplette Beispiel-Script."
+
 
 
 
