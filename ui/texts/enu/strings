@@ -1,8 +1,8 @@
 [app]
 title="AutoPilot"
 subtitle="AutoPilot"
-autopilot_enabled="AutoPilot has been enabled!"
-autopilot_disabled="AutoPilot has been disabled!"
+autopilot_enabled="The UDEV device driver required for AutoPilot to recognize external storage media has been installed!"
+autopilot_disabled="The UDEV device driver required for AutoPilot to recognize external storage media has been uninstalled!"
 autopilot_start="An AutoPilot script was found on ext. disk {0}. Script will be executed..."
 autopilot_stop_a="The script executed on ext. disk {0} has now ended and the ext. disk was ejected again."
 autopilot_stop_b="The script executed on the ext. disk {0} has now ended. The ext. disk remains mounted."
@@ -15,3 +15,4 @@ adduser_exists="Operation aborted. AutoPilot is already a member of the [ admini
 
 deluser_true="Execution successful. AutoPilot has been removed from the [ administrators ] group due to restricted access to the system."
 deluser_notexist="Operation aborted. AutoPilot is not a member of the [ administrators ] group."
+

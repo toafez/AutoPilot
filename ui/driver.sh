@@ -1,5 +1,5 @@
 #!/bin/bash
-# Filename: init.sh - coded in utf-8
+# Filename: driver.sh - coded in utf-8
 
 #                       AutoPilot
 #
@@ -25,7 +25,7 @@
 # Define Enviroment
 # --------------------------------------------------------------
 
-# call: /usr/syno/synoman/webman/3rdparty/AutoPilot/init.sh
+# call: /usr/syno/synoman/webman/3rdparty/AutoPilot/driver.sh
 app="AutoPilot"
 
 # Prüfe ob Version min. DSM 7 entspricht
@@ -33,7 +33,7 @@ app="AutoPilot"
 if [ $(synogetkeyvalue /etc.defaults/VERSION majorversion) -ge 7 ]; then
 
 	# Autopilot einschalten
-	if [[ "${1}" == "autopilot enable" ]]; then
+	if [[ "${1}" == "install" ]]; then
 		if [ -f /usr/lib/udev/rules.d/99-autopilot.rules ]; then
 			rm -f /usr/lib/udev/rules.d/99-autopilot.rules
 		fi
@@ -45,7 +45,7 @@ if [ $(synogetkeyvalue /etc.defaults/VERSION majorversion) -ge 7 ]; then
 	fi
 
 	# Autopilot ausschalten
-	if [[ "${1}" == "autopilot disable" ]] && [ -f /usr/lib/udev/rules.d/99-autopilot.rules ]; then
+	if [[ "${1}" == "uninstall" ]] && [ -f /usr/lib/udev/rules.d/99-autopilot.rules ]; then
 		rm -f /usr/lib/udev/rules.d/99-autopilot.rules
 		/usr/bin/udevadm control --reload-rules
 

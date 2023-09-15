@@ -1,12 +1,18 @@
 AutoPilot Release Notes
 
-Version 1.0-
+Version 1.0-200 vom
 
  -Deutsch
-    - Funktion zum Erweitern und Einschränken von App-Berechtigungen hinzugefügt
+    - Funktion zum Erweitern und Einschränken der App-Berechtigung hinzugefügt, damit u.a. Basic Backup Aufträge sowie Hyper Backup Aufgaben verarbeitet werden können.
+    - Über die AutoPilot GUI können nun Basic Backup Aufträge ausgewählt, sowie ein passendes autopilot Script auf einem ext. Datenträger automatisch angelegt werden.  
+    - Über die AutoPilot GUI können nun Hyper Backup Aufträge ausgewählt, sowie ein passendes autopilot Script auf einem ext. Datenträger automatisch angelegt werden.
+    - Diverse Anpassungen und Optimierungen vorgenommen.
 
  -English
-    - Added functionality to expand and restrict app permissions
+    - Added function to expand and restrict app permissions so that Basic Backup jobs and Hyper Backup tasks can be processed, among others.
+    - Basic backup jobs can now be selected via the AutoPilot GUI, as well as a suitable autopilot script on an external. Disks are created automatically.
+    - Hyper backup jobs can now be selected via the AutoPilot GUI, as well as a suitable autopilot script on an external. Disks are created automatically.
+    - Various adjustments and optimizations made.
 
 
 Version 1.0-100 vom 03.09.2023

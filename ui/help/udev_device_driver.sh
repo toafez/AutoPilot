@@ -1,5 +1,5 @@
 #!/bin/bash
-# Filename: autopilot_status.sh - coded in utf-8
+# Filename: udev_device_driver.sh - coded in utf-8
 
 #                       AutoPilot
 #
@@ -46,12 +46,12 @@ echo '
 							<small>'
 								if [[ "${udev_rule}" == "true" ]]; then
 									if [[ "${rewrite_udev}" == "true" ]]; then
-										echo '<pre class="text-dark p-1 border border-1 rounded bg-light">/usr/syno/synoman/webman/3rdparty/'${app_name}'/init.sh "autopilot enable"</pre>'
+										echo '<pre class="text-dark p-1 border border-1 rounded bg-light">/usr/syno/synoman/webman/3rdparty/'${app_name}'/driver.sh "install"</pre>'
 									else
-										echo '<pre class="text-dark p-1 border border-1 rounded bg-light">/usr/syno/synoman/webman/3rdparty/'${app_name}'/init.sh "autopilot disable"</pre>'
+										echo '<pre class="text-dark p-1 border border-1 rounded bg-light">/usr/syno/synoman/webman/3rdparty/'${app_name}'/driver.sh "uninstall"</pre>'
 									fi
 								else
-									echo '<pre class="text-dark p-1 border border-1 rounded bg-light">/usr/syno/synoman/webman/3rdparty/'${app_name}'/init.sh "autopilot enable"</pre>'
+									echo '<pre class="text-dark p-1 border border-1 rounded bg-light">/usr/syno/synoman/webman/3rdparty/'${app_name}'/driver.sh "install"</pre>'
 								fi							
 								echo '
 							</small>
@@ -81,12 +81,12 @@ echo '
 							<small>'
 								if [[ "${udev_rule}" == "true" ]]; then
 									if [[ "${rewrite_udev}" == "true" ]]; then
-										echo '<pre class="text-dark p-1 border border-1 rounded bg-light">/usr/syno/synoman/webman/3rdparty/'${app_name}'/init.sh "autopilot enable"</pre>'
+										echo '<pre class="text-dark p-1 border border-1 rounded bg-light">/usr/syno/synoman/webman/3rdparty/'${app_name}'/driver.sh "install"</pre>'
 									else
-										echo '<pre class="text-dark p-1 border border-1 rounded bg-light">/usr/syno/synoman/webman/3rdparty/'${app_name}'/init.sh "autopilot disable"</pre>'
+										echo '<pre class="text-dark p-1 border border-1 rounded bg-light">/usr/syno/synoman/webman/3rdparty/'${app_name}'/driver.sh "uninstall"</pre>'
 									fi
 								else
-									echo '<pre class="text-dark p-1 border border-1 rounded bg-light">/usr/syno/synoman/webman/3rdparty/'${app_name}'/init.sh "autopilot enable"</pre>'
+									echo '<pre class="text-dark p-1 border border-1 rounded bg-light">/usr/syno/synoman/webman/3rdparty/'${app_name}'/driver.sh "install"</pre>'
 								fi							
 								echo '
 							</small>

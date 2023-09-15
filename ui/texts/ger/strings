@@ -1,8 +1,8 @@
 [app]
 title="AutoPilot"
 subtitle="AutoPilot"
-autopilot_enabled="AutoPilot wurde aktiviert!"
-autopilot_disabled="AutoPilot wurde deaktiviert!"
+autopilot_enabled="Der für AutoPilot benötigte UDEV-Gerätetreiber zur Erkennung ext. Datenträger wurde installiert!"
+autopilot_disabled="Der für AutoPilot benötigte UDEV-Gerätetreiber zur Erkennung ext. Datenträger wurde deinstalliert!"
 autopilot_start="Auf dem ext. Datenträger {0} wurde ein AutoPilot Script gefunden. Script wird ausgeführt..."
 autopilot_stop_a="Das auf dem ext. Datenträger {0} ausgeführte Script ist nun beendet und der ext. Datenträger wurde wieder ausgeworfen."
 autopilot_stop_b="Das auf dem ext. Datenträger {0} ausgeführte Script ist nun beendet. Der ext. Datenträger bleibt eingehängt."
@@ -15,3 +15,4 @@ adduser_exists="Vorgang abgebrochen. AutoPilot ist bereits Mitglied der Gruppe [
 
 deluser_true="Ausführung erfolgreich. AutoPilot wurde aus der Gruppe [ administrators ] entfernt wurdurch Zugriffe auf das System eingeschränkt wurden."
 deluser_notexist="Vorgang abgebrochen. AutoPilot ist kein Mitglied der Gruppe [ administrators ]."
+

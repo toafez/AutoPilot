@@ -1,6 +1,6 @@
 #!/bin/sh
-# Filename: app_permissions.sh - coded in utf-8
-# call: /usr/syno/synoman/webman/3rdparty/AutoPilot/app_permissions.sh
+# Filename: permissions.sh - coded in utf-8
+# call: /usr/syno/synoman/webman/3rdparty/AutoPilot/permissions.sh
 
 
 #                       AutoPilot

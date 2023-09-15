@@ -39,17 +39,19 @@
 	txt_button_install="Installieren"
 	txt_button_uninstall="Deinstallieren"
 	txt_button_refresh="Aktualisieren"
-	txt_button_extend_permission="Berechtigungen erweitern"
-	txt_button_revoke_permission="Berechtigungen zurücknehmen"
+	txt_button_extend_permission="Berechtigung erweitern"
+	txt_button_revoke_permission="Berechtigung zurücknehmen"
+	txt_button_install_driver="UDEV Gerätetreiber installieren"
+	txt_button_uninstall_driver="UDEV Gerätetreiber deinstallieren"
 
 	txt_link_settings="Systemeinstellungen"
-	txt_link_expand_permissions="App-Berechtigungen erweitern"
-	txt_link_revoke_permissions="App-Berechtigungen zurücknehmen"
+	txt_link_expand_permissions="App-Berechtigung erweitern"
+	txt_link_revoke_permissions="App-Berechtigung zurücknehmen"
 
 	txt_popup_input_error="Eingabefehler!"
 	txt_popup_delete_conf="Löschbestätigung!"
 
-# app-permissions.sh
+# app_permissions.sh
 # --------------------------------------------------------------
 	txt_help_permissions_expand_terminal="App-Berechtigungen über die Konsole erweitern"
 	txt_help_permissions_revoke_terminal="App-Berechtigungen über die Konsole zurücknehmen"
@@ -73,13 +75,16 @@
 	txt_link_help_external_storage="Einen externen Datenträger für AutoPilot einrichten"
 	txt_link_help_terminal="AutoPilot für einen externen Datenträger über die Konsole einrichten"
 	txt_link_help_dsm="AutoPilot für einen externen Datenträger über den DSM einrichten"
-	txt_link_help_install="AutoPilot Gerätetreiber für die Erkennung externer Datenträger installieren"
-	txt_link_help_uninstall="AutoPilot Gerätetreiber für die Erkennung externer Datenträger deinstallieren"
+	txt_link_help_install="UDEV Gerätetreiber für die Erkennung externer Datenträger installieren"
+	txt_link_help_uninstall="UDEV Gerätetreiber für die Erkennung externer Datenträger deinstallieren"
 
 	# Notes - group membership
 	txt_group_status="App Berechtigungsstatus"
-	txt_group_status_true="${app_name} verfügt über erweiterte Systemberechtigungen"
-	txt_group_status_false="${app_name} verfügt nur über eingeschränkte App- bzw. Systemberechtigungen."
+	txt_group_status_false="${app_name} verfügt nur über <span class=\"text-danger\">eingeschränkte</span> App- bzw. Systemberechtigungen."
+
+	# Notes - UDEV device driver
+	txt_udev_status="Status des UDEV-Gerätetreibers"
+	txt_udev_status_false="Der für ${app_name} benötigte UDEV-Gerätetreiber zur Erkennung ext. Datenträger ist <span class=\"text-danger\">nicht</span> installiert!"
 
 # main.sh
 # --------------------------------------------------------------
@@ -98,7 +103,28 @@
 	txt_autopilot_disconnect_manual="immer auswerfen, wenn die Aufgabe durch einen <span class=\"text-success\">exit 100</span> Rückgabewert manuell beendet wurde"
 	txt_autopilot_signal="Optische und akustische Signalausgaben deiner DiskStation während der Ausführung von AutoPilot auslösen"
 
-# autopilot_status.sh
+	txt_external_disks_header="Externe Datenträger"
+	txt_hyperbackup_header="Hyper Backup Aufgaben"
+	txt_autopilot_options_header="AutoPilot Einstellungen"
+	txt_autopilot_create_script="AutoPilot Script erstellen"
+	txt_autopilot_script_name="AutoPilot Scriptname"
+	txt_autopilot_script_target="Speicherort des AutoPilot Scriptes"
+	txt_autopilot_select_external_disk="Externen Datenträger auswählen"
+	txt_autopilot_note_script_overwrite="<span class=\"text-danger\">Hinweis: </span>Ein bereits auf dem ausgewählten externen Datenträger vorhandenes AutoPilot-Script wird ohne Nachfrage überschrieben!"
+
+	# Basic Backup
+	txt_basicbackup_header="Basic Backup Aufträge"
+	txt_basicbackup_title_create_script="AutoPilot Script für einen Basic Backup Auftrag erstellen"
+	txt_basicbackup_package_name="Paketname"
+	txt_basicbackup_job_name="Auftragsname"
+
+	# Hyper Backup
+	txt_hyperbackup_header="Hyper Backup Aufgaben"
+	txt_hyperbackup_title_create_script="AutoPilot Script für eine Hyper Backup Aufgabe erstellen"
+	txt_hyperbackup_package_name="Paketname"
+	txt_hyperbackup_job_name="Auftragsname"
+
+# udev_device_driver.sh
 # --------------------------------------------------------------
 	txt_help_status_install_terminal="Gerätetreiber über die Konsole installieren"
 	txt_help_status_uninstall_terminal="Gerätetreiber über die Konsole deinstallieren"
@@ -151,6 +177,7 @@
 	txt_help_setup_step_3="Nachdem die Shellscript Anweisung ausgeführt wurde, wird in der Regel ein sogenannter Exit-Code an das System übergeben, dessen Zahlenwert über ein"
 	txt_help_setup_step_4="ausgelesen werden kann. Ist das Ergebnis 0, wurde die zuletzt ausgeführte Shellscript Anweisung fehlerfrei ausgeführt. AutoPilot würde in diesem Fall den externen Datenträger automatisch auszuwerfen. Erhält man hingegen einen Zahlenwert zwischen 1 und 255 deutet dies auf einen Hinweis, eine Warnung, einen Fehler oder einen Abbruch der zuletzt ausgeführten Shellscript Anweisung hin. In diesem Fall würde der externe Datenträger von AutoPilot nicht automatisch ausgeworfen. Dieses grundlegende Verhalten kann in den AutoPilot Einstellungen individuell angepasst werden. Alternativ dazu kann anstelle des vom System übergebenen Exit-Code, auch ein eigener und damit fest eingestellter Exit-Code an AutoPilot übergeben werden, wobei ein"
 	txt_help_setup_step_5="AutoPilot mitteilt, das unabhängig vom tatsächlich übergebenen Exit-Code, der externe Datenträger immer ausgeworfen wird. Nachfolgend nochmal das komplette Beispiel-Script."
+
 
 
 

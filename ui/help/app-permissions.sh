@@ -1,5 +1,5 @@
 #!/bin/bash
-# Filename: app-permissions.sh - coded in utf-8
+# Filename: app_permissions.sh - coded in utf-8
 
 #                       Basic Backup
 #
@@ -24,7 +24,7 @@
 echo '
 <div class="row">
 	<div class="col">'
-		if [[ "${app_permissions}" == "true" ]]; then
+		if [[ "${permissions}" == "true" ]]; then
 			echo '<h5>'${txt_help_permissions_revoke_terminal}'</h5>'
 		else
 			echo '<h5>'${txt_help_permissions_expand_terminal}'</h5>'
@@ -36,10 +36,10 @@ echo '
 					<ul class="list-unstyled ps-3 pt-2">
 						<li>
 							<small>'
-								if [[ "${app_permissions}" == "true" ]]; then
-									echo '<pre class="text-dark p-1 border border-1 rounded bg-light">/usr/syno/synoman/webman/3rdparty/'${app_name}'/app_permissions.sh "deluser"</pre>'
+								if [[ "${permissions}" == "true" ]]; then
+									echo '<pre class="text-dark p-1 border border-1 rounded bg-light">/usr/syno/synoman/webman/3rdparty/'${app_name}'/permissions.sh "deluser"</pre>'
 								else
-									echo '<pre class="text-dark p-1 border border-1 rounded bg-light">/usr/syno/synoman/webman/3rdparty/'${app_name}'/app_permissions.sh "adduser"</pre>'
+									echo '<pre class="text-dark p-1 border border-1 rounded bg-light">/usr/syno/synoman/webman/3rdparty/'${app_name}'/permissions.sh "adduser"</pre>'
 								fi						
 								echo '
 							</small>
@@ -48,7 +48,7 @@ echo '
 			</ol>
 		</ul>
 		<br />'
-		if [[ "${app_permissions}" == "true" ]]; then
+		if [[ "${permissions}" == "true" ]]; then
 			echo '<h5>'${txt_help_permissions_revoke_dsm}'</h5>'
 		else
 			echo '<h5>'${txt_help_permissions_expand_dsm}'</h5>'
@@ -63,10 +63,10 @@ echo '
 					<ul class="list-unstyled ps-3 pt-2">
 						<li>
 							<small>'
-								if [[ "${app_permissions}" == "true" ]]; then
-									echo '<pre class="text-dark p-1 border border-1 rounded bg-light">/usr/syno/synoman/webman/3rdparty/'${app_name}'/app_permissions.sh "deluser"</pre>'
+								if [[ "${permissions}" == "true" ]]; then
+									echo '<pre class="text-dark p-1 border border-1 rounded bg-light">/usr/syno/synoman/webman/3rdparty/'${app_name}'/permissions.sh "deluser"</pre>'
 								else
-									echo '<pre class="text-dark p-1 border border-1 rounded bg-light">/usr/syno/synoman/webman/3rdparty/'${app_name}'/app_permissions.sh "adduser"</pre>'
+									echo '<pre class="text-dark p-1 border border-1 rounded bg-light">/usr/syno/synoman/webman/3rdparty/'${app_name}'/permissions.sh "adduser"</pre>'
 								fi						
 								echo '
 							</small>

@@ -64,9 +64,9 @@
 # Evaluate app permissions
 # --------------------------------------------------------------
 if cat /etc/group | grep ^administrators | grep -q ${app_name} ; then
-	app_permissions="true"
+	permissions="true"
 else
-	app_permissions="false"
+	permissions="false"
 fi
 
 # Set environment variables
@@ -229,11 +229,20 @@ if [ $(synogetkeyvalue /etc.defaults/VERSION majorversion) -ge 7 ]; then
 												'${txt_link_settings}'
 											</a>
 											<ul class="dropdown-menu dropdown-menu-sm-end" aria-labelledby="navDropdown">'
-												if [[ "${app_permissions}" == "true" ]]; then
-													echo '<li><button type="button" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#help-app-permissions">'${txt_link_revoke_permissions}'</button></li>'
+												if [[ "${permissions}" == "true" ]]; then
+													echo '<li><button type="button" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#help-app_permissions">'${txt_link_revoke_permissions}'</button></li>'
 												else
-													echo '<li><button type="button" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#help-app-permissions">'${txt_link_expand_permissions}'</button></li>'
+													echo '<li><button type="button" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#help-app_permissions">'${txt_link_expand_permissions}'</button></li>'
 												fi
+												if [[ "${udev_rule}" == "true" ]]; then
+													if [[ "${rewrite_udev}" == "true" ]]; then
+														echo '<li><button type="button" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#help-udev_device_driver">'${txt_button_install_driver}'</button></li>'
+													else
+														echo '<li><button type="button" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#help-udev_device_driver">'${txt_button_uninstall_driver}'</button></li>'
+													fi
+								else
+									echo '<li><button type="button" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#help-udev_device_driver">'${txt_button_install_driver}'</button></li>'
+								fi
 												echo '
 											</ul>
 										</li>&nbsp;&nbsp;
@@ -283,17 +292,17 @@ if [ $(synogetkeyvalue /etc.defaults/VERSION majorversion) -ge 7 ]; then
 					help_modal "autopilot_setup_via_terminal" "${txt_link_help_terminal}"
 					if [[ "${udev_rule}" == "true" ]] ;then
 						if [[ "${rewrite_udev}" == "true" ]]; then
-							help_modal "autopilot_status" "${txt_link_help_install}"
+							help_modal "udev_device_driver" "${txt_link_help_install}"
 						else
-							help_modal "autopilot_status" "${txt_link_help_uninstall}"
+							help_modal "udev_device_driver" "${txt_link_help_uninstall}"
 						fi
 					else
-						help_modal "autopilot_status" "${txt_link_help_install}"
+						help_modal "udev_device_driver" "${txt_link_help_install}"
 					fi
-					if [[ "${app_permissions}" == "true" ]]; then
-						help_modal "app-permissions" "${txt_link_revoke_permissions}"
+					if [[ "${permissions}" == "true" ]]; then
+						help_modal "app_permissions" "${txt_link_revoke_permissions}"
 					else
-						help_modal "app-permissions" "${txt_link_expand_permissions}"
+						help_modal "app_permissions" "${txt_link_expand_permissions}"
 					fi
 
 				# Function: Include header
