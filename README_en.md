@@ -11,31 +11,63 @@ Download the **latest version** of AutoPilot from the [Releases](https://github.
 
 **After starting** AutoPilot, the locally **installed version** is compared to the version **available** on GitHub. If an update is available, the user will be **informed** about it via the app and a corresponding **link** to the corresponding release will be displayed. The download and the subsequent update process have already been explained above.
 
-- ## (De)-activate device driver for detection of external data carriers
-     - ### Activate device driver via console
+- ## Extend App Permission
+    Under DSM 7, a 3rd_Party application such as AutoPilot (referred to as App in the following) is provided with highly restricted user and group rights. Among other things, this means that system-related commands cannot be executed. For the smooth operation of AutoPilot, however, extended system rights are required, e.g. to be able to access the system folder structure. To extend the app permissions, AutoPilot must be added to the administrators' group, but this can only be done by the user himself. The following instructions describe this process.
+
+    - #### Extending or restricting app permissions via the console
+
+      - Log in to the console of your Synology NAS as user **root**.
+      - Command to extend app permissions
+
+        `/usr/syno/synoman/webman/3rdparty/AutoPilot/permissions.sh "adduser"`
+
+      - Command to restrict app permissions
+
+        `/usr/syno/synoman/webman/3rdparty/AutoPilot/permissions.sh "deluser"`
+ 
+    - #### Extend or restrict app permissions via the task planner
+
+      - Open the **Task Scheduler** in **DSM** under **Main Menu** > **Control Panel**.
+      - In the **Task Scheduler**, select **Create** > **Scheduled Task** > **Custom Script** via the button.
+      - In the pop-up window that now opens in the **General** > **General Settings** tab, give the task a name and select **root** as the user: **root** as the user. Also remove the tick from Activated.
+      - In the **Task Settings** tab > **Execute Command** > **Custom Script**, insert the following command into the text field...
+      - Command to extend the app permissions
+
+        `/usr/syno/synoman/webman/3rdparty/AutoPilot/permissions.sh "adduser"`
+
+      - Command to restrict app permissions
+
+        `/usr/syno/synoman/webman/3rdparty/AutoPilot/permissions.sh "deluser"`
+
+      - Save the entries with **OK** and confirm the subsequent warning message with **OK**.
+      - Mark the task you have just created in the overview of the task planner, but **do not** activate it (the line should be highlighted in blue after marking).
+      - Execute the task once by pressing the **Execute** button.
+
+- ## (De)-activate udev device driver for detection of external data carriers
+     - ### Activate udev device driver via console
          - Log in to your DiskStation's console as root user and run the following command
 
-             - Command to activate the device driver via the console
+             - Command to activate the udev device driver via the console
 
-                 `/usr/syno/synoman/webman/3rdparty/AutoPilot/init.sh "autopilot enable"`
+                 `/usr/syno/synoman/webman/3rdparty/AutoPilot/driver.sh "install"`
 
-             - Command to disable the device driver from the console
+             - Command to disable the udev device driver from the console
 
-                 `/usr/syno/synoman/webman/3rdparty/AutoPilot/init.sh "autopilot disable"`
+                 `/usr/syno/synoman/webman/3rdparty/AutoPilot/driver.sh "uninstall"`
 
-     - ### (De)-activate device drivers via the DSM task scheduler
+     - ### (De)-activate udev device drivers via the DSM task scheduler
          - Open Task Scheduler in DSM under Main Menu > Control Panel.
          - In the task scheduler, select Create > Scheduled Task > Custom Script button.
          - In the pop-up window that opens, give the task an individual name in the General > General settings tab and select root as the user. Then uncheck the Enabled box.
          - In the Task settings tab > Run command > Custom script, paste the following command into the text field...
 
-             - Command to activate the device driver via the task scheduler
+             - Command to activate the udev device driver via the task scheduler
 
-                 `/usr/syno/synoman/webman/3rdparty/AutoPilot/init.sh "autopilot enable"`
+                 `/usr/syno/synoman/webman/3rdparty/AutoPilot/driver.sh "install"`
 
-             - Disable command to disable device driver via task scheduler
+             - Disable command to disable udev device driver via task scheduler
 
-                 `/usr/syno/synoman/webman/3rdparty/AutoPilot/init.sh "autopilot disable"`
+                 `/usr/syno/synoman/webman/3rdparty/AutoPilot/driver.sh "uninstall"`
 
          - Confirm your entries with the OK button and also accept the subsequent warning message with OK.
          - In order for the task to be added to the task scheduler, you must finally enter the password of the user who is currently logged in to the DSM and confirm the process using the Send button.

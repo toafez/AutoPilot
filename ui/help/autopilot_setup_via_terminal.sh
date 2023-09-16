@@ -42,7 +42,7 @@ echo '
 					<li>
 						<small>
 							<pre class="text-dark p-1 border border-1 rounded bg-light">touch autopilot</pre>
-							<pre class="text-dark p-1 border border-1 rounded bg-light">chmod 755 autopilot</pre>
+							<pre class="text-dark p-1 border border-1 rounded bg-light">chmod 777 autopilot</pre>
 						</small>
 					</li>
 				</ul>
@@ -111,7 +111,7 @@ echo '
 			<li>'${txt_help_setup_terminal_step_7}'</li>
 		</ol>
 		<p class="text-end"><br />
-			<button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">'${txt_button_Close}'</button>
+			<button type="button" class="btn btn-sm text-dark" style="background-color: #e6e6e6;" data-bs-dismiss="modal">'${txt_button_Close}'</button>
 		</p>
 	</div>
 </div>'

@@ -142,12 +142,13 @@ if [[ "${get[page]}" == "main" && "${get[section]}" == "start" ]]; then
 	fi
 
 	# Externe Datenträger
+	# --------------------------------------------------------------
 	echo '
 	<div class="accordion accordion-flush" id="accordionFlush01">
 		<div class="accordion-item border-0">
 			<div class="accordion-header bg-light p-2">
 				<button class="btn btn-sm text-dark py-0 collapsed" style="background-color: #e6e6e6;" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse-01" aria-expanded="false" aria-controls="flush-collapse-01">
-					<i class="bi bi-usb-symbol" style="font-size: 1.2rem;" title=""></i>
+					<i class="bi bi-caret-down-fill pe-2" style="font-size: 0.9rem;" title=""></i><i class="bi bi-usb-symbol" style="font-size: 1.2rem;" title=""></i>
 				</button>&nbsp;
 				'${txt_external_disks_header}'
 			</div>
@@ -165,10 +166,23 @@ if [[ "${get[page]}" == "main" && "${get[section]}" == "start" ]]; then
 									found_volume="true"
 									echo '
 									<tr>
-										<td class="bg-light" colspan="4">
+										<td class="bg-light" style="width: 160px">
 											<i class="bi bi-hdd-fill text-secondary"></i>&nbsp;&nbsp;'${volume#*/}'
 										</td>
+										<td class="bg-light" style="width: 120px">
+											'${txt_autopilot_device}'
+										</td>
+										<td class="bg-light" style="width: auto">
+											'${txt_autopilot_memory}'
+										</td>
+										<td class="bg-light" style="width: 40px">
+											&nbsp;
+										</td>
+										<td class="bg-light text-center" style="width: 120px">
+											AutoPilot Script
+										</td>
 									</tr>'	
+					
 									while IFS= read -r share; do
 										IFS="${backupIFS}"
 										[[ -z "${share}" ]] && continue
@@ -192,20 +206,40 @@ if [[ "${get[page]}" == "main" && "${get[section]}" == "start" ]]; then
 											<td class="bg-light ps-4" style="width: 160px">&nbsp;&nbsp;
 												<i class="bi bi-folder-fill text-warning"></i>&nbsp;&nbsp;'${share##*/}'
 											</td>
-											<td class="bg-light" style="width: 220px">'
-												[ -f "${path}/autopilot" ] && echo '<span class="text-success">'${txt_autopilot_script_detected}'</span>'
+											<td class="bg-light" style="width: 120px">'
+												#[ -f "${path}/autopilot" ] && echo '<span class="text-success">'${txt_autopilot_script_detected}'</span>'
+												echo ''${dev}''
 												echo '
-											</td>
-											<td class="bg-light text-end" style="width: 60px">
-												Info:
 											</td>
 											<td class="bg-light" style="width: auto">
 												<div class="progress" role="progressbar" aria-label="Example with label" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100" style="height: 25px">
 													<div class="progress-bar overflow-visible text-dark bg-primary-subtle" style="width: '${disk_used_percent}'%">&nbsp;&nbsp;&nbsp;'${disk_used_percent}'% '${txt_autopilot_from}' '${disk_free}' '${txt_autopilot_use}'</div>
 												</div>
 											</td>
+											<td class="bg-light" style="width: 40px">
+												&nbsp;
+											</td>
+											<td class="bg-light text-end pe-4" style="width: 120px">'
+												if [ -f "${volume}/${share##*/}/autopilot" ]; then
+													echo '
+													<a class="btn btn-sm text-dark py-0" style="background-color: #e6e6e6;" href="index.cgi?page=main&section=view&share='${volume}/${share##*/}'">
+														<i class="bi bi-terminal-fill" style="font-size: 1.2rem;" title="'${txt_autopilot_script_view}'"></i>
+													</a>'
+													echo '
+													<a class="btn btn-sm text-dark py-0" style="background-color: #e6e6e6;" href="index.cgi?page=main&section=delete&share='${volume}/${share##*/}'">
+														<i class="bi bi-trash text-danger" style="font-size: 1.2rem;" title="'${txt_autopilot_script_delete}'"></i>
+													</a>'
+												else
+													echo '
+													<a class="btn btn-sm text-dark py-0" style="background-color: #e6e6e6;" href="index.cgi?page=main&section=create&share='${volume}/${share##*/}'">
+														<i class="bi bi-file-earmark-plus text-success" style="font-size: 1.2rem;" title="'${txt_autopilot_script_create}'"></i>
+													</a>'
+												fi
+												echo '
+											</td>
 										</tr>'
 									done <<< "$( find ${volume}/* -maxdepth 0 -type d ! -path '*/lost\+found' ! -path '*/\@*' ! -path '*/\$RECYCLE.BIN' ! -path '*/Repair' ! -path '*/System Volume Information' )"
+									echo '<tr><td class="bg-light" colspan=5>&nbsp;</td></tr>'
 								done <<< "$( find ${1} -type d -maxdepth 0 )"
 								echo '
 							</tbody>
@@ -220,12 +254,13 @@ if [[ "${get[page]}" == "main" && "${get[section]}" == "start" ]]; then
 		</div>'	
 
 		# Basic Backup Aufträge
+		# --------------------------------------------------------------
 		if [ -d /var/packages/BasicBackup ] && [[ "${permissions}" == "true" ]]; then
 			echo '
 			<div class="accordion-item border-0 mt-3">
 				<div class="accordion-header bg-light p-2">
 					<button class="btn btn-sm text-dark py-0 collapsed" style="background-color: #e6e6e6;" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse-02" aria-expanded="false" aria-controls="flush-collapse-02">
-						<i class="bi bi-list" style="font-size: 1.2rem;" title=""></i>
+						<i class="bi bi-caret-down-fill pe-2" style="font-size: 0.9rem;" title=""></i><i class="bi bi-list" style="font-size: 1.2rem;" title=""></i>
 					</button>&nbsp;
 					'${txt_basicbackup_header}'
 				</div>
@@ -249,7 +284,7 @@ if [[ "${get[page]}" == "main" && "${get[section]}" == "start" ]]; then
 
 											<!-- Modal Button-->
 											<button type="button" class="btn btn-sm text-dark py-0" style="background-color: #e6e6e6;" data-bs-toggle="modal" data-bs-target="#BasicBackup'${id}'">
-												<i class="bi bi-file-earmark-plus" style="font-size: 1.2rem;" title="'${txt_basicbackup_title_create_script}'"></i>
+												<i class="bi bi-file-earmark-plus text-success" style="font-size: 1.2rem;" title="'${txt_basicbackup_title_create_script}'"></i>
 											</button>&nbsp;
 
 											<!-- Modal Popup-->
@@ -294,13 +329,13 @@ if [[ "${get[page]}" == "main" && "${get[section]}" == "start" ]]; then
 
 											<!-- Script Button -->
 											<button class="btn btn-sm text-dark py-0 collapsed" style="background-color: #e6e6e6;" type="button" data-bs-toggle="collapse" data-bs-target="#loop-collapse'${id}'" aria-expanded="false" aria-controls="loop-collapse'${id}'">
-												<i class="bi bi-terminal-fill" style="font-size: 1.2rem;" title=""></i>
+												<i class="bi bi-terminal-fill" style="font-size: 1.2rem;" title="'${txt_basicbackup_title_view_script}'"></i>
 											</button>
 										</div>
 										<div id="loop-collapse'${id}'" class="accordion-collapse collapse" data-bs-parent="#accordionLoop02">
 											<div class="accordion-body">
 												<div class="card card-body ps-1">
-													<code>
+													<code class="text-dark">
 														#!/bin/bash<br />
 														# Execute a Basic Backup job<br />
 														# Job name: '${backupjob}'<br />
@@ -325,12 +360,13 @@ if [[ "${get[page]}" == "main" && "${get[section]}" == "start" ]]; then
 		fi
 
 		# Hyper Backup Aufträge
+		# --------------------------------------------------------------
 		if [ -d /var/packages/HyperBackup ] && [[ "${permissions}" == "true" ]]; then
 			echo '
 			<div class="accordion-item border-0 mt-3">
 				<div class="accordion-header bg-light p-2">
 					<button class="btn btn-sm text-dark py-0 collapsed" style="background-color: #e6e6e6;" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse-03" aria-expanded="false" aria-controls="flush-collapse-03">
-						<i class="bi bi-list" style="font-size: 1.2rem;" title=""></i>
+						<i class="bi bi-caret-down-fill pe-2" style="font-size: 0.9rem;" title=""></i><i class="bi bi-list" style="font-size: 1.2rem;" title=""></i>
 					</button>&nbsp;
 					'${txt_hyperbackup_header}'
 				</div>
@@ -365,7 +401,7 @@ if [[ "${get[page]}" == "main" && "${get[section]}" == "start" ]]; then
 
 											<!-- Modal Button-->
 											<button type="button" class="btn btn-sm text-dark py-0" style="background-color: #e6e6e6;" data-bs-toggle="modal" data-bs-target="#HyperBackup'${id}'">
-												<i class="bi bi-file-earmark-plus" style="font-size: 1.2rem;" title="'${txt_hyperbackup_title_create_script}'"></i>
+												<i class="bi bi-file-earmark-plus text-success" style="font-size: 1.2rem;" title="'${txt_hyperbackup_title_create_script}'"></i>
 											</button>&nbsp;
 
 											<!-- Modal Popup-->
@@ -412,13 +448,13 @@ if [[ "${get[page]}" == "main" && "${get[section]}" == "start" ]]; then
 
 											<!-- Script Button -->
 											<button class="btn btn-sm text-dark py-0 collapsed" style="background-color: #e6e6e6;" type="button" data-bs-toggle="collapse" data-bs-target="#loop-collapse'${id}'" aria-expanded="false" aria-controls="loop-collapse'${id}'">
-												<i class="bi bi-terminal-fill" style="font-size: 1.2rem;" title=""></i>
+												<i class="bi bi-terminal-fill" style="font-size: 1.2rem;" title="'${txt_hyperbackup_title_view_script}'"></i>
 											</button>
 										</div>
 										<div id="loop-collapse'${id}'" class="accordion-collapse collapse" data-bs-parent="#accordionLoop03">
 											<div class="accordion-body">
 												<div class="card card-body ps-1">
-													<code>
+													<code class="text-dark">
 														#!/bin/bash<br />
 														# Execute a Hyper Backup task<br />
 														# Task ID: '${hyper_backup_job[$i]%=*}'<br />
@@ -456,13 +492,13 @@ if [[ "${get[page]}" == "main" && "${get[section]}" == "start" ]]; then
 		<div class="accordion-item border-0 mt-3">
 			<div class="accordion-header bg-light p-2">
 				<button class="btn btn-sm text-dark py-0 collapsed" style="background-color: #e6e6e6;" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse-04" aria-expanded="true" aria-controls="flush-collapse-04">
-					<i class="bi bi-gear-fill" style="font-size: 1.2rem;" title=""></i>
+					<i class="bi bi-caret-down-fill pe-2" style="font-size: 0.9rem;" title=""></i><i class="bi bi-gear-fill" style="font-size: 1.2rem;" title=""></i>
 				</button>&nbsp;
 				'${txt_autopilot_options_header}'
 			</div>
 		<div id="flush-collapse-04" class="accordion-collapse collapse show" data-bs-parent="#accordionFlush01">
 			<div class="accordion-body bg-light px-3">
-				<table class="table table-borderless table-hover table-sm">
+				<table class="table table-borderless table-sm">
 					<thead></thead>
 					<tbody>
 						<tr>'
@@ -483,14 +519,12 @@ if [[ "${get[page]}" == "main" && "${get[section]}" == "start" ]]; then
 								</a>
 							</td>
 						</tr>
-						<tr>'
-							# Auswerfen ein/aus
-							echo -n '
-							<td scope="row" class="row-sm-auto align-middle bg-light">
-								'${txt_autopilot_disconnect}'
-							</td>
-							<td class="text-end bg-light"><span style="font-size: 2rem">&nbsp;</span></td>
-						</tr>
+					</tbody>
+				</table>
+				<div class="ps-1 pb-3">'${txt_autopilot_disconnect}'</div>
+				<table class="table table-borderless table-sm">
+					<thead></thead>
+					<tbody>
 						<tr>'
 							# Niemals auswerfen ein/aus
 							echo '
@@ -577,8 +611,52 @@ if [[ "${get[page]}" == "main" && "${get[section]}" == "start" ]]; then
 	</div><br />'
 fi
 
+# AutoPilot Script auf ext. Datenträger erstellen
+# --------------------------------------------------------------
+if [[ "${get[page]}" == "main" && "${get[section]}" == "create" ]]; then
+	target="${get[share]}/autopilot"
 
-# autoconfig - Speichern
+	if [ ! -f "${target}" ]; then
+		touch "${target}"
+		chmod 777 "${target}"
+	fi
+	if [ -f "${target}" ]; then
+		> "${target}"
+		echo "#!/bin/bash" > "${target}"
+	fi
+
+	[ -f "${get_request}" ] && rm "${get_request}"
+	echo '<meta http-equiv="refresh" content="0; url=index.cgi?page=main&section=start">'
+fi
+
+# AutoPilot Script auf ext. Datenträger ansehen
+# --------------------------------------------------------------
+if [[ "${get[page]}" == "main" && "${get[section]}" == "view" ]]; then
+	target="${get[share]}/autopilot"
+	view=$(cat "${target}")
+
+	if [ -f "${target}" ]; then
+		popup_modal "view" "AutoPilot Scriptdatei ansehen" "${target}"
+	fi
+
+	#[ -f "${get_request}" ] && rm "${get_request}"
+	#echo '<meta http-equiv="refresh" content="0; url=index.cgi?page=main&section=start">'
+fi
+
+# AutoPilot Script vom ext. Datenträger löschen
+# --------------------------------------------------------------
+if [[ "${get[page]}" == "main" && "${get[section]}" == "delete" ]]; then
+	target="${get[share]}/autopilot"
+
+	if [ -f "${target}" ]; then
+		rm "${target}"
+	fi
+
+	[ -f "${get_request}" ] && rm "${get_request}"
+	echo '<meta http-equiv="refresh" content="0; url=index.cgi?page=main&section=start">'
+fi
+
+# AutoPilot Konfiguration speichern
 # --------------------------------------------------------------
 if [[ "${get[page]}" == "main" && "${get[section]}" == "settings" ]]; then
 	[ -f "${get_request}" ] && rm "${get_request}"

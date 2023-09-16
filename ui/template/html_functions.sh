@@ -22,34 +22,6 @@
 # with this program. If not, see http://www.gnu.org/licenses/  !
 
 
-# Popupbox Ausgabe
-# --------------------------------------------------------------
-function popup_box () {
-	echo '
-	<div class="container">
-		<div class="row">
-			<div class="col">
-			</div>
-			<div class="col">
-				<p>&nbsp;</p><p>&nbsp;</p>
-				<div class="card" style="width: '${1}'rem;">
-					<div class="card-header text-secondary">'${2}'</div>
-					<div class="card-body">
-						<p class="card-text text-center text-secondary">'${3}'</p>
-						<p class="card-text text-center text-secondary">'${4}'</p>
-					</div>
-				</div>
-			</div>
-			<div class="col">
-			</div>
-			<!-- col -->
-		</div>
-		<!-- row -->
-	</div>
-	<!-- container -->'
-	exit
-}
-
 # Funktion: Popup Box - jobedit
 # --------------------------------------------------------------
 function popup_modal()
@@ -64,14 +36,24 @@ function popup_modal()
 			<h5 class="modal-title align-baseline" style="color: #FF8C00;">'${2}'</h5>
 			<a href="index.cgi" onclick="history.go(-1); event.preventDefault();" class="btn-close" aria-label="Close"></a>
 		  </div>
-		  <div class="modal-body text-center">'${3}'</div>
-		  <div class="modal-footer bg-light">'
+		  <div class="modal-body">'
 			if [[ "${1}" == "view" ]]; then
+					echo '
+					<i class="bi bi-hdd-fill text-secondary"></i>&nbsp;&nbsp;<strong>'${3}'</strong><br /><br />
+					<div class="card card-body ps-1">
+						<code class="text-dark">'
+							cat "${3}" | while read line; do
+								echo ''${line}'<br>'
+							done
+							echo '
+						</code>
+					</div>'
+					unset line
+				fi
 				echo '
-				<a href="index.cgi?page=view&section='${5}'&query=delete&delete=true&file='${get[file]}'" class="btn btn-secondary btn-sm">Löschen</a>
-				<input type="hidden" name="expand-content" value="'${4}'">'
-			fi
-			echo '
+		  </div>
+		  <div class="modal-footer bg-light">
+			<a class="btn btn-sm text-dark" style="background-color: #e6e6e6;" href="index.cgi" onclick="history.go(-1); event.preventDefault();" aria-label="Close">'${txt_button_Close}'</a>
 		  </div>
 		</div>
 	  </div>

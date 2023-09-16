@@ -100,7 +100,7 @@ echo '
 			</ol>
 		</ul>
 		<p class="text-end"><br />
-			<button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">'${txt_button_Close}'</button>
+			<button type="button" class="btn btn-sm text-dark" style="background-color: #e6e6e6;" data-bs-dismiss="modal">'${txt_button_Close}'</button>
 		</p>
 	</div>
 </div>'

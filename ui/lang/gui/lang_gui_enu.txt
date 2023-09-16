@@ -91,7 +91,12 @@
     txt_label_logfile="Log file"
 	txt_link_usbautopilot="AutoPilot"
 	txt_autopilot_script_detected="AutoPilot script file detected"
-	xt_autopilot_from="from"
+	txt_autopilot_script_delete="Delete AutoPilot script file from this external disk"
+	txt_autopilot_script_create="Create an empty AutoPilot script file on this external disk"
+	txt_autopilot_script_view="View AutoPilot script file"
+	txt_autopilot_device="Device file"
+	txt_autopilot_memory="Memory Usage"
+	txt_autopilot_from="from"
 	txt_autopilot_use="use"
 	txt_autopilot_service="The AutoPilot device driver for external  disk detection is"
 	txt_autopilot_is_installed="installed"
@@ -114,13 +119,15 @@
 
 	# Basic backup
 	txt_basicbackup_header="Basic backup orders"
-	txt_basicbackup_title_create_script="Create AutoPilot script for a basic backup job"
+	txt_basicbackup_title_create_script="Create AutoPilot script for this basic backup job"
+	txt_basicbackup_title_view_script="View AutoPilot script for this basic backup job"
 	txt_basicbackup_package_name="package name"
 	txt_basicbackup_job_name="Job name"
 
 	# Hyper Backup
 	txt_hyperbackup_header="Hyper Backup Tasks"
-	txt_hyperbackup_title_create_script="Create AutoPilot script for a Hyper Backup task"
+	txt_hyperbackup_title_create_script="Create AutoPilot script for this Hyper Backup task"
+	txt_hyperbackup_title_view_script="View AutoPilot script for this Hyper Backup task"
 	txt_hyperbackup_package_name="package name"
 	txt_hyperbackup_job_name="Job name"
 	
@@ -177,6 +184,7 @@
 	txt_help_setup_step_3="After the shell script statement has been executed, a so-called exit code is usually passed to the system, whose numerical value has a"
 	txt_help_setup_step_4="can be read. If the result is 0, the last executed shell script statement was executed without errors. In this case, AutoPilot would automatically eject the external data carrier. If, on the other hand, you get a numerical value between 1 and 255, this indicates a note, a warning, an error or an abort of the last executed shell script instruction. In this case, AutoPilot would not automatically eject the external drive. This basic behavior can be customized in the AutoPilot settings. Alternatively, instead of the exit code transferred by the system, you can also transfer your own and thus permanently set exit code to AutoPilot, whereby a"
 	txt_help_setup_step_5="AutoPilot mitteilt, das unabhängig vom tatsächlich übergebenen Exit-Code, der externe Datenträger immer ausgeworfen wird. Nachfolgend nochmal das komplette Beispiel-Script."
+
 
 
 
