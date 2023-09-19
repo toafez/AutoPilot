@@ -273,6 +273,7 @@ if [[ "${get[page]}" == "main" && "${get[section]}" == "start" ]]; then
 								IFS="
 								"
 								for backupconfig in ${backupconfigs}; do
+									IFS="$backupIFS"
 									[ -f "${backupconfig}" ] && source "${backupconfig}"
 									backupjob=$(echo "${backupconfig##*/}")
 									backupjob=$(echo "${backupjob%.*}")
