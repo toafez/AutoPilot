@@ -20,7 +20,7 @@ Unter DSM 7 wird eine 3rd_Party Anwendung wie AutoPilot (im folgenden App genann
         
         `/usr/syno/synoman/webman/3rdparty/AutoPilot/permissions.sh "adduser"`
 
-    - Befehl zum beschränken der App-Berechtigungen
+        - Befehl zum beschränken der App-Berechtigungen
 
         `/usr/syno/synoman/webman/3rdparty/AutoPilot/permissions.sh "deluser"`
  
