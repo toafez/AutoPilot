@@ -53,8 +53,8 @@ Unter DSM 7 wird eine 3rd_Party Anwendung wie AutoPilot (im folgenden App genann
 
           `/usr/syno/synoman/webman/3rdparty/AutoPilot/driver.sh "uninstall"`
 
-    - ### UDEV-Gerätetreiber über den DSM Aufgabenplaner (de)-aktivieren
-        - Öffne im DSM unter Hauptmenü > Systemsteuerung den Aufgabenplaner.
+- ### UDEV-Gerätetreiber über den DSM Aufgabenplaner (de)-aktivieren
+    - Öffne im DSM unter Hauptmenü > Systemsteuerung den Aufgabenplaner.
         - Wähle im Aufgabenplaner über die Schaltfläche Erstellen > Geplante Aufgabe > Benutzerdefiniertes Script aus.
         - In dem sich nun öffnenden Pop-up-Fenster gibst du im Reiter Allgemein > Allgemeine Einstellungen der Aufgabe einen individuellen Namen und wählst als Benutzer root aus. Anschließend entfernst du noch den Haken bei Aktiviert.
         - Füge im Reiter Aufgabeneinstellungen > Befehl ausführen > Benutzerdefiniertes Script den nachfolgenden Befehl in das Textfeld ein...
