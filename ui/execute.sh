@@ -195,7 +195,7 @@ if [[ "${connect}" == "true" ]] && [ -n "${mountpoint}" ]; then
 					else
 						# WARNING: Disk could not be ejected.
 						echo "${txt_disk_could_not_be_ejected}" >> "${log}"
-						echo "${txt_system_response}:~# ${umount_check}" >> "${log}"
+						echo "${txt_system_response}:~# ${unmount_check}" >> "${log}"
 						[[ "${signal}" == "true" ]] && signal_warning
 						synodsmnotify -c SYNO.SDS.${app}.Application @administrators ${app}:app:subtitle ${app}:app:autopilot_warning_a "${mountpoint}"
 					fi
