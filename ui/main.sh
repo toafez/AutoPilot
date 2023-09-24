@@ -41,6 +41,10 @@ function local_target()
 		while IFS= read -r share; do
 			IFS="${backupIFS}"
 			[[ -z "${share}" ]] && continue
+			mountpoint=$(mount | grep -E "${volume}/${share##*/}")
+			dev=$(echo "${mountpoint}" | awk '{print $1}')
+			path=$(echo "${mountpoint}" | awk '{print $3}')
+			[[ -z "${dev}" ]] && continue
 			echo -n '<option value="'${share}'"'; \
 				[[ "${var[${2}]}" == "${share}" ]] && echo -n ' selected>' || echo -n '>'
 			echo ''${share}'</option>'
