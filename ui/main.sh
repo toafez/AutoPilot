@@ -64,26 +64,14 @@ if [[ "${get[page]}" == "main" && "${get[section]}" == "start" ]]; then
 	if [ -n "${git_version}" ] && [ -n "${local_version}" ]; then
 		if dpkg --compare-versions ${git_version} gt ${local_version}; then
 			echo '
-			<div class="row">
-				<div class="ol-sm-12">
-					<h5>'${txt_update_available}'</h5>
-					<table class="table table-borderless table-hover table-sm">
-						<thead></thead>
-						<tbody>
-							<tr>
-								<td scope="row" class="row-sm-auto">
-									'${txt_update_from}' <span class="text-danger">'${local_version}'</span> '${txt_update_to}' <span class="text-success">'${git_version}'</span>
-									<td class="text-end"> 
-										<a href="https://github.com/toafez/'${app_name}'/releases" class="btn btn-light btn-sm text-success text-decoration-none" target="_blank">Update</a>
-									</td>
-								</td>'
-									
-								echo '
-							</tr>
-						</tbody>
-					</table><hr />
+			<div class="card">
+				<div class="card-header bg-danger-subtle"><strong>'${txt_update_available}'</strong></div>
+				<div class="card-body">'${txt_update_from}'<span class="text-danger"> '${local_version}' </span>'${txt_update_to}'<span class="text-success"> '${git_version}'</span>
+					<div class="float-end">
+						<a href="https://github.com/toafez/'${app_name}'/releases" class="btn btn-sm text-dark text-decoration-none" style="background-color: #e6e6e6;" target="_blank">Update</a>
+					</div>
 				</div>
-			</div>'	
+			</div><br />'
 		fi
 	fi
 
@@ -91,24 +79,11 @@ if [[ "${get[page]}" == "main" && "${get[section]}" == "start" ]]; then
 	# --------------------------------------------------------------
 	if [ -z "${permissions}" ] || [[ "${permissions}" == "false" ]]; then
 		echo '
-		<div class="row">
-			<div class="col-sm-12">
-				<div class="card">
-					<div class="card-header bg-danger-subtle"><strong>'${txt_group_status}'</strong></div>
- 					<div class="card-body">
-						<table class="table table-borderless table-sm mb-0">
-							<thead></thead>
-							<tbody>
-								<tr>
-									<td scope="row" class="row-sm-auto">'${txt_group_status_false}'
-										<td class="text-end"> 
-											<a href="#help-permissions" class="btn btn-sm text-dark text-decoration-none" style="background-color: #e6e6e6;" data-bs-toggle="modal" data-bs-target="#help-app_permissions">'${txt_button_extend_permission}'</a>
-										</td>
-									</td>
-								</tr>
-							</tbody>
-						</table>
-					</div>
+		<div class="card">
+			<div class="card-header bg-danger-subtle"><strong>'${txt_group_status}'</strong></div>
+			<div class="card-body">'${txt_group_status_false}'
+				<div class="float-end">
+					<a href="#help-permissions" class="btn btn-sm text-dark text-decoration-none" style="background-color: #e6e6e6;" data-bs-toggle="modal" data-bs-target="#help-app_permissions">'${txt_button_extend_permission}'</a>
 				</div>
 			</div>
 		</div><br />'
@@ -118,27 +93,14 @@ if [[ "${get[page]}" == "main" && "${get[section]}" == "start" ]]; then
 	# --------------------------------------------------------------
 	if [ -z "${udev_rule}" ] || [[ "${udev_rule}" == "false" ]] || [[ "${rewrite_udev}" == "true" ]]; then
 		echo '
-		<div class="row">
-			<div class="col-sm-12">
-				<div class="card">
-					<div class="card-header bg-danger-subtle"><strong>'${txt_udev_status}'</strong></div>
- 					<div class="card-body">
-						<table class="table table-borderless table-sm mb-0">
-							<thead></thead>
-							<tbody>
-								<tr>
-									<td scope="row" class="row-sm-auto">'${txt_udev_status_false}'
-										<td class="text-end"> 
-											<a href="#help-udev_device_driver" class="btn btn-sm text-dark text-decoration-none" style="background-color: #e6e6e6;" data-bs-toggle="modal" data-bs-target="#help-udev_device_driver">'${txt_button_install}'</a>
-										</td>
-									</td>
-								</tr>
-							</tbody>
-						</table>
-					</div>
+		<div class="card">
+			<div class="card-header bg-danger-subtle"><strong>'${txt_udev_status}'</strong></div>
+			<div class="card-body">'${txt_udev_status_false}'
+				<div class="float-end">
+					<a href="#help-udev_device_driver" class="btn btn-sm text-dark text-decoration-none" style="background-color: #e6e6e6;" data-bs-toggle="modal" data-bs-target="#help-udev_device_driver">'${txt_button_install}'</a>
 				</div>
 			</div>
-		</div><br />'	
+		</div><br />'
 	fi
 
 	# Externe Datenträger
@@ -148,12 +110,12 @@ if [[ "${get[page]}" == "main" && "${get[section]}" == "start" ]]; then
 		<div class="accordion-item border-0">
 			<div class="accordion-header bg-light p-2">
 				<button class="btn btn-sm text-dark py-0 collapsed" style="background-color: #e6e6e6;" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse-01" aria-expanded="false" aria-controls="flush-collapse-01">
-					<i class="bi bi-caret-down-fill pe-2" style="font-size: 0.9rem;" title=""></i><i class="bi bi-usb-symbol" style="font-size: 1.2rem;" title=""></i>
-				</button>&nbsp;
-				'${txt_external_disks_header}'
+					<i class="bi bi-caret-down-fill pe-2" style="font-size: 0.9rem;"></i><span class="fs-5 pe-1">|</span><i class="bi bi-usb-symbol py-2" style="font-size: 1.2rem;"></i>
+				</button>
+				<span class="ps-2">'${txt_external_disks_header}'</span>
 			</div>
 			<div id="flush-collapse-01" class="accordion-collapse collapse" data-bs-parent="#accordionFlush01">
-				<div class="accordion-body bg-light">'
+				<div class="accordion-body bg-light px-3 ps-5">'
 					function local_sources()
 					{
 						echo '
@@ -164,25 +126,7 @@ if [[ "${get[page]}" == "main" && "${get[section]}" == "start" ]]; then
 									IFS="${backupIFS}"
 									[[ -z "${volume}" ]] && continue
 									found_volume="true"
-									echo '
-									<tr>
-										<td class="bg-light" style="width: 160px">
-											<i class="bi bi-hdd-fill text-secondary"></i>&nbsp;&nbsp;'${volume#*/}'
-										</td>
-										<td class="bg-light" style="width: 120px">
-											'${txt_autopilot_device}'
-										</td>
-										<td class="bg-light" style="width: auto">
-											'${txt_autopilot_memory}'
-										</td>
-										<td class="bg-light" style="width: 40px">
-											&nbsp;
-										</td>
-										<td class="bg-light text-center" style="width: 120px">
-											AutoPilot Script
-										</td>
-									</tr>'	
-					
+
 									while IFS= read -r share; do
 										IFS="${backupIFS}"
 										[[ -z "${share}" ]] && continue
@@ -192,6 +136,7 @@ if [[ "${get[page]}" == "main" && "${get[section]}" == "start" ]]; then
 										#uuid=$(blkid -s UUID -o value ${dev})
 										#type=$(blkid -s TYPE -o value ${dev})
 										#label=$(blkid -s LABEL -o value ${dev})
+										[[ -z "${dev}" ]] && continue
 
 										df=$(df -BG "${path}")
 										df=$(echo "${df}" | sed -e 's/%//g' | awk 'NR > 1 {print $2 " " $3 " " $4 " " $5 " " $6}')
@@ -200,20 +145,35 @@ if [[ "${get[page]}" == "main" && "${get[section]}" == "start" ]]; then
 										#disk_available=$(echo "${df}" | awk '{print $3}' | sed -e 's/G/ GB/g')
 										disk_used_percent=$(echo "${df}" | awk '{print $4}')
 										#disk_mountpoint=$(echo "$df" | awk '{print $5}')
-										
+
 										echo '
 										<tr>
-											<td class="bg-light ps-4" style="width: 160px">&nbsp;&nbsp;
-												<i class="bi bi-folder-fill text-warning"></i>&nbsp;&nbsp;'${share##*/}'
+											<td class="bg-light" style="width: 160px">
+												<i class="bi bi-hdd-fill text-secondary me-2"></i>'${volume#*/}'
 											</td>
-											<td class="bg-light" style="width: 120px">'
-												#[ -f "${path}/autopilot" ] && echo '<span class="text-success">'${txt_autopilot_script_detected}'</span>'
-												echo ''${dev}''
-												echo '
+											<td class="bg-light" style="width: 120px">
+												'${txt_autopilot_device}'
+											</td>
+											<td class="bg-light" style="width: auto">
+												'${txt_autopilot_memory}'
+											</td>
+											<td class="bg-light" style="width: 40px">
+												&nbsp;
+											</td>
+											<td class="bg-light text-center" style="width: 120px">
+												AutoPilot Script
+											</td>
+										</tr>
+										<tr>
+											<td class="bg-light ps-4 me-2" style="width: 160px">
+												<i class="bi bi-folder-fill text-warning me-2"></i>'${share##*/}'
+											</td>
+											<td class="bg-light" style="width: 120px">
+												'${dev}'
 											</td>
 											<td class="bg-light" style="width: auto">
 												<div class="progress" role="progressbar" aria-label="Example with label" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100" style="height: 25px">
-													<div class="progress-bar overflow-visible text-dark bg-primary-subtle" style="width: '${disk_used_percent}'%">&nbsp;&nbsp;&nbsp;'${disk_used_percent}'% '${txt_autopilot_from}' '${disk_free}' '${txt_autopilot_use}'</div>
+													<div class="progress-bar overflow-visible text-dark bg-primary-subtle ps-2" style="width: '${disk_used_percent}'%">'${disk_used_percent}'% '${txt_autopilot_from}' '${disk_free}' '${txt_autopilot_use}'</div>
 												</div>
 											</td>
 											<td class="bg-light" style="width: 40px">
@@ -239,7 +199,6 @@ if [[ "${get[page]}" == "main" && "${get[section]}" == "start" ]]; then
 											</td>
 										</tr>'
 									done <<< "$( find ${volume}/* -maxdepth 0 -type d ! -path '*/lost\+found' ! -path '*/\@*' ! -path '*/\$RECYCLE.BIN' ! -path '*/Repair' ! -path '*/System Volume Information' )"
-									echo '<tr><td class="bg-light" colspan=5>&nbsp;</td></tr>'
 								done <<< "$( find ${1} -type d -maxdepth 0 )"
 								echo '
 							</tbody>
@@ -260,9 +219,9 @@ if [[ "${get[page]}" == "main" && "${get[section]}" == "start" ]]; then
 			<div class="accordion-item border-0 mt-3">
 				<div class="accordion-header bg-light p-2">
 					<button class="btn btn-sm text-dark py-0 collapsed" style="background-color: #e6e6e6;" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse-02" aria-expanded="false" aria-controls="flush-collapse-02">
-						<i class="bi bi-caret-down-fill pe-2" style="font-size: 0.9rem;" title=""></i><i class="bi bi-list" style="font-size: 1.2rem;" title=""></i>
-					</button>&nbsp;
-					'${txt_basicbackup_header}'
+						<i class="bi bi-caret-down-fill pe-2" style="font-size: 0.9rem;"></i><span class="fs-5 pe-1">|</span><i class="bi bi-list py-2" style="font-size: 1.2rem;"></i>
+					</button>
+					<span class="ps-2">'${txt_basicbackup_header}'</span>
 				</div>
 				<div id="flush-collapse-02" class="accordion-collapse collapse" data-bs-parent="#accordionFlush01">
 					<div class="accordion-body bg-light">
@@ -278,14 +237,14 @@ if [[ "${get[page]}" == "main" && "${get[section]}" == "start" ]]; then
 									backupjob=$(echo "${backupconfig##*/}")
 									backupjob=$(echo "${backupjob%.*}")
 									echo '
-									<div class="accordion-item bg-light pt-2 pb-3">
+									<div class="accordion-item bg-light pt-2 pb-3 ps-1 ms-4">
 										'${backupjob}'
 										<div class="float-end">
 
 											<!-- Modal Button-->
 											<button type="button" class="btn btn-sm text-dark py-0" style="background-color: #e6e6e6;" data-bs-toggle="modal" data-bs-target="#BasicBackup'${id}'">
 												<i class="bi bi-file-earmark-plus text-success" style="font-size: 1.2rem;" title="'${txt_basicbackup_title_create_script}'"></i>
-											</button>&nbsp;
+											</button>
 
 											<!-- Modal Popup-->
 											<div class="modal fade" id="BasicBackup'${id}'" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="BasicBackup'${id}'Label" aria-hidden="true">
@@ -366,9 +325,9 @@ if [[ "${get[page]}" == "main" && "${get[section]}" == "start" ]]; then
 			<div class="accordion-item border-0 mt-3">
 				<div class="accordion-header bg-light p-2">
 					<button class="btn btn-sm text-dark py-0 collapsed" style="background-color: #e6e6e6;" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse-03" aria-expanded="false" aria-controls="flush-collapse-03">
-						<i class="bi bi-caret-down-fill pe-2" style="font-size: 0.9rem;" title=""></i><i class="bi bi-list" style="font-size: 1.2rem;" title=""></i>
-					</button>&nbsp;
-					'${txt_hyperbackup_header}'
+						<i class="bi bi-caret-down-fill pe-2" style="font-size: 0.9rem;"></i><span class="fs-5 pe-1">|</span><i class="bi bi-list py-2" style="font-size: 1.2rem;"></i>
+					</button>
+					<span class="ps-2">'${txt_hyperbackup_header}'</span>
 				</div>
 				<div id="flush-collapse-03" class="accordion-collapse collapse" data-bs-parent="#accordionFlush01">
 					<div class="accordion-body bg-light">
@@ -392,17 +351,17 @@ if [[ "${get[page]}" == "main" && "${get[section]}" == "start" ]]; then
 								loop_idx=$((loop_idx+1))
 							done
 							id=0
-								# OUtput line by line via loop over all elements
+								# Output line by line via loop over all elements
 								for ((i=0; i < ${#hyper_backup_job[@]}; i++ )); do
 									echo '
-									<div class="accordion-item bg-light pt-2 pb-3">
+									<div class="accordion-item bg-light pt-2 pb-3 ps-1 ms-4">
 										'${hyper_backup_job[$i]#*=}'
 										<div class="float-end">
 
 											<!-- Modal Button-->
 											<button type="button" class="btn btn-sm text-dark py-0" style="background-color: #e6e6e6;" data-bs-toggle="modal" data-bs-target="#HyperBackup'${id}'">
 												<i class="bi bi-file-earmark-plus text-success" style="font-size: 1.2rem;" title="'${txt_hyperbackup_title_create_script}'"></i>
-											</button>&nbsp;
+											</button>
 
 											<!-- Modal Popup-->
 											<div class="modal fade" id="HyperBackup'${id}'" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="HyperBackup'${id}'Label" aria-hidden="true">
@@ -464,7 +423,7 @@ if [[ "${get[page]}" == "main" && "${get[section]}" == "start" ]]; then
 														pid=$(ps aux | grep -v grep | grep -E "/var/packages/HyperBackup/target/bin/(img_backup|dsmbackup|synoimgbkptool|synolocalbkp|synonetbkp|updatebackup).+-k '${hyper_backup_job[$i]%=*}'" | awk '{print \$2}')<br />
 														while ps -p $pid > /dev/null<br />
 														do<br />
-														&nbsp;&nbsp;&nbsp;&nbsp;sleep 60<br />
+														<span class="ps-3">sleep 60</span><br />
 														done<br />
 														exit ${?}
 													</code>
@@ -478,7 +437,7 @@ if [[ "${get[page]}" == "main" && "${get[section]}" == "start" ]]; then
 							</div>'
 
 							IFS="${backupIFS}"
-							echo '	
+							echo '
 					</div>
 				</div>
 			</div>'
@@ -492,13 +451,13 @@ if [[ "${get[page]}" == "main" && "${get[section]}" == "start" ]]; then
 		<div class="accordion-item border-0 mt-3">
 			<div class="accordion-header bg-light p-2">
 				<button class="btn btn-sm text-dark py-0 collapsed" style="background-color: #e6e6e6;" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse-04" aria-expanded="true" aria-controls="flush-collapse-04">
-					<i class="bi bi-caret-down-fill pe-2" style="font-size: 0.9rem;" title=""></i><i class="bi bi-gear-fill" style="font-size: 1.2rem;" title=""></i>
-				</button>&nbsp;
-				'${txt_autopilot_options_header}'
+					<i class="bi bi-caret-down-fill pe-2" style="font-size: 0.9rem;"></i><span class="fs-5 pe-1">|</span><i class="bi bi-gear-fill py-2" style="font-size: 1.2rem;"></i>
+				</button>
+				<span class="ps-2">'${txt_autopilot_options_header}'</span>
 			</div>
 		<div id="flush-collapse-04" class="accordion-collapse collapse show" data-bs-parent="#accordionFlush01">
-			<div class="accordion-body bg-light px-3">
-				<table class="table table-borderless table-sm">
+			<div class="accordion-body bg-light px-3 ps-5">
+				<table class="table table-borderless table-sm ps-0">
 					<thead></thead>
 					<tbody>
 						<tr>'
@@ -638,9 +597,6 @@ if [[ "${get[page]}" == "main" && "${get[section]}" == "view" ]]; then
 	if [ -f "${target}" ]; then
 		popup_modal "view" "AutoPilot Scriptdatei ansehen" "${target}"
 	fi
-
-	#[ -f "${get_request}" ] && rm "${get_request}"
-	#echo '<meta http-equiv="refresh" content="0; url=index.cgi?page=main&section=start">'
 fi
 
 # AutoPilot Script vom ext. Datenträger löschen
