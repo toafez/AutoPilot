@@ -424,7 +424,7 @@ if [[ "${get[page]}" == "main" && "${get[section]}" == "start" ]]; then
 														# Task name: '${hyper_backup_job[$i]#*=}'<br />
 														<br />
 														/var/packages/HyperBackup/target/bin/dsmbackup --backup "'${hyper_backup_job[$i]%=*}'"<br />
-														pid=$(ps aux | grep -v grep | grep -E "/var/packages/HyperBackup/target/bin/(img_backup|dsmbackup|synoimgbkptool|synolocalbkp|synonetbkp|updatebackup).+-k '${hyper_backup_job[$i]%=*}'" | awk '{print \$2}')<br />
+														pid=$(ps aux | grep -v grep | grep -E "/var/packages/HyperBackup/target/bin/(img_backup|dsmbackup|synoimgbkptool|synolocalbkp|synonetbkp|updatebackup).+-k '${hyper_backup_job[$i]%=*}'" | awk '\''{print \$2}'\'')<br />
 														while ps -p $pid > /dev/null<br />
 														do<br />
 														<span class="ps-3">sleep 60</span><br />
