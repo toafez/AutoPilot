@@ -26,34 +26,43 @@
 # --------------------------------------------------------------
 function popup_modal()
 {
-	# Syntax popupbox "Title" "Content" "expand-content false/true"
+	# Syntax popupbox "Call" "Title" "Content" "Section" "modal-fullscreen"
+	#                  ${1}   ${2}     ${3}      ${4}          ${5}
 	echo '
 	<!-- Modal -->
 	<div class="modal fade" id="popup-validation" tabindex="-1" aria-labelledby="label-validation" aria-hidden="true">
-	  <div class="modal-dialog">
+	  <div class="modal-dialog '${5}'">
 		<div class="modal-content">
 		  <div class="modal-header bg-light">
 			<h5 class="modal-title align-baseline" style="color: #FF8C00;">'${2}'</h5>
 			<a href="index.cgi" onclick="history.go(-1); event.preventDefault();" class="btn-close" aria-label="Close"></a>
 		  </div>
 		  <div class="modal-body">'
-			if [[ "${1}" == "view" ]]; then
-					echo '
-					<i class="bi bi-hdd-fill text-secondary"></i>&nbsp;&nbsp;<strong>'${3}'</strong><br /><br />
-					<div class="card card-body ps-1">
-						<code class="text-dark">'
-							cat "${3}" | while read line; do
-								echo ''${line}'<br>'
-							done
-							echo '
-						</code>
-					</div>'
-					unset line
-				fi
+			if [[ "${1}" == "scriptview" ]]; then
 				echo '
+				<i class="bi bi-hdd-fill text-secondary"></i>&nbsp;&nbsp;<strong>'${3}'</strong><br /><br />
+				<div class="card card-body ps-1">
+					<code class="text-dark">'
+						cat "${3}" | while read line; do
+							echo ''${line}'<br>'
+						done
+						echo '
+					</code>
+				</div>'
+				unset line
+			fi
+			if [[ "${1}" == "protocolview" ]]; then
+				echo '<p class="card-text text-center text-secondary">'${3}'</p>'
+			fi
+			echo '
 		  </div>
 		  <div class="modal-footer bg-light">
-			<a class="btn btn-sm text-dark" style="background-color: #e6e6e6;" href="index.cgi" onclick="history.go(-1); event.preventDefault();" aria-label="Close">'${txt_button_Close}'</a>
+			<a class="btn btn-sm text-dark" style="background-color: #e6e6e6;" href="index.cgi" onclick="history.go(-1); event.preventDefault();" aria-label="Close">'${txt_button_Close}'</a>'
+			if [[ "${1}" == "protocolview" ]]; then
+				echo '
+				<a class="btn btn-sm text-dark" style="background-color: #e6e6e6;" href="index.cgi?page=view&section='${4}'&query=delete&delete=true&file='${get[file]}'"  style="background-color: #e6e6e6;">Löschen</a>'
+			fi
+			echo '
 		  </div>
 		</div>
 	  </div>

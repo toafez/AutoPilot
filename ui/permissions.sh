@@ -25,9 +25,9 @@
 
 app="AutoPilot"
 
-# Funktion: Benutzer einer Gruppe hinzufügen oder entfernen
-# --------------------------------------------------------------
-# Aufruf: synogroupuser "[adduser or deluser]" "GROUP" "USER"
+# Function: Add or remove users from a group
+# ------------------------------------------------- -------------
+# Call: synogroupuser "[adduser or deluser]" "GROUP" "USER"
 function synogroupuser()
 {
 	oldIFS=${IFS}
@@ -71,16 +71,16 @@ function synogroupuser()
 # Set App permissions
 # --------------------------------------------------------------
 
-	# Prüfe ob Version min. DSM 7 entspricht
+	# Check whether version corresponds to at least DSM 7
 	# ----------------------------------------------------------
 	if [ $(synogetkeyvalue /etc.defaults/VERSION majorversion) -ge 7 ]; then
 
-		# AutoPilot der Grupp administrators hinzufügen
+		# Add AutoPilot to the administrators group
 		if [[ "${1}" == "adduser" ]]; then
 			synogroupuser "adduser" "administrators" "AutoPilot"
 		fi
 
-		# AutoPilot aus der Gruppe administrators entfernen
+		# Remove AutoPilot from the administrators group
 		if [[ "${1}" == "deluser" ]]; then
 			synogroupuser "deluser" "administrators" "AutoPilot"
 		fi

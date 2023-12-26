@@ -28,11 +28,11 @@
 # call: /usr/syno/synoman/webman/3rdparty/AutoPilot/driver.sh
 app="AutoPilot"
 
-# Prüfe ob Version min. DSM 7 entspricht
+# Check whether version corresponds to at least DSM 7
 # ----------------------------------------------------------
 if [ $(synogetkeyvalue /etc.defaults/VERSION majorversion) -ge 7 ]; then
 
-	# Autopilot einschalten
+	# Turn on AutoPilot
 	if [[ "${1}" == "install" ]]; then
 		if [ -f /usr/lib/udev/rules.d/99-autopilot.rules ]; then
 			rm -f /usr/lib/udev/rules.d/99-autopilot.rules
@@ -44,7 +44,7 @@ if [ $(synogetkeyvalue /etc.defaults/VERSION majorversion) -ge 7 ]; then
 		synodsmnotify -c SYNO.SDS.${app}.Application @administrators ${app}:app:subtitle ${app}:app:autopilot_enabled
 	fi
 
-	# Autopilot ausschalten
+	# Turn off AutoPilot
 	if [[ "${1}" == "uninstall" ]] && [ -f /usr/lib/udev/rules.d/99-autopilot.rules ]; then
 		rm -f /usr/lib/udev/rules.d/99-autopilot.rules
 		/usr/bin/udevadm control --reload-rules

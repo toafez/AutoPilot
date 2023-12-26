@@ -30,7 +30,12 @@ dir="$(echo `dirname ${0}`)"
 #scriptname="$(echo `basename ${0%.*}`)"
 scriptname="autopilot"
 logpath="${dir}/usersettings/logfiles"
+devpath="${dir}/usersettings/devices"
 logfile="${scriptname}.log"
+
+# Read the version of the AutoPilot app from the INFO.sh file
+# ----------------------------------------------------------
+app_version=$(cat "/var/packages/${app}/INFO" | grep ^version | cut -d '"' -f2)
 
 # Create logfile
 # ----------------------------------------------------------
@@ -124,24 +129,48 @@ fi
 # ----------------------------------------------------------
 if [[ "${connect}" == "true" ]] && [ -n "${mountpoint}" ]; then
 
+	# Extract the local UUID based on device name
+	uuid=$(blkid -s UUID -o value ${device})
+
+	# Determine the file system if there is a 128-bit UUID (LINUX/UNIX)
+	if [[ "${uuid}" =~ ^\{?[A-F0-9a-f]{8}-[A-F0-9a-f]{4}-[A-F0-9a-f]{4}-[A-F0-9a-f]{4}-[A-F0-9a-f]{12}\}?$ ]]; then
+		txt_volume_id="Universally Unique Identifier (UUID)"
+	# Determine the file system if there is a 64 bit VSN (Windows NTFS)
+	elif [[ "${uuid}" =~ ^\{?[A-F0-9a-f]{16}\}?$ ]]; then
+		txt_volume_id="Volume Serial Number (VSN)"
+	# Determine the file system if there is a 32 bit VSN (Windows FAT12, FAT16, FAT32 and exFAT) combined as vFAT
+	elif [[ "${uuid}" =~ ^\{?[A-F0-9a-f]{4}-[A-F0-9a-f]{4}\}?$ ]] || [[ "${ext_uuid}" =~ ^\{?[A-F0-9a-f]{8}\}?$ ]]; then
+		txt_volume_id="Volume Serial Number (VSN)"
+	else
+		txt_volume_id="Universally or Globally Unique Identifier (UUID or GUID) Could not be read"
+	fi
+
+	# Extract the saved UUID from the AutoPilot record of the same name
+	uuidfile="${devpath}/${uuid}"
+	saveduuid="${uuidfile##*/}"
+
+	# Compare the local UUID with the saved UUID AutoPilot record
+	if [ -f "${uuidfile}" ] && [[ "${saveduuid}" == "${uuid}" ]]; then
+		# Extract the path and filename of the script to be executed
+		scriptfile=$(cat "${uuidfile}" | grep scriptpath | cut -d '"' -f2)
+	fi
+
 	# Search autopilot script...
-	if [ -f "${mountpoint}/${scriptname}" ]; then
+	if [ -f "${scriptfile}" ]; then
 		echo "" >> "${log}"
 		echo "${txt_line_separator}"  >> "${log}"
-		echo "$(timestamp) - ${txt_autopilot_starts}" >> "${log}"
+		echo "$(timestamp) - AutoPilot Version ${app_version} ${txt_autopilot_starts}" >> "${log}"
 		echo "${txt_line_separator}" >> "${log}"
-		uuid=$(blkid -s UUID -o value ${device})
-		echo "${txt_ext_detected}" >> "${log}"
-		echo "${txt_disk_detected}: ${disk}" >> "${log}"
+		echo "${txt_ext_detected_step_1} ${disk} ${txt_ext_detected_step_2}" >> "${log}"
 		echo "${txt_device_detected}: ${device}" >> "${log}"
-		echo "${txt_uuid_detected}: ${uuid}" >> "${log}"
 		echo "${txt_mountpoint}: ${mountpoint}" >> "${log}"
-		echo "${txt_autopilot_script_search}" >> "${log}"
+		echo "${txt_volume_id}: ${uuid}" >> "${log}"
+		echo "${txt_autopilot_script_search}: ${scriptfile}" >> "${log}"
 		echo "" >> "${log}"
 		echo "${txt_autopilot_script_found}" >> "${log}"
 
 		# If autopilot script is executable
-		if [ -x "${mountpoint}/${scriptname}" ]; then
+		if [ -x "${scriptfile}" ]; then
 			echo "" >> "${log}"
 			echo "${txt_please_wait}" >> "${log}"
 			echo "" >> "${log}"
@@ -149,7 +178,7 @@ if [[ "${connect}" == "true" ]] && [ -n "${mountpoint}" ]; then
 			synodsmnotify -c SYNO.SDS.${app}.Application @administrators ${app}:app:subtitle ${app}:app:autopilot_start "${mountpoint}"
 
 			# Execute autopilot script
-			${mountpoint}/${scriptname}
+			${scriptfile}
 			exit_script=${?}
 
 			# If autoilot was executed successfully (the exit code is 0 or was manually instructed with 100)

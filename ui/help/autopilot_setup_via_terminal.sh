@@ -31,7 +31,7 @@ echo '
 				<ul class="list-unstyled ps-3">
 					<li>
 						<small>
-							<pre class="text-dark p-1 border border-1 rounded bg-light">cd /volumeUSB1/usbshare</pre>
+							<pre class="text-dark p-1 border border-1 rounded bg-light">cd /volume1/NetBackup</pre>
 						</small>
 					</li>
 				</ul>
@@ -41,8 +41,8 @@ echo '
 				<ul class="list-unstyled ps-3">
 					<li>
 						<small>
-							<pre class="text-dark p-1 border border-1 rounded bg-light">touch autopilot</pre>
-							<pre class="text-dark p-1 border border-1 rounded bg-light">chmod 777 autopilot</pre>
+							<pre class="text-dark p-1 border border-1 rounded bg-light">touch my-shell-script.sh</pre>
+							<pre class="text-dark p-1 border border-1 rounded bg-light">chmod 777 my-shell-script.sh</pre>
 						</small>
 					</li>
 				</ul>
@@ -52,7 +52,7 @@ echo '
 				<ul class="list-unstyled ps-3">
 					<li>
 						<small>
-							<pre class="text-dark p-1 border border-1 rounded bg-light">vim autopilot</pre>
+							<pre class="text-dark p-1 border border-1 rounded bg-light">vim my-shell-script.sh</pre>
 						</small>
 					</li>
 					'${txt_help_setup_terminal_step_5}'
@@ -109,6 +109,7 @@ echo '
 				</ul>
 			</li><br />
 			<li>'${txt_help_setup_terminal_step_7}'</li>
+			<li>'${txt_help_setup_terminal_step_8}'</li>
 		</ol>
 		<p class="text-end"><br />
 			<button type="button" class="btn btn-sm text-dark" style="background-color: #e6e6e6;" data-bs-dismiss="modal">'${txt_button_Close}'</button>

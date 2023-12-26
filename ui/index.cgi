@@ -31,6 +31,8 @@
 	app_link=$(echo /webman/3rdparty/${app_name})
 	[ ! -d "${app_home}" ] && exit
 
+	# Read the version of the AutoPilot app from the INFO.sh file
+	app_version=$(cat "/var/packages/${app_name}/INFO" | grep ^version | cut -d '"' -f2)
 
 # Evaluate app authentication
 # --------------------------------------------------------------
@@ -83,6 +85,10 @@ fi
 	# Set up folder for custom settings
 	usr_systemconfig="${usr_settings}/system"
 	[ ! -d "${usr_systemconfig}" ] && mkdir -p -m 755 "${usr_systemconfig}"
+
+	# Set up folder for device id's
+	usr_devices="${usr_settings}/devices"
+	[ ! -d "${usr_devices}" ] && mkdir -p -m 755 "${usr_devices}"
 
 	# Set up configuration file for AutoPilot
 	usr_autoconfig="${usr_systemconfig}/autopilot.config"
@@ -174,7 +180,7 @@ if [ $(synogetkeyvalue /etc.defaults/VERSION majorversion) -ge 7 ]; then
 	[ -f "${app_home}/modules/parse_language.sh" ] && source "${app_home}/modules/parse_language.sh" || exit
 	language "GUI"
 
-	# Websitefunktionen aus der ../modules/html.function.sh laden
+	# Load Website features from ../modules/html.function.sh
 	[ -f "${app_home}/template/html_functions.sh" ] && source "${app_home}/template/html_functions.sh" || exit
 
 	echo "Content-type: text/html"
@@ -188,19 +194,19 @@ if [ $(synogetkeyvalue /etc.defaults/VERSION majorversion) -ge 7 ]; then
 			<link rel="shortcut icon" href="images/icon_32.png" type="image/x-icon" />
 			<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 
-			<!-- Einbinden eigener CSS Formatierungen -->
+			<!-- Integrating my own CSS formatting -->
 			<link rel="stylesheet" href="template/css/stylesheet.css" />
 
-			<!-- Einbinden von bootstrap Framework 5.3.2 -->
+			<!-- Integrating bootstrap framework 5.3.2 -->
 			<link rel="stylesheet" href="template/bootstrap/css/bootstrap.min.css" />
 
-			<!-- Einbinden von bootstrap Icons 1.11.1 -->
+			<!-- Integrating bootstrap Icons 1.11.1 -->
 			<link rel="stylesheet" href="template/bootstrap/font/bootstrap-icons.css" />
 
-			<!-- Einbinden von jQuery 3.7.1 -->
+			<!-- Integrating jQuery 3.7.1 -->
 			<script src="template/jquery/jquery-3.7.1.min.js"></script>
 
-			<!-- Einbinden von JavaScript bzw. jQuery Funktionen im HTML Header  -->
+			<!-- Integrating JavaScript bzw. jQuery functions in the HTML header  -->
 			<script src="template/js/head-functions.js"></script>
 		</head>
 		<body>
@@ -209,7 +215,7 @@ if [ $(synogetkeyvalue /etc.defaults/VERSION majorversion) -ge 7 ]; then
 				<!-- container -->
 				<div class="container-lg">'
 
-					# Funktion: Hauptnavigation anzeigen
+					# Function: Show main navigation
 					# --------------------------------------------------------------
 					function mainnav()
 					{
@@ -263,7 +269,7 @@ if [ $(synogetkeyvalue /etc.defaults/VERSION majorversion) -ge 7 ]; then
 						<br />'
 					}
 
-					# Funktion: Hilfeartikel im Popupfenster anzeigen
+					# Function: Show help articles in the pop-up window
 					# --------------------------------------------------------------
 					function help_modal ()
 					{
@@ -285,7 +291,7 @@ if [ $(synogetkeyvalue /etc.defaults/VERSION majorversion) -ge 7 ]; then
 						</div>'
 					}
 
-					# Hilfeartikel laden
+					# Load help article
 					# --------------------------------------------------------------
 					help_modal "autopilot" "${txt_link_help_autopilot}"
 					help_modal "autopilot_setup_via_dsm" "${txt_link_help_dsm}"
@@ -304,6 +310,10 @@ if [ $(synogetkeyvalue /etc.defaults/VERSION majorversion) -ge 7 ]; then
 					else
 						help_modal "app_permissions" "${txt_link_expand_permissions}"
 					fi
+
+					# Note Badges
+					# --------------------------------------------------------------
+					note="<span class=\"text-primary text-uppercase ms-1\" style=\"border: solid #e6e6e6; border-width: 2px 4px; border-radius: 3px; background-color: #e6e6e6;\" title=\"${txt_link_note}\"><i class=\"bi bi-info-square\"></i><i class=\"bi bi-caret-down-fill text-dark align-middle pb-1 ps-1\" style=\"font-size: 0.4rem;\"></i></span>"
 
 				# Function: Include header
 				# --------------------------------------------------------------
@@ -330,10 +340,10 @@ if [ $(synogetkeyvalue /etc.defaults/VERSION majorversion) -ge 7 ]; then
 				<!-- container -->
 			</article>
 
-			<!-- Einbinden von bootstrap JavaScript 5.3.2 -->
+			<!-- Integrating bootstrap JavaScript 5.3.2 -->
 			<script src="template/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-			<!-- Einbinden von JavaScript bzw. jQuery Funktionen im HTML body  -->
+			<!-- Integrating JavaScript bzw. jQuery functions in the HTML body  -->
 			<script src="template/js/body-functions.js"></script>
 		</body>
 	</html>'

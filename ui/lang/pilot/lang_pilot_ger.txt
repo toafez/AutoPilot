@@ -21,22 +21,21 @@
 # have received a copy of the GNU General Public  License  along
 # with this program. If not, see http://www.gnu.org/licenses/  !
 
-txt_autopilot_starts="AutoPilot wird ausgeführt"
+txt_autopilot_starts="wird ausgeführt"
 txt_autopilot_ends="AutoPilot beendet"
-txt_ext_detected="Externer Datenträger erkannt!"
-txt_disk_detected="Datenträgername"
+txt_ext_detected_step_1="Externer Datenträger"
+txt_ext_detected_step_2="erkannt!"
 txt_device_detected="Gerätename"
-txt_uuid_detected="UUID"
 txt_mountpoint="Einhängepunkt"
 
-txt_autopilot_script_search="Suche AutoPilot-Script..."
-txt_autopilot_script_found="Das AutoPilot-Script wurde gefunden und wird ausgeführt"
+txt_autopilot_script_search="Suche auszuführendes Script"
+txt_autopilot_script_found="Das Script wurde gefunden und wird ausgeführt"
 txt_please_wait="Bitte warten..."
-txt_script_not_executed="WARNUNG: Das AutoPilot-Script konnte nicht ausgeführt werden!"
+txt_script_not_executed="WARNUNG: Das Script konnte nicht ausgeführt werden!"
 txt_script_check_rights="Bitte passen Sie die Dateirechte entsprechend an."
 txt_backupjob_warning="WARNUNG: Während der Ausführung sind Fehler aufgetreten!"
-txt_autopilot_script_success="Das AutoPilot-Script wurde erfolgreich ausgeführt!"
-txt_autopilot_script_warning="WARNUNG: Das AutoPilot-Script wurde über die manuelle Anweisung<br />(exit 100) beendet. Bitte prüfen Sie, ob die Aufgabe(n) im<br />AutoPilot-Script fehlerfrei ausgeführt wurde(n)!"
+txt_autopilot_script_success="Das Script wurde erfolgreich ausgeführt!"
+txt_autopilot_script_warning="WARNUNG: Das Script wurde über die manuelle Anweisung<br />(exit 100) beendet. Bitte prüfen Sie, ob die Aufgabe(n) im<br />Script fehlerfrei ausgeführt wurde(n)!"
 
 txt_disk_remains_mount="Der externe Datenträger bleibt eingehängt!"
 txt_disk_is_ejected="Der externe Datenträger wird ausgeworfen..."
@@ -46,4 +45,5 @@ txt_exit_code_error="Exit-Code Error"
 txt_system_response="Systemrückmeldung"
 
 txt_line_separator="-------------------------------------------------------------------------------------------------------------------"
+
 

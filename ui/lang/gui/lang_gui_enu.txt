@@ -22,172 +22,187 @@
 # with this program. If not, see http://www.gnu.org/licenses/  !
 
 
-# Globale Sprachvariablen
-# --------------------------------------------------------------
-	#txtAppTitle="AutoPilot für DSM 7""
-	txt_update_available="A new <span class=\"text-success fst-italic\">update</span> is available on GitHub."
-	txt_update_from="Please update your ${app_name} version"
-	txt_update_to="to version"
+# Global language variables
+# ------------------------------------------------- -------------
+#txtAppTitle="AutoPilot for DSM 7"
+txt_update_available="A new <span class=\"text-success fst-italic\">Update</span> is available on GitHub."
+txt_update_from="Please update your ${app_name} version"
+txt_update_to="to the version"
 
-	txt_button_Continue="More"
-	txt_button_Back="Back"
-	txt_button_Cancel="Cancel"
-	txt_button_Close="Close"
-	txt_button_Save="Save"
-	txt_button_delete="Delete"
-	txt_button_delete_now="Delete now"
-	txt_button_install="Install"
-	txt_button_uninstall="Uninstall"
-	txt_button_refresh="Refresh"
-	txt_button_extend_permission="Extend permission"
-	txt_button_revoke_permission="Revoke permission"
-	txt_button_install_driver="Install UDEV device driver"
-	txt_button_uninstall_driver="Uninstall UDEV device driver"
+txt_button_Continue="Continue"
+txt_button_Back="Back"
+txt_button_Cancel="Cancel"
+txt_button_Close="Close"
+txt_button_Save="Save"
+txt_button_delete="Delete"
+txt_button_delete_now="Delete now"
+txt_button_install="Install"
+txt_button_uninstall="Uninstall"
+txt_button_refresh="Refresh"
+txt_button_extend_permission="Extend permission"
+txt_button_revoke_permission="Revoke permission"
+txt_button_install_driver="Install UDEV device driver"
+txt_button_uninstall_driver="Uninstall UDEV device driver"
 
-	txt_link_settings="System Settings"
-	txt_link_expand_permissions="Expand app permissions"
-	txt_link_revoke_permissions="Revoke app permission"
+txt_link_settings="System Settings"
+txt_link_expand_permissions="Expand app permissions"
+txt_link_revoke_permissions="Revoke app permission"
 
-	txt_popup_input_error="Input error!"
-	txt_popup_delete_conf="Deletion confirmation!"
+txt_popup_input_error="Input error!"
+txt_popup_delete_conf="Delete confirmation!"
 
 # app_permissions.sh
-# --------------------------------------------------------------
-	txt_help_permissions_expand_terminal="Extend app permissions from the console"
-	txt_help_permissions_revoke_terminal="Revoke app permissions from the console"
-	txt_help_permissions_expand_dsm="Extend app permissions via DSM Task Scheduler"
-	txt_help_permissions_revoke_dsm="Revoke app permissions via DSM Task Scheduler"
-	txt_help_permissions_step_1="Login to your DiskStation's console as user <span class=\"text-danger fst-italic\">root</span> and run the following command"
-	txt_help_permissions_step_2="In DSM under <span class=\"text-danger fst-italic\">Main Menu</span> > <span class=\"text-danger fst-italic\">Control Panel</span> open the < span class=\"text-danger fst-italic\">Task Scheduler</span>."
-	txt_help_permissions_step_3="In the task scheduler, use the <span class=\"text-danger fst-italic\">Create</span> > <span class=\"text-danger fst-italic\">Scheduled Task</span > > <span class=\"text-danger fst-italic\">Custom Script</span> off."
-	txt_help_permissions_step_4="In the pop-up window that opens, enter <span class=\"text-danger fst-italic\">General</span> > <span class=\"text-danger fst-italic \">General settings</span> for the task and select <span class=\"text-danger fst-italic\">root</span> as the user. Then uncheck <span class =\"text-danger fst-italic\">Enabled</span>."
-	txt_help_permissions_step_5="In the tab <span class=\"text-danger fst-italic\">Task settings</span> > <span class=\"text-danger fst-italic\">Execute command</span> > < span class=\"text-danger fst-italic\">Custom Script</span> enter the following command in the text field..."
-	txt_help_permissions_step_6="Confirm your entries with the <span class=\"text-danger fst-italic\">OK</span> button and also accept the subsequent warning message with <span class=\"text-danger fst-italic\" >OK</span>."
-	txt_help_permissions_step_7="In order for the task to be added to the task scheduler, you must finally enter the password of the user currently logged into the DSM and confirm the process with the <span class=\"text-danger fst-italic\">Send</span> button ."
-	txt_help_permissions_step_8="In the overview of the task planner, you must now <span class=\"text-danger fst-italic\">highlight</span> the just created task with the mouse (the line should have a blue background after highlighting), however <span class=\"text-decoration-underline\">do not tick</span> the checkbox to activate the task permanently."
-	txt_help_permissions_step_9="Now run the task once by pressing the <span class=\"text-danger fst-italic\">Run</span> button."
-	txt_help_permissions_step_10="Close and re-enter ${app_name} for the changes to take effect."
+# ------------------------------------------------- -------------
+txt_help_permissions_expand_terminal="Expand app permissions using the console"
+txt_help_permissions_revoke_terminal="Revoke app permissions via the console"
+txt_help_permissions_expand_dsm="Expand app permissions via DSM Task Scheduler"
+txt_help_permissions_revoke_dsm="Revoke app permissions via DSM Task Scheduler"
+txt_help_permissions_step_1="Log in as user <span class=\"text-danger fst-italic\">root</span> on your DiskStation's console and run the following command"
+txt_help_permissions_step_2="Open the < in the DSM under <span class=\"text-danger fst-italic\">Main Menu</span> > <span class=\"text-danger fst-italic\">Control Panel</span> span class=\"text-danger fst-italic\">Task Scheduler</span>."
+txt_help_permissions_step_3="In the task scheduler, select <span class=\"text-danger fst-italic\">Create</span> > <span class=\"text-danger fst-italic\">Scheduled task</span > > <span class=\"text-danger fst-italic\">Custom script</span>."
+txt_help_permissions_step_4="In the pop-up window that now opens, enter <span class=\"text-danger fst-italic\">General</span> > <span class=\"text-danger fst-italic \">General Settings</span> give the task an individual name and select <span class=\"text-danger fst-italic\">root</span> as the user. Then you uncheck the <span class =\"text-danger fst-italic\">Enabled</span>."
+txt_help_permissions_step_5="In the tab <span class=\"text-danger fst-italic\">Task settings</span> > <span class=\"text-danger fst-italic\">Execute command</span> > < span class=\"text-danger fst-italic\">Custom Script</span> enter the following command in the text field..."
+txt_help_permissions_step_6="Confirm your entries with the <span class=\"text-danger fst-italic\">OK</span> button and accept the subsequent warning message with <span class=\"text-danger fst-italic\" >OK</span>."
+txt_help_permissions_step_7="In order for the task to be added to the task planner, you must finally enter the password of the user currently logged in to the DSM and confirm the process using the <span class=\"text-danger fst-italic\">Send</span> button ."
+txt_help_permissions_step_8="In the overview of the task planner you now have to mark the task you have just created with the mouse <span class=\"text-danger fst-italic\"></span> the line should be highlighted in blue after marking), however <span class=\"text-decoration-underline\">do not</span> tick the checkbox to permanently activate the task."
+txt_help_permissions_step_9="Now execute the task once by clicking the <span class=\"text-danger fst-italic\">Run</span> button."
+txt_help_permissions_step_10="Close and reopen ${app_name} for the changes to take effect."
 
-	#index.cgi
-	# ------------------------------------------------- -------------
-	app_title="AutoPilot <span class=\"text-secondary\">for external storage devices</span>"
-	txt_link_help="Help"
-	txt_link_help_external_storage="Set up an external storage device for AutoPilot"
-	txt_link_help_terminal="Set up AutoPilot for an external disk using the console"
-	txt_link_help_dsm="Set up AutoPilot for an external storage device via the DSM"
-	txt_link_help_install="Install UDEV device driver for detecting external storage devices"
-	txt_link_help_uninstall="Uninstall UDEV device driver for external storage detection"
+#index.cgi
+# ------------------------------------------------- -------------
+app_title="AutoPilot <span class=\"text-secondary\">for external storage devices</span>"
+txt_link_help="Help"
+txt_link_help_external_storage="Set up an external storage device for AutoPilot"
+txt_link_help_terminal="Create a shell script from the console"
+txt_link_help_dsm="Create a shell script via the DSM"
+txt_link_help_install="Install UDEV device driver for detecting external storage devices"
+txt_link_help_uninstall="Uninstall UDEV device driver for external storage detection"
 
-	# Notes - group membership
-	txt_group_status="App permission status"
-	txt_group_status_false="${app_name} only has <span class=\"text-danger\">limited</span> app or system permissions."
+# Notes - group membership
+txt_group_status="App permission status"
+txt_group_status_false="${app_name} only has <span class=\"text-danger\">limited</span> app or system permissions."
 
-	# Notes - UDEV device driver
-	txt_udev_status="UDEV device driver status"
-	txt_udev_status_false="The UDEV device driver required for ${app_name} to detect external storage media is <span class=\"text-danger\">not</span> installed!"
+# Notes - UDEV device driver
+txt_udev_status="UDEV device driver status"
+txt_udev_status_false="The UDEV device driver required for ${app_name} to detect external storage media is <span class=\"text-danger\">not</span> installed!"
 
 # main.sh
-# --------------------------------------------------------------
-    txt_label_logfile="Log file"
-	txt_link_usbautopilot="AutoPilot"
-	txt_autopilot_script_detected="AutoPilot script file detected"
-	txt_autopilot_script_delete="Delete AutoPilot script file from this external disk"
-	txt_autopilot_script_create="Create an empty AutoPilot script file on this external disk"
-	txt_autopilot_script_view="View AutoPilot script file"
-	txt_autopilot_device="Device file"
-	txt_autopilot_memory="Memory Usage"
-	txt_autopilot_from="from"
-	txt_autopilot_use="use"
-	txt_autopilot_service="The AutoPilot device driver for external  disk detection is"
-	txt_autopilot_is_installed="installed"
-	txt_autopilot_is_not_installed="not installed"
-	txt_autopilot_connect="After connecting an external disk, run the AutoPilot script file <span class=\"text-success\">autopilot</span> automatically"
-	txt_autopilot_disconnect="After running the AutoPilot script file the external disk..."
-	txt_autopilot_disconnect_never="never eject"
-	txt_autopilot_disconnect_auto="only eject if the task was processed without errors with a <span class=\"text-success\">exit 0</span> return value"
-	txt_autopilot_disconnect_manual="always eject if the task was manually ended with an <span class=\"text-success\">exit 100</span> return value"
-	txt_autopilot_signal="Trigger visual and audible alerts from your DiskStation while running AutoPilot"
+# ------------------------------------------------- -------------
+txt_label_logfile="Log"
+txt_link_usbautopilot="AutoPilot"
+txt_autopilot_script_detected="Shell script detected"
+txt_autopilot_script_delete="Disconnect this disk, AutoPilot and the shell script"
+txt_autopilot_script_create="Connect this disk with AutoPilot and a shell script"
+txt_autopilot_script_view="View contents of the shell script associated with this disk"
+txt_autopilot_device="Device file"
+txt_autopilot_memory="Memory Usage"
+txt_autopilot_from="from"
+txt_autopilot_use="occupied"
+txt_autopilot_service="The AutoPilot device driver for detecting external storage media is"
+txt_autopilot_is_installed="installed"
+txt_autopilot_is_not_installed="not installed"
 
-	txt_external_disks_header="External disks"
-	txt_hyperbackup_header="Hyper Backup Tasks"
-	txt_autopilot_options_header="AutoPilot Settings"
-	txt_autopilot_create_script="Create AutoPilot Script"
-	txt_autopilot_script_name="AutoPilot script name"
-	txt_autopilot_script_target="Storage location of the AutoPilot script"
-	txt_autopilot_select_external_disk="Select external disk"
-	txt_autopilot_note_script_overwrite="<span class=\"text-danger\">Note: </span>An AutoPilot script that already exists on the selected external storage medium will be overwritten without asking!
+txt_autopilot_create_disk_01="In the following, an empty file with the name <span class=\"text-secondary\"> is first created for the automatic detection and execution of <span class=\"text-secondary\">shell scripts</span> autopilot</span> on the external disk <span class=\"text-secondary\">"
+txt_autopilot_create_disk_02="</span> created. Based on its disk identification number <span class=\"text-secondary\">"
+txt_autopilot_create_disk_03="</span> a clear connection is then established to the <span class=\"text-secondary\">shell script</span> that is actually to be executed, the name and path of which must be specified in the form below. If the < span class=\"text-secondary\">Shell script</span> on an internal volume of the DiskStation ensures that the content cannot be viewed or manipulated by unauthorized persons."
+txt_autopilot_sharedfolder_label="Shared Folder"
+txt_autopilot_targetfolder_label="Target folder (optional)"
+txt_autopilot_targetfolder_note="An additional target directory can be specified. The use of additional subdirectories, which are separated by a <span class=\"text-blue\">/</span> (slash), is possible. If the target directory does not exist , it will be created automatically. Invalid characters in directory names are <span class=\"text-blue\">~ &#34; &#35; &#37; &#38; &#42; &#58; &# 60; &#62; &#63; &#47; &#92; &#123; &#124; &#125;</span>"
+txt_autopilot_targetfolder_format="e.g. script collection"
+txt_autopilot_targetfolder_regex="^([a-zA-Z0-9 _\-\.\/]+)+$"
 
-	# Basic backup
-	txt_basicbackup_header="Basic backup orders"
-	txt_basicbackup_title_create_script="Create AutoPilot script for this basic backup job"
-	txt_basicbackup_title_view_script="View AutoPilot script for this basic backup job"
-	txt_basicbackup_package_name="package name"
-	txt_basicbackup_job_name="Job name"
+txt_autopilot_filename_label="File name of the shell script"
+txt_autopilot_filename_note="Invalid characters in file names are <span class=\"text-blue\">~ &#34; &#35; &#37; &#38; &#42; &#58; &#60; & #62; &#63; &#47; &#92; &#123; &#124; &#125;</span>"
+txt_autopilot_filename_regex="^[0-9a-zA-Z _-]+$"
+txt_autopilot_create_scriptfile_note="<span class=\"text-danger\">Note:</span> If the shell script file does not yet exist, it will be created. Existing script files will not be overwritten!"
 
-	# Hyper Backup
-	txt_hyperbackup_header="Hyper Backup Tasks"
-	txt_hyperbackup_title_create_script="Create AutoPilot script for this Hyper Backup task"
-	txt_hyperbackup_title_view_script="View AutoPilot script for this Hyper Backup task"
-	txt_hyperbackup_package_name="package name"
-	txt_hyperbackup_job_name="Job name"
-	
+txt_autopilot_disk_name="Disk name"
+txt_autopilot_filesystem="Filesystem"
+txt_autopilot_scriptfile="Shell script"
+txt_autopilot_scriptfile_path="Directory"
+txt_autopilot_scriptfile_name="Filename"
+
+txt_autopilot_connect="After connecting an external disk, run the shell script <span class=\"text-success\">autopilot</span> automatically"
+txt_autopilot_disconnect="After executing the shell script, connect the external disk..."
+txt_autopilot_disconnect_never="never eject"
+txt_autopilot_disconnect_auto="only eject if the task was processed without errors by an <span class=\"text-success\">exit 0</span> return value"
+txt_autopilot_disconnect_manual="always eject if the task was manually terminated by an <span class=\"text-success\">exit 100</span> return value"
+txt_autopilot_signal="Trigger visual and audible signals from your DiskStation while AutoPilot is running"
+
+txt_external_disks_header="External disks"
+txt_hyperbackup_header="Hyper Backup Tasks"
+txt_autopilot_options_header="AutoPilot Settings"
+txt_autopilot_create_script="Pass job to shell script"
+txt_autopilot_create_this_script="Pass this job to a shell script"
+txt_autopilot_script_name="AutoPilot Shell Script Name"
+txt_autopilot_script_target="Shell script location"
+txt_autopilot_select_external_disk="Select external disk"
+txt_autopilot_note_script_overwrite="<span class=\"text-danger\">Note: </span>Only shell scripts can be selected that have been previously connected to an external storage medium. Already <span class=\"text-danger fst-italic\">existing file contents will be</span>overwritten without asking <span class=\"text-danger fst-italic\">overwritten</span>!"
+
+# Basic backup
+txt_basicbackup_header="Basic backup jobs"
+txt_basicbackup_package_name="package name"
+txt_basicbackup_job_name="Job name"
+
+# Hyper Backup
+txt_hyperbackup_header="Hyper Backup Tasks"
+txt_hyperbackup_package_name="package name"
+txt_hyperbackup_job_name="Job name"
+
 # udev_device_driver.sh
-# --------------------------------------------------------------
-	txt_help_status_install_terminal="Install device driver via console"
-	txt_help_status_uninstall_terminal="Uninstall device driver via console"
-	txt_help_status_install_dsm="Install device driver via DSM Task Scheduler"
-	txt_help_status_uninstall_dsm="Uninstall device driver via DSM Task Scheduler"
-	txt_help_status_step_1="Login to your DiskStation's console as user <span class=\"text-danger fst-italic\">root</span> and run the following command"
-	txt_help_status_step_2="In DSM under <span class=\"text-danger fst-italic\">Main Menu</span> > <span class=\"text-danger fst-italic\">Control Panel</span> open the < span class=\"text-danger fst-italic\">Task Scheduler</span>."
-	txt_help_status_step_3="In the task scheduler, use the <span class=\"text-danger fst-italic\">Create</span> > <span class=\"text-danger fst-italic\">Scheduled Task</span > > <span class=\"text-danger fst-italic\">Custom Script</span> off."
-	txt_help_status_step_4="In the pop-up window that opens, enter <span class=\"text-danger fst-italic\">General</span> > <span class=\"text-danger fst-italic \">General settings</span> for the task and select <span class=\"text-danger fst-italic\">root</span> as the user. Then uncheck <span class =\"text-danger fst-italic\">Enabled</span>."
-	txt_help_status_step_5="In the tab <span class=\"text-danger fst-italic\">Task settings</span> > <span class=\"text-danger fst-italic\">Execute command</span> > < span class=\"text-danger fst-italic\">Custom Script</span> enter the following command in the text field..."
-	txt_help_status_step_6="Confirm your entries with the <span class=\"text-danger fst-italic\">OK</span> button and also accept the subsequent warning message with <span class=\"text-danger fst-italic\" >OK</span>."
-	txt_help_status_step_7="In order for the task to be added to the task scheduler, you must finally enter the password of the user currently logged into the DSM and confirm the process with the <span class=\"text-danger fst-italic\">Send</span> button ."
-	txt_help_status_step_8="In the overview of the task planner, you must now <span class=\"text-danger fst-italic\">highlight</span> the just created task with the mouse (the line should have a blue background after highlighting), however <span class=\"text-decoration-underline\">do not tick</span> the checkbox to activate the task permanently."
-	txt_help_status_step_9="Now run the task once by pressing the <span class=\"text-danger fst-italic\">Run</span> button."
-	txt_help_status_step_10="Close and re-enter ${app_name} for the changes to take effect."
+# ------------------------------------------------- -------------
+txt_help_status_install_terminal="Install device drivers via console"
+txt_help_status_uninstall_terminal="Uninstall device drivers via console"
+txt_help_status_install_dsm="Install device drivers via DSM Task Scheduler"
+txt_help_status_uninstall_dsm="Uninstall device drivers via DSM Task Scheduler"
+txt_help_status_step_1="Log in as user <span class=\"text-danger fst-italic\">root</span> on your DiskStation's console and run the following command"
+txt_help_status_step_2="Open the < in the DSM under <span class=\"text-danger fst-italic\">Main Menu</span> > <span class=\"text-danger fst-italic\">Control Panel</span> span class=\"text-danger fst-italic\">Task Scheduler</span>."
+txt_help_status_step_3="In the task planner, select <span class=\"text-danger fst-italic\">Create</span> > <span class=\"text-danger fst-italic\">Scheduled task</span > > <span class=\"text-danger fst-italic\">Custom script</span>."
+txt_help_status_step_4="In the pop-up window that now opens, enter <span class=\"text-danger fst-italic\">General</span> > <span class=\"text-danger fst-italic \">General Settings</span> give the task an individual name and select <span class=\"text-danger fst-italic\">root</span> as the user. Then you uncheck the <span class =\"text-danger fst-italic\">Enabled</span>."
+txt_help_status_step_5="In the tab <span class=\"text-danger fst-italic\">Task settings</span> > <span class=\"text-danger fst-italic\">Execute command</span> > < span class=\"text-danger fst-italic\">Custom Script</span> enter the following command in the text field..."
+txt_help_status_step_6="Confirm your entries with the <span class=\"text-danger fst-italic\">OK</span> button and accept the subsequent warning message with <span class=\"text-danger fst-italic\" >OK</span>."
+txt_help_status_step_7="In order for the task to be added to the task planner, you must finally enter the password of the user currently logged in to the DSM and confirm the process using the <span class=\"text-danger fst-italic\">Send</span> button ."
+txt_help_status_step_8="In the overview of the task planner you now have to mark the task you just created with the mouse <span class=\"text-danger fst-italic\"></span> the line should be highlighted in blue after marking), however <span class=\"text-decoration-underline\">do not</span> tick the checkbox to permanently activate the task."
+txt_help_status_step_9="Now execute the task once by clicking the <span class=\"text-danger fst-italic\">Run</span> button."
+txt_help_status_step_10="Close the ${app_name} and open it again
 
 # view.sh
-# --------------------------------------------------------------
-	txt_view_logfile="AutoPilot protocol"
-	txt_view_logfile_not_found="No log files found!"
-	txt_button_download_logfile="Download log"
-	txt_button_delete_logfile="Delete log"
-	txt_popup_delete="Delete Confirmation!"
-	txt_popup_delete_logfile="Are you sure you want to delete the contents of the log?"
+# ------------------------------------------------- -------------
+txt_view_logfile="AutoPilot log"
+txt_view_scriptfile="View contents of shell script to be executed"
+txt_view_logfile_not_found="No log entries found!"
+txt_button_download_logfile="Download log"
+txt_button_delete_logfile="Delete log"
+txt_popup_delete="Delete confirmation!"
+txt_popup_delete_logfile="Do you really want to delete the contents of the log?"
 
 # setup_via_dsm.sh
-# --------------------------------------------------------------
-	txt_help_setup_dsm_step_1="Install the <span class=\"text-danger fst-italic\">text editor</span> from the DSM package center."
-	txt_help_setup_dsm_step_2="Open the text editor and use the <span class=\"text-danger fst-italic\">File</span> > <span class=\"text-danger fst-italic\">New</span > a new text or <span class=\"text-danger fst-italic\">shell script file</span>. Now start writing the actual shell script."
-	txt_help_setup_dsm_step_3="Then save the shell script file you just created using the <span class=\"text-danger fst-italic\">File</span> > <span class=\"text-danger fst-italic\">Save as button. ..</span> select the root directory of the desired external data carrier as the storage location, e.g. /usbshare and enter <span class=\"text-danger fst-italic\">autopilot</span> as the file name without the file extension. Confirm your entries by pressing the <span class=\"text-danger fst-italic\">Save</span> button."
-	txt_help_setup_dsm_step_4="To ensure that the shell script file <span class=\"text-danger fst-italic\">autopilot</span> has the attribute <span class=\"text-danger fst-italic\">run</span> has, open the <span class=\"text-danger fst-italic\">File Station</span> and switch to the external data medium on which the autopilot file is located. Call up the <span class=\"text-danger fst-italic\">context menu</span> by right-clicking on the autopilot file and selecting <span class=\"text-danger fst-italic\"> Properties</span>."
-	txt_help_setup_dsm_step_5="If you are offered several checkboxes in the <span class=\"text-danger fst-italic\">Authorization</span> tab, you can use the <span class=\"text-danger fst-italic\">read, write - and Execute Permission</span> for <span class=\"text-danger fst-italic\">Owner, Group and Other</span>, then make sure the <span class=\"text-danger fst -italic\">all</span> checkboxes are checked. Save possible changes afterwards using the <span class=\"text-danger fst-italic\">Save</span> button."
-	txt_help_setup_dsm_step_6="If the checkboxes just mentioned are not offered in the <span class=\"text-danger fst-italic\">Authorization</span> tab, then use the <span class=\"text-danger fst-italic\" button to create >Create</span> a new permission. From the selection menu under <span class=\"text-danger fst-italic\">User or Group</span>, select Everyone and under <span class=\"text-danger fst-italic\"> type</span>, allow off. Check all checkboxes for <span class=\"text-danger fst-italic\">administration, reading and writing</span> under <span class=\"text-danger fst-italic\">Permissions</span> > and click the <span class=\"text-danger fst-italic\">Done</span> button. Then save your changes using the <span class=\"text-danger fst-italic\">Save</span> button."
-	txt_help_setup_dsm_step_7="Eject the external disk via DSM. The next time the external data carrier is plugged in, the content of the script file just created will be executed."
+# ------------------------------------------------- -------------
+txt_help_setup_dsm_step_1="Install the <span class=\"text-danger fst-italic\">Text Editor</span> from the DSM Package Center."
+txt_help_setup_dsm_step_2="Open the text editor and use the button to create <span class=\"text-danger fst-italic\">File</span> > <span class=\"text-danger fst-italic\">New </span> a new text or <span class=\"text-danger fst-italic\">shell script file</span>. Now start writing the actual shell script."
+txt_help_setup_dsm_step_3="Then save the shell script file you just created using the <span class=\"text-danger fst-italic\">File</span> > <span class=\"text-danger fst-italic\"> button Save as...</span>, select a location within a shared folder on your DiskStation, give the file a unique name and use <span class=\"text-danger fst-italic\">.sh< as the file extension /span> . Confirm your entries by pressing the <span class=\"text-danger fst-italic\">Save</span> button."
+txt_help_setup_dsm_step_4="To ensure that the shell script file has the <span class=\"text-danger fst-italic\">Run</span> attribute, open the <span class=\"text-danger fst-italic\ ">File Station</span> and switch to the corresponding storage location. By right-clicking on the file, call up the <span class=\"text-danger fst-italic\">context menu</span> and select the item < span class=\"text-danger fst-italic\">Properties</span>."
+txt_help_setup_dsm_step_5="You will be offered several checkboxes in the <span class=\"text-danger fst-italic\">Authorization</span> tab, which you can read about -, Write and Execute permission</span> for <span class=\"text-danger fst-italic\">Owner, Group and Other</span>, then make sure the <span class=\"text -danger fst-italic\">all</span> checkboxes are checked. Save possible changes afterwards using the <span class=\"text-danger fst-italic\">Save</span> button."
+txt_help_setup_dsm_step_6="If the checkboxes just mentioned are not offered to you in the <span class=\"text-danger fst-italic\">Authorization</span> tab, then create one using the <span class=\"text-danger fst-italic\">button italic\">Create</span> a new permission. Select from the selection menu under <span class=\"text-danger fst-italic\">User or Group</span>, Everyone and under <span class=\"text-danger fst-italic\">Type</span>, Allow off. Check all checkboxes for < under <span class=\"text-danger fst-italic\">Permissions</span> span class=\"text-danger fst-italic\">Administration, reading and writing</span> and click on the <span class=\"text-danger fst-italic\">Done</span> button. Then save your changes using the <span class=\"text-danger fst-italic\">Save</span> button."
+txt_help_setup_dsm_step_7="Open AutoPilot and switch to the drop-down menu <span class=\"text-danger\">"External disks"</span>. Establish a connection between the desired external disk and the shell script file you just created by click on the <i class=\"bi bi-link-45deg text-success bg-light\" style=\"font-size: 1.2rem;\"></i> button. Now follow the instructions displayed."
+txt_help_setup_dsm_step_8="Eject the external storage device via the DSM. The next time you plug in the external storage device, the contents of the script file you just created will be executed."
 
 # setup_via_terminal.sh
-# --------------------------------------------------------------
-	txt_help_setup_terminal_step_1="Log in to your DiskStation's console as the <span class=\"text-danger fst-italic\">root</span> user."
-	txt_help_setup_terminal_step_2="Change to the root directory of the external data medium for which you want to set up the AutoPilot function, e.g."
-	txt_help_setup_terminal_step_3="Create a new shell script file named <span class=\"text-danger fst-italic\">autopilot</span> and adjust the file permissions accordingly. (<span class=\"text-danger fst-italic\">Important:</span> The shell script file must always have the attribute <span class=\"text-danger fst-italic\">Execute</ span> own)."
-	txt_help_setup_terminal_step_4="There are several ways to fill the shell script file with content. One of them would be using the <span class=\"text-danger fst-italic\">vim</span> editor."
-	txt_help_setup_terminal_step_5="After calling vim, you are initially in command mode. Therefore, the content of the autopilot file, which is still empty, is only displayed. In order to be able to enter text, you have to switch to insert mode, i.e. text insertion mode, with the [<span class=\"text-danger\"> i </span>] key (<span class=\"text -danger fst-italic\">Important:</span> do not enter any text beforehand!). Now start typing." 
-	txt_help_setup_terminal_step_6="When all entries are done, press the [<span class=\"text-danger\"> Esc </span>] key to return to command mode. To save your entries, enter [<span class=\"text-danger\">:w </span>] followed by the return key. To exit the editor, type [<span class=\"text-danger\"> :q </span>] again followed by the return key."
-	txt_help_setup_terminal_step_7="Eject the external disk via DSM. The next time the external data carrier is plugged in, the content of the script file just created will be executed."
+# ------------------------------------------------- -------------
+txt_help_setup_terminal_step_1="Log in as a user from the group of <span class=\"text-danger fst-italic\">administrators</span> or as a user <span class=\"text-danger fst-italic\"> root</span> on your DiskStation's console."
+txt_help_setup_terminal_step_2="Switch to a location within a shared folder on your DiskStation e.g."
+txt_help_setup_terminal_step_3="Create a new shell script file, give the file a unique name, use <span class=\"text-danger fst-italic\">.sh</span> as the file extension and adjust the file permissions accordingly. ( Important: The shell script file must always have the <span class=\"text-danger fst-italic\">Execute attribute</span>."
+txt_help_setup_terminal_step_4="There are several options available to fill the shell script file with content. One of them would be to use the editor <span class=\"text-danger fst-italic\">vim</span>."
+txt_help_setup_terminal_step_5="After calling vim, you will initially be in command mode. Therefore, the contents of the still empty file autopilot will only be displayed to you. In order to be able to enter text, you must press the [<span class=\"text-danger\" key. "> i </span>] switch to insert mode, i.e. text insertion mode (<span class=\"text-danger fst-italic\">Important:</span> do not enter any text beforehand!). Begin now with the input."
+txt_help_setup_terminal_step_6="Once all entries have been made, press the [<span class=\"text-danger\"> Esc </span>] key to return to command mode. To save your entries, now enter [<span class =\"text-danger\">:w </span>] followed by the return key. To exit the editor, enter [<span class=\"text-danger\"> :q </span >] again followed by the return key."
+txt_help_setup_terminal_step_7="Close the console window by entering the command <span class=\"text-danger fst-italic\">exit</span>. Log in to the DSM, open AutoPilot and switch to the drop-down menu <span class=\" text-danger\">"External disks".</span> Establish a connection between the desired external disk and the shell script file you just created by clicking the button <i class=\"bi bi-link-45deg text -success bg-light\" style=\"font-size: 1.2rem;\"></i> click. Now follow the instructions displayed."
+txt_help_setup_terminal_step_8="Eject the external storage device via the DSM. The next time you plug in the external storage device, the contents of the script file you just created will be executed."
 
 # setup_via_dsm.sh and setup_via_terminal.sh
-# --------------------------------------------------------------
-	txt_help_setup_step_1="Each shell script begins with the shebang, i.e. the specification of the interpreter or shell to be used."
-	txt_help_setup_step_2="Starting with the second line, there are individual shell script instructions that AutoPilot should execute. In the following example, a data backup is to be carried out using the rsync program. At this point, for example, a basic backup or hyper backup job could also be executed."
-	txt_help_setup_step_3="After the shell script statement has been executed, a so-called exit code is usually passed to the system, whose numerical value has a"
-	txt_help_setup_step_4="can be read. If the result is 0, the last executed shell script statement was executed without errors. In this case, AutoPilot would automatically eject the external data carrier. If, on the other hand, you get a numerical value between 1 and 255, this indicates a note, a warning, an error or an abort of the last executed shell script instruction. In this case, AutoPilot would not automatically eject the external drive. This basic behavior can be customized in the AutoPilot settings. Alternatively, instead of the exit code transferred by the system, you can also transfer your own and thus permanently set exit code to AutoPilot, whereby a"
-	txt_help_setup_step_5="AutoPilot mitteilt, das unabhängig vom tatsächlich übergebenen Exit-Code, der externe Datenträger immer ausgeworfen wird. Nachfolgend nochmal das komplette Beispiel-Script."
-
-
-
-
-
-
+# ------------------------------------------------- -------------
+txt_help_setup_step_1="Every shell script begins with the shebang, i.e. the specification of the interpreter or shell to be used."
+txt_help_setup_step_2="From the second line onwards, individual shell script instructions follow that AutoPilot should execute. In the following example, a data backup should be carried out using the rsync program. At this point, for example, a basic backup or hyper backup job could also be carried out."
+txt_help_setup_step_3="After the shell script instruction has been executed, a so-called exit code is usually passed to the system, the numerical value of which is given via a"
+txt_help_setup_step_4="can be read. If the result is 0, the last executed shell script instruction was executed without errors. In this case, AutoPilot would automatically eject the external disk. However, if you get a numerical value between 1 and 255, this indicates a note, a warning, an error or an abort of the last executed shell script statement. In this case, the external storage medium would not be automatically ejected by AutoPilot. This basic behavior can be individually adjusted in the AutoPilot settings. Alternatively, instead of the exit code passed by the system, this can also be done an own and thus permanently set exit code can be passed to AutoPilot, whereby a "
+txt_help_setup_step_5="AutoPilot informs that, regardless of the exit code actually passed, the external disk is always ejected. Below is the complete example script."
 

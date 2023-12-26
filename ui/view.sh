@@ -74,7 +74,7 @@ if [[ "${get[page]}" == "view" ]]; then
 						echo '&nbsp;<a href="index.cgi?page=view&section=autopilot&query=delete&file='${get[file]}'" class="btn btn-secondary btn-sm">'${txt_button_delete_logfile}'</a>'
 					fi
 					echo '
-					<a href="index.cgi?page=main&section=start" class="btn btn-secondary btn-sm" aria-label="Close">'${txt_button_Close}'</a>
+					<a href="index.cgi?page=main&section=start&expand=true" class="btn btn-secondary btn-sm" aria-label="Close">'${txt_button_Close}'</a>
 				</div>
 			</div>
 		</div>
@@ -88,7 +88,7 @@ if [[ "${get[page]}" == "view" ]]; then
 	# Protokoll löschen
 	# --------------------------------------------------------------
 	if [[ "${get[query]}" == "delete" ]] && [ -z "${get[delete]}" ]; then
-		[[ "${get[section]}" == "autopilot" ]] && popup_modal "view" "${txt_popup_delete}" "${txt_popup_delete_logfile}" "" "autopilot"
+		[[ "${get[section]}" == "autopilot" ]] && popup_modal "protocolview" "${txt_popup_delete}" "${txt_popup_delete_logfile}" "autopilot" ""
 	elif [[ "${get[query]}" == "delete" ]]  && [[ "${get[delete]}" == "true" ]]; then
 		[ -f "${get_request}" ] && rm "${get_request}"
 		[ -f "${get[file]}" ] && :> "${get[file]}"
