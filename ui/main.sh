@@ -192,13 +192,17 @@ if [[ "${get[page]}" == "main" && "${get[section]}" == "start" ]]; then
 											txt_volume_id_failed="<span class=\"text-danger\">Could not be read</span>"
 										fi
 
+										# Lege den Pfad zur gleichnamigen, intern abgelegten UUID-Scriptdatei fest
+										[[ "${ext_guid}" == "true" ]] && uuidfile="${usr_devices}/${ext_uuid}"
+
 										echo '
 										<tr>
 											<td colspan="4">
 												<i class="bi bi-hdd-fill text-secondary me-2"></i><span class="fw-medium">'${ext_volume#*/}'</span>
 											</td>
 											<td class="text-end pe-4">'
-												if [ -f "${ext_volume}/${ext_share##*/}/autopilot" ] && [ ! -s "${ext_volume}/${ext_share##*/}/autopilot" ]; then
+												# Wenn autopilot Scriptdatei existiert leer ist und interne UUID/GUID Datei existiert, dann...
+												if [ ! -s "${ext_volume}/${ext_share##*/}/autopilot" ] && [ -f "${uuidfile}" ]; then
 													echo '
 													<a class="btn btn-sm text-dark py-0" style="background-color: #e6e6e6;" href="index.cgi?page=main&section=view&extpath='${ext_path}'&extuuid='${ext_uuid}'">
 														<i class="bi bi-terminal-fill" style="font-size: 1.2rem;" title="'${txt_autopilot_script_view}'"></i>
@@ -206,12 +210,14 @@ if [[ "${get[page]}" == "main" && "${get[section]}" == "start" ]]; then
 													<a class="btn btn-sm text-dark py-0" style="background-color: #e6e6e6;" href="index.cgi?page=main&section=delete&extpath='${ext_path}'&extuuid='${ext_uuid}'">
 														<i class="bi bi-trash text-danger" style="font-size: 1.2rem;" title="'${txt_autopilot_script_delete}'"></i>
 													</a>'
-												elif [ -f "${ext_volume}/${ext_share##*/}/autopilot" ] && [ -s "${ext_volume}/${ext_share##*/}/autopilot" ]; then
+												# Wenn autopilot Scriptdatei existiert aber nicht leer ist, dann...
+												elif [ -s "${ext_volume}/${ext_share##*/}/autopilot" ]; then
 													echo '
 													<a class="btn btn-sm text-danger py-0" style="background-color: #e6e6e6;" href="index.cgi?page=main&section=view&extpath='${ext_volume}/${ext_share##*/}'&extuuid=">
 														<i class="bi bi-exclamation-triangle" style="font-size: 1.2rem;" title="'${txt_autopilot_autopilot_view}'"></i>
 													</a>'
-												elif [[ "${ext_guid}" == "true" ]]; then
+												# Wenn autopilot Scriptdatei existiert, leer ist und UUID/GUID gelesen werden konnte dann...
+												elif [ -s "${ext_volume}/${ext_share##*/}/autopilot" ] && [ -f "${uuidfile}" ]; then
 													# Ist die Startdatei autopilot auf dem ext. Datenträger nicht vorhanden, dann lösche den zugehörigen Device Eintrag 
 													if [ ! -f "${ext_volume}/${ext_share##*/}/autopilot" ]; then
 														rm /volume*/@appstore/AutoPilot/ui/usersettings/devices/${ext_uuid}
@@ -293,10 +299,9 @@ if [[ "${get[page]}" == "main" && "${get[section]}" == "start" ]]; then
 													</script>'
 												else
 													echo '
-													<!-- Modal Button-->
-													<button type="button" class="btn btn-sm text-dark py-0" style="background-color: #e6e6e6;" disabled>
-														<i class="bi bi-file-earmark-plus text-danger" style="font-size: 1.2rem;" title="'${txt_autopilot_script_create}'"></i>
-													</button>'
+													<span class="btn btn-sm text-dark py-0" style="background-color: #e6e6e6; cursor: default;">
+														<i class="bi bi-file-earmark-x text-danger" style="font-size: 1.2rem;" title="'${txt_autopilot_autopilot_delete}'"></i>
+													</span>'
 												fi
 												echo '
 											</td>

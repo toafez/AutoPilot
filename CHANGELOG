@@ -1,13 +1,17 @@
 AutoPilot Release Notes
 
 
-Version 1.1-000 vom 27.12.2023
+Version 1.1-000 vom 28.12.2023
 
  -Deutsch
     - Update Bootsrap Icons auf 1.11.2
+    - Das AutoPilot Protokoll konnte nicht gelöscht bzw. geleert werden. Fehler wurde behoben. 
+    - Änderungen in der Arbeits- und Funktionsweise von AutoPilot vorgenommen, welche die Systemsicherheit stark verbessern. Dies erfordert jedoch manuelle Anpassungen des Benutzers, da hierbei u.a. der Speicherort eines auszuführenden Shell-Scriptdatei neu definiert werden muss. 
 
  -English
     - Update Bootsrap Icons to 1.11.2
+    - The AutoPilot log could not be deleted or emptied. Bug has been fixed.
+    - Changes have been made to the way AutoPilot works and functions, which greatly improve system security. However, this requires manual adjustments by the user because, among other things, the storage location of a shell script file to be executed must be redefined.
 
 
 Version 1.0-300 vom 24.09.2023
