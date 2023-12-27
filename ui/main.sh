@@ -216,8 +216,8 @@ if [[ "${get[page]}" == "main" && "${get[section]}" == "start" ]]; then
 													<a class="btn btn-sm text-danger py-0" style="background-color: #e6e6e6;" href="index.cgi?page=main&section=view&extpath='${ext_volume}/${ext_share##*/}'&extuuid=">
 														<i class="bi bi-exclamation-triangle" style="font-size: 1.2rem;" title="'${txt_autopilot_autopilot_view}'"></i>
 													</a>'
-												# Wenn autopilot Scriptdatei existiert, leer ist und UUID/GUID gelesen werden konnte dann...
-												elif [ -s "${ext_volume}/${ext_share##*/}/autopilot" ] && [ -f "${uuidfile}" ]; then
+												# Wenn autopilot Startdatei nicht existiert und UUID/GUID gelesen werden konnte dann...
+												elif [ ! -f "${ext_volume}/${ext_share##*/}/autopilot" ] && [[ "${ext_guid}" == "true" ]]; then
 													# Ist die Startdatei autopilot auf dem ext. Datenträger nicht vorhanden, dann lösche den zugehörigen Device Eintrag 
 													if [ ! -f "${ext_volume}/${ext_share##*/}/autopilot" ]; then
 														rm /volume*/@appstore/AutoPilot/ui/usersettings/devices/${ext_uuid}
