@@ -49,9 +49,9 @@ if [[ "${get[page]}" == "view" ]]; then
 									# Gebe Dateiinhalt aus
 									echo '
 									<div class="text-monospace text-nowrap" style="font-size: 87.5%;">'
-										cat "${get[file]}" | while read line; do
+										while read line; do
 											echo ''${line}'<br>'
-										done
+										done < "${get[file]}"
 										unset line
 										echo '
 									</div>'

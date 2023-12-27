@@ -94,6 +94,7 @@ txt_autopilot_script_detected="Shell script detected"
 txt_autopilot_script_delete="Disconnect this disk, AutoPilot and the shell script"
 txt_autopilot_script_create="Connect this disk with AutoPilot and a shell script"
 txt_autopilot_script_view="View contents of the shell script associated with this disk"
+txt_autopilot_autopilot_view="View contents of the autopilot script file located on this disk"
 txt_autopilot_device="Device file"
 txt_autopilot_memory="Memory Usage"
 txt_autopilot_from="from"
@@ -139,6 +140,9 @@ txt_autopilot_script_target="Shell script location"
 txt_autopilot_select_external_disk="Select external disk"
 txt_autopilot_note_script_overwrite="<span class=\"text-danger\">Note: </span>Only shell scripts can be selected that have been previously connected to an external storage medium. Already <span class=\"text-danger fst-italic\">existing file contents will be</span>overwritten without asking <span class=\"text-danger fst-italic\">overwritten</span>!"
 
+txt_autopilot_change_note_step_1="<span class=\"text-danger fst-italic\">Important note:</span> From AutoPilot version 1.1-000 <span class=\"text-danger fst-italic\">the content of the autopilot script file is no longer executed</span>, but only checked whether there is an empty file with the name autopilot on the external storage medium."
+txt_autopilot_change_note_step_2="Please move the contents of the current autopilot script file to a location within a shared folder on your DiskStation, give the file a new, unique name and make sure to use <span class=\"text-danger fst-italic\"> as the file extension .sh</span>. Then delete the autopilot script file from this external storage medium."
+
 # Basic backup
 txt_basicbackup_header="Basic backup jobs"
 txt_basicbackup_package_name="package name"
@@ -170,6 +174,7 @@ txt_help_status_step_10="Close the ${app_name} and open it again
 # ------------------------------------------------- -------------
 txt_view_logfile="AutoPilot log"
 txt_view_scriptfile="View contents of shell script to be executed"
+txt_view_autopilotfile="Show contents of the autopilot script file"
 txt_view_logfile_not_found="No log entries found!"
 txt_button_download_logfile="Download log"
 txt_button_delete_logfile="Delete log"
@@ -205,4 +210,5 @@ txt_help_setup_step_2="From the second line onwards, individual shell script ins
 txt_help_setup_step_3="After the shell script instruction has been executed, a so-called exit code is usually passed to the system, the numerical value of which is given via a"
 txt_help_setup_step_4="can be read. If the result is 0, the last executed shell script instruction was executed without errors. In this case, AutoPilot would automatically eject the external disk. However, if you get a numerical value between 1 and 255, this indicates a note, a warning, an error or an abort of the last executed shell script statement. In this case, the external storage medium would not be automatically ejected by AutoPilot. This basic behavior can be individually adjusted in the AutoPilot settings. Alternatively, instead of the exit code passed by the system, this can also be done an own and thus permanently set exit code can be passed to AutoPilot, whereby a "
 txt_help_setup_step_5="AutoPilot informs that, regardless of the exit code actually passed, the external disk is always ejected. Below is the complete example script."
+
 

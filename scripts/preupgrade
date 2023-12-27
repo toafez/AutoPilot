@@ -12,6 +12,15 @@
 
 TIMESTAMP=$(date '+%Y-%m-%d%t%H:%M:%S')
 
+case $SYNOPKG_DSM_LANGUAGE in
+	ger)
+	echo "<h3 style=\"color: red;\>Wichtiger Hinweis:</h3>Ab AutoPilot Version 1.1-000 wird der Inhalt der autopilot Scriptdatei nicht mehr ausgeführt, sondern nur noch geprüft, ob sich eine leere Datei mit dem Namen autopilot auf dem externen Datenträger befindet.<br /><br />Verschiebe daher bitte den Inhalt der aktuellen autopilot Scriptdatei an einen Ort innerhalb eines freigegebenen Ordners deiner DiskStation, gib der Datei einen neuen, eindeutigen Namen und verwende als Dateiendung zwingend .sh. Lösche anschließend die autopilot Scriptdatei von dem externen Datenträger.<br /><br />Weitere Informationen erhälst du in der AutoPilot App." > $SYNOPKG_TEMP_LOGFILE
+	;;
+	enu)
+	echo "<h3 style=\"color: red;\>Important note:</h3>As of AutoPilot version 1.1-000, the contents of the autopilot script file are no longer executed, but only checked whether there is an empty file with the name autopilot The external storage medium is located.<br /><br />Please move the contents of the current autopilot script file to a location within a shared folder on your DiskStation, give the file a new, unique name and make sure to use .sh as the file extension. Then delete it the autopilot script file from the external data carrier.<br /><br />You can find further information in the AutoPilot app." > $SYNOPKG_TEMP_LOGFILE
+	;;
+esac
+
 # Backup user settings
 # -------------------------------------------------------------------------------------
 if [ ! -d "${SYNOPKG_TEMP_UPGRADE_FOLDER}/usersettings" ]; then

@@ -200,7 +200,7 @@ if [ $(synogetkeyvalue /etc.defaults/VERSION majorversion) -ge 7 ]; then
 			<!-- Integrating bootstrap framework 5.3.2 -->
 			<link rel="stylesheet" href="template/bootstrap/css/bootstrap.min.css" />
 
-			<!-- Integrating bootstrap Icons 1.11.1 -->
+			<!-- Integrating bootstrap Icons 1.11.2 -->
 			<link rel="stylesheet" href="template/bootstrap/font/bootstrap-icons.css" />
 
 			<!-- Integrating jQuery 3.7.1 -->

@@ -94,6 +94,7 @@ txt_autopilot_script_detected="Shell-Scriptd erkannt"
 txt_autopilot_script_delete="Die Verbindung zwischen diesen Datenträger, AutoPilot und dem Shell-Script lösen"
 txt_autopilot_script_create="Diesen Datenträger mit AutoPilot und einem Shell-Script verbinden"
 txt_autopilot_script_view="Inhalt des Shell-Scripts anzeigen, das mit diesem Datenträger verbundenen ist"
+txt_autopilot_autopilot_view="Inhalt der autopilot Scriptdatei anzeigen, die sich auf diesem Datenträger befindet"
 txt_autopilot_device="Gerätedatei"
 txt_autopilot_memory="Speicherauslastung"
 txt_autopilot_from="von"
@@ -139,6 +140,9 @@ txt_autopilot_script_target="Speicherort des Shell-Scripts"
 txt_autopilot_select_external_disk="Externen Datenträger auswählen"
 txt_autopilot_note_script_overwrite="<span class=\"text-danger\">Hinweis: </span>Es können nur Shell-Scripte ausgewählt werden, die im Vorfeld mit einem externen Datenträger verbunden wurden. Bereits <span class=\"text-danger fst-italic\">vorhandene Dateiinhalte werden</span> ohne Nachfrage <span class=\"text-danger fst-italic\">überschrieben</span>!"
 
+txt_autopilot_change_note_step_1="<span class=\"text-danger fst-italic\">Wichtiger Hinweis:</span> Ab AutoPilot Version 1.1-000 <span class=\"text-danger fst-italic\">wird der Inhalt der autopilot Scriptdatei nicht mehr ausgeführt</span>, sondern nur noch geprüft, ob sich eine leere Datei mit dem Namen autopilot auf dem externen Datenträger befindet."
+txt_autopilot_change_note_step_2="Verschiebe daher bitte den Inhalt der aktuellen autopilot Scriptdatei an einen Ort innerhalb eines freigegebenen Ordners deiner DiskStation, gib der Datei einen neuen, eindeutigen Namen und verwende als Dateiendung zwingend <span class=\"text-danger fst-italic\">.sh</span>. Lösche anschließend die autopilot Scriptdatei von diesem externen Datenträger."
+
 # Basic Backup
 txt_basicbackup_header="Basic Backup Aufträge"
 txt_basicbackup_package_name="Paketname"
@@ -170,6 +174,7 @@ txt_help_status_step_10="Schließe die ${app_name} und rufe sie erneut auf, dami
 # --------------------------------------------------------------
 txt_view_logfile="AutoPilot Protokoll"
 txt_view_scriptfile="Inhalt des auszuführenden Shell-Scripts anzeigen"
+txt_view_autopilotfile="Inhalt der autopilot Scriptdatei anzeigen"
 txt_view_logfile_not_found="Keine Protokolleinträge vorhanden!"
 txt_button_download_logfile="Protokoll herunterladen"
 txt_button_delete_logfile="Protokoll löschen"
@@ -205,4 +210,5 @@ txt_help_setup_step_2="Ab der zweiten Zeile folgen individuelle Shellscript Anwe
 txt_help_setup_step_3="Nachdem die Shellscript Anweisung ausgeführt wurde, wird in der Regel ein sogenannter Exit-Code an das System übergeben, dessen Zahlenwert über ein"
 txt_help_setup_step_4="ausgelesen werden kann. Ist das Ergebnis 0, wurde die zuletzt ausgeführte Shellscript Anweisung fehlerfrei ausgeführt. AutoPilot würde in diesem Fall den externen Datenträger automatisch auszuwerfen. Erhält man hingegen einen Zahlenwert zwischen 1 und 255 deutet dies auf einen Hinweis, eine Warnung, einen Fehler oder einen Abbruch der zuletzt ausgeführten Shellscript Anweisung hin. In diesem Fall würde der externe Datenträger von AutoPilot nicht automatisch ausgeworfen. Dieses grundlegende Verhalten kann in den AutoPilot Einstellungen individuell angepasst werden. Alternativ dazu kann anstelle des vom System übergebenen Exit-Code, auch ein eigener und damit fest eingestellter Exit-Code an AutoPilot übergeben werden, wobei ein"
 txt_help_setup_step_5="AutoPilot mitteilt, das unabhängig vom tatsächlich übergebenen Exit-Code, der externe Datenträger immer ausgeworfen wird. Nachfolgend nochmal das komplette Beispiel-Script."
+
 

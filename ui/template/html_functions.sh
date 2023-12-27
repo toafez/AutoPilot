@@ -40,16 +40,40 @@ function popup_modal()
 		  <div class="modal-body">'
 			if [[ "${1}" == "scriptview" ]]; then
 				echo '
-				<i class="bi bi-hdd-fill text-secondary"></i>&nbsp;&nbsp;<strong>'${3}'</strong><br /><br />
+				<i class="bi bi-hdd-fill text-secondary"></i>&nbsp;&nbsp;<strong>'${txt_autopilot_script_target}': </strong>'${3}'<br /><br />
 				<div class="card card-body ps-1">
 					<code class="text-dark">'
-						cat "${3}" | while read line; do
+						IFS”
+						”
+						while read line; do
 							echo ''${line}'<br>'
-						done
+						done < "${3}"
+						unset line
 						echo '
 					</code>
 				</div>'
 				unset line
+				if [[ "${4}" == "autopilot" ]]; then
+					echo '
+					<div class="px-3">
+						<br />
+						'${txt_autopilot_change_note_step_1}'<br /><br />
+						<ol>
+							<li>'${txt_autopilot_change_note_step_2}'</li>
+							<br />
+							<li>'${txt_help_setup_dsm_step_4}'</li>
+							<br />
+								<ul class="ps-3">
+									<li>'${txt_help_setup_dsm_step_5}'</li>
+									<br />
+									<li>'${txt_help_setup_dsm_step_6}'</li>
+									<br />
+								</ul>
+							<li>'${txt_help_setup_dsm_step_7}'</li>
+							<br />
+							<li>'${txt_help_setup_dsm_step_8}'</li>
+					</div>'
+				fi
 			fi
 			if [[ "${1}" == "protocolview" ]]; then
 				echo '<p class="card-text text-center text-secondary">'${3}'</p>'

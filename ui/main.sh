@@ -198,13 +198,18 @@ if [[ "${get[page]}" == "main" && "${get[section]}" == "start" ]]; then
 												<i class="bi bi-hdd-fill text-secondary me-2"></i><span class="fw-medium">'${ext_volume#*/}'</span>
 											</td>
 											<td class="text-end pe-4">'
-												if [ -f "${ext_volume}/${ext_share##*/}/autopilot" ]; then
+												if [ -f "${ext_volume}/${ext_share##*/}/autopilot" ] && [ ! -s "${ext_volume}/${ext_share##*/}/autopilot" ]; then
 													echo '
 													<a class="btn btn-sm text-dark py-0" style="background-color: #e6e6e6;" href="index.cgi?page=main&section=view&extpath='${ext_path}'&extuuid='${ext_uuid}'">
 														<i class="bi bi-terminal-fill" style="font-size: 1.2rem;" title="'${txt_autopilot_script_view}'"></i>
 													</a>
 													<a class="btn btn-sm text-dark py-0" style="background-color: #e6e6e6;" href="index.cgi?page=main&section=delete&extpath='${ext_path}'&extuuid='${ext_uuid}'">
 														<i class="bi bi-trash text-danger" style="font-size: 1.2rem;" title="'${txt_autopilot_script_delete}'"></i>
+													</a>'
+												elif [ -f "${ext_volume}/${ext_share##*/}/autopilot" ] && [ -s "${ext_volume}/${ext_share##*/}/autopilot" ]; then
+													echo '
+													<a class="btn btn-sm text-danger py-0" style="background-color: #e6e6e6;" href="index.cgi?page=main&section=view&extpath='${ext_volume}/${ext_share##*/}'&extuuid=">
+														<i class="bi bi-exclamation-triangle" style="font-size: 1.2rem;" title="'${txt_autopilot_autopilot_view}'"></i>
 													</a>'
 												elif [[ "${ext_guid}" == "true" ]]; then
 													# Ist die Startdatei autopilot auf dem ext. Datenträger nicht vorhanden, dann lösche den zugehörigen Device Eintrag 
@@ -733,7 +738,7 @@ if [[ "${get[page]}" == "main" && "${post[section]}" == "autopilotscript" ]]; th
 		> "${uuidfile}"
 		echo "scriptpath=\"${scriptfile}\"" > "${uuidfile}"
 	fi
-	
+
 	# Leere AutoPilot Startdatei auf dem ext. Datenträger erstellen
 	if [ ! -f "${autopilotfile}" ]; then
 		touch "${autopilotfile}"
@@ -771,6 +776,10 @@ if [[ "${get[page]}" == "main" && "${get[section]}" == "view" ]]; then
 	if [ -f "${uuidfile}" ]; then
 		scriptfile=$(cat "${uuidfile}" | grep scriptpath | cut -d '"' -f2)
 		popup_modal "scriptview" "${txt_view_scriptfile}" "${scriptfile}" "" "modal-fullscreen"
+	fi
+
+	if [ ! -f "${uuidfile}" ] && [ -f "${autopilotfile}" ]; then
+		popup_modal "scriptview" "${txt_view_autopilotfile}" "${autopilotfile}" "autopilot" "modal-fullscreen"
 	fi
 fi
 
