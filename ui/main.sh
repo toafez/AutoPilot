@@ -22,7 +22,7 @@
 # with this program. If not, see http://www.gnu.org/licenses/  !
 
 
-# Requests zurücksetzen und Seite neu laden
+# Reset requests and reload the page
 # --------------------------------------------------------------
 if [[ "${get[page]}" == "main" && "${get[section]}" == "reset" ]]; then
 	unset var
@@ -31,7 +31,7 @@ if [[ "${get[page]}" == "main" && "${get[section]}" == "reset" ]]; then
 	echo '<meta http-equiv="refresh" content="0; url=index.cgi?page=main&section=start">'
 fi
 
-# Funktion: Lokales Datenträger-Ziel auswählen
+# Function: Select local disk destination
 # --------------------------------------------------------------
 function local_target()
 {
@@ -49,7 +49,7 @@ function local_target()
 	unset volume share
 }
 
-# Funktion: Ext. Datenträger-Ziel auswählen
+# Function: Select external disk destination
 # --------------------------------------------------------------
 function external_target()
 {
@@ -69,15 +69,15 @@ function external_target()
 	unset volume share
 }
 
-# Horizontale Navigationsleiste laden
+# Load horizontal navigation bar
 # --------------------------------------------------------------
 mainnav
 
-# Startseite anzeigen
+# Show homepage
 # --------------------------------------------------------------
 if [[ "${get[page]}" == "main" && "${get[section]}" == "start" ]]; then
 
-	# Überprüfen des App-Versionsstandes
+	# Checking the app version level
 	# --------------------------------------------------------------
 	local_version=$(cat "/var/packages/${app_name}/INFO" | grep ^version | cut -d '"' -f2)
 	git_version=$(wget --no-check-certificate --timeout=60 --tries=1 -q -O- "https://raw.githubusercontent.com/toafez/${app_name}/main/INFO.sh" | grep ^version | cut -d '"' -f2)		
@@ -95,7 +95,7 @@ if [[ "${get[page]}" == "main" && "${get[section]}" == "start" ]]; then
 		fi
 	fi
 
-	# Überprüfen der App-Berechtigung
+	# Check app permission
 	# --------------------------------------------------------------
 	if [ -z "${permissions}" ] || [[ "${permissions}" == "false" ]]; then
 		echo '
@@ -109,7 +109,7 @@ if [[ "${get[page]}" == "main" && "${get[section]}" == "start" ]]; then
 		</div><br />'
 	fi
 
-	# Überprüfen des UDEV-Gerätetreibers
+	# Checking the UDEV device driver
 	# --------------------------------------------------------------
 	if [ -z "${udev_rule}" ] || [[ "${udev_rule}" == "false" ]] || [[ "${rewrite_udev}" == "true" ]]; then
 		echo '
@@ -123,7 +123,7 @@ if [[ "${get[page]}" == "main" && "${get[section]}" == "start" ]]; then
 		</div><br />'
 	fi
 
-	# Externe Datenträger
+	# External disks
 	# --------------------------------------------------------------
 	echo '
 	<div class="accordion accordion-flush" id="accordionFlush01">
@@ -158,6 +158,8 @@ if [[ "${get[page]}" == "main" && "${get[section]}" == "start" ]]; then
 									while IFS= read -r ext_share; do
 										IFS="${backupIFS}"
 										[[ -z "${ext_share}" ]] && continue
+
+										# Reading out disk information
 										ext_mountpoint=$(mount | grep -E "${ext_volume}/${ext_share##*/}")
 										ext_dev=$(echo "${ext_mountpoint}" | awk '{print $1}')
 										ext_path=$(echo "${ext_mountpoint}" | awk '{print $3}')
@@ -166,6 +168,7 @@ if [[ "${get[page]}" == "main" && "${get[section]}" == "start" ]]; then
 										ext_label=$(blkid -s LABEL -o value ${ext_dev})
 										[[ -z "${ext_dev}" ]] && continue
 
+										# Reading out free disk space
 										ext_df=$(df -BG "${ext_path}")
 										ext_df=$(echo "${ext_df}" | sed -e 's/%//g' | awk 'NR > 1 {print $2 " " $3 " " $4 " " $5 " " $6}')
 										ext_disk_free=$(echo "${ext_df}" | awk '{print $1}' | sed -e 's/G/ GB/g')
@@ -174,15 +177,15 @@ if [[ "${get[page]}" == "main" && "${get[section]}" == "start" ]]; then
 										ext_disk_used_percent=$(echo "${ext_df}" | awk '{print $4}')
 										#ext_disk_mountpoint=$(echo "$ext_df" | awk '{print $5}')
 
-										# Bestimmen des Dateisystems, wenn eine 128-Bit UUID ermittelt wurde (Linux/Unix)
+										# Determine the file system if there is a 128-bit UUID (LINUX/UNIX)
 										if [[ "${ext_uuid}" =~ ^\{?[A-F0-9a-f]{8}-[A-F0-9a-f]{4}-[A-F0-9a-f]{4}-[A-F0-9a-f]{4}-[A-F0-9a-f]{12}\}?$ ]]; then
 											ext_guid="true"
 											txt_volume_id="Universally Unique Identifier (UUID)"
-										# Bestimmen des Dateisystems, wenn eine 64-Bit VSN ermittelt wurde (NTFS)
+										# Determine the file system if there is a 64 bit VSN (Windows NTFS)
 										elif [[ "${ext_uuid}" =~ ^\{?[A-F0-9a-f]{16}\}?$ ]]; then
 											ext_guid="true"
 											txt_volume_id="Volume Serial Number (VSN)"
-										# Bestimmen des Dateisystems, wenn eine 32-Bit VSN ermittelt wurde (Windows FAT12, FAT16, FAT32 und exFAT) zusammengefasst als vFAT
+										# Determine the file system if there is a 32 bit VSN (Windows FAT12, FAT16, FAT32 and exFAT) combined as vFAT
 										elif [[ "${ext_uuid}" =~ ^\{?[A-F0-9a-f]{4}-[A-F0-9a-f]{4}\}?$ ]] || [[ "${ext_uuid}" =~ ^\{?[A-F0-9a-f]{8}\}?$ ]]; then
 											ext_guid="true"
 											txt_volume_id="Volume Serial Number (VSN)"
@@ -192,7 +195,7 @@ if [[ "${get[page]}" == "main" && "${get[section]}" == "start" ]]; then
 											txt_volume_id_failed="<span class=\"text-danger\">Could not be read</span>"
 										fi
 
-										# Lege den Pfad zur gleichnamigen, intern abgelegten UUID-Scriptdatei fest
+										# Specify the path to the internally stored UUID script file of the same name
 										[[ "${ext_guid}" == "true" ]] && uuidfile="${usr_devices}/${ext_uuid}"
 
 										echo '
@@ -201,7 +204,7 @@ if [[ "${get[page]}" == "main" && "${get[section]}" == "start" ]]; then
 												<i class="bi bi-hdd-fill text-secondary me-2"></i><span class="fw-medium">'${ext_volume#*/}'</span>
 											</td>
 											<td class="text-end pe-4">'
-												# Wenn autopilot Scriptdatei existiert leer ist und interne UUID/GUID Datei existiert, dann...
+												# If autopilot script file exists is empty and internal UUID/GUID file exists, then...
 												if [ ! -s "${ext_volume}/${ext_share##*/}/autopilot" ] && [ -f "${uuidfile}" ]; then
 													echo '
 													<a class="btn btn-sm text-dark py-0" style="background-color: #e6e6e6;" href="index.cgi?page=main&section=view&extpath='${ext_path}'&extuuid='${ext_uuid}'">
@@ -210,15 +213,15 @@ if [[ "${get[page]}" == "main" && "${get[section]}" == "start" ]]; then
 													<a class="btn btn-sm text-dark py-0" style="background-color: #e6e6e6;" href="index.cgi?page=main&section=delete&extpath='${ext_path}'&extuuid='${ext_uuid}'">
 														<i class="bi bi-trash text-danger" style="font-size: 1.2rem;" title="'${txt_autopilot_script_delete}'"></i>
 													</a>'
-												# Wenn autopilot Scriptdatei existiert aber nicht leer ist, dann...
+												# If autopilot script file exists but is not empty, then...
 												elif [ -s "${ext_volume}/${ext_share##*/}/autopilot" ]; then
 													echo '
 													<a class="btn btn-sm text-danger py-0" style="background-color: #e6e6e6;" href="index.cgi?page=main&section=view&extpath='${ext_volume}/${ext_share##*/}'&extuuid=">
 														<i class="bi bi-exclamation-triangle" style="font-size: 1.2rem;" title="'${txt_autopilot_autopilot_view}'"></i>
 													</a>'
-												# Wenn autopilot Startdatei nicht existiert und UUID/GUID gelesen werden konnte dann...
+												# If autopilot startup file does not exist and UUID/GUID could be read then...
 												elif [ ! -f "${ext_volume}/${ext_share##*/}/autopilot" ] && [[ "${ext_guid}" == "true" ]]; then
-													# Ist die Startdatei autopilot auf dem ext. Datenträger nicht vorhanden, dann lösche den zugehörigen Device Eintrag 
+													# Is the autopilot start file on the ext. Disk does not exist, then delete the associated device entry
 													if [ ! -f "${ext_volume}/${ext_share##*/}/autopilot" ]; then
 														rm /volume*/@appstore/AutoPilot/ui/usersettings/devices/${ext_uuid}
 													fi
@@ -386,7 +389,7 @@ if [[ "${get[page]}" == "main" && "${get[section]}" == "start" ]]; then
 			</div>
 		</div>'	
 
-		# Basic Backup Aufträge
+		# Basic Backup tasks
 		# --------------------------------------------------------------
 		if [ -d /var/packages/BasicBackup ] && [[ "${permissions}" == "true" ]]; then
 			echo '
@@ -480,7 +483,7 @@ if [[ "${get[page]}" == "main" && "${get[section]}" == "start" ]]; then
 			</div>'
 		fi
 
-		# Hyper Backup Aufträge
+		# Hyper Backup tasks
 		# --------------------------------------------------------------
 		if [ -d /var/packages/HyperBackup ] && [[ "${permissions}" == "true" ]]; then
 			echo '
@@ -589,7 +592,7 @@ if [[ "${get[page]}" == "main" && "${get[section]}" == "start" ]]; then
 		echo '
 	</div>'
 
-		# AutoPilot Einstellungen
+		# AutoPilot settings
 		# --------------------------------------------------
 		echo '
 		<div class="accordion-item border-0 mt-3">
@@ -605,7 +608,7 @@ if [[ "${get[page]}" == "main" && "${get[section]}" == "start" ]]; then
 					<thead></thead>
 					<tbody>
 						<tr>'
-							# Einhängen ein/aus
+							# Mount on/off
 							echo -n '
 							<td scope="row" class="row-sm-auto align-middle">
 								'${txt_autopilot_connect}'
@@ -623,7 +626,7 @@ if [[ "${get[page]}" == "main" && "${get[section]}" == "start" ]]; then
 							</td>
 						</tr>
 						<tr>'
-							# Nach der Ausführung den externen Datenträger...
+							# After execution, the external disk...
 							echo '
 							<td scope="row" class="row-sm-auto align-middle">
 								'${txt_autopilot_disconnect}'
@@ -631,7 +634,7 @@ if [[ "${get[page]}" == "main" && "${get[section]}" == "start" ]]; then
 							<td class="text-end"></td>
 						</tr>
 						<tr>'
-							# Niemals auswerfen ein/aus
+							# Never eject on/off
 							echo '
 							<td scope="row" class="row-sm-auto align-middle">
 								<span class="ps-3">
@@ -651,7 +654,7 @@ if [[ "${get[page]}" == "main" && "${get[section]}" == "start" ]]; then
 							</td>
 						</tr>
 						<tr>'
-							# Automatisch auswerfen ein/aus
+							# Auto eject on/off
 							echo '
 							<td scope="row" class="row-sm-auto align-middle">
 								<span class="ps-3">
@@ -671,7 +674,7 @@ if [[ "${get[page]}" == "main" && "${get[section]}" == "start" ]]; then
 							</td>
 						</tr>
 						<tr>'
-							# Manuell auswerfen ein/aus
+							# Manual eject on/off
 							echo '
 							<td scope="row" class="row-sm-auto align-middle">
 								<span class="ps-3">
@@ -691,7 +694,7 @@ if [[ "${get[page]}" == "main" && "${get[section]}" == "start" ]]; then
 							</td>
 						</tr>
 						<tr>'
-							# Optische und akustische Signalausgabe ein/aus
+							# Visual and acoustic signal output on/off
 							echo '
 							<td scope="row" class="row-sm-auto align-middle">
 								'${txt_autopilot_signal}'
@@ -716,16 +719,16 @@ if [[ "${get[page]}" == "main" && "${get[section]}" == "start" ]]; then
 	</div><br />'
 fi
 
-# AutoPilot Startscript und Scriptdatei erstellen
+# Create AutoPilot start script and script file
 # --------------------------------------------------------------
 if [[ "${get[page]}" == "main" && "${post[section]}" == "autopilotscript" ]]; then
 	uuid="${post[extuuid]}"
 	uuidfile="${usr_devices}/${uuid}"
 
-	# Pfad und Dateiname der Startdatei festlegen
+	# Set the path and file name of the start file
 	autopilotfile="${post[extpath]}/autopilot"
 
-	# Pfad und Dateiname der auszuführenden Scriptdatei festlegen
+	# Specify the path and file name of the script file to be executed
 	if [[ -z "${post[targetfolder]}" ]]; then
 		scriptpath="${post[sharedfolder]}"
 		scriptfile="${post[sharedfolder]}/${post[filename]}.sh"
@@ -734,7 +737,7 @@ if [[ "${get[page]}" == "main" && "${post[section]}" == "autopilotscript" ]]; th
 		scriptfile="${post[sharedfolder]}/${post[targetfolder]}/${post[filename]}.sh"
 	fi
 
-	# Zugehörige UUID in der AutoPilot App-Verzeichnisstruktur hinterlegen
+	# Store the associated UUID in the AutoPilot app directory structure
 	if [ ! -f "${uuidfile}" ]; then
 		touch "${uuidfile}"
 		chmod 777 "${uuidfile}"
@@ -744,7 +747,7 @@ if [[ "${get[page]}" == "main" && "${post[section]}" == "autopilotscript" ]]; th
 		echo "scriptpath=\"${scriptfile}\"" > "${uuidfile}"
 	fi
 
-	# Leere AutoPilot Startdatei auf dem ext. Datenträger erstellen
+	# Empty AutoPilot start file on the ext. Create disk
 	if [ ! -f "${autopilotfile}" ]; then
 		touch "${autopilotfile}"
 		chmod 777 "${autopilotfile}"
@@ -753,7 +756,7 @@ if [[ "${get[page]}" == "main" && "${post[section]}" == "autopilotscript" ]]; th
 		> "${autopilotfile}"
 	fi
 
-	# AutoPilot Scriptdatei erstellen
+	# Create AutoPilot script file
 	if [ ! -d "${scriptpath}" ]; then
 		mkdir -p -m 755 "${scriptpath}"
 	fi
@@ -771,7 +774,7 @@ if [[ "${get[page]}" == "main" && "${post[section]}" == "autopilotscript" ]]; th
 	echo '<meta http-equiv="refresh" content="0; url=index.cgi?page=main&section=start">'
 fi
 
-# Scriptdatei ansehen
+# View script file
 # --------------------------------------------------------------
 if [[ "${get[page]}" == "main" && "${get[section]}" == "view" ]]; then
 	uuid="${get[extuuid]}"
@@ -788,19 +791,19 @@ if [[ "${get[page]}" == "main" && "${get[section]}" == "view" ]]; then
 	fi
 fi
 
-# Verbindung zwischen dem ext. Datenträger und dem AutoPilot Script löschen
+# Connection between the ext. Delete disk and the AutoPilot script
 # --------------------------------------------------------------
 if [[ "${get[page]}" == "main" && "${get[section]}" == "delete" ]]; then
 	uuid="${get[extuuid]}"
 	uuidfile="${usr_devices}/${uuid}"
 	autopilotfile="${get[extpath]}/autopilot"
 
-	# AutoPilot Scriptdatei vom ext. Datenträger löschen
+	# AutoPilot script file from ext. Delete disk
 	if [ -f "${autopilotfile}" ]; then
 		rm "${autopilotfile}"
 	fi
 
-	# UUID Datei löschen
+	# Delete UUID file
 	if [ -f "${uuidfile}" ]; then
 		rm /volume*/@appstore/AutoPilot/ui/usersettings/devices/${uuid}
 	fi
@@ -809,15 +812,14 @@ if [[ "${get[page]}" == "main" && "${get[section]}" == "delete" ]]; then
 	echo '<meta http-equiv="refresh" content="0; url=index.cgi?page=main&section=start">'
 fi
 
-# Basic Backup Script anlegen
+# Create Basic Backup script
 # --------------------------------------------------------------
 if [[ "${get[page]}" == "main" && "${post[section]}" == "basicbackup" ]]; then
 
-	#target="${post[externaldisk]}/autopilot"
 	jobname="${post[jobname]}"
 	scriptfile="${post[filename]}"
 
-	# AutoPilot Scriptdatei erstellen
+	# Create AutoPilot script file
 	if [ -f "${scriptfile}" ]; then
 		echo "#!/bin/bash" > "${scriptfile}"
 		echo "# Execute a Basic Backup job" >> "${scriptfile}"
@@ -831,7 +833,7 @@ if [[ "${get[page]}" == "main" && "${post[section]}" == "basicbackup" ]]; then
 	fi
 fi
 
-# Hyper Backup Script anlegen
+# Create Hyper Backup Script
 # --------------------------------------------------------------
 if [[ "${get[page]}" == "main" && "${post[section]}" == "hyperbackup" ]]; then
 
@@ -859,12 +861,12 @@ if [[ "${get[page]}" == "main" && "${post[section]}" == "hyperbackup" ]]; then
 	fi
 fi
 
-# AutoPilot Konfiguration speichern
+# Save AutoPilot configuration
 # --------------------------------------------------------------
 if [[ "${get[page]}" == "main" && "${get[section]}" == "settings" ]]; then
 	[ -f "${get_request}" ] && rm "${get_request}"
 
-	# Speichern der Einstellungen nach ${app_home}/settings/user_settings.txt
+	# Save settings to ${app_home}/settings/user_settings.txt
 	[[ "${get[switch]}" == "connect" ]] && "${set_keyvalue}" "${usr_autoconfig}" "connect" "${get[query]}"
 	[[ "${get[switch]}" == "disconnect" ]] && "${set_keyvalue}" "${usr_autoconfig}" "disconnect" "${get[query]}"
 	[[ "${get[switch]}" == "signal" ]] && "${set_keyvalue}" "${usr_autoconfig}" "signal" "${get[query]}"

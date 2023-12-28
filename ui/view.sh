@@ -22,7 +22,7 @@
 # with this program. If not, see http://www.gnu.org/licenses/  !
 
 
-# Kopfzeile des Protokolls
+# Header of the log
 # --------------------------------------------------------------
 if [[ "${get[page]}" == "view" ]]; then
 	[ -f "${get_request}" ] && rm "${get_request}"
@@ -40,13 +40,13 @@ if [[ "${get[page]}" == "view" ]]; then
 					<div class="row">
 						<div class="col">'
 
-							# Protokoll anzeigen
+							# Show protocol
 							# --------------------------------------------------------------
 							get[file]=$(urldecode ${get[file]})
 
 							if [ -z "${get[process]}" ] || [[ "${get[process]}" == "stopped" ]]; then
 								if [ -s "${get[file]}" ]; then
-									# Gebe Dateiinhalt aus
+									# Output file contents
 									echo '
 									<div class="text-monospace text-nowrap" style="font-size: 87.5%;">'
 										while read line; do
@@ -85,7 +85,7 @@ if [[ "${get[page]}" == "view" ]]; then
 		});
 	</script>'
 
-	# Protokoll löschen
+	# Clear log
 	# --------------------------------------------------------------
 	if [[ "${get[query]}" == "delete" ]] && [ -z "${get[delete]}" ]; then
 		[[ "${get[section]}" == "autopilot" ]] && popup_modal "protocolview" "${txt_popup_delete}" "${txt_popup_delete_logfile}" "autopilot" ""
