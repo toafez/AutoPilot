@@ -16,3 +16,5 @@ adduser_exists="Vorgang abgebrochen. AutoPilot ist bereits Mitglied der Gruppe [
 deluser_true="Ausführung erfolgreich. AutoPilot wurde aus der Gruppe [ administrators ] entfernt wurdurch Zugriffe auf das System eingeschränkt wurden."
 deluser_notexist="Vorgang abgebrochen. AutoPilot ist kein Mitglied der Gruppe [ administrators ]."
 
+groupuser_error="Ein Fehler ist aufgetreten. Überprüfen Sie Ihre Eingaben und führen den Vorgang erneut aus."
+

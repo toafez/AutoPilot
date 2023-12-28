@@ -6,11 +6,13 @@ Version 1.1-000 vom 28.12.2023
  -Deutsch
     - Update Bootsrap Icons auf 1.11.2
     - Das AutoPilot Protokoll konnte nicht gelöscht bzw. geleert werden. Fehler wurde behoben. 
+    - Es werden ab sofort relevante Systemereignisse, wie z.B. das Ergebnis eines ausgeführten AutoPilot Scripts, das Erweitern bzw. Beschränken der App-Berechtigung oder der Installationsstatus der UDEV-Regel an das DSM Protokoll Center übergeben. 
     - Änderungen in der Arbeits- und Funktionsweise von AutoPilot vorgenommen, welche die Systemsicherheit stark verbessern. Dies erfordert jedoch manuelle Anpassungen des Benutzers, da hierbei u.a. der Speicherort eines auszuführenden Shell-Scriptdatei neu definiert werden muss. 
 
  -English
     - Update Bootsrap Icons to 1.11.2
     - The AutoPilot log could not be deleted or emptied. Bug has been fixed.
+    - From now on, relevant system events, such as the result of an executed AutoPilot script, the extension or restriction of app authorization or the installation status of the UDEV rule, are transferred to the DSM Protocol Center.
     - Changes have been made to the way AutoPilot works and functions, which greatly improve system security. However, this requires manual adjustments by the user because, among other things, the storage location of a shell script file to be executed must be redefined.
 
 

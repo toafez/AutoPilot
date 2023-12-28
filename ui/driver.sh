@@ -42,6 +42,7 @@ if [ $(synogetkeyvalue /etc.defaults/VERSION majorversion) -ge 7 ]; then
 			/usr/bin/udevadm control --reload-rules
 
 		synodsmnotify -c SYNO.SDS.${app}.Application @administrators ${app}:app:subtitle ${app}:app:autopilot_enabled
+		synologset1 sys info 0x11100000 "Package [AutoPilot] has successfully installed the UDEV device driver!"
 	fi
 
 	# Turn off AutoPilot
@@ -50,5 +51,6 @@ if [ $(synogetkeyvalue /etc.defaults/VERSION majorversion) -ge 7 ]; then
 		/usr/bin/udevadm control --reload-rules
 
 		synodsmnotify -c SYNO.SDS.${app}.Application @administrators ${app}:app:subtitle ${app}:app:autopilot_disabled
+		synologset1 sys info 0x11100000 "Package [AutoPilot] has successfully uninstalled the UDEV device driver!"
 	fi
 fi

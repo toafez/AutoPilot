@@ -16,3 +16,5 @@ adduser_exists="Operation aborted. AutoPilot is already a member of the [ admini
 deluser_true="Execution successful. AutoPilot has been removed from the [ administrators ] group due to restricted access to the system."
 deluser_notexist="Operation aborted. AutoPilot is not a member of the [ administrators ] group."
 
+groupuser_error="An error has occurred. Check your entries and run the operation again."
+

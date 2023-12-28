@@ -221,18 +221,21 @@ if [[ "${connect}" == "true" ]] && [ -n "${mountpoint}" ]; then
 						echo "${txt_disk_was_ejected}" >> "${log}"
 						[[ "${signal}" == "true" ]] && signal_stop
 						synodsmnotify -c SYNO.SDS.${app}.Application @administrators ${app}:app:subtitle ${app}:app:autopilot_stop_a "${mountpoint}"
+						synologset1 sys info 0x11100000 "Package [AutoPilot] executed the task successfully! The external disk [${mountpoint}] has been ejected."
 					else
 						# WARNING: Disk could not be ejected.
 						echo "${txt_disk_could_not_be_ejected}" >> "${log}"
 						echo "${txt_system_response}:~# ${unmount_check}" >> "${log}"
 						[[ "${signal}" == "true" ]] && signal_warning
 						synodsmnotify -c SYNO.SDS.${app}.Application @administrators ${app}:app:subtitle ${app}:app:autopilot_warning_a "${mountpoint}"
+						synologset1 sys warn 0x11100000 "Package [AutoPilot] executed the task successfully! The external Disk [${mountpoint}] could not be ejected."
 					fi
 				else
 					# NOTE: Disk remains mounted
 					echo "${txt_disk_remains_mount}" >> "${log}"
 					[[ "${signal}" == "true" ]] && signal_stop
 					synodsmnotify -c SYNO.SDS.${app}.Application @administrators ${app}:app:subtitle ${app}:app:autopilot_stop_b "${mountpoint}"
+					synologset1 sys info 0x11100000 "Package [AutoPilot] executed the task successfully! The external disk [${mountpoint}] remains mounted."
 				fi
 			else
 				# WARNING: Errors occurred during execution!
@@ -241,6 +244,7 @@ if [[ "${connect}" == "true" ]] && [ -n "${mountpoint}" ]; then
 				echo "${txt_disk_remains_mount}" >> "${log}"
 				[[ "${signal}" == "true" ]] && signal_warning
 				synodsmnotify -c SYNO.SDS.${app}.Application @administrators ${app}:app:subtitle ${app}:app:autopilot_warning_b "${mountpoint}"
+				synologset1 sys err 0x11100000 "Package [AutoPilot] executed the task with errors! The external disk [${mountpoint}] remains mounted."
 			fi
 		else
 			# WARNING: The autoilot script could not be executed!

@@ -46,6 +46,7 @@ function synogroupuser()
 			[[ "${i}" == "${user}" ]] && userexists="true"
 		else
 			synodsmnotify -c SYNO.SDS.${app}.Application @administrators ${app}:app:title ${app}:app:groupuser_error
+			synologset1 sys err 0x11100000 "Package [AutoPilot] an error occurred while editing the app permissions!"
 			exit 1
 		fi
 	done
@@ -54,12 +55,14 @@ function synogroupuser()
 		updatelist+=(${user})
 		synogroup --member ${group} ${updatelist[@]}
 		synodsmnotify -c SYNO.SDS.${app}.Application @administrators ${app}:app:title ${app}:app:adduser_true
+		synologset1 sys info 0x11100000 "Package [AutoPilot] has successfully expanded app permissions!"
 	elif [[ -n "${userexists}" && "${query}" == "adduser" ]]; then
 		synodsmnotify -c SYNO.SDS.${app}.Application @administrators ${app}:app:title ${app}:app:adduser_exists
 		exit 2
 	elif [[ -n "${userexists}" && "${query}" == "deluser" ]]; then
 		synogroup --member ${group} ${updatelist[@]}
 		synodsmnotify -c SYNO.SDS.${app}.Application @administrators ${app}:app:title ${app}:app:deluser_true
+		synologset1 sys info 0x11100000 "Package [AutoPilot] has successfully revoked advanced app permissions!"
 	elif [[ -z "${userexists}" && "${query}" == "deluser" ]]; then
 		synodsmnotify -c SYNO.SDS.${app}.Application @administrators ${app}:app:title ${app}:app:deluser_notexist
 		exit 3
