@@ -112,8 +112,14 @@ else
 	# If ${par} has a device name like "usb1p1", then get the partition name from it, e.g. "usb1"
 	part=$(echo "${par}" | sed 's:p.*$::')
 
-	# remove the number from the partition to identify the disk itself, e.g. partition is sda1 --> disk is sda
-	disk=$(echo "${part}" | sed 's/[0-9]\+$//')
+	# Check if variable $part is named usb[x] (e.g. usb1) ? assign $part to $disk : remove trailing number from $part (e.g. sda1 --> sda)
+	if [[ "${part}" =~ ^[uU][sS][bB] ]]; then
+		# keep the identified partition as disk, because usb1 is the disk itself
+		disk="${part}"
+	else
+		# remove the number from the partition to identify the disk itself, e.g. partition is sda1 --> disk is sda
+		disk=$(echo "${part}" | sed 's/[0-9]\+$//')
+	fi
 
 	# Set device path to determine the mountpoint
 	device="/dev/${par}"
