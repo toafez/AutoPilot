@@ -109,8 +109,11 @@ else
 	# If ${par} starts with /dev/, then delete /dev/
 	par=$(echo "${par}" | sed 's:^/dev/::')
 
-	# If ${par} has a device name like "usb1p1", then get the disk name from it, e.g. "usb1"
-	disk=$(echo "${par}" | sed 's:p.*$::')
+	# If ${par} has a device name like "usb1p1", then get the partition name from it, e.g. "usb1"
+	part=$(echo "${par}" | sed 's:p.*$::')
+
+	# remove the number from the partition to identify the disk itself, e.g. partition is sda1 --> disk is sda
+	disk=$(echo "${part}" | sed 's/[0-9]\+$//')
 
 	# Set device path to determine the mountpoint
 	device="/dev/${par}"
@@ -161,7 +164,7 @@ if [[ "${connect}" == "true" ]] && [ -n "${mountpoint}" ]; then
 		echo "${txt_line_separator}"  >> "${log}"
 		echo "$(timestamp) - AutoPilot Version ${app_version} ${txt_autopilot_starts}" >> "${log}"
 		echo "${txt_line_separator}" >> "${log}"
-		echo "${txt_ext_detected_step_1} ${disk} ${txt_ext_detected_step_2}" >> "${log}"
+		echo "${txt_ext_detected_step_1} ${part} ${txt_ext_detected_step_2}" >> "${log}"
 		echo "${txt_device_detected}: ${device}" >> "${log}"
 		echo "${txt_mountpoint}: ${mountpoint}" >> "${log}"
 		echo "${txt_volume_id}: ${uuid}" >> "${log}"
@@ -191,9 +194,7 @@ if [[ "${connect}" == "true" ]] && [ -n "${mountpoint}" ]; then
 				if [[ "${disconnect}" == "auto" ]] || [[ "${disconnect}" == "manual" ]]; then
 
 					# Remove disk from the GUI list
-					cp /tmp/usbtab /tmp/usbtab.old
-					grep -v "${disk}" /tmp/usbtab.old > /tmp/usbtab
-					rm -f /tmp/usbtab.old
+					sed -i "/^""${disk}""/d" /tmp/usbtab
 
 					# Write RAM buffer back to disk
 					sync
@@ -210,7 +211,7 @@ if [[ "${connect}" == "true" ]] && [ -n "${mountpoint}" ]; then
 					sleep 10
 
 					# Check if unmount was successful
-					unmount_check=$(/usr/syno/bin/synousbdisk -enum | grep "$disk")
+					unmount_check=$(/usr/syno/bin/synousbdisk -enum | grep "${disk}")
 
 					# If disk has been ejected
 					if [ -z "${unmount_check}" ]; then
