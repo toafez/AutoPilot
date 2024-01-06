@@ -193,9 +193,9 @@ if [[ "${connect}" == "true" ]] && [ -n "${mountpoint}" ]; then
 			# Reading out free disk space
 			df=$(df -h "${mountpoint}")
 			df=$(echo "${df}" | sed -e 's/%//g' | awk 'NR > 1 {print $2 " " $3 " " $4 " " $5 " " $6}')
-			ext_disk_free=$(echo "${df}" | awk '{print $1}' | sed -e 's/G/ GB/g' | sed -e 's/M/ MB/g')
-			#ext_disk_used=$(echo "${df}" | awk '{print $2}' | sed -e 's/G/ GB/g' | sed -e 's/M/ MB/g')
-			ext_disk_available=$(echo "${df}" | awk '{print $3}' | sed -e 's/G/ GB/g' | sed -e 's/M/ MB/g')
+			ext_disk_size=$(echo "${df}" | awk '{print $1}' | sed -e 's/T/ TB/g' | sed -e 's/G/ GB/g' | sed -e 's/M/ MB/g')
+			#ext_disk_used=$(echo "${df}" | awk '{print $2}' | sed -e 's/T/ TB/g' | sed -e 's/G/ GB/g' | sed -e 's/M/ MB/g')
+			ext_disk_available=$(echo "${df}" | awk '{print $3}' | sed -e 's/T/ TB/g' | sed -e 's/G/ GB/g' | sed -e 's/M/ MB/g')
 			#ext_disk_used_percent=$(echo "${df}" | awk '{print $4}')
 			#ext_disk_mountpoint=$(echo "$df" | awk '{print $5}')
 
@@ -269,7 +269,7 @@ if [[ "${connect}" == "true" ]] && [ -n "${mountpoint}" ]; then
 			[[ "${signal}" == "true" ]] && signal_warning
 			synodsmnotify -c SYNO.SDS.${app}.Application @administrators ${app}:app:subtitle ${app}:app:autopilot_warning_c "${mountpoint}"
 		fi
-		echo "${txt_df_memory}: ${ext_disk_available} ${txt_df_from} ${ext_disk_free} ${txt_df_free}." >> "${log}"
+		echo "${txt_df_memory}: ${ext_disk_available} ${txt_df_from} ${ext_disk_size} ${txt_df_free}." >> "${log}"
 		echo "${txt_line_separator}"  >> "${log}"
 		echo "$(timestamp) ${txt_autopilot_ends}" >> "${log}"
 		echo "${txt_line_separator}" >> "${log}"
