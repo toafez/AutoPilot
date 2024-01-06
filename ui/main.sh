@@ -196,8 +196,6 @@ if [[ "${get[page]}" == "main" && "${get[section]}" == "start" ]]; then
 										if [ -n "${ext_uuid}" ]; then
 											uuidfile="${usr_devices}/${ext_uuid}"
 
-#echo 'Free: '${ext_disk_free}'<br />'
-echo 'Es sind noch '${ext_disk_available}' von '${ext_disk_free}' frei.<br />'
 											echo '
 											<tr>
 												<td colspan="4">
