@@ -3,7 +3,7 @@
 
 #                       AutoPilot
 #
-#        Copyright (C) 2023 by Tommes | License GNU GPLv3
+#        Copyright (C) 2024 by Tommes | License GNU GPLv3
 #         Member of the German Synology Community Forum
 #
 # Extract from  GPL3   https://www.gnu.org/licenses/gpl-3.0.html
@@ -27,6 +27,10 @@ txt_ext_detected_step_1="External disk"
 txt_ext_detected_step_2="detected!"
 txt_device_detected="Device Name"
 txt_mountpoint="Mountpoint"
+txt_df_memory="Disk space usage"
+txt_df_from="from"
+txt_df_use="occupied"
+txt_df_free="free"
 
 txt_autopilot_script_search="Search script to be executed"
 txt_autopilot_script_found="The script was found and will be executed"
@@ -45,5 +49,6 @@ txt_exit_code_error="Exit-Code error"
 txt_system_response="System response"
 
 txt_line_separator="-------------------------------------------------------------------------------------------------------------------"
+
 
 

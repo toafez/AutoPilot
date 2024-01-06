@@ -1,6 +1,22 @@
 AutoPilot Release Notes
 
 
+Version 1.1-100 vom 06.01.2024
+
+ -Deutsch
+    - Es wurden nur externe Datenträger ausgeworfen, die als Präfix ein usb im Device Namen trugen. Fehler wurde behoben. Vielen Dank an @luddinho
+    - Anscheinend löscht Synology nach dem Auswerfen eines externen Datenträgers den entsprechenden Einhängepunkt (Mountpoint) nicht mehr aus dem Dateisystem, was zu Anzeigefehlern in der AutoPilot GUI führte. Infolgedessen werden externe Datenträger bzw. deren Einhängepunkte nicht mehr angezeigt, wenn diese über keine gültige UUID/GUID verfügen.
+    - Die Ausgabe der Speicherplatznutzung wurde in der GUI von Prozent auf Speichergröße umgestellt.
+    - Nach der Ausführung der Shell-Scriptdatei wird der verbliebene Speicherplatz des externen Datenträgers im Protokoll ausgegeben.
+
+ -English
+    - Only external disks with a usb prefix in the device name were ejected. Bug has been fixed. Many thanks to @luddinho
+    - Apparently, Synology no longer deletes the corresponding mount point from the file system after ejecting an external disk, which led to display errors in the AutoPilot GUI. As a result, external disks or their mount points are no longer displayed if they do not have a valid UUID/GUID.
+    - The display of memory usage in the GUI has been changed from percent to memory size.
+    - After the shell script file has been executed, the remaining storage space on the external disk is displayed in the log.
+
+
+
 Version 1.1-000 vom 28.12.2023
 
  -Deutsch

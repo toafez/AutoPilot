@@ -3,7 +3,7 @@
 
 #                       AutoPilot
 #
-#        Copyright (C) 2023 by Tommes | License GNU GPLv3
+#        Copyright (C) 2024 by Tommes | License GNU GPLv3
 #         Member of the German Synology Community Forum
 #
 # Extract from  GPL3   https://www.gnu.org/licenses/gpl-3.0.html
@@ -97,9 +97,10 @@ txt_autopilot_script_view="Inhalt des Shell-Scripts anzeigen, das mit diesem Dat
 txt_autopilot_autopilot_view="Inhalt der autopilot Scriptdatei anzeigen, die sich auf diesem Datenträger befindet"
 txt_autopilot_autopilot_delete="Verbindung verloren! Bitte die leere autopilot Scriptdatei von diesem Datenträger löschen"
 txt_autopilot_device="Gerätedatei"
-txt_autopilot_memory="Speicherauslastung"
+txt_autopilot_memory="Speicherplatznutzung"
 txt_autopilot_from="von"
 txt_autopilot_use="belegt"
+txt_autopilot_free="frei"
 txt_autopilot_service="Der AutoPilot Gerätetreiber für die Erkennung externer Datenträger ist"
 txt_autopilot_is_installed="installiert"
 txt_autopilot_is_not_installed="nicht installiert"
@@ -124,8 +125,8 @@ txt_autopilot_scriptfile="Shell-Script"
 txt_autopilot_scriptfile_path="Verzeichnis"
 txt_autopilot_scriptfile_name="Dateiname"
 
-txt_autopilot_connect="Nach dem anschließen eines externen Datenträgers das Shell-Script <span class=\"text-success\">autopilot</span> automatisch ausführen"
-txt_autopilot_disconnect="Nach der Ausführung des Shell-Scripts den externen Datenträger..."
+txt_autopilot_connect="Nach dem anschließen eines externen Datenträgers die verknüpfte Shell-Scriptdatei automatisch ausführen"
+txt_autopilot_disconnect="Nach der Ausführung der verknüpften Shell-Scriptdatei den externen Datenträger..."
 txt_autopilot_disconnect_never="niemals auswerfen"
 txt_autopilot_disconnect_auto="nur auswerfen, wenn die Aufgabe durch einen <span class=\"text-success\">exit 0</span> Rückgabewert fehlerfrei abgearbeitet wurde"
 txt_autopilot_disconnect_manual="immer auswerfen, wenn die Aufgabe durch einen <span class=\"text-success\">exit 100</span> Rückgabewert manuell beendet wurde"
@@ -211,6 +212,7 @@ txt_help_setup_step_2="Ab der zweiten Zeile folgen individuelle Shellscript Anwe
 txt_help_setup_step_3="Nachdem die Shellscript Anweisung ausgeführt wurde, wird in der Regel ein sogenannter Exit-Code an das System übergeben, dessen Zahlenwert über ein"
 txt_help_setup_step_4="ausgelesen werden kann. Ist das Ergebnis 0, wurde die zuletzt ausgeführte Shellscript Anweisung fehlerfrei ausgeführt. AutoPilot würde in diesem Fall den externen Datenträger automatisch auszuwerfen. Erhält man hingegen einen Zahlenwert zwischen 1 und 255 deutet dies auf einen Hinweis, eine Warnung, einen Fehler oder einen Abbruch der zuletzt ausgeführten Shellscript Anweisung hin. In diesem Fall würde der externe Datenträger von AutoPilot nicht automatisch ausgeworfen. Dieses grundlegende Verhalten kann in den AutoPilot Einstellungen individuell angepasst werden. Alternativ dazu kann anstelle des vom System übergebenen Exit-Code, auch ein eigener und damit fest eingestellter Exit-Code an AutoPilot übergeben werden, wobei ein"
 txt_help_setup_step_5="AutoPilot mitteilt, das unabhängig vom tatsächlich übergebenen Exit-Code, der externe Datenträger immer ausgeworfen wird. Nachfolgend nochmal das komplette Beispiel-Script."
+
 
 
 

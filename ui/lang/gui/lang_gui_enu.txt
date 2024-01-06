@@ -1,9 +1,9 @@
 #!/bin/bash
-# Filename: lang_enu - coded in utf-8
+# Filename: lang_gui_enu - coded in utf-8
 
 #                       AutoPilot
 #
-#        Copyright (C) 2023 by Tommes | License GNU GPLv3
+#        Copyright (C) 2024 by Tommes | License GNU GPLv3
 #         Member of the German Synology Community Forum
 #
 # Extract from  GPL3   https://www.gnu.org/licenses/gpl-3.0.html
@@ -97,9 +97,10 @@ txt_autopilot_script_view="View contents of the shell script associated with thi
 txt_autopilot_autopilot_view="View contents of the autopilot script file located on this disk"
 txt_autopilot autopilot delete="Connection lost! Please delete the empty autopilot script file from this disk"
 txt_autopilot_device="Device file"
-txt_autopilot_memory="Memory Usage"
+txt_autopilot_memory="Disk space usage"
 txt_autopilot_from="from"
 txt_autopilot_use="occupied"
+txt_autopilot_free="free"
 txt_autopilot_service="The AutoPilot device driver for detecting external storage media is"
 txt_autopilot_is_installed="installed"
 txt_autopilot_is_not_installed="not installed"
@@ -124,8 +125,8 @@ txt_autopilot_scriptfile="Shell script"
 txt_autopilot_scriptfile_path="Directory"
 txt_autopilot_scriptfile_name="Filename"
 
-txt_autopilot_connect="After connecting an external disk, run the shell script <span class=\"text-success\">autopilot</span> automatically"
-txt_autopilot_disconnect="After executing the shell script, connect the external disk..."
+txt_autopilot_connect="After connecting an external disk, automatically execute the linked shell script file"
+txt_autopilot_disconnect="After executing the linked shell script file, remove the external disk..."
 txt_autopilot_disconnect_never="never eject"
 txt_autopilot_disconnect_auto="only eject if the task was processed without errors by an <span class=\"text-success\">exit 0</span> return value"
 txt_autopilot_disconnect_manual="always eject if the task was manually terminated by an <span class=\"text-success\">exit 100</span> return value"
@@ -211,6 +212,7 @@ txt_help_setup_step_2="From the second line onwards, individual shell script ins
 txt_help_setup_step_3="After the shell script instruction has been executed, a so-called exit code is usually passed to the system, the numerical value of which is given via a"
 txt_help_setup_step_4="can be read. If the result is 0, the last executed shell script instruction was executed without errors. In this case, AutoPilot would automatically eject the external disk. However, if you get a numerical value between 1 and 255, this indicates a note, a warning, an error or an abort of the last executed shell script statement. In this case, the external storage medium would not be automatically ejected by AutoPilot. This basic behavior can be individually adjusted in the AutoPilot settings. Alternatively, instead of the exit code passed by the system, this can also be done an own and thus permanently set exit code can be passed to AutoPilot, whereby a "
 txt_help_setup_step_5="AutoPilot informs that, regardless of the exit code actually passed, the external disk is always ejected. Below is the complete example script."
+
 
 
 

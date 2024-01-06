@@ -3,7 +3,7 @@
 
 #                       AutoPilot
 #
-#        Copyright (C) 2023 by Tommes | License GNU GPLv3
+#        Copyright (C) 2024 by Tommes | License GNU GPLv3
 #         Member of the German Synology Community Forum
 #
 # Extract from  GPL3   https://www.gnu.org/licenses/gpl-3.0.html
@@ -169,210 +169,200 @@ if [[ "${get[page]}" == "main" && "${get[section]}" == "start" ]]; then
 										[[ -z "${ext_dev}" ]] && continue
 
 										# Reading out free disk space
-										ext_df=$(df -BG "${ext_path}")
+										ext_df=$(df -h "${ext_path}")
 										ext_df=$(echo "${ext_df}" | sed -e 's/%//g' | awk 'NR > 1 {print $2 " " $3 " " $4 " " $5 " " $6}')
-										ext_disk_free=$(echo "${ext_df}" | awk '{print $1}' | sed -e 's/G/ GB/g')
-										#ext_disk_used=$(echo "${ext_df}" | awk '{print $2}' | sed -e 's/G/ GB/g')
-										#ext_disk_available=$(echo "${ext_df}" | awk '{print $3}' | sed -e 's/G/ GB/g')
+										ext_disk_free=$(echo "${ext_df}" | awk '{print $1}' | sed -e 's/G/ GB/g' | sed -e 's/M/ MB/g')
+										#ext_disk_used=$(echo "${ext_df}" | awk '{print $2}' | sed -e 's/G/ GB/g' | sed -e 's/M/ MB/g')
+										ext_disk_available=$(echo "${ext_df}" | awk '{print $3}' | sed -e 's/G/ GB/g' | sed -e 's/M/ MB/g')
 										ext_disk_used_percent=$(echo "${ext_df}" | awk '{print $4}')
 										#ext_disk_mountpoint=$(echo "$ext_df" | awk '{print $5}')
 
 										# Determine the file system if there is a 128-bit UUID (LINUX/UNIX)
 										if [[ "${ext_uuid}" =~ ^\{?[A-F0-9a-f]{8}-[A-F0-9a-f]{4}-[A-F0-9a-f]{4}-[A-F0-9a-f]{4}-[A-F0-9a-f]{12}\}?$ ]]; then
-											ext_guid="true"
 											txt_volume_id="Universally Unique Identifier (UUID)"
 										# Determine the file system if there is a 64 bit VSN (Windows NTFS)
 										elif [[ "${ext_uuid}" =~ ^\{?[A-F0-9a-f]{16}\}?$ ]]; then
-											ext_guid="true"
 											txt_volume_id="Volume Serial Number (VSN)"
 										# Determine the file system if there is a 32 bit VSN (Windows FAT12, FAT16, FAT32 and exFAT) combined as vFAT
 										elif [[ "${ext_uuid}" =~ ^\{?[A-F0-9a-f]{4}-[A-F0-9a-f]{4}\}?$ ]] || [[ "${ext_uuid}" =~ ^\{?[A-F0-9a-f]{8}\}?$ ]]; then
-											ext_guid="true"
 											txt_volume_id="Volume Serial Number (VSN)"
 										else
-											ext_guid="false"
+											ext_uuid=
 											txt_volume_id="Unique Identifier (UUID/GUID)"
 											txt_volume_id_failed="<span class=\"text-danger\">Could not be read</span>"
 										fi
 
 										# Specify the path to the internally stored UUID script file of the same name
-										[[ "${ext_guid}" == "true" ]] && uuidfile="${usr_devices}/${ext_uuid}"
+										if [ -n "${ext_uuid}" ]; then
+											uuidfile="${usr_devices}/${ext_uuid}"
 
-										echo '
-										<tr>
-											<td colspan="4">
-												<i class="bi bi-hdd-fill text-secondary me-2"></i><span class="fw-medium">'${ext_volume#*/}'</span>
-											</td>
-											<td class="text-end pe-4">'
-												# If autopilot script file exists is empty and internal UUID/GUID file exists, then...
-												if [ ! -s "${ext_volume}/${ext_share##*/}/autopilot" ] && [ -f "${uuidfile}" ]; then
-													echo '
-													<a class="btn btn-sm text-dark py-0" style="background-color: #e6e6e6;" href="index.cgi?page=main&section=view&extpath='${ext_path}'&extuuid='${ext_uuid}'">
-														<i class="bi bi-terminal-fill" style="font-size: 1.2rem;" title="'${txt_autopilot_script_view}'"></i>
-													</a>
-													<a class="btn btn-sm text-dark py-0" style="background-color: #e6e6e6;" href="index.cgi?page=main&section=delete&extpath='${ext_path}'&extuuid='${ext_uuid}'">
-														<i class="bi bi-trash text-danger" style="font-size: 1.2rem;" title="'${txt_autopilot_script_delete}'"></i>
-													</a>'
-												# If autopilot script file exists but is not empty, then...
-												elif [ -s "${ext_volume}/${ext_share##*/}/autopilot" ]; then
-													echo '
-													<a class="btn btn-sm text-danger py-0" style="background-color: #e6e6e6;" href="index.cgi?page=main&section=view&extpath='${ext_volume}/${ext_share##*/}'&extuuid=">
-														<i class="bi bi-exclamation-triangle" style="font-size: 1.2rem;" title="'${txt_autopilot_autopilot_view}'"></i>
-													</a>'
-												# If autopilot startup file does not exist and UUID/GUID could be read then...
-												elif [ ! -f "${ext_volume}/${ext_share##*/}/autopilot" ] && [[ "${ext_guid}" == "true" ]]; then
-													# Is the autopilot start file on the ext. Disk does not exist, then delete the associated device entry
-													if [ ! -f "${ext_volume}/${ext_share##*/}/autopilot" ]; then
-														rm /volume*/@appstore/AutoPilot/ui/usersettings/devices/${ext_uuid}
-													fi
-													echo '
-													<!-- Modal Button-->
-													<button type="button" class="btn btn-sm text-dark py-0" style="background-color: #e6e6e6;" data-bs-toggle="modal" data-bs-target="#ExternalDisk'${ext_id}'">
-														<i class="bi bi-link-45deg text-success" style="font-size: 1.2rem;" title="'${txt_autopilot_script_create}'"></i>
-													</button>
+#echo 'Free: '${ext_disk_free}'<br />'
+echo 'Es sind noch '${ext_disk_available}' von '${ext_disk_free}' frei.<br />'
+											echo '
+											<tr>
+												<td colspan="4">
+													<i class="bi bi-hdd-fill text-secondary me-2"></i><span class="fw-medium">'${ext_volume#*/}'</span>
+												</td>
+												<td class="text-end pe-4">'
+													# If autopilot script file exists is empty and internal UUID/GUID file exists, then...
+													if [ ! -s "${ext_volume}/${ext_share##*/}/autopilot" ] && [ -f "${uuidfile}" ]; then
+														echo '
+														<a class="btn btn-sm text-dark py-0" style="background-color: #e6e6e6;" href="index.cgi?page=main&section=view&extpath='${ext_path}'&extuuid='${ext_uuid}'">
+															<i class="bi bi-terminal-fill" style="font-size: 1.2rem;" title="'${txt_autopilot_script_view}'"></i>
+														</a>
+														<a class="btn btn-sm text-dark py-0" style="background-color: #e6e6e6;" href="index.cgi?page=main&section=delete&extpath='${ext_path}'&extuuid='${ext_uuid}'">
+															<i class="bi bi-trash text-danger" style="font-size: 1.2rem;" title="'${txt_autopilot_script_delete}'"></i>
+														</a>'
+													# If autopilot script file exists but is not empty, then...
+													elif [ -s "${ext_volume}/${ext_share##*/}/autopilot" ]; then
+														echo '
+														<a class="btn btn-sm text-danger py-0" style="background-color: #e6e6e6;" href="index.cgi?page=main&section=view&extpath='${ext_volume}/${ext_share##*/}'&extuuid=">
+															<i class="bi bi-exclamation-triangle" style="font-size: 1.2rem;" title="'${txt_autopilot_autopilot_view}'"></i>
+														</a>'
+													# If autopilot startup file does not exist and UUID/GUID could be read then...
+													elif [ ! -f "${ext_volume}/${ext_share##*/}/autopilot" ]; then
+														# Is the autopilot start file on the ext. Disk does not exist, then delete the associated device entry
+														if [ ! -f "${ext_volume}/${ext_share##*/}/autopilot" ]; then
+															rm /volume*/@appstore/AutoPilot/ui/usersettings/devices/${ext_uuid}
+														fi
+														echo '
+														<!-- Modal Button-->
+														<button type="button" class="btn btn-sm text-dark py-0" style="background-color: #e6e6e6;" data-bs-toggle="modal" data-bs-target="#ExternalDisk'${ext_id}'">
+															<i class="bi bi-link-45deg text-success" style="font-size: 1.2rem;" title="'${txt_autopilot_script_create}'"></i>
+														</button>
 
-													<!-- Modal Popup-->
-													<div class="modal fade" id="ExternalDisk'${ext_id}'" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="ExternalDisk'${ext_id}'Label" aria-hidden="true">
-														<div class="modal-dialog">
-															<div class="modal-content">
-																<div class="modal-header bg-light">
-																	<h1 class="modal-title align-baseline fs-5" style="color: #FF8C00;" id="ExternalDisk'${ext_id}'Label">'${txt_autopilot_create_script}'</h1>
-																	<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+														<!-- Modal Popup-->
+														<div class="modal fade" id="ExternalDisk'${ext_id}'" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="ExternalDisk'${ext_id}'Label" aria-hidden="true">
+															<div class="modal-dialog">
+																<div class="modal-content">
+																	<div class="modal-header bg-light">
+																		<h1 class="modal-title align-baseline fs-5" style="color: #FF8C00;" id="ExternalDisk'${ext_id}'Label">'${txt_autopilot_create_script}'</h1>
+																		<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+																	</div>
+																	<form action="index.cgi?page=main" method="post" id="form'${ext_id}'" autocomplete="on">
+																		<div class="modal-body text-start">
+																			'${txt_autopilot_create_disk_01}' '${ext_path}' '${txt_autopilot_create_disk_02}' '${ext_uuid}' '${txt_autopilot_create_disk_03}'<br />
+																			<br />
+																			<div class="row mb-3 px-1">
+																				<div class="col">
+																					<label for="sharedfolder" class="form-label">'${txt_autopilot_sharedfolder_label}'</label>
+																						<select id="sharedfolder" name="sharedfolder" class="form-select form-select-sm" required>
+																							<option value="" class="text-secondary" selected disabled></option>'
+																								local_target "/volume[[:digit:]]*" "sharedfolder"
+																								external_target "${ext_volume}*" "sharedfolder" "${ext_share}"
+																								echo '
+																						</select>
+																				</div>
+																				<div class="col">
+																					<label for="targetfolder" class="form-label text-dark">'${txt_autopilot_targetfolder_label}'
+																						<a class="text-danger text-decoration-none" data-bs-toggle="collapse" href="#targetfolder-note" role="button" aria-expanded="false" aria-controls="targetfolder-note">'${note}'</a>
+																						<div class="collapse" id="targetfolder-note">
+																							<div class="card card-body border-0">
+																								<small>'${txt_autopilot_targetfolder_note}'</small>
+																							</div>
+																						</div>
+																					</label>
+																					<input type="text" pattern="'${txt_autopilot_targetfolder_regex}'" class="form-control form-control-sm" name="targetfolder" id="targetfolder" value="" placeholder="'${txt_autopilot_targetfolder_format}'" />
+																				</div>
+																			</div>
+																			<div class="row mb-3 px-1">
+																				<div class="col">
+																					<label for="filename" class="form-label text-dark">'${txt_autopilot_filename_label}'
+																						<a class="text-danger text-decoration-none" data-bs-toggle="collapse" href="#filename-note" role="button" aria-expanded="false" aria-controls="filename-note">'${note}'</a>
+																						<div class="collapse" id="filename-note">
+																							<div class="card card-body border-0">
+																								<small>'${txt_autopilot_filename_note}'</small>
+																							</div>
+																						</div>
+																					</label>
+																					<div class="input-group">
+																						<input type="text" pattern="'${txt_autopilot_filename_regex}'" class="form-control form-control-sm" name="filename" id="filename" value="" placeholder="autoscript01" required />
+																						<span class="input-group-text" id="basic-addon2">.sh</span>
+																					</div>
+																					<div class="text-center pt-2">
+																						<small>'${txt_autopilot_create_scriptfile_note}'</small>
+																					</div>
+																				</div>
+																			</div>
+																		</div>
+																		<div class="modal-footer bg-light">
+																			<input type="hidden" name="extuuid" value="'${ext_uuid}'">
+																			<input type="hidden" name="extpath" value="'${ext_path}'">
+																			<button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">'${txt_button_Cancel}'</button><br />
+																			<button class="btn btn-secondary btn-sm" type="submit" name="section" value="autopilotscript">'${txt_button_Save}'</button>
+																		</div>
+																	</form>
 																</div>
-																<form action="index.cgi?page=main" method="post" id="form'${ext_id}'" autocomplete="on">
-																	<div class="modal-body text-start">
-																		'${txt_autopilot_create_disk_01}' '${ext_path}' '${txt_autopilot_create_disk_02}' '${ext_uuid}' '${txt_autopilot_create_disk_03}'<br />
-																		<br />
-																		<div class="row mb-3 px-1">
-																			<div class="col">
-																				<label for="sharedfolder" class="form-label">'${txt_autopilot_sharedfolder_label}'</label>
-																					<select id="sharedfolder" name="sharedfolder" class="form-select form-select-sm" required>
-																						<option value="" class="text-secondary" selected disabled></option>'
-																							local_target "/volume[[:digit:]]*" "sharedfolder"
-																							external_target "${ext_volume}*" "sharedfolder" "${ext_share}"
-																							echo '
-																					</select>
-																			</div>
-																			<div class="col">
-																				<label for="targetfolder" class="form-label text-dark">'${txt_autopilot_targetfolder_label}'
-																					<a class="text-danger text-decoration-none" data-bs-toggle="collapse" href="#targetfolder-note" role="button" aria-expanded="false" aria-controls="targetfolder-note">'${note}'</a>
-																					<div class="collapse" id="targetfolder-note">
-																						<div class="card card-body border-0">
-																							<small>'${txt_autopilot_targetfolder_note}'</small>
-																						</div>
-																					</div>
-																				</label>
-																				<input type="text" pattern="'${txt_autopilot_targetfolder_regex}'" class="form-control form-control-sm" name="targetfolder" id="targetfolder" value="" placeholder="'${txt_autopilot_targetfolder_format}'" />
-																			</div>
-																		</div>
-																		<div class="row mb-3 px-1">
-																			<div class="col">
-																				<label for="filename" class="form-label text-dark">'${txt_autopilot_filename_label}'
-																					<a class="text-danger text-decoration-none" data-bs-toggle="collapse" href="#filename-note" role="button" aria-expanded="false" aria-controls="filename-note">'${note}'</a>
-																					<div class="collapse" id="filename-note">
-																						<div class="card card-body border-0">
-																							<small>'${txt_autopilot_filename_note}'</small>
-																						</div>
-																					</div>
-																				</label>
-																				<div class="input-group">
-																					<input type="text" pattern="'${txt_autopilot_filename_regex}'" class="form-control form-control-sm" name="filename" id="filename" value="" placeholder="autoscript01" required />
-																					<span class="input-group-text" id="basic-addon2">.sh</span>
-																				</div>
-																				<div class="text-center pt-2">
-																					<small>'${txt_autopilot_create_scriptfile_note}'</small>
-																				</div>
-																			</div>
-																		</div>
-																	</div>
-																	<div class="modal-footer bg-light">
-																		<input type="hidden" name="extuuid" value="'${ext_uuid}'">
-																		<input type="hidden" name="extpath" value="'${ext_path}'">
-																		<button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">'${txt_button_Cancel}'</button><br />
-																		<button class="btn btn-secondary btn-sm" type="submit" name="section" value="autopilotscript">'${txt_button_Save}'</button>
-																	</div>
-																</form>
 															</div>
 														</div>
-													</div>
-													<script type="text/javascript">
-														$(window).on("load", function() {
-															$("#popup-validation").modal("show");
-														});
-													</script>'
-												else
+														<script type="text/javascript">
+															$(window).on("load", function() {
+																$("#popup-validation").modal("show");
+															});
+														</script>'
+													else
+														echo '
+														<span class="btn btn-sm text-dark py-0" style="background-color: #e6e6e6; cursor: default;">
+															<i class="bi bi-file-earmark-x text-danger" style="font-size: 1.2rem;" title="'${txt_autopilot_autopilot_delete}'"></i>
+														</span>'
+													fi
 													echo '
-													<span class="btn btn-sm text-dark py-0" style="background-color: #e6e6e6; cursor: default;">
-														<i class="bi bi-file-earmark-x text-danger" style="font-size: 1.2rem;" title="'${txt_autopilot_autopilot_delete}'"></i>
-													</span>'
-												fi
-												echo '
-											</td>
-										</tr>
-										<tr>
-											<td class="bg-light ps-4 me-2">
-												<i class="bi bi-folder-fill text-warning me-2"></i>'${ext_share##*/}'
-											</td>
-											<td>'${txt_autopilot_disk_name}'</td>
-											<td colspan="3">'${ext_label}'</td>
-										</tr>
-										<tr>
-											<td>&nbsp;</td>
-											<td>'${txt_autopilot_filesystem}'</td>
-											<td colspan="3">'${ext_type}'</td>
-										</tr>
-										<tr>
-											<td>&nbsp;</td>
-											<td>'${txt_autopilot_device}'</td>
-											<td colspan="3">'${ext_dev}'</td>
-										</tr>'
-										if [[ "${ext_guid}" == "true" ]]; then
-											echo '
+												</td>
+											</tr>
+											<tr>
+												<td class="bg-light ps-4 me-2">
+													<i class="bi bi-folder-fill text-warning me-2"></i>'${ext_share##*/}'
+												</td>
+												<td>'${txt_autopilot_disk_name}'</td>
+												<td colspan="3">'${ext_label}'</td>
+											</tr>
+											<tr>
+												<td>&nbsp;</td>
+												<td>'${txt_autopilot_filesystem}'</td>
+												<td colspan="3">'${ext_type}'</td>
+											</tr>
+											<tr>
+												<td>&nbsp;</td>
+												<td>'${txt_autopilot_device}'</td>
+												<td colspan="3">'${ext_dev}'</td>
+											</tr>
 											<tr>
 												<td>&nbsp;</td>
 												<td>'${txt_volume_id}'</td>
 												<td colspan="3">'${ext_uuid}'</td>
-											</tr>'
-										else
-											echo '
-											<tr>
-												<td>&nbsp;</td>
-												<td>'${txt_volume_id}'</td>
-												<td colspan="3">'${txt_volume_id_failed}'</td>
-											</tr>'
-										fi
-										echo '
-										<tr>
-											<td>&nbsp;</td>
-											<td>'${txt_autopilot_memory}'</td>
-											<td style="width: auto">
-												<div class="progress" role="progressbar" aria-label="Example with label" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100" style="height: 25px">
-													<div class="progress-bar overflow-visible text-dark bg-primary-subtle ps-2" style="width: '${ext_disk_used_percent}'%">'${ext_disk_used_percent}'% '${txt_autopilot_from}' '${ext_disk_free}' '${txt_autopilot_use}'</div>
-												</div>
-											</td>
-											<td colspan="2">&nbsp;</td>
-										</tr>'
-										uuidfile="${usr_devices}/${ext_uuid}"
-										if [ -f "${uuidfile}" ]; then
-											scriptfile=$(cat "${uuidfile}" | grep scriptpath | cut -d '"' -f2)
-											echo '
-											<tr>
-												<td class="bg-light ps-4 me-2">
-													<i class="bi bi-file-earmark text-dark me-2"></i>'${txt_autopilot_scriptfile}'
-												</td>
-												<td>'${txt_autopilot_scriptfile_path}'</td>
-												<td colspan="3">'${scriptfile%/*}'</td>
 											</tr>
 											<tr>
 												<td>&nbsp;</td>
-												<td>'${txt_autopilot_scriptfile_name}'</td>
-												<td colspan="3">'${scriptfile##*/}'</td>
+												<td>'${txt_autopilot_memory}'</td>
+												<td style="width: auto">
+													<div class="progress" role="progressbar" aria-label="Example with label" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100" style="height: 25px">
+														<div class="progress-bar overflow-visible text-dark bg-primary-subtle ps-2" style="width: '${ext_disk_used_percent}'%">'${ext_disk_available}' '${txt_autopilot_from}' '${ext_disk_free}' '${txt_autopilot_free}'</div>
+													</div>
+												</td>
+												<td colspan="2">&nbsp;</td>
+											</tr>'
+											uuidfile="${usr_devices}/${ext_uuid}"
+											if [ -f "${uuidfile}" ]; then
+												scriptfile=$(cat "${uuidfile}" | grep scriptpath | cut -d '"' -f2)
+												echo '
+												<tr>
+													<td class="bg-light ps-4 me-2">
+														<i class="bi bi-file-earmark text-dark me-2"></i>'${txt_autopilot_scriptfile}'
+													</td>
+													<td>'${txt_autopilot_scriptfile_path}'</td>
+													<td colspan="3">'${scriptfile%/*}'</td>
+												</tr>
+												<tr>
+													<td>&nbsp;</td>
+													<td>'${txt_autopilot_scriptfile_name}'</td>
+													<td colspan="3">'${scriptfile##*/}'</td>
+												</tr>'
+											fi
+											echo '
+											<tr>
+												<td colspan="5">&nbsp;</td>
 											</tr>'
 										fi
-										echo '
-										<tr>
-											<td colspan="5">&nbsp;</td>
-										</tr>'
 										ext_id=$[${ext_id}+1]
 									done <<< "$( find ${ext_volume}/* -maxdepth 0 -type d ! -path '*/lost\+found' ! -path '*/\@*' ! -path '*/\$RECYCLE.BIN' ! -path '*/Repair' ! -path '*/System Volume Information' )"
 									unset ext_uuid extuuid 

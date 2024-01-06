@@ -3,7 +3,7 @@
 
 #                AutoPilot
 #
-#        Copyright (C) 2023 by Tommes 
+#        Copyright (C) 2024 by Tommes 
 # Member of the German Synology Community Forum
 #             License GNU GPLv3
 #   https://www.gnu.org/licenses/gpl-3.0.html

@@ -3,7 +3,7 @@
 
 #                       AutoPilot
 #
-#        Copyright (C) 2023 by Tommes | License GNU GPLv3
+#        Copyright (C) 2024 by Tommes | License GNU GPLv3
 #         Member of the German Synology Community Forum
 #
 # Extract from  GPL3   https://www.gnu.org/licenses/gpl-3.0.html
@@ -190,6 +190,15 @@ if [[ "${connect}" == "true" ]] && [ -n "${mountpoint}" ]; then
 			${scriptfile}
 			exit_script=${?}
 
+			# Reading out free disk space
+			df=$(df -h "${mountpoint}")
+			df=$(echo "${df}" | sed -e 's/%//g' | awk 'NR > 1 {print $2 " " $3 " " $4 " " $5 " " $6}')
+			ext_disk_free=$(echo "${df}" | awk '{print $1}' | sed -e 's/G/ GB/g' | sed -e 's/M/ MB/g')
+			#ext_disk_used=$(echo "${df}" | awk '{print $2}' | sed -e 's/G/ GB/g' | sed -e 's/M/ MB/g')
+			ext_disk_available=$(echo "${df}" | awk '{print $3}' | sed -e 's/G/ GB/g' | sed -e 's/M/ MB/g')
+			#ext_disk_used_percent=$(echo "${df}" | awk '{print $4}')
+			#ext_disk_mountpoint=$(echo "$df" | awk '{print $5}')
+
 			# If autoilot was executed successfully (the exit code is 0 or was manually instructed with 100)
 			if [[ ${exit_script} -eq 0 ]] || [[ ${exit_script} -eq 100 ]]; then
 				[[ ${exit_script} -eq 0 ]] && echo "${txt_autopilot_script_success}" >> "${log}"
@@ -260,6 +269,7 @@ if [[ "${connect}" == "true" ]] && [ -n "${mountpoint}" ]; then
 			[[ "${signal}" == "true" ]] && signal_warning
 			synodsmnotify -c SYNO.SDS.${app}.Application @administrators ${app}:app:subtitle ${app}:app:autopilot_warning_c "${mountpoint}"
 		fi
+		echo "${txt_df_memory}: ${ext_disk_available} ${txt_df_from} ${ext_disk_free} ${txt_df_free}." >> "${log}"
 		echo "${txt_line_separator}"  >> "${log}"
 		echo "$(timestamp) ${txt_autopilot_ends}" >> "${log}"
 		echo "${txt_line_separator}" >> "${log}"
