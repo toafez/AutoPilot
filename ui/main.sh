@@ -171,9 +171,9 @@ if [[ "${get[page]}" == "main" && "${get[section]}" == "start" ]]; then
 										# Reading out free disk space
 										ext_df=$(df -h "${ext_path}")
 										ext_df=$(echo "${ext_df}" | sed -e 's/%//g' | awk 'NR > 1 {print $2 " " $3 " " $4 " " $5 " " $6}')
-										ext_disk_free=$(echo "${ext_df}" | awk '{print $1}' | sed -e 's/G/ GB/g' | sed -e 's/M/ MB/g')
-										#ext_disk_used=$(echo "${ext_df}" | awk '{print $2}' | sed -e 's/G/ GB/g' | sed -e 's/M/ MB/g')
-										ext_disk_available=$(echo "${ext_df}" | awk '{print $3}' | sed -e 's/G/ GB/g' | sed -e 's/M/ MB/g')
+										ext_disk_free=$(echo "${ext_df}" | awk '{print $1}' | sed -e 's/T/ TB/g' | sed -e 's/G/ GB/g' | sed -e 's/M/ MB/g')
+										#ext_disk_used=$(echo "${ext_df}" | awk '{print $2}' | sed -e 's/T/ TB/g' | sed -e 's/G/ GB/g' | sed -e 's/M/ MB/g')
+										ext_disk_available=$(echo "${ext_df}" | awk '{print $3}' | sed -e 's/T/ TB/g' | sed -e 's/G/ GB/g' | sed -e 's/M/ MB/g')
 										ext_disk_used_percent=$(echo "${ext_df}" | awk '{print $4}')
 										#ext_disk_mountpoint=$(echo "$ext_df" | awk '{print $5}')
 

@@ -4,10 +4,11 @@ Previously unreleased release
 
  -Deutsch
     - Anzeigefehler unter Verwendung der englischen Sprache behoben.
-    - Im Protokoll unter dem Punkt Speicherplatznutzung, wurde die Abkürzung für Terrabyte nur als "T" und nicht als „TB“ ausgegeben. Fehler wurde behoben.
+    - Unter dem Punkt Speicherplatznutzung wurde die Abkürzung für Terrabyte nur als "T" und nicht als „TB“ ausgegeben. Fehler wurde behoben.
  -English
     - Fixed display error when using English language.
-    - In the log under the point storage space usage, the abbreviation for terabyte was only shown as “T” and not as “TB”. Bug has been fixed.
+    - Under the point storage space usage the abbreviation for terabyte was only shown as “T” and not as “TB”. Bug has been fixed.
+
 
 Version 1.1-100 vom 06.01.2024
 
