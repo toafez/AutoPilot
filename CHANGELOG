@@ -5,9 +5,14 @@ Previously unreleased release
  -Deutsch
     - Anzeigefehler unter Verwendung der englischen Sprache behoben.
     - Unter dem Punkt Speicherplatznutzung wurde die Abkürzung für Terrabyte nur als "T" und nicht als „TB“ ausgegeben. Fehler wurde behoben.
+    - Wurde eine Hyper Backup Aufgabe so konfiguriert, dass der externe Datenträger nach erfolgreicher Sicherung ausgeworfen werden soll, konnte AutoPilot im Anschluss keine korrekten Angaben zur Speicherplatznutzung mehr ins Protokoll aufnehmen. Fehler wurde behoben. Danke an luddinho - GitHub Issue #12
+    - In einigen seltenen Situationen konnte es vorkommen, dass die ausgelöste Hyper Backup Aufgabe stecken blieb, wenn diese direkt nach dem Einhängen eines externen Datenträgers durch AutoPilot  ausgelöst wurde und das Ziel noch nicht bereit war. Fehler wurde behoben. Danke an luddinho - GitHub Issue #13
+
  -English
     - Fixed display error when using English language.
     - Under the point storage space usage the abbreviation for terabyte was only shown as “T” and not as “TB”. Bug has been fixed.
+    - If a Hyper Backup task was configured so that the external disk was to be ejected after a successful backup, AutoPilot could no longer include correct information on disk space usage in the log. Bug has been fixed. Thanks to luddinho - GutHub Issue #12
+    - In some rare situations, the triggered Hyper Backup task could get stuck if it was triggered by AutoPilot directly after mounting an external disk and the destination was not yet ready. Bug has been fixed. Thanks to luddinho - GitHub Issue #13
 
 
 Version 1.1-100 vom 06.01.2024
