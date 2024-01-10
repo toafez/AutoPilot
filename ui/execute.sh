@@ -125,13 +125,15 @@ else
 	device="/dev/${par}"
 
 	# Searching for mount points
-	counter=0
 	mountpoint=""
-	while ([ -z "${mountpoint}" ] && [ ${counter} -lt 20 ]); do
-		mountpoint=$(mount 2>&1 | grep "$device" | cut -d ' ' -f3)
-		((counter++))
-		sleep 2
+	loopMaxSecs=30									# Set maximum time (duration) for loop in seconds.
+	loopEndTime=$(( $(date +%s) + loopMaxSecs ))	# Calculate end time of loop.
+
+	while [ -z "${mountpoint}" ] && [ $(date +%s) -lt $loopEndTime ]; do # Loop until mountpoint found or reached maximum duration time.
+		mountpoint=$(mount -l | grep "$device" | awk '{print $3}')
 	done
+	# Explicit wait some seconds to ensure Disk is online and available if there is the usage of a Hyper Backup task.
+	sleep 10
 fi
 
 # Mount (connect) external USB devices
