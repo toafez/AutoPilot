@@ -31,6 +31,7 @@ txt_df_memory="Disk space usage"
 txt_df_from="from"
 txt_df_use="occupied"
 txt_df_free="free"
+txt_df_eval_not_pos="Disk space could not be determined."
 
 txt_autopilot_script_search="Search script to be executed"
 txt_autopilot_script_found="The script was found and will be executed"

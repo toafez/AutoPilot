@@ -31,6 +31,7 @@ txt_df_memory="Speicherplatznutzung"
 txt_df_from="von"
 txt_df_use="belegt"
 txt_df_free="frei"
+txt_df_eval_not_pos="Der Speicherplatz konnte nicht ermittelt werden."
 
 txt_autopilot_script_search="Suche auszuführendes Script"
 txt_autopilot_script_found="Das Script wurde gefunden und wird ausgeführt"
