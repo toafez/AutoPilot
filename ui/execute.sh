@@ -190,14 +190,20 @@ if [[ "${connect}" == "true" ]] && [ -n "${mountpoint}" ]; then
 			${scriptfile}
 			exit_script=${?}
 
-			# Reading out free disk space
-			df=$(df -h "${mountpoint}")
-			df=$(echo "${df}" | sed -e 's/%//g' | awk 'NR > 1 {print $2 " " $3 " " $4 " " $5 " " $6}')
-			ext_disk_size=$(echo "${df}" | awk '{print $1}' | sed -e 's/T/ TB/g' | sed -e 's/G/ GB/g' | sed -e 's/M/ MB/g')
-			#ext_disk_used=$(echo "${df}" | awk '{print $2}' | sed -e 's/T/ TB/g' | sed -e 's/G/ GB/g' | sed -e 's/M/ MB/g')
-			ext_disk_available=$(echo "${df}" | awk '{print $3}' | sed -e 's/T/ TB/g' | sed -e 's/G/ GB/g' | sed -e 's/M/ MB/g')
-			#ext_disk_used_percent=$(echo "${df}" | awk '{print $4}')
-			#ext_disk_mountpoint=$(echo "$df" | awk '{print $5}')
+			# Check again if mount still exists for the device. It could be the reason that a Hyper Backup Task has already ejected the disk.
+			mountpoint=$(mount -l | grep "${device}" | awk '{print $3}')
+			if [ -z "${mountpoint}" ] ; then
+				disk_eval_not_pos=true
+			else
+				# Reading out free disk space
+				df=$(df -h "${mountpoint}")
+				df=$(echo "${df}" | sed -e 's/%//g' | awk 'NR > 1 {print $2 " " $3 " " $4 " " $5 " " $6}')
+				ext_disk_size=$(echo "${df}" | awk '{print $1}' | sed -e 's/T/ TB/g' | sed -e 's/G/ GB/g' | sed -e 's/M/ MB/g')
+				#ext_disk_used=$(echo "${df}" | awk '{print $2}' | sed -e 's/T/ TB/g' | sed -e 's/G/ GB/g' | sed -e 's/M/ MB/g')
+				ext_disk_available=$(echo "${df}" | awk '{print $3}' | sed -e 's/T/ TB/g' | sed -e 's/G/ GB/g' | sed -e 's/M/ MB/g')
+				#ext_disk_used_percent=$(echo "${df}" | awk '{print $4}')
+				#ext_disk_mountpoint=$(echo "$df" | awk '{print $5}')
+			fi
 
 			# If autoilot was executed successfully (the exit code is 0 or was manually instructed with 100)
 			if [[ ${exit_script} -eq 0 ]] || [[ ${exit_script} -eq 100 ]]; then
@@ -269,7 +275,12 @@ if [[ "${connect}" == "true" ]] && [ -n "${mountpoint}" ]; then
 			[[ "${signal}" == "true" ]] && signal_warning
 			synodsmnotify -c SYNO.SDS.${app}.Application @administrators ${app}:app:subtitle ${app}:app:autopilot_warning_c "${mountpoint}"
 		fi
-		echo "${txt_df_memory}: ${ext_disk_available} ${txt_df_from} ${ext_disk_size} ${txt_df_free}." >> "${log}"
+
+		if [ ! "${disk_eval_not_pos}" ]; then
+			echo "${txt_df_memory}: ${ext_disk_available} ${txt_df_from} ${ext_disk_size} ${txt_df_free}." >> "${log}"
+		else
+			echo "${txt_df_memory}: ${txt_df_eval_not_pos}" >> "$log"
+		fi
 		echo "${txt_line_separator}"  >> "${log}"
 		echo "$(timestamp) ${txt_autopilot_ends}" >> "${log}"
 		echo "${txt_line_separator}" >> "${log}"
