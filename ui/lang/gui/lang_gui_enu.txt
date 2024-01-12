@@ -162,7 +162,7 @@ txt_help_status_uninstall_terminal="Uninstall device drivers via console"
 txt_help_status_install_dsm="Install device drivers via DSM Task Scheduler"
 txt_help_status_uninstall_dsm="Uninstall device drivers via DSM Task Scheduler"
 txt_help_status_step_1="Log in as user <span class=\"text-danger fst-italic\">root</span> on your DiskStations console and run the following command"
-txt_help_status_step_2="Open in the DSM under <span class=\"text-danger fst-italic\">Main Menu</span> > <span class=\"text-danger fst-italic\">Control Panel</span> span class=\"text-danger fst-italic\">Task Scheduler</span>."
+txt_help_status_step_2="Open in the DSM under <span class=\"text-danger fst-italic\">Main Menu</span> > <span class=\"text-danger fst-italic\">Control Panel</span> > <span class=\"text-danger fst-italic\">Task Scheduler</span>."
 txt_help_status_step_3="In the task planner, select <span class=\"text-danger fst-italic\">Create</span> > <span class=\"text-danger fst-italic\">Scheduled task</span> > <span class=\"text-danger fst-italic\">Custom script</span>."
 txt_help_status_step_4="In the pop-up window that now opens, enter <span class=\"text-danger fst-italic\">General</span> > <span class=\"text-danger fst-italic \">General Settings</span> give the task an individual name and select <span class=\"text-danger fst-italic\">root</span> as the user. Then you uncheck the <span class =\"text-danger fst-italic\">Enabled</span>."
 txt_help_status_step_5="In the tab <span class=\"text-danger fst-italic\">Task settings</span> > <span class=\"text-danger fst-italic\">Execute command</span> > <span class=\"text-danger fst-italic\">Custom Script</span> enter the following command in the text field..."
@@ -212,4 +212,5 @@ txt_help_setup_step_2="From the second line onwards, individual shell script ins
 txt_help_setup_step_3="After the shell script instruction has been executed, a so-called exit code is usually passed to the system, the numerical value of which is given via a"
 txt_help_setup_step_4="can be read. If the result is 0, the last executed shell script instruction was executed without errors. In this case, AutoPilot would automatically eject the external disk. However, if you get a numerical value between 1 and 255, this indicates a note, a warning, an error or an abort of the last executed shell script statement. In this case, the external storage medium would not be automatically ejected by AutoPilot. This basic behavior can be individually adjusted in the AutoPilot settings. Alternatively, instead of the exit code passed by the system, this can also be done an own and thus permanently set exit code can be passed to AutoPilot, whereby a "
 txt_help_setup_step_5="AutoPilot informs that, regardless of the exit code actually passed, the external disk is always ejected. Below is the complete example script."
+
 
