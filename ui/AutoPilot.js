@@ -46,7 +46,8 @@ Ext.apply(SYNO.SDS.AutoPilot.Utils, function() {
     return {
         getMainHtml: function() {
             // Timestamp must be inserted here to prevent caching of iFrame
-            return '<iframe src="webman/3rdparty/AutoPilot/index.cgi?timestamp=' + new Date().getTime() + '" title="react-app" style="width: 100%; height: 100%; border: none; margin: 0"/>';
+            return '<iframe src="webman/3rdparty/AutoPilot/index.cgi?timestamp=' + new Date().getTime() + '" title="react-app" style="width: 100%; height: 100%; border: none; margin: 0" allowfullscreen></iframe>';
         },
     }
-}());
+}())
+
