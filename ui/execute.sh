@@ -126,12 +126,18 @@ else
 
 	# Searching for mount points
 	mountpoint=""
-	loopMaxSecs=30									# Set maximum time (duration) for loop in seconds.
-	loopEndTime=$(( $(date +%s) + loopMaxSecs ))	# Calculate end time of loop.
 
-	while [ -z "${mountpoint}" ] && [ $(date +%s) -lt $loopEndTime ]; do # Loop until mountpoint found or reached maximum duration time.
+	# Set maximum time (duration) for loop in seconds.
+	loopMaxSecs=30
+
+	# Calculate end time of loop.
+	loopEndTime=$(( $(date +%s) + loopMaxSecs ))
+
+	# Loop until mountpoint found or reached maximum duration time.
+	while [ -z "${mountpoint}" ] && [ $(date +%s) -lt $loopEndTime ]; do
 		mountpoint=$(mount -l | grep "$device" | awk '{print $3}')
 	done
+
 	# Explicit wait some seconds to ensure Disk is online and available if there is the usage of a Hyper Backup task.
 	sleep 10
 fi
