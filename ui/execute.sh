@@ -137,9 +137,6 @@ else
 	while [ -z "${mountpoint}" ] && [ $(date +%s) -lt $loopEndTime ]; do
 		mountpoint=$(mount -l | grep "$device" | awk '{print $3}')
 	done
-
-	# Explicit wait some seconds to ensure Disk is online and available if there is the usage of a Hyper Backup task.
-	sleep 10
 fi
 
 # Mount (connect) external USB devices
