@@ -26,7 +26,7 @@
 # --------------------------------------------------------------
 PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/syno/bin:/usr/syno/sbin
 app="AutoPilot"
-dir="$(echo `dirname ${0}`)"
+dir=$(dirname "${0}")
 #scriptname="$(echo `basename ${0%.*}`)"
 scriptname="autopilot"
 logpath="${dir}/usersettings/logfiles"
@@ -59,6 +59,9 @@ log="${logpath}/${logfile}"
 # ----------------------------------------------------------
 [ -f "${dir}/modules/parse_language.sh" ] && source "${dir}/modules/parse_language.sh" || exit
 language "PILOT"
+
+# Load library function for byte conversion
+[ -f "${dir}/lib/bytes2human.sh" ] && source "${dir}/lib/bytes2human.sh"
 
 # Set timestamp
 # ----------------------------------------------------------
@@ -204,13 +207,17 @@ if [[ "${connect}" == "true" ]] && [ -n "${mountpoint}" ]; then
 				disk_eval_not_pos=true
 			else
 				# Reading out free disk space
-				df=$(df -h "${mountpoint}")
+				df=$(df -B1 "${mountpoint}")
 				df=$(echo "${df}" | sed -e 's/%//g' | awk 'NR > 1 {print $2 " " $3 " " $4 " " $5 " " $6}')
-				ext_disk_size=$(echo "${df}" | awk '{print $1}' | sed -e 's/T/ TB/g' | sed -e 's/G/ GB/g' | sed -e 's/M/ MB/g')
-				#ext_disk_used=$(echo "${df}" | awk '{print $2}' | sed -e 's/T/ TB/g' | sed -e 's/G/ GB/g' | sed -e 's/M/ MB/g')
-				ext_disk_available=$(echo "${df}" | awk '{print $3}' | sed -e 's/T/ TB/g' | sed -e 's/G/ GB/g' | sed -e 's/M/ MB/g')
+				ext_disk_size=$(echo "${df}" | awk '{print $1}')
+				#ext_disk_used=$(echo "${df}" | awk '{print $2}')
+				ext_disk_available=$(echo "${df}" | awk '{print $3}')
 				#ext_disk_used_percent=$(echo "${df}" | awk '{print $4}')
 				#ext_disk_mountpoint=$(echo "$df" | awk '{print $5}')
+
+				# convert bytes to human readable
+				ext_disk_size=$(bytesToHumanReadable "$ext_disk_size")
+				ext_disk_available=$(bytesToHumanReadable "$ext_disk_available")
 			fi
 
 			# If autoilot was executed successfully (the exit code is 0 or was manually instructed with 100)

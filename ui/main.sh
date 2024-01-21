@@ -22,6 +22,11 @@
 # with this program. If not, see http://www.gnu.org/licenses/  !
 
 
+# --------------------------------------------------------------
+# Define Enviroment
+# --------------------------------------------------------------
+dir=$(dirname "${0}")
+
 # Reset requests and reload the page
 # --------------------------------------------------------------
 if [[ "${get[page]}" == "main" && "${get[section]}" == "reset" ]]; then
@@ -68,6 +73,9 @@ function external_target()
 	done <<< "$( find ${1} -maxdepth 0 -type d )"
 	unset volume share
 }
+
+# Load library function for byte conversion
+[ -f "${dir}/lib/bytes2human.sh" ] && source "${dir}/lib/bytes2human.sh"
 
 # Load horizontal navigation bar
 # --------------------------------------------------------------
@@ -169,13 +177,17 @@ if [[ "${get[page]}" == "main" && "${get[section]}" == "start" ]]; then
 										[[ -z "${ext_dev}" ]] && continue
 
 										# Reading out free disk space
-										ext_df=$(df -h "${ext_path}")
+										ext_df=$(df -B1 "${ext_path}")
 										ext_df=$(echo "${ext_df}" | sed -e 's/%//g' | awk 'NR > 1 {print $2 " " $3 " " $4 " " $5 " " $6}')
-										ext_disk_free=$(echo "${ext_df}" | awk '{print $1}' | sed -e 's/T/ TB/g' | sed -e 's/G/ GB/g' | sed -e 's/M/ MB/g')
-										#ext_disk_used=$(echo "${ext_df}" | awk '{print $2}' | sed -e 's/T/ TB/g' | sed -e 's/G/ GB/g' | sed -e 's/M/ MB/g')
-										ext_disk_available=$(echo "${ext_df}" | awk '{print $3}' | sed -e 's/T/ TB/g' | sed -e 's/G/ GB/g' | sed -e 's/M/ MB/g')
+										ext_disk_size=$(echo "${ext_df}" | awk '{print $1}')
+										#ext_disk_used=$(echo "${ext_df}" | awk '{print $2}')
+										ext_disk_available=$(echo "${ext_df}" | awk '{print $3}')
 										ext_disk_used_percent=$(echo "${ext_df}" | awk '{print $4}')
 										#ext_disk_mountpoint=$(echo "$ext_df" | awk '{print $5}')
+
+										# convert bytes to human readable
+										ext_disk_size=$(bytesToHumanReadable "$ext_disk_size")
+										ext_disk_available=$(bytesToHumanReadable "$ext_disk_available")
 
 										# Determine the file system if there is a 128-bit UUID (LINUX/UNIX)
 										if [[ "${ext_uuid}" =~ ^\{?[A-F0-9a-f]{8}-[A-F0-9a-f]{4}-[A-F0-9a-f]{4}-[A-F0-9a-f]{4}-[A-F0-9a-f]{12}\}?$ ]]; then
@@ -334,7 +346,7 @@ if [[ "${get[page]}" == "main" && "${get[section]}" == "start" ]]; then
 												<td>'${txt_autopilot_memory}'</td>
 												<td style="width: auto">
 													<div class="progress" role="progressbar" aria-label="Example with label" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100" style="height: 25px">
-														<div class="progress-bar overflow-visible text-dark bg-primary-subtle ps-2" style="width: '${ext_disk_used_percent}'%">'${ext_disk_available}' '${txt_autopilot_from}' '${ext_disk_free}' '${txt_autopilot_free}'</div>
+														<div class="progress-bar overflow-visible text-dark bg-primary-subtle ps-2" style="width: '${ext_disk_used_percent}'%">'${ext_disk_available}' '${txt_autopilot_from}' '${ext_disk_size}' '${txt_autopilot_free}'</div>
 													</div>
 												</td>
 												<td colspan="2">&nbsp;</td>
