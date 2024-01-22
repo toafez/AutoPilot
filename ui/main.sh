@@ -186,8 +186,8 @@ if [[ "${get[page]}" == "main" && "${get[section]}" == "start" ]]; then
 										#ext_disk_mountpoint=$(echo "$ext_df" | awk '{print $5}')
 
 										# convert bytes to human readable
-										ext_disk_size=$(bytesToHumanReadable "$ext_disk_size")
-										ext_disk_available=$(bytesToHumanReadable "$ext_disk_available")
+										ext_disk_size_hr=$(bytesToHumanReadable "$ext_disk_size")
+										ext_disk_available_hr=$(bytesToHumanReadable "$ext_disk_available")
 
 										# Determine the file system if there is a 128-bit UUID (LINUX/UNIX)
 										if [[ "${ext_uuid}" =~ ^\{?[A-F0-9a-f]{8}-[A-F0-9a-f]{4}-[A-F0-9a-f]{4}-[A-F0-9a-f]{4}-[A-F0-9a-f]{12}\}?$ ]]; then
@@ -346,7 +346,7 @@ if [[ "${get[page]}" == "main" && "${get[section]}" == "start" ]]; then
 												<td>'${txt_autopilot_memory}'</td>
 												<td style="width: auto">
 													<div class="progress" role="progressbar" aria-label="Example with label" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100" style="height: 25px">
-														<div class="progress-bar overflow-visible text-dark bg-primary-subtle ps-2" style="width: '${ext_disk_used_percent}'%">'${ext_disk_available}' '${txt_autopilot_from}' '${ext_disk_size}' '${txt_autopilot_free}'</div>
+														<div class="progress-bar overflow-visible text-dark bg-primary-subtle ps-2" style="width: '${ext_disk_used_percent}'%">'${ext_disk_available_hr}' '${txt_autopilot_from}' '${ext_disk_size_hr}' '${txt_autopilot_free}'</div>
 													</div>
 												</td>
 												<td colspan="2">&nbsp;</td>

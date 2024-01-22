@@ -216,8 +216,8 @@ if [[ "${connect}" == "true" ]] && [ -n "${mountpoint}" ]; then
 				#ext_disk_mountpoint=$(echo "$df" | awk '{print $5}')
 
 				# convert bytes to human readable
-				ext_disk_size=$(bytesToHumanReadable "$ext_disk_size")
-				ext_disk_available=$(bytesToHumanReadable "$ext_disk_available")
+				ext_disk_size_hr=$(bytesToHumanReadable "$ext_disk_size")
+				ext_disk_available_hr=$(bytesToHumanReadable "$ext_disk_available")
 			fi
 
 			# If autoilot was executed successfully (the exit code is 0 or was manually instructed with 100)
@@ -292,7 +292,7 @@ if [[ "${connect}" == "true" ]] && [ -n "${mountpoint}" ]; then
 		fi
 
 		if [ ! "${disk_eval_not_pos}" ]; then
-			echo "${txt_df_memory}: ${ext_disk_available} ${txt_df_from} ${ext_disk_size} ${txt_df_free}." >> "${log}"
+			echo "${txt_df_memory}: ${ext_disk_available_hr} ${txt_df_from} ${ext_disk_size_hr} ${txt_df_free}." >> "${log}"
 		else
 			echo "${txt_df_memory}: ${txt_df_eval_not_pos}" >> "$log"
 		fi
