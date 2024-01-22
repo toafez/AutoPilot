@@ -63,6 +63,9 @@ language "PILOT"
 # Load library function for byte conversion
 [ -f "${dir}/lib/bytes2human.sh" ] && source "${dir}/lib/bytes2human.sh"
 
+# Load library function to evaluate disk space
+[ -f "${dir}/lib/eval_disk_space.sh" ] && source "${dir}/lib/eval_disk_space.sh"
+
 # Set timestamp
 # ----------------------------------------------------------
 function timestamp()
@@ -207,13 +210,12 @@ if [[ "${connect}" == "true" ]] && [ -n "${mountpoint}" ]; then
 				disk_eval_not_pos=true
 			else
 				# Reading out free disk space
-				df=$(df -B1 "${mountpoint}")
-				df=$(echo "${df}" | sed -e 's/%//g' | awk 'NR > 1 {print $2 " " $3 " " $4 " " $5 " " $6}')
-				ext_disk_size=$(echo "${df}" | awk '{print $1}')
-				#ext_disk_used=$(echo "${df}" | awk '{print $2}')
-				ext_disk_available=$(echo "${df}" | awk '{print $3}')
-				#ext_disk_used_percent=$(echo "${df}" | awk '{print $4}')
-				#ext_disk_mountpoint=$(echo "$df" | awk '{print $5}')
+				evalDiskSize mountpoint \
+					ext_disk_size \
+					ext_disk_used \
+					ext_disk_available \
+					ext_disk_used_percent \
+					ext_disk_mountpoint
 
 				# convert bytes to human readable
 				ext_disk_size_hr=$(bytesToHumanReadable "$ext_disk_size")

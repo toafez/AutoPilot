@@ -77,6 +77,9 @@ function external_target()
 # Load library function for byte conversion
 [ -f "${dir}/lib/bytes2human.sh" ] && source "${dir}/lib/bytes2human.sh"
 
+# Load library function to evaluate disk space
+[ -f "${dir}/lib/eval_disk_space.sh" ] && source "${dir}/lib/eval_disk_space.sh"
+
 # Load horizontal navigation bar
 # --------------------------------------------------------------
 mainnav
@@ -177,13 +180,12 @@ if [[ "${get[page]}" == "main" && "${get[section]}" == "start" ]]; then
 										[[ -z "${ext_dev}" ]] && continue
 
 										# Reading out free disk space
-										ext_df=$(df -B1 "${ext_path}")
-										ext_df=$(echo "${ext_df}" | sed -e 's/%//g' | awk 'NR > 1 {print $2 " " $3 " " $4 " " $5 " " $6}')
-										ext_disk_size=$(echo "${ext_df}" | awk '{print $1}')
-										#ext_disk_used=$(echo "${ext_df}" | awk '{print $2}')
-										ext_disk_available=$(echo "${ext_df}" | awk '{print $3}')
-										ext_disk_used_percent=$(echo "${ext_df}" | awk '{print $4}')
-										#ext_disk_mountpoint=$(echo "$ext_df" | awk '{print $5}')
+										evalDiskSize ext_path \
+											ext_disk_size \
+											ext_disk_used \
+											ext_disk_available \
+											ext_disk_used_percent \
+											ext_disk_mountpoint
 
 										# convert bytes to human readable
 										ext_disk_size_hr=$(bytesToHumanReadable "$ext_disk_size")
