@@ -2,7 +2,7 @@
 
 # Read disk size in bytes via `df` command of given mountpoint
 function evalDiskSize (){
-    local -n ref_mountpoint=$1  # Mountpoint to evaluate
+    local mountpoint=$1  # Mountpoint to evaluate
 
     local -n ref_size=$2        # size of device
     local -n ref_used=$3        # Used size of device
@@ -10,7 +10,7 @@ function evalDiskSize (){
     local -n ref_usage=$5       # Percentage of used size
     local -n ref_mounted_on=$6  # Mounted on
 
-    local df=$(df -B1 "${ref_mountpoint}")
+    local df=$(df -B1 "${mountpoint}")
     df=$(echo "${df}" | sed -e 's/%//g' | awk 'NR > 1 {print $2 " " $3 " " $4 " " $5 " " $6}')
     ref_size=$(echo "${df}" | awk '{print $1}')
     ref_used=$(echo "${df}" | awk '{print $2}')

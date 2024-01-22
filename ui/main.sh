@@ -180,7 +180,7 @@ if [[ "${get[page]}" == "main" && "${get[section]}" == "start" ]]; then
 										[[ -z "${ext_dev}" ]] && continue
 
 										# Reading out free disk space
-										evalDiskSize ext_path \
+										evalDiskSize "$ext_path" \
 											ext_disk_size \
 											ext_disk_used \
 											ext_disk_available \

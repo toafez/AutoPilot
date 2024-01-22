@@ -210,7 +210,7 @@ if [[ "${connect}" == "true" ]] && [ -n "${mountpoint}" ]; then
 				disk_eval_not_pos=true
 			else
 				# Reading out free disk space
-				evalDiskSize mountpoint \
+				evalDiskSize "$mountpoint" \
 					ext_disk_size \
 					ext_disk_used \
 					ext_disk_available \
