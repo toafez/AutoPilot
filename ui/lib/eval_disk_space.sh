@@ -2,7 +2,7 @@
 
 # Read disk size in bytes via `df` command of given mountpoint
 function evalDiskSize (){
-    local mountpoint=$1  # Mountpoint to evaluate
+    local mountpoint=$1         # Mountpoint to evaluate
 
     local -n ref_size=$2        # size of device
     local -n ref_used=$3        # Used size of device
