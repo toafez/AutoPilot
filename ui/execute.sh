@@ -61,10 +61,10 @@ log="${logpath}/${logfile}"
 language "PILOT"
 
 # Load library function for byte conversion
-[ -f "${dir}/lib/bytes2human.sh" ] && source "${dir}/lib/bytes2human.sh"
+[ -f "${dir}/modules/bytes2human.sh" ] && source "${dir}/modules/bytes2human.sh"
 
 # Load library function to evaluate disk space
-[ -f "${dir}/lib/eval_disk_space.sh" ] && source "${dir}/lib/eval_disk_space.sh"
+[ -f "${dir}/modules/eval_disk_space.sh" ] && source "${dir}/modules/eval_disk_space.sh"
 
 # Set timestamp
 # ----------------------------------------------------------
