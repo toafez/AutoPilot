@@ -1,5 +1,19 @@
 AutoPilot Release Notes
 
+
+Previously unpublished release version 1.1-300
+
+ -Deutsch
+    - Funktion zur Konvertierung von Bytes in ein menschenlesbares Format hinzugefügt. Danke @luddinho
+    - Funktion für die Auswertung der Datenträgergröße hinzugefügt. Danke @luddinho
+    - Es wurde eine Wartezeit für Hyper-Backup Aufgaben im auszuführenden Shell-Script hinzugefügt. Damit die Änderungen wirksam werden, muss der Script Code erneut an das auszuführende Shell-Script übergeben werden. Thanks @luddinho
+
+ -English
+    - Function for converting bytes into a human-readable format added. Thanks @luddinho
+    - Function for evaluating the disk size added. Thanks @luddinho
+    - Added a wait time for hyper-backup tasks in the shell script to be executed. For the changes to take effect, the script code must be passed again to the shell script to be executed. Thanks @luddinho
+
+
 Version 1.1-200 vom 13.01.2024
 
  -Deutsch
