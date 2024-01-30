@@ -37,20 +37,6 @@ logfile="${scriptname}.log"
 # ----------------------------------------------------------
 app_version=$(cat "/var/packages/${app}/INFO" | grep ^version | cut -d '"' -f2)
 
-# Create logfile
-# ----------------------------------------------------------
-if [ ! -d "${logpath}" ]; then
-	mkdir -p -m 0777 "${logpath}"
-fi
-if [ -d "${logpath}" ]; then
-	if [ ! -f "${logpath}/${logfile}" ]; then
-		touch "${logpath}/${logfile}"
-		chmod 0777 "${logpath}/${logfile}"
-		chown "${app}":"${app}" "${logpath}/${logfile}"
-	fi
-fi
-log="${logpath}/${logfile}"
-
 # Load configuration settings
 # ----------------------------------------------------------
 [ -f "${dir}/usersettings/system/${scriptname}.config" ] && source "${dir}/usersettings/system/${scriptname}.config"
@@ -105,200 +91,227 @@ function signal_warning()
 	echo 8 > /dev/ttyS1
 }
 
+# Get package information and check package status
 # --------------------------------------------------------------
-# Set parameters for disk and device
-# --------------------------------------------------------------
-# ${1} is the passed parameter for the device %k, e.g. "usb1p1" from the udev rule
-par=$(echo "${1}")
+# Get package information 
+syno_pkg=$(/usr/syno/bin/synopkg status "${app}")
 
-if [ -z "${par}" ]; then
-	exit 1
-else
-	# If ${par} starts with /dev/, then delete /dev/
-	par=$(echo "${par}" | sed 's:^/dev/::')
-
-	# If ${par} has a device name like "usb1p1", then get the partition name from it, e.g. "usb1"
-	part=$(echo "${par}" | sed 's:p.*$::')
-
-	# Check if variable $part is named usb[x] (e.g. usb1) ? assign $part to $disk : remove trailing number from $part (e.g. sda1 --> sda)
-	if [[ "${part}" =~ ^[uU][sS][bB] ]]; then
-		# keep the identified partition as disk, because usb1 is the disk itself
-		disk="${part}"
-	else
-		# remove the number from the partition to identify the disk itself, e.g. partition is sda1 --> disk is sda
-		disk=$(echo "${part}" | sed 's/[0-9]\+$//')
-	fi
-
-	# Set device path to determine the mountpoint
-	device="/dev/${par}"
-
-	# Searching for mount points
-	mountpoint=""
-
-	# Set maximum time (duration) for loop in seconds.
-	loopMaxSecs=30
-
-	# Calculate end time of loop.
-	loopEndTime=$(( $(date +%s) + loopMaxSecs ))
-
-	# Loop until mountpoint found or reached maximum duration time.
-	while [ -z "${mountpoint}" ] && [ $(date +%s) -lt $loopEndTime ]; do
-		mountpoint=$(mount -l | grep "$device" | awk '{print $3}')
-	done
+# Check package status
+if echo ${syno_pkg} | grep -q status ; then
+    result=$(echo "${syno_pkg}" | grep -o '"status":"[^"]*' | grep -o '[^"]*$')
 fi
 
-# Mount (connect) external USB devices
-# ----------------------------------------------------------
-if [[ "${connect}" == "true" ]] && [ -n "${mountpoint}" ]; then
+# If the package status is running, start AutoPilot...
+if [ -h "/usr/local/bin/${app}" ] && [[ "${result}" =~ "running" ]]; then
 
-	# Extract the local UUID based on device name
-	uuid=$(blkid -s UUID -o value ${device})
+	# Set parameters for disk and device
+	# --------------------------------------------------------------
+	# ${1} is the passed parameter for the device %k, e.g. "usb1p1" from the udev rule
+	par=$(echo "${1}")
 
-	# Determine the file system if there is a 128-bit UUID (LINUX/UNIX)
-	if [[ "${uuid}" =~ ^\{?[A-F0-9a-f]{8}-[A-F0-9a-f]{4}-[A-F0-9a-f]{4}-[A-F0-9a-f]{4}-[A-F0-9a-f]{12}\}?$ ]]; then
-		txt_volume_id="Universally Unique Identifier (UUID)"
-	# Determine the file system if there is a 64 bit VSN (Windows NTFS)
-	elif [[ "${uuid}" =~ ^\{?[A-F0-9a-f]{16}\}?$ ]]; then
-		txt_volume_id="Volume Serial Number (VSN)"
-	# Determine the file system if there is a 32 bit VSN (Windows FAT12, FAT16, FAT32 and exFAT) combined as vFAT
-	elif [[ "${uuid}" =~ ^\{?[A-F0-9a-f]{4}-[A-F0-9a-f]{4}\}?$ ]] || [[ "${ext_uuid}" =~ ^\{?[A-F0-9a-f]{8}\}?$ ]]; then
-		txt_volume_id="Volume Serial Number (VSN)"
+	if [ -z "${par}" ]; then
+		exit 1
 	else
-		txt_volume_id="Universally or Globally Unique Identifier (UUID or GUID) Could not be read"
+		# If ${par} starts with /dev/, then delete /dev/
+		par=$(echo "${par}" | sed 's:^/dev/::')
+
+		# If ${par} has a device name like "usb1p1", then get the partition name from it, e.g. "usb1"
+		part=$(echo "${par}" | sed 's:p.*$::')
+
+		# Check if variable $part is named usb[x] (e.g. usb1) ? assign $part to $disk : remove trailing number from $part (e.g. sda1 --> sda)
+		if [[ "${part}" =~ ^[uU][sS][bB] ]]; then
+			# keep the identified partition as disk, because usb1 is the disk itself
+			disk="${part}"
+		else
+			# remove the number from the partition to identify the disk itself, e.g. partition is sda1 --> disk is sda
+			disk=$(echo "${part}" | sed 's/[0-9]\+$//')
+		fi
+
+		# Set device path to determine the mountpoint
+		device="/dev/${par}"
+
+		# Searching for mount points
+		mountpoint=""
+
+		# Set maximum time (duration) for loop in seconds.
+		loopMaxSecs=30
+
+		# Calculate end time of loop.
+		loopEndTime=$(( $(date +%s) + loopMaxSecs ))
+
+		# Loop until mountpoint found or reached maximum duration time.
+		while [ -z "${mountpoint}" ] && [ $(date +%s) -lt $loopEndTime ]; do
+			mountpoint=$(mount -l | grep "$device" | awk '{print $3}')
+		done
 	fi
 
-	# Extract the saved UUID from the AutoPilot record of the same name
-	uuidfile="${devpath}/${uuid}"
-	saveduuid="${uuidfile##*/}"
+	# Mount (connect) external USB devices
+	# ----------------------------------------------------------
+	if [[ "${connect}" == "true" ]] && [ -n "${mountpoint}" ]; then
 
-	# Compare the local UUID with the saved UUID AutoPilot record
-	if [ -f "${uuidfile}" ] && [[ "${saveduuid}" == "${uuid}" ]]; then
-		# Extract the path and filename of the script to be executed
-		scriptfile=$(cat "${uuidfile}" | grep scriptpath | cut -d '"' -f2)
-	fi
-
-	# Search autopilot script...
-	if [ -f "${scriptfile}" ]; then
-		echo "" >> "${log}"
-		echo "${txt_line_separator}"  >> "${log}"
-		echo "$(timestamp) - AutoPilot Version ${app_version} ${txt_autopilot_starts}" >> "${log}"
-		echo "${txt_line_separator}" >> "${log}"
-		echo "${txt_ext_detected_step_1} ${part} ${txt_ext_detected_step_2}" >> "${log}"
-		echo "${txt_device_detected}: ${device}" >> "${log}"
-		echo "${txt_mountpoint}: ${mountpoint}" >> "${log}"
-		echo "${txt_volume_id}: ${uuid}" >> "${log}"
-		echo "${txt_autopilot_script_search}: ${scriptfile}" >> "${log}"
-		echo "" >> "${log}"
-		echo "${txt_autopilot_script_found}" >> "${log}"
-
-		# If autopilot script is executable
-		if [ -x "${scriptfile}" ]; then
-			echo "" >> "${log}"
-			echo "${txt_please_wait}" >> "${log}"
-			echo "" >> "${log}"
-			[[ "${signal}" == "true" ]] && signal_start
-			synodsmnotify -c SYNO.SDS.${app}.Application @administrators ${app}:app:subtitle ${app}:app:autopilot_start "${mountpoint}"
-
-			# Execute autopilot script
-			${scriptfile}
-			exit_script=${?}
-
-			# Check again if mount still exists for the device. It could be the reason that a Hyper Backup Task has already ejected the disk.
-			mountpoint=$(mount -l | grep "${device}" | awk '{print $3}')
-			if [ -z "${mountpoint}" ] ; then
-				disk_eval_not_pos=true
-			else
-				# Reading out free disk space
-				evalDiskSize "$mountpoint" \
-					ext_disk_size \
-					ext_disk_used \
-					ext_disk_available \
-					ext_disk_used_percent \
-					ext_disk_mountpoint
-
-				# convert bytes to human readable
-				ext_disk_size_hr=$(bytesToHumanReadable "$ext_disk_size")
-				ext_disk_available_hr=$(bytesToHumanReadable "$ext_disk_available")
+		# If not available, create log file path
+		if [ ! -d "${logpath}" ]; then
+			mkdir -p -m 0777 "${logpath}"
+		fi
+		# If logfile path exists, create logfile
+		if [ -d "${logpath}" ]; then
+			if [ ! -f "${logpath}/${logfile}" ]; then
+				touch "${logpath}/${logfile}"
+				chmod 0777 "${logpath}/${logfile}"
+				chown "${app}":"${app}" "${logpath}/${logfile}"
 			fi
+		fi
+		log="${logpath}/${logfile}"
 
-			# If autoilot was executed successfully (the exit code is 0 or was manually instructed with 100)
-			if [[ ${exit_script} -eq 0 ]] || [[ ${exit_script} -eq 100 ]]; then
-				[[ ${exit_script} -eq 0 ]] && echo "${txt_autopilot_script_success}" >> "${log}"
-				[[ ${exit_script} -eq 100 ]] && echo "${txt_autopilot_script_warning}" >> "${log}"
+		# Extract the local UUID based on device name
+		uuid=$(blkid -s UUID -o value ${device})
+
+		# Determine the file system if there is a 128-bit UUID (LINUX/UNIX)
+		if [[ "${uuid}" =~ ^\{?[A-F0-9a-f]{8}-[A-F0-9a-f]{4}-[A-F0-9a-f]{4}-[A-F0-9a-f]{4}-[A-F0-9a-f]{12}\}?$ ]]; then
+			txt_volume_id="Universally Unique Identifier (UUID)"
+		# Determine the file system if there is a 64 bit VSN (Windows NTFS)
+		elif [[ "${uuid}" =~ ^\{?[A-F0-9a-f]{16}\}?$ ]]; then
+			txt_volume_id="Volume Serial Number (VSN)"
+		# Determine the file system if there is a 32 bit VSN (Windows FAT12, FAT16, FAT32 and exFAT) combined as vFAT
+		elif [[ "${uuid}" =~ ^\{?[A-F0-9a-f]{4}-[A-F0-9a-f]{4}\}?$ ]] || [[ "${ext_uuid}" =~ ^\{?[A-F0-9a-f]{8}\}?$ ]]; then
+			txt_volume_id="Volume Serial Number (VSN)"
+		else
+			txt_volume_id="Universally or Globally Unique Identifier (UUID or GUID) Could not be read"
+		fi
+
+		# Extract the saved UUID from the AutoPilot record of the same name
+		uuidfile="${devpath}/${uuid}"
+		saveduuid="${uuidfile##*/}"
+
+		# Compare the local UUID with the saved UUID AutoPilot record
+		if [ -f "${uuidfile}" ] && [[ "${saveduuid}" == "${uuid}" ]]; then
+			# Extract the path and filename of the script to be executed
+			scriptfile=$(cat "${uuidfile}" | grep scriptpath | cut -d '"' -f2)
+		fi
+
+		# Search autopilot script...
+		if [ -f "${scriptfile}" ]; then
+			echo "" >> "${log}"
+			echo "${txt_line_separator}"  >> "${log}"
+			echo "$(timestamp) - AutoPilot Version ${app_version} ${txt_autopilot_starts}" >> "${log}"
+			echo "${txt_line_separator}" >> "${log}"
+			echo "${txt_ext_detected_step_1} ${part} ${txt_ext_detected_step_2}" >> "${log}"
+			echo "${txt_device_detected}: ${device}" >> "${log}"
+			echo "${txt_mountpoint}: ${mountpoint}" >> "${log}"
+			echo "${txt_volume_id}: ${uuid}" >> "${log}"
+			echo "${txt_autopilot_script_search}: ${scriptfile}" >> "${log}"
+			echo "" >> "${log}"
+			echo "${txt_autopilot_script_found}" >> "${log}"
+
+			# If autopilot script is executable
+			if [ -x "${scriptfile}" ]; then
 				echo "" >> "${log}"
+				echo "${txt_please_wait}" >> "${log}"
+				echo "" >> "${log}"
+				[[ "${signal}" == "true" ]] && signal_start
+				synodsmnotify -c SYNO.SDS.${app}.Application @administrators ${app}:app:subtitle ${app}:app:autopilot_start "${mountpoint}"
 
-				# Initiating disk ejection
-				if [[ "${disconnect}" == "auto" ]] || [[ "${disconnect}" == "manual" ]]; then
+				# Execute autopilot script
+				${scriptfile}
+				exit_script=${?}
 
-					# Remove disk from the GUI list
-					sed -i "/^""${disk}""/d" /tmp/usbtab
+				# Check again if mount still exists for the device. It could be the reason that a Hyper Backup Task has already ejected the disk.
+				mountpoint=$(mount -l | grep "${device}" | awk '{print $3}')
+				if [ -z "${mountpoint}" ] ; then
+					disk_eval_not_pos=true
+				else
+					# Reading out free disk space
+					evalDiskSize "$mountpoint" \
+						ext_disk_size \
+						ext_disk_used \
+						ext_disk_available \
+						ext_disk_used_percent \
+						ext_disk_mountpoint
 
-					# Write RAM buffer back to disk
-					sync
-					sleep 5
+					# convert bytes to human readable
+					ext_disk_size_hr=$(bytesToHumanReadable "$ext_disk_size")
+					ext_disk_available_hr=$(bytesToHumanReadable "$ext_disk_available")
+				fi
 
-					# Uncommented Synology command, but cleaning up always sounds good ;o)
-					# /usr/syno/bin/synousbdisk -rcclean
-					# sleep 5
+				# If autoilot was executed successfully (the exit code is 0 or was manually instructed with 100)
+				if [[ ${exit_script} -eq 0 ]] || [[ ${exit_script} -eq 100 ]]; then
+					[[ ${exit_script} -eq 0 ]] && echo "${txt_autopilot_script_success}" >> "${log}"
+					[[ ${exit_script} -eq 100 ]] && echo "${txt_autopilot_script_warning}" >> "${log}"
+					echo "" >> "${log}"
 
-					# Unmount disk
-					unmount_disk=$(/usr/syno/bin/synousbdisk -umount "${disk}")
-					echo "${txt_disk_is_ejected}" >> "${log}"
-					echo "${txt_system_response}:~# ${unmount_disk}" >> "${log}"
-					sleep 10
+					# Initiating disk ejection
+					if [[ "${disconnect}" == "auto" ]] || [[ "${disconnect}" == "manual" ]]; then
 
-					# Check if unmount was successful
-					unmount_check=$(/usr/syno/bin/synousbdisk -enum | grep "${disk}")
+						# Remove disk from the GUI list
+						sed -i "/^""${disk}""/d" /tmp/usbtab
 
-					# If disk has been ejected
-					if [ -z "${unmount_check}" ]; then
+						# Write RAM buffer back to disk
+						sync
+						sleep 5
 
-						# Delete block device
-						[ -f "/sys/block/${disk}/device/delete" ] && echo 1 > "/sys/block/${disk}/device/delete"
+						# Uncommented Synology command, but cleaning up always sounds good ;o)
+						# /usr/syno/bin/synousbdisk -rcclean
+						# sleep 5
 
-						echo "${txt_disk_was_ejected}" >> "${log}"
-						[[ "${signal}" == "true" ]] && signal_stop
-						synodsmnotify -c SYNO.SDS.${app}.Application @administrators ${app}:app:subtitle ${app}:app:autopilot_stop_a "${mountpoint}"
-						synologset1 sys info 0x11100000 "Package [AutoPilot] executed the task successfully! The external disk [${mountpoint}] has been ejected."
+						# Unmount disk
+						unmount_disk=$(/usr/syno/bin/synousbdisk -umount "${disk}")
+						echo "${txt_disk_is_ejected}" >> "${log}"
+						echo "${txt_system_response}:~# ${unmount_disk}" >> "${log}"
+						sleep 10
+
+						# Check if unmount was successful
+						unmount_check=$(/usr/syno/bin/synousbdisk -enum | grep "${disk}")
+
+						# If disk has been ejected
+						if [ -z "${unmount_check}" ]; then
+
+							# Delete block device
+							[ -f "/sys/block/${disk}/device/delete" ] && echo 1 > "/sys/block/${disk}/device/delete"
+
+							echo "${txt_disk_was_ejected}" >> "${log}"
+							[[ "${signal}" == "true" ]] && signal_stop
+							synodsmnotify -c SYNO.SDS.${app}.Application @administrators ${app}:app:subtitle ${app}:app:autopilot_stop_a "${mountpoint}"
+							synologset1 sys info 0x11100000 "Package [AutoPilot] executed the task successfully! The external disk [${mountpoint}] has been ejected."
+						else
+							# WARNING: Disk could not be ejected.
+							echo "${txt_disk_could_not_be_ejected}" >> "${log}"
+							echo "${txt_system_response}:~# ${unmount_check}" >> "${log}"
+							[[ "${signal}" == "true" ]] && signal_warning
+							synodsmnotify -c SYNO.SDS.${app}.Application @administrators ${app}:app:subtitle ${app}:app:autopilot_warning_a "${mountpoint}"
+							synologset1 sys warn 0x11100000 "Package [AutoPilot] executed the task successfully! The external Disk [${mountpoint}] could not be ejected."
+						fi
 					else
-						# WARNING: Disk could not be ejected.
-						echo "${txt_disk_could_not_be_ejected}" >> "${log}"
-						echo "${txt_system_response}:~# ${unmount_check}" >> "${log}"
-						[[ "${signal}" == "true" ]] && signal_warning
-						synodsmnotify -c SYNO.SDS.${app}.Application @administrators ${app}:app:subtitle ${app}:app:autopilot_warning_a "${mountpoint}"
-						synologset1 sys warn 0x11100000 "Package [AutoPilot] executed the task successfully! The external Disk [${mountpoint}] could not be ejected."
+						# NOTE: Disk remains mounted
+						echo "${txt_disk_remains_mount}" >> "${log}"
+						[[ "${signal}" == "true" ]] && signal_stop
+						synodsmnotify -c SYNO.SDS.${app}.Application @administrators ${app}:app:subtitle ${app}:app:autopilot_stop_b "${mountpoint}"
+						synologset1 sys info 0x11100000 "Package [AutoPilot] executed the task successfully! The external disk [${mountpoint}] remains mounted."
 					fi
 				else
-					# NOTE: Disk remains mounted
+					# WARNING: Errors occurred during execution!
+					[[ ${exit_script} -ne 100 ]] && echo "${txt_backupjob_warning}" >> "${log}"
+					echo "${txt_exit_code_error}:~# ${exit_script}" >> "${log}"
 					echo "${txt_disk_remains_mount}" >> "${log}"
-					[[ "${signal}" == "true" ]] && signal_stop
-					synodsmnotify -c SYNO.SDS.${app}.Application @administrators ${app}:app:subtitle ${app}:app:autopilot_stop_b "${mountpoint}"
-					synologset1 sys info 0x11100000 "Package [AutoPilot] executed the task successfully! The external disk [${mountpoint}] remains mounted."
+					[[ "${signal}" == "true" ]] && signal_warning
+					synodsmnotify -c SYNO.SDS.${app}.Application @administrators ${app}:app:subtitle ${app}:app:autopilot_warning_b "${mountpoint}"
+					synologset1 sys err 0x11100000 "Package [AutoPilot] executed the task with errors! The external disk [${mountpoint}] remains mounted."
 				fi
 			else
-				# WARNING: Errors occurred during execution!
-				[[ ${exit_script} -ne 100 ]] && echo "${txt_backupjob_warning}" >> "${log}"
-				echo "${txt_exit_code_error}:~# ${exit_script}" >> "${log}"
-				echo "${txt_disk_remains_mount}" >> "${log}"
+				# WARNING: The autoilot script could not be executed!
+				echo "${txt_script_not_executed}" >> "${log}"
+				echo "➜ ${txt_script_check_rights}" >> "${log}"
 				[[ "${signal}" == "true" ]] && signal_warning
-				synodsmnotify -c SYNO.SDS.${app}.Application @administrators ${app}:app:subtitle ${app}:app:autopilot_warning_b "${mountpoint}"
-				synologset1 sys err 0x11100000 "Package [AutoPilot] executed the task with errors! The external disk [${mountpoint}] remains mounted."
+				synodsmnotify -c SYNO.SDS.${app}.Application @administrators ${app}:app:subtitle ${app}:app:autopilot_warning_c "${mountpoint}"
 			fi
-		else
-			# WARNING: The autoilot script could not be executed!
-			echo "${txt_script_not_executed}" >> "${log}"
-			echo "➜ ${txt_script_check_rights}" >> "${log}"
-			[[ "${signal}" == "true" ]] && signal_warning
-			synodsmnotify -c SYNO.SDS.${app}.Application @administrators ${app}:app:subtitle ${app}:app:autopilot_warning_c "${mountpoint}"
-		fi
 
-		if [ ! "${disk_eval_not_pos}" ]; then
-			echo "${txt_df_memory}: ${ext_disk_available_hr} ${txt_df_from} ${ext_disk_size_hr} ${txt_df_free}." >> "${log}"
-		else
-			echo "${txt_df_memory}: ${txt_df_eval_not_pos}" >> "$log"
+			if [ ! "${disk_eval_not_pos}" ]; then
+				echo "${txt_df_memory}: ${ext_disk_available_hr} ${txt_df_from} ${ext_disk_size_hr} ${txt_df_free}." >> "${log}"
+			else
+				echo "${txt_df_memory}: ${txt_df_eval_not_pos}" >> "$log"
+			fi
+			echo "${txt_line_separator}"  >> "${log}"
+			echo "$(timestamp) ${txt_autopilot_ends}" >> "${log}"
+			echo "${txt_line_separator}" >> "${log}"
 		fi
-		echo "${txt_line_separator}"  >> "${log}"
-		echo "$(timestamp) ${txt_autopilot_ends}" >> "${log}"
-		echo "${txt_line_separator}" >> "${log}"
 	fi
 fi
