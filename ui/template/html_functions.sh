@@ -39,19 +39,29 @@ function popup_modal()
 		  </div>
 		  <div class="modal-body">'
 			if [[ "${1}" == "scriptview" ]]; then
-				echo '
-				<i class="bi bi-hdd-fill text-secondary"></i>&nbsp;&nbsp;<strong>'${txt_autopilot_script_target}': </strong>'${3}'<br /><br />
-				<div class="card card-body ps-1">
-					<code class="text-dark">'
-						IFS”
-						”
-						while read line; do
-							echo ''${line}'<br>'
-						done < "${3}"
-						unset line
-						echo '
-					</code>
-				</div>'
+				if [ -f "${3}" ]; then
+					echo '
+					<i class="bi bi-hdd-fill text-secondary"></i>&nbsp;&nbsp;<strong>'${txt_autopilot_script_target}': </strong>'${3}'<br /><br />
+					<div class="card card-body ps-1">
+						<code class="text-dark">'
+							IFS”
+							”
+							while read line; do
+								echo ''${line}'<br>'
+							done < "${3}"
+							unset line
+							echo '
+						</code>
+					</div>'
+				else
+					echo '
+					<i class="bi bi-hdd-fill text-secondary"></i>&nbsp;&nbsp;<strong class="text-danger">'${txt_autopilot_scriptfile_error}'</strong><br /><br />
+					<div class="card card-body text-center ps-1">
+						<span class="text-danger">'${txt_autopilot_scriptfile_errormsg1}'</span><br />
+						'${scriptfile}'
+						<span class="text-danger">'${txt_autopilot_scriptfile_errormsg2}'</span><br />
+					</div>'
+				fi
 				unset line
 				if [[ "${4}" == "autopilot" ]]; then
 					echo '

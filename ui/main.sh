@@ -358,19 +358,34 @@ if [[ "${get[page]}" == "main" && "${get[section]}" == "start" ]]; then
 											uuidfile="${usr_devices}/${ext_uuid}"
 											if [ -f "${uuidfile}" ]; then
 												scriptfile=$(cat "${uuidfile}" | grep scriptpath | cut -d '"' -f2)
-												echo '
-												<tr>
-													<td class="bg-light ps-4 me-2">
-														<i class="bi bi-file-earmark text-dark me-2"></i>'${txt_autopilot_scriptfile}'
-													</td>
-													<td>'${txt_autopilot_scriptfile_path}'</td>
-													<td colspan="3">'${scriptfile%/*}'</td>
-												</tr>
-												<tr>
-													<td>&nbsp;</td>
-													<td>'${txt_autopilot_scriptfile_name}'</td>
-													<td colspan="3">'${scriptfile##*/}'</td>
-												</tr>'
+												if [ -f "${scriptfile}" ]; then
+													echo '
+													<tr>
+														<td class="bg-light ps-4 me-2">
+															<i class="bi bi-file-earmark text-dark me-2"></i>'${txt_autopilot_scriptfile}'
+														</td>
+														<td>'${txt_autopilot_scriptfile_path}'</td>
+														<td colspan="3">'${scriptfile%/*}'</td>
+													</tr>
+													<tr>
+														<td>&nbsp;</td>
+														<td>'${txt_autopilot_scriptfile_name}'</td>
+														<td colspan="3">'${scriptfile##*/}'</td>
+													</tr>'
+												else
+													echo '
+													<tr>
+														<td class="bg-light ps-4 me-2">
+															<i class="bi bi-file-earmark text-dark me-2"></i>'${txt_autopilot_scriptfile}'
+														</td>
+														<td>'${txt_autopilot_scriptfile_error}'</td>
+														<td colspan="3">
+															<span class="text-danger">'${txt_autopilot_scriptfile_errormsg1}'</span>
+															'${scriptfile}'
+															<span class="text-danger">'${txt_autopilot_scriptfile_errormsg2}'</span>
+														</td>
+													</tr>'
+												fi
 											fi
 											echo '
 											<tr>
@@ -407,7 +422,7 @@ if [[ "${get[page]}" == "main" && "${get[section]}" == "start" ]]; then
 				<div id="flush-collapse-02" class="accordion-collapse collapse" data-bs-parent="#accordionFlush01">
 					<div class="accordion-body bg-light">
 						<div class="accordion accordion-flush" id="accordionLoop02">'
-							backupconfigs=$(find "/var/packages/BasicBackup/target/ui/usersettings/backupjobs" -type f -name "*.config" -maxdepth 1 | sort)
+							backupconfigs=$(find "/var/packages/BasicBackup/target/ui/usersettings/backupjobs" -type f -name "*.config" -maxdepth 1 | sort -f )
 							if [ -n "$backupconfigs" ]; then
 								id=0
 								IFS="
@@ -448,8 +463,10 @@ if [[ "${get[page]}" == "main" && "${get[section]}" == "start" ]]; then
 																					uuidfile="${usr_devices}"
 																					scriptfiles=$(grep -irw scriptpath ${uuidfile}/* | cut -d '"' -f2)
 																					for scriptfile in ${scriptfiles}; do
-																						echo '
-																						<option value="'${scriptfile}'" class="text-secondary">'${scriptfile##*/}'</option>'
+																						if [ -f "${scriptfile}" ]; then
+																							echo '
+																							<option value="'${scriptfile}'" class="text-secondary">'${scriptfile##*/}'</option>'
+																						fi
 																					done
 																					echo '
 																			</select>
@@ -554,8 +571,10 @@ if [[ "${get[page]}" == "main" && "${get[section]}" == "start" ]]; then
 																					uuidfile="${usr_devices}"
 																					scriptfiles=$(grep -irw scriptpath ${uuidfile}/* | cut -d '"' -f2)
 																					for scriptfile in ${scriptfiles}; do
-																						echo '
-																						<option value="'${scriptfile}'" class="text-secondary">'${scriptfile##*/}'</option>'
+																						if [ -f "${scriptfile}" ]; then
+																							echo '
+																							<option value="'${scriptfile}'" class="text-secondary">'${scriptfile##*/}'</option>'
+																						fi
 																					done
 																					echo '
 																			</select>

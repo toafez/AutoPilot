@@ -8,12 +8,14 @@ Previously unpublished release version 1.1-300
     - Funktion für die Auswertung der Datenträgergröße hinzugefügt. Danke @luddinho
     - Es wurde eine Wartezeit für Hyper-Backup Aufgaben im auszuführenden Shell-Script hinzugefügt. Damit die Änderungen wirksam werden, muss der Script Code erneut an das auszuführende Shell-Script übergeben werden. Thanks @luddinho
     - Shell Scripte wurden beim Anstecken eines externen Datenträgers auch dann ausgeführt, wenn AutoPilot im Paketzentrum gestoppt wurde. Fehler wurde behoben.
+    - Wenn der Pfad oder der Name einer Shell-Skriptdatei nicht gefunden werden konnte, wird eine entsprechende Fehlermeldung angezeigt. Außerdem wird diese Shell-Skript-Datei nicht mehr zur Auswahl angeboten, um ein Basic Backup oder Hyper Backup Aufgabe zu konfigurieren. 
 
  -English
     - Function for converting bytes into a human-readable format added. Thanks @luddinho
     - Function for evaluating the disk size added. Thanks @luddinho
     - Added a wait time for hyper-backup tasks in the shell script to be executed. For the changes to take effect, the script code must be passed again to the shell script to be executed. Thanks @luddinho
     - Shell scripts were executed when an external data carrier was plugged in, even if AutoPilot was stopped in the package center. Bug has been fixed.
+    - If the path or name of a shell script file could not be found, a corresponding error message is displayed. In addition, this shell script file is no longer offered for selection to configure a Basic Backup or Hyper Backup task. 
 
 
 Version 1.1-200 vom 13.01.2024
