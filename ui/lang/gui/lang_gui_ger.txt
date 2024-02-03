@@ -136,6 +136,7 @@ txt_autopilot_disconnect_manual="immer auswerfen, wenn die Aufgabe durch einen <
 txt_autopilot_signal="Optische und akustische Signalausgaben deiner DiskStation während der Ausführung von AutoPilot auslösen"
 
 txt_external_disks_header="Externe Datenträger"
+txt_external_disks_not_found="Es ist kein externer Datenträger angeschlossen"
 txt_hyperbackup_header="Hyper Backup Aufgaben"
 txt_autopilot_options_header="AutoPilot Einstellungen"
 txt_autopilot_create_script="Auftrag an Shell-Script übergeben"

@@ -136,6 +136,7 @@ txt_autopilot_disconnect_manual="always eject if the task was manually terminate
 txt_autopilot_signal="Trigger visual and audible signals from your DiskStation while AutoPilot is running"
 
 txt_external_disks_header="External disks"
+txt_external_disks_not_found="No external disk connected"
 txt_hyperbackup_header="Hyper Backup Tasks"
 txt_autopilot_options_header="AutoPilot Settings"
 txt_autopilot_create_script="Pass job to shell script"
