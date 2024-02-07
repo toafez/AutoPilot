@@ -1,10 +1,14 @@
 AutoPilot Release Notes
 
 
-Previously unpublished release version
-...
-..
-.
+Previously unpublished release Version
+
+ - Deutsch
+    - Extern angeschlossene ESATA-Datenträger wurden von AutoPilot nicht erkannt.
+
+ - English
+    - Externally connected ESATA data carriers were not recognized by AutoPilot.
+
 
 Version 1.1-400 vom 04.02.2024
 

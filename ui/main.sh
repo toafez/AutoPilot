@@ -411,7 +411,7 @@ if [[ "${get[page]}" == "main" && "${get[section]}" == "start" ]]; then
 						</table>'
 					}
 				ext_sources "/volumeUSB[[:digit:]]"
-				ext_sources "/volumeSATA[[:digit:]]"
+				ext_sources "/volumeSATA"
 				echo '
 				</div>
 			</div>
