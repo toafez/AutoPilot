@@ -5,9 +5,11 @@ Previously unpublished release Version
 
  - Deutsch
     - Extern angeschlossene ESATA-Datenträger wurden von AutoPilot nicht erkannt.
+    - Ausgabe überarbeitet, wenn kein externer Datenträger angeschlossen ist.
 
  - English
     - Externally connected ESATA data carriers were not recognized by AutoPilot.
+    - Output revised if no external disk is connected.
 
 
 Version 1.1-400 vom 04.02.2024

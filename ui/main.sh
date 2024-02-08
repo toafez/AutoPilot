@@ -151,68 +151,66 @@ if [[ "${get[page]}" == "main" && "${get[section]}" == "start" ]]; then
 				<div class="accordion-body bg-light px-3 py-0 ps-5">'
 					function ext_sources()
 					{
-						echo '
-						<table class="table table-borderless table-sm table-light">
-							<thead>
-								<tr>
-									<th scope="col" style="width: 160px;">&nbsp;</th>
-									<th scope="col" style="width: 250px;">&nbsp;</th>
-									<th scope="col" style="width: auto;">&nbsp;</th>
-									<th scope="col" style="width: 20px;">&nbsp;</th>
-									<th scope="col" style="width: 120px;">&nbsp;</th>
-								</tr>
-							</thead>
-							<tbody>'
-								ext_id=0
-								while IFS= read -r ext_volume; do
-									IFS="${backupIFS}"
-									[ -z "${ext_volume}" ] && continue
+						ext_id=0
+						while IFS= read -r ext_volume; do
+							IFS="${backupIFS}"
+							[ -z "${ext_volume}" ] && continue
 
-									while IFS= read -r ext_share; do
-										IFS="${backupIFS}"
-										[ -z "${ext_share}" ] && continue
+							while IFS= read -r ext_share; do
+								IFS="${backupIFS}"
+								[ -z "${ext_share}" ] && continue
 
-										# Reading out disk information
-										ext_mountpoint=$(mount | grep -E "${ext_volume}/${ext_share##*/}")
-										ext_dev=$(echo "${ext_mountpoint}" | awk '{print $1}')
-										ext_path=$(echo "${ext_mountpoint}" | awk '{print $3}')
-										ext_uuid=$(blkid -s UUID -o value ${ext_dev})
-										ext_type=$(blkid -s TYPE -o value ${ext_dev})
-										ext_label=$(blkid -s LABEL -o value ${ext_dev})
-										[ -z "${ext_dev}" ] && continue
+								# Reading out disk information
+								ext_mountpoint=$(mount | grep -E "${ext_volume}/${ext_share##*/}")
+								ext_dev=$(echo "${ext_mountpoint}" | awk '{print $1}')
+								ext_path=$(echo "${ext_mountpoint}" | awk '{print $3}')
+								ext_uuid=$(blkid -s UUID -o value ${ext_dev})
+								ext_type=$(blkid -s TYPE -o value ${ext_dev})
+								ext_label=$(blkid -s LABEL -o value ${ext_dev})
+								[ -z "${ext_dev}" ] && continue
 
-										# Reading out free disk space
-										evalDiskSize "$ext_path" \
-											ext_disk_size \
-											ext_disk_used \
-											ext_disk_available \
-											ext_disk_used_percent \
-											ext_disk_mountpoint
+								# Reading out free disk space
+								evalDiskSize "$ext_path" \
+									ext_disk_size \
+									ext_disk_used \
+									ext_disk_available \
+									ext_disk_used_percent \
+									ext_disk_mountpoint
 
-										# convert bytes to human readable
-										ext_disk_size_hr=$(bytesToHumanReadable "$ext_disk_size")
-										ext_disk_available_hr=$(bytesToHumanReadable "$ext_disk_available")
+								# convert bytes to human readable
+								ext_disk_size_hr=$(bytesToHumanReadable "$ext_disk_size")
+								ext_disk_available_hr=$(bytesToHumanReadable "$ext_disk_available")
 
-										# Determine the file system if there is a 128-bit UUID (LINUX/UNIX)
-										if [[ "${ext_uuid}" =~ ^\{?[A-F0-9a-f]{8}-[A-F0-9a-f]{4}-[A-F0-9a-f]{4}-[A-F0-9a-f]{4}-[A-F0-9a-f]{12}\}?$ ]]; then
-											txt_volume_id="Universally Unique Identifier (UUID)"
-										# Determine the file system if there is a 64 bit VSN (Windows NTFS)
-										elif [[ "${ext_uuid}" =~ ^\{?[A-F0-9a-f]{16}\}?$ ]]; then
-											txt_volume_id="Volume Serial Number (VSN)"
-										# Determine the file system if there is a 32 bit VSN (Windows FAT12, FAT16, FAT32 and exFAT) combined as vFAT
-										elif [[ "${ext_uuid}" =~ ^\{?[A-F0-9a-f]{4}-[A-F0-9a-f]{4}\}?$ ]] || [[ "${ext_uuid}" =~ ^\{?[A-F0-9a-f]{8}\}?$ ]]; then
-											txt_volume_id="Volume Serial Number (VSN)"
-										else
-											ext_uuid=
-											txt_volume_id="Unique Identifier (UUID/GUID)"
-											txt_volume_id_failed="<span class=\"text-danger\">Could not be read</span>"
-										fi
+								# Determine the file system if there is a 128-bit UUID (LINUX/UNIX)
+								if [[ "${ext_uuid}" =~ ^\{?[A-F0-9a-f]{8}-[A-F0-9a-f]{4}-[A-F0-9a-f]{4}-[A-F0-9a-f]{4}-[A-F0-9a-f]{12}\}?$ ]]; then
+									txt_volume_id="Universally Unique Identifier (UUID)"
+								# Determine the file system if there is a 64 bit VSN (Windows NTFS)
+								elif [[ "${ext_uuid}" =~ ^\{?[A-F0-9a-f]{16}\}?$ ]]; then
+									txt_volume_id="Volume Serial Number (VSN)"
+								# Determine the file system if there is a 32 bit VSN (Windows FAT12, FAT16, FAT32 and exFAT) combined as vFAT
+								elif [[ "${ext_uuid}" =~ ^\{?[A-F0-9a-f]{4}-[A-F0-9a-f]{4}\}?$ ]] || [[ "${ext_uuid}" =~ ^\{?[A-F0-9a-f]{8}\}?$ ]]; then
+									txt_volume_id="Volume Serial Number (VSN)"
+								else
+									ext_uuid=
+									txt_volume_id="Unique Identifier (UUID/GUID)"
+									txt_volume_id_failed="<span class=\"text-danger\">Could not be read</span>"
+								fi
 
-										# Specify the path to the internally stored UUID script file of the same name
-										if [ -n "${ext_uuid}" ]; then
-											uuidfile="${usr_devices}/${ext_uuid}"
-
-											echo '
+								# Specify the path to the internally stored UUID script file of the same name
+								if [ -n "${ext_uuid}" ]; then
+									uuidfile="${usr_devices}/${ext_uuid}"
+									echo '
+									<table class="table table-borderless table-sm table-light">
+										<thead>
+											<tr>
+												<th scope="col" class="m-0 p-0" style="width: 160px;">&nbsp;</th>
+												<th scope="col" class="m-0 p-0" style="width: 250px;">&nbsp;</th>
+												<th scope="col" class="m-0 p-0" style="width: auto;">&nbsp;</th>
+												<th scope="col" class="m-0 p-0" style="width: 20px;">&nbsp;</th>
+												<th scope="col" class="m-0 p-0" style="width: 120px;">&nbsp;</th>
+											</tr>
+										</thead>
+										<tbody>
 											<tr>
 												<td colspan="4">
 													<i class="bi bi-hdd-fill text-secondary me-2"></i><span class="fw-medium">'${ext_volume#*/}'</span>
@@ -388,31 +386,35 @@ if [[ "${get[page]}" == "main" && "${get[section]}" == "start" ]]; then
 												fi
 											fi
 											echo '
-											<tr>
-												<td colspan="5">&nbsp;</td>
-											</tr>'
-										fi
-										ext_id=$[${ext_id}+1]
-									done <<< "$( find ${ext_volume}/* -maxdepth 0 -type d ! -path '*/lost\+found' ! -path '*/\@*' ! -path '*/\$RECYCLE.BIN' ! -path '*/Repair' ! -path '*/System Volume Information' )"
-									unset ext_uuid extuuid
+										</tbody>
+									</table>'
+								fi
+								ext_id=$[${ext_id}+1]
+							done <<< "$( find ${ext_volume}/* -maxdepth 0 -type d ! -path '*/lost\+found' ! -path '*/\@*' ! -path '*/\$RECYCLE.BIN' ! -path '*/Repair' ! -path '*/System Volume Information' )"
+							unset ext_uuid extuuid
+						done <<< "$( find ${1} -type d -maxdepth 0 )"
+						unset ext_volume ext_share
 
-									if [[ "${ext_id}" == 0 ]]; then
-										ext_id=1
-										echo '
-										<tr>
-											<td colspan="5">'${txt_external_disks_not_found}'</td>
-										</tr>'
-									fi
-
-								done <<< "$( find ${1} -type d -maxdepth 0 )"
-								unset ext_volume ext_share
-								echo '
-							</tbody>
-						</table>'
+						# Check if external disk is plugged in
+						if [[ "${1}" == "/volumeUSB[[:digit:]]" ]]; then
+							count_usb="${ext_id}"
+						elif [[ "${1}" == "/volumeSATA" ]]; then
+							count_sata="${ext_id}"
+						fi
 					}
-				ext_sources "/volumeUSB[[:digit:]]"
-				ext_sources "/volumeSATA"
-				echo '
+
+					ext_sources "/volumeUSB[[:digit:]]"
+					ext_sources "/volumeSATA"
+
+					# If no external disk is plugged in
+					if [[ "${count_usb}" -eq 0 && "${count_sata}" -eq 0 ]]; then
+						echo '<p class="py-3">'${txt_external_disks_not_found}'</p>'
+					# If external data carrier is plugged in
+					elif [[ "${count_usb}" -gt 0 || "${count_sata}" -gt 0 ]]; then
+						echo '<p>&nbsp;</p>'
+					fi
+
+					echo '
 				</div>
 			</div>
 		</div>'
@@ -546,77 +548,75 @@ if [[ "${get[page]}" == "main" && "${get[section]}" == "start" ]]; then
 								loop_idx=$((loop_idx+1))
 							done
 							id=0
-								# Output line by line via loop over all elements
-								for ((i=0; i < ${#hyper_backup_job[@]}; i++ )); do
-									echo '
-									<div class="accordion-item bg-light pt-2 pb-3 ps-1 ms-4">
-										'${hyper_backup_job[$i]#*=}'
-										<div class="float-end">
+							# Output line by line via loop over all elements
+							for ((i=0; i < ${#hyper_backup_job[@]}; i++ )); do
+								echo '
+								<div class="accordion-item bg-light pt-2 pb-3 ps-1 ms-4">
+									'${hyper_backup_job[$i]#*=}'
+									<div class="float-end">
 
-											<!-- Modal Button-->
-											<button type="button" class="btn btn-sm text-dark py-0" style="background-color: #e6e6e6;" data-bs-toggle="modal" data-bs-target="#HyperBackup'${id}'">
-												<i class="bi bi-link-45deg text-success" style="font-size: 1.2rem;" title="'${txt_autopilot_create_this_script}'"></i>
-											</button>
+										<!-- Modal Button-->
+										<button type="button" class="btn btn-sm text-dark py-0" style="background-color: #e6e6e6;" data-bs-toggle="modal" data-bs-target="#HyperBackup'${id}'">
+											<i class="bi bi-link-45deg text-success" style="font-size: 1.2rem;" title="'${txt_autopilot_create_this_script}'"></i>
+										</button>
 
-											<!-- Modal Popup-->
-											<div class="modal fade" id="HyperBackup'${id}'" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="HyperBackup'${id}'Label" aria-hidden="true">
-												<div class="modal-dialog">
-													<div class="modal-content">
-														<div class="modal-header bg-light">
-															<h1 class="modal-title align-baseline fs-5" style="color: #FF8C00;" id="HyperBackup'${id}'Label">'${txt_autopilot_create_script}'</h1>
-															<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-														</div>
-														<form action="index.cgi?page=main" method="post" id="form'${id}'" autocomplete="on">
-															<div class="modal-body">
-																'${txt_hyperbackup_package_name}': <span class="text-secondary">Hyper Backup</span><br />
-																Task ID: <span class="text-secondary">'${hyper_backup_job[$i]%=*}'</span><br />
-																'${txt_hyperbackup_job_name}': <span class="text-secondary">'${hyper_backup_job[$i]#*=}'</span><br />
-																<br />
-																<div class="row mb-3 px-1">
-																	<div class="col">
-																		<label for="filename" class="form-label">'${txt_autopilot_filename_label}'</label>
-																			<select id="filename" name="filename" class="form-select form-select-sm" required>
-																				<option value="" class="text-secondary" selected disabled></option>'
-																					uuidfile="${usr_devices}"
-																					scriptfiles=$(grep -irw scriptpath ${uuidfile}/* | cut -d '"' -f2)
-																					for scriptfile in ${scriptfiles}; do
-																						if [ -f "${scriptfile}" ]; then
-																							echo '
-																							<option value="'${scriptfile}'" class="text-secondary">'${scriptfile##*/}'</option>'
-																						fi
-																					done
-																					echo '
-																			</select>
-																	</div>
-																	<div class="text-center pt-2">
-																		<small>'${txt_autopilot_note_script_overwrite}'</small>
-																	</div>
+										<!-- Modal Popup-->
+										<div class="modal fade" id="HyperBackup'${id}'" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="HyperBackup'${id}'Label" aria-hidden="true">
+											<div class="modal-dialog">
+												<div class="modal-content">
+													<div class="modal-header bg-light">
+														<h1 class="modal-title align-baseline fs-5" style="color: #FF8C00;" id="HyperBackup'${id}'Label">'${txt_autopilot_create_script}'</h1>
+														<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+													</div>
+													<form action="index.cgi?page=main" method="post" id="form'${id}'" autocomplete="on">
+														<div class="modal-body">
+															'${txt_hyperbackup_package_name}': <span class="text-secondary">Hyper Backup</span><br />
+															Task ID: <span class="text-secondary">'${hyper_backup_job[$i]%=*}'</span><br />
+															'${txt_hyperbackup_job_name}': <span class="text-secondary">'${hyper_backup_job[$i]#*=}'</span><br />
+															<br />
+															<div class="row mb-3 px-1">
+																<div class="col">
+																	<label for="filename" class="form-label">'${txt_autopilot_filename_label}'</label>
+																		<select id="filename" name="filename" class="form-select form-select-sm" required>
+																			<option value="" class="text-secondary" selected disabled></option>'
+																				uuidfile="${usr_devices}"
+																				scriptfiles=$(grep -irw scriptpath ${uuidfile}/* | cut -d '"' -f2)
+																				for scriptfile in ${scriptfiles}; do
+																					if [ -f "${scriptfile}" ]; then
+																						echo '
+																						<option value="'${scriptfile}'" class="text-secondary">'${scriptfile##*/}'</option>'
+																					fi
+																				done
+																				echo '
+																		</select>
+																</div>
+																<div class="text-center pt-2">
+																	<small>'${txt_autopilot_note_script_overwrite}'</small>
 																</div>
 															</div>
-															<div class="modal-footer bg-light">
-																<input type="hidden" name="jobname" value="'${hyper_backup_job[$i]#*=}'">
-																<input type="hidden" name="taskid" value="'${hyper_backup_job[$i]%=*}'">
-																<button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">'${txt_button_Cancel}'</button><br />
-																<button class="btn btn-secondary btn-sm" type="submit" name="section" value="hyperbackup">'${txt_button_Save}'</button>
-															</div>
-														</form>
-													</div>
+														</div>
+														<div class="modal-footer bg-light">
+															<input type="hidden" name="jobname" value="'${hyper_backup_job[$i]#*=}'">
+															<input type="hidden" name="taskid" value="'${hyper_backup_job[$i]%=*}'">
+															<button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">'${txt_button_Cancel}'</button><br />
+															<button class="btn btn-secondary btn-sm" type="submit" name="section" value="hyperbackup">'${txt_button_Save}'</button>
+														</div>
+													</form>
 												</div>
 											</div>
-											<script type="text/javascript">
-												$(window).on("load", function() {
-													$("#popup-validation").modal("show");
-												});
-											</script>
 										</div>
-									</div>'
-									id=$[${id}+1]
-								done
-								echo '
-							</div>'
-
+										<script type="text/javascript">
+											$(window).on("load", function() {
+												$("#popup-validation").modal("show");
+											});
+										</script>
+									</div>
+								</div>'
+								id=$[${id}+1]
+							done
 							IFS="${backupIFS}"
 							echo '
+						</div>
 					</div>
 				</div>
 			</div>'
