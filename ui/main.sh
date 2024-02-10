@@ -398,19 +398,20 @@ if [[ "${get[page]}" == "main" && "${get[section]}" == "start" ]]; then
 						# Check if external disk is plugged in
 						if [[ "${1}" == "/volumeUSB[[:digit:]]" ]]; then
 							count_usb="${ext_id}"
-						elif [[ "${1}" == "/volumeSATA" ]]; then
+						elif [[ "${1}" == "/volumeSATA" ]] || [[ "${1}" == "/volumeSATA[[:digit:]]" ]]; then
 							count_sata="${ext_id}"
 						fi
 					}
 
 					ext_sources "/volumeUSB[[:digit:]]"
+					ext_sources "/volumeSATA[[:digit:]]"
 					ext_sources "/volumeSATA"
 
 					# If no external disk is plugged in
 					if [[ "${count_usb}" -eq 0 && "${count_sata}" -eq 0 ]]; then
 						echo '<p class="py-3">'${txt_external_disks_not_found}'</p>'
 					# If external data carrier is plugged in
-					elif [[ "${count_usb}" -gt 0 || "${count_sata}" -gt 0 ]]; then
+					elif [[ "${count_usb}" -gt 0 ]] || [[ "${count_sata}" -gt 0 ]]; then
 						echo '<p>&nbsp;</p>'
 					fi
 
@@ -790,7 +791,7 @@ if [[ "${get[page]}" == "main" && "${post[section]}" == "autopilotscript" ]]; th
 
 	# Create AutoPilot script file
 	if [ ! -d "${scriptpath}" ]; then
-		mkdir -p -m 755 "${scriptpath}"
+		mkdir -p -m 777 "${scriptpath}"
 	fi
 
 	if [ -d "${scriptpath}" ] && [ ! -f "${scriptfile}" ]; then
