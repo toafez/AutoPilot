@@ -408,7 +408,7 @@ if [[ "${get[page]}" == "main" && "${get[section]}" == "start" ]]; then
 					ext_sources "/volumeSATA"
 
 					# If no external disk is plugged in
-					if [[ "${count_usb}" -eq 0 && "${count_sata}" -eq 0 ]]; then
+					if [[ "${count_usb}" -eq 0 ]] && [[ "${count_sata}" -eq 0 ]]; then
 						echo '<p class="py-3">'${txt_external_disks_not_found}'</p>'
 					# If external data carrier is plugged in
 					elif [[ "${count_usb}" -gt 0 ]] || [[ "${count_sata}" -gt 0 ]]; then
