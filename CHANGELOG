@@ -7,11 +7,13 @@ Previously unpublished release Version
     - Extern angeschlossene ESATA-Datenträger wurden von AutoPilot nicht erkannt.
     - Ausgabe überarbeitet, wenn kein externer Datenträger angeschlossen ist.
     - Eingabefehler während der Pfadangabe beim Verbinden von AutoPilot mit einer Shell-Skriptdatei verhindert.
+    - Der Inhalt von AutoPilot-Skriptdateien für die Ausführung von Basic Backup- und Hyper Backup-Aufgaben kann über die GUI angezeigt werden.
 
  - English
     - Externally connected ESATA data carriers were not recognized by AutoPilot.
     - Output revised if no external disk is connected.
     - Input error during path specification when connecting AutoPilot to a shell script file prevented.
+    - The contents of AutoPilot script files for the execution of Basic Backup and Hyper Backup tasks can be displayed via the GUI.
 
 
 Version 1.1-400 vom 04.02.2024

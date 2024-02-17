@@ -449,6 +449,11 @@ if [[ "${get[page]}" == "main" && "${get[section]}" == "start" ]]; then
 										'${backupjob}'
 										<div class="float-end">
 
+											<!-- Script Button -->
+											<button class="btn btn-sm text-dark py-0 collapsed" style="background-color: #e6e6e6;" type="button" data-bs-toggle="collapse" data-bs-target="#loop-collapse'${id}'" aria-expanded="false" aria-controls="loop-collapse'${id}'">
+												<i class="bi bi-terminal-fill" style="font-size: 1.2rem;" title="'${txt_basicbackup_title_view_script}'"></i>
+											</button>
+
 											<!-- Modal Button-->
 											<button type="button" class="btn btn-sm text-dark py-0" style="background-color: #e6e6e6;" data-bs-toggle="modal" data-bs-target="#BasicBackup'${id}'">
 												<i class="bi bi-link-45deg text-success" style="font-size: 1.2rem;" title="'${txt_autopilot_create_this_script}'"></i>
@@ -503,6 +508,20 @@ if [[ "${get[page]}" == "main" && "${get[section]}" == "start" ]]; then
 												});
 											</script>
 										</div>
+										<div id="loop-collapse'${id}'" class="accordion-collapse collapse" data-bs-parent="#accordionLoop02">
+												<div class="accordion-body">
+													<div class="card card-body ps-1">
+														<code class="text-dark">
+															#!/bin/bash<br />
+															# Execute a Basic Backup job<br />
+															# Job name: '${backupjob}'<br />
+															<br />
+															/usr/syno/synoman/webman/3rdparty/BasicBackup/rsync.sh --job-name="'${backupjob}'"<br />
+															exit ${?}
+														</code>
+													</div>
+												</div>
+											</div>
 									</div>'
 									id=$[${id}+1]
 								done
@@ -555,6 +574,11 @@ if [[ "${get[page]}" == "main" && "${get[section]}" == "start" ]]; then
 								<div class="accordion-item bg-light pt-2 pb-3 ps-1 ms-4">
 									'${hyper_backup_job[$i]#*=}'
 									<div class="float-end">
+
+										<!-- Script Button -->
+										<button class="btn btn-sm text-dark py-0 collapsed" style="background-color: #e6e6e6;" type="button" data-bs-toggle="collapse" data-bs-target="#loop-collapse'${id}'" aria-expanded="false" aria-controls="loop-collapse'${id}'">
+											<i class="bi bi-terminal-fill" style="font-size: 1.2rem;" title="'${txt_hyperbackup_title_view_script}'"></i>
+										</button>
 
 										<!-- Modal Button-->
 										<button type="button" class="btn btn-sm text-dark py-0" style="background-color: #e6e6e6;" data-bs-toggle="modal" data-bs-target="#HyperBackup'${id}'">
@@ -611,6 +635,29 @@ if [[ "${get[page]}" == "main" && "${get[section]}" == "start" ]]; then
 												$("#popup-validation").modal("show");
 											});
 										</script>
+									</div>
+									<div id="loop-collapse'${id}'" class="accordion-collapse collapse" data-bs-parent="#accordionLoop03">
+										<div class="accordion-body">
+											<div class="card card-body ps-1">
+												<code class="text-dark">
+													#!/bin/bash<br />
+													# Execute a Hyper Backup task<br />
+													# Task ID: '${hyper_backup_job[$i]%=*}'<br />
+													# Task name: '${hyper_backup_job[$i]#*=}'<br />
+													<br />
+													# Explicit wait time to ensure Disk is online and available for Hyper Backup task<br />
+													sleep 30<br />
+													<br />
+													/var/packages/HyperBackup/target/bin/dsmbackup --backup "'${hyper_backup_job[$i]%=*}'"<br />
+													pid=$(ps aux | grep -v grep | grep -E "/var/packages/HyperBackup/target/bin/(img_backup|dsmbackup|synoimgbkptool|synolocalbkp|synonetbkp|updatebackup).+-k '${hyper_backup_job[$i]%=*}'" | awk '\''{print $2}'\'')<br />
+													while ps -p $pid > /dev/null<br />
+													do<br />
+													<span class="ps-3">sleep 60</span><br />
+													done<br />
+													exit ${?}
+												</code>
+											</div>
+										</div>
 									</div>
 								</div>'
 								id=$[${id}+1]
