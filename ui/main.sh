@@ -763,9 +763,30 @@ if [[ "${get[page]}" == "main" && "${post[section]}" == "autopilotscript" ]]; th
 
 	# Specify the path and file name of the script file to be executed
 	if [[ -z "${post[targetfolder]}" ]]; then
+
+		# If the string begins with a slash, remove it
+		if echo "${post[filename]}" | grep -q '^/' ; then
+			post[filename]="${post[filename]:1}"
+		fi
+
 		scriptpath="${post[sharedfolder]}"
 		scriptfile="${post[sharedfolder]}/${post[filename]}.sh"
 	else
+		# If the string begins with a slash, remove it
+		if echo "${post[targetfolder]}" | grep -q '^/' ; then
+			post[targetfolder]="${post[targetfolder]:1}"
+		fi
+
+		# If the string begins with a slash, remove it
+		if echo "${post[filename]}" | grep -q '^/' ; then
+			post[filename]="${post[filename]:1}"
+		fi
+
+		# If the string ends with a slash, remove it
+		if echo "${post[targetfolder]}" | grep -q '/$' ; then
+			post[targetfolder]="${post[targetfolder]::1}"
+		fi
+
 		scriptpath="${post[sharedfolder]}/${post[targetfolder]}"
 		scriptfile="${post[sharedfolder]}/${post[targetfolder]}/${post[filename]}.sh"
 	fi

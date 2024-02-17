@@ -6,10 +6,12 @@ Previously unpublished release Version
  - Deutsch
     - Extern angeschlossene ESATA-Datenträger wurden von AutoPilot nicht erkannt.
     - Ausgabe überarbeitet, wenn kein externer Datenträger angeschlossen ist.
+    - Eingabefehler während der Pfadangabe beim Verbinden von AutoPilot mit einer Shell-Skriptdatei verhindert.
 
  - English
     - Externally connected ESATA data carriers were not recognized by AutoPilot.
     - Output revised if no external disk is connected.
+    - Input error during path specification when connecting AutoPilot to a shell script file prevented.
 
 
 Version 1.1-400 vom 04.02.2024
