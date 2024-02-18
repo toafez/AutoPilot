@@ -37,22 +37,20 @@ function popup_modal()
 			<h5 class="modal-title align-baseline" style="color: #FF8C00;">'${2}'</h5>
 			<a href="index.cgi" onclick="history.go(-1); event.preventDefault();" class="btn-close" aria-label="Close"></a>
 		  </div>
-		  <div class="modal-body">'
+		  <div class="modal-body bg-light">'
 			if [[ "${1}" == "scriptview" ]]; then
 				if [ -f "${3}" ]; then
 					echo '
-					<i class="bi bi-hdd-fill text-secondary"></i>&nbsp;&nbsp;<strong>'${txt_autopilot_script_target}': </strong>'${3}'<br /><br />
-					<div class="card card-body ps-1">
-						<code class="text-dark">'
+					<i class="bi bi-hdd-fill text-secondary"></i>&nbsp;&nbsp;<strong>'${txt_autopilot_script_target}': </strong>'${3}'<br />
+						<pre style="overflow-x:auto;"><code>'
 							IFS”
 							”
 							while read line; do
-								echo ''${line}'<br>'
+								echo "${line}"
 							done < "${3}"
 							unset line
 							echo '
-						</code>
-					</div>'
+						</code></pre>'
 				else
 					echo '
 					<i class="bi bi-hdd-fill text-secondary"></i>&nbsp;&nbsp;<strong class="text-danger">'${txt_autopilot_scriptfile_error}'</strong><br /><br />

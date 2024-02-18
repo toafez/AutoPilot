@@ -510,16 +510,15 @@ if [[ "${get[page]}" == "main" && "${get[section]}" == "start" ]]; then
 										</div>
 										<div id="loop-collapse'${id}'" class="accordion-collapse collapse" data-bs-parent="#accordionLoop02">
 												<div class="accordion-body">
-													<div class="card card-body ps-1">
-														<code class="text-dark">
-															#!/bin/bash<br />
-															# Execute a Basic Backup job<br />
-															# Job name: '${backupjob}'<br />
-															<br />
-															/usr/syno/synoman/webman/3rdparty/BasicBackup/rsync.sh --job-name="'${backupjob}'"<br />
-															exit ${?}
-														</code>
-													</div>
+<pre style="overflow-x:auto;">
+<code>#!/bin/bash
+# Execute a Basic Backup job
+# Job name: '${backupjob}'
+
+/usr/syno/synoman/webman/3rdparty/BasicBackup/rsync.sh --job-name="'${backupjob}'"
+exit ${?}
+</code>
+</pre>
 												</div>
 											</div>
 									</div>'
@@ -638,25 +637,24 @@ if [[ "${get[page]}" == "main" && "${get[section]}" == "start" ]]; then
 									</div>
 									<div id="loop-collapse'${id}'" class="accordion-collapse collapse" data-bs-parent="#accordionLoop03">
 										<div class="accordion-body">
-											<div class="card card-body ps-1">
-												<code class="text-dark">
-													#!/bin/bash<br />
-													# Execute a Hyper Backup task<br />
-													# Task ID: '${hyper_backup_job[$i]%=*}'<br />
-													# Task name: '${hyper_backup_job[$i]#*=}'<br />
-													<br />
-													# Explicit wait time to ensure Disk is online and available for Hyper Backup task<br />
-													sleep 30<br />
-													<br />
-													/var/packages/HyperBackup/target/bin/dsmbackup --backup "'${hyper_backup_job[$i]%=*}'"<br />
-													pid=$(ps aux | grep -v grep | grep -E "/var/packages/HyperBackup/target/bin/(img_backup|dsmbackup|synoimgbkptool|synolocalbkp|synonetbkp|updatebackup).+-k '${hyper_backup_job[$i]%=*}'" | awk '\''{print $2}'\'')<br />
-													while ps -p $pid > /dev/null<br />
-													do<br />
-													<span class="ps-3">sleep 60</span><br />
-													done<br />
-													exit ${?}
-												</code>
-											</div>
+<pre style="overflow-x:auto;">
+<code>#!/bin/bash
+# Execute a Hyper Backup task
+# Task ID: '${hyper_backup_job[$i]%=*}'
+# Task name: '${hyper_backup_job[$i]#*=}'
+
+# Explicit wait time to ensure Disk is online and available for Hyper Backup task
+sleep 30
+
+/var/packages/HyperBackup/target/bin/dsmbackup --backup "'${hyper_backup_job[$i]%=*}'"
+pid=$(ps aux | grep -v grep | grep -E "/var/packages/HyperBackup/target/bin/(img_backup|dsmbackup|synoimgbkptool|synolocalbkp|synonetbkp|updatebackup).+-k '${hyper_backup_job[$i]%=*}'" | awk '\''{print $2}'\'')
+while ps -p $pid > /dev/null
+do
+	sleep 60
+done
+exit ${?}
+</code>
+</pre>
 										</div>
 									</div>
 								</div>'

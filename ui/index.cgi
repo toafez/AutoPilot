@@ -206,6 +206,11 @@ if [ $(synogetkeyvalue /etc.defaults/VERSION majorversion) -ge 7 ]; then
 			<!-- Integrating jQuery 3.7.1 -->
 			<script src="template/jquery/jquery-3.7.1.min.js"></script>
 
+			<!-- Integrating highlight.js 11.9.0 (https://highlightjs.org/) -->
+			<link rel="stylesheet" href="template/js/highlight/styles/atom-one-light.min.css">
+			<script src="template/js/highlight/highlight.min.js"></script>
+			<script>hljs.highlightAll();</script>
+
 			<!-- Integrating JavaScript bzw. jQuery functions in the HTML header  -->
 			<script src="template/js/head-functions.js"></script>
 		</head>
