@@ -43,9 +43,7 @@ function popup_modal()
 					echo '
 					<i class="bi bi-hdd-fill text-secondary"></i>&nbsp;&nbsp;<strong>'${txt_autopilot_script_target}': </strong>'${3}'<br />
 						<pre style="overflow-x:auto;"><code>'
-							IFS”
-							”
-							while read line; do
+							while IFS=$'\t' read line; do
 								echo "${line}"
 							done < "${3}"
 							unset line
