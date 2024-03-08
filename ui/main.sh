@@ -941,22 +941,27 @@ if [[ "${get[page]}" == "main" && "${post[section]}" == "hyperbackup" ]]; then
 	scriptfile="${post[filename]}"
 
 	if [ -f "${scriptfile}" ]; then
-		> "${scriptfile}"
-		echo "#!/bin/bash" > "${scriptfile}"
-		echo "# Execute a Hyper Backup task" >> "${scriptfile}"
-		echo "# Task ID: ${taskid}" >> "${scriptfile}"
-		echo "# Task name: ${jobname}" >> "${scriptfile}"
-		echo "" >> "${scriptfile}"
-		echo "# Explicit wait time to ensure Disk is online and available for Hyper Backup task" >> "${scriptfile}"
-		echo sleep 30  >> "${scriptfile}"
-		echo "" >> "${scriptfile}"
-		echo "/var/packages/HyperBackup/target/bin/dsmbackup --backup \"${taskid}\"" >> "${scriptfile}"
-		echo "pid=\$(ps aux | grep -v grep | grep -E \"/var/packages/HyperBackup/target/bin/(img_backup|dsmbackup|synoimgbkptool|synolocalbkp|synonetbkp|updatebackup).+-k ${taskid}\" | awk '{print \$2}')" >> "${scriptfile}"
-		echo "while ps -p \$pid > /dev/null" >> "${scriptfile}"
-		echo "do" >> "${scriptfile}"
-		echo "    sleep 60" >> "${scriptfile}"
-		echo "done" >> "${scriptfile}"
-		echo "exit \${?}" >> "${scriptfile}"
+		# Generate script file from template by replacing language specific texts for log file.
+		sed -e "s/___TASK_ID___/${taskid}/g" \
+			-e "s/___JOB_NAME___/${jobname}/g" \
+			-e "s/___TXT_BACKUP_WAIT_FOR_START___/${txt_backup_wait_for_start}/g" \
+			-e "s/___TXT_BACKUP_WAIT_TIME___/${txt_backup_start_wait_time}/g" \
+			-e "s/___TXT_BACKUP_IN_PROGRESS___/${txt_backup_in_progress}/g" \
+			-e "s/___TXT_BACKUP_PID_SEARCH___/${txt_backup_pid_search}/g" \
+			-e "s/___TXT_BACKUP_PID_SEARCH_FINISHED___/${txt_backup_pid_search_finished}/g" \
+			-e "s/___TXT_BACKUP_PID___/${txt_backup_pid}/g" \
+			-e "s/___TXT_BACKUP_FINISHED___/${txt_backup_finished}/g" \
+			-e "s/___TXT_BACKUP_DURATION___/${txt_backup_duration}/g" \
+			-e "s/___TXT_BACKUP_PID_NOT_FOUND___/${txt_backup_pid_not_found}/g" \
+			-e "s/___TXT_PURGE_PID_SEARCH___/${txt_purge_pid_search}/g" \
+			-e "s/___TXT_PURGE_PID_SEARCH_FINISHED___/${txt_purge_pid_search_finished}/g" \
+			-e "s/___TXT_PURGE_PID___/${txt_purge_pid}/g" \
+			-e "s/___TXT_PURGE_IN_PROGRESS___/${txt_purge_in_progress}/g" \
+			-e "s/___TXT_PURGE_FINISHED___/${txt_purge_finished}/g" \
+			-e "s/___TXT_PURGE_DURATION___/${txt_purge_duration}/g" \
+			-e "s/___TXT_PURGE_PID_NOT_FOUND___/${txt_purge_pid_not_found}/g" \
+			"${dir}"/modules/hyper_backup_script.template > "${scriptfile}"
+
 		[ -f "${get_request}" ] && rm "${get_request}"
 		[ -f "${post_request}" ] && rm "${post_request}"
 		echo '<meta http-equiv="refresh" content="0; url=index.cgi?page=main&section=start">'
