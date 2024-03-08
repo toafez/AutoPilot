@@ -169,7 +169,7 @@ txt_backup_pid_search="Search PID of the backup for a maximum of 30 seconds"
 txt_backup_pid_search_finished="Search for backup PID finished"
 txt_backup_pid="PID of the backup"
 txt_backup_finished="Backup completed"
-txt_backup_duration="Duration of the backup in seconds"
+txt_backup_duration="Duration of the backup"
 txt_backup_pid_not_found="No backup PID found"
 
 # Hyper Backup script log - Purge
@@ -178,7 +178,7 @@ txt_purge_pid_search_finished="Search PID of cleanup finished"
 txt_purge_pid="PID cleanup"
 txt_purge_in_progress="Cleanup is in progress"
 txt_purge_finished="Cleanup completed"
-txt_purge_duration="Cleanup time in seconds"
+txt_purge_duration="Duration of cleanup"
 txt_purge_pid_not_found="No cleanup PID found"
 
 # udev_device_driver.sh
