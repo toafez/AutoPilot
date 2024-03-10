@@ -5,71 +5,71 @@
 
 # Check if argument given for log, otherwise redirect to /dev/null
 if [ -n "$1" ]; then
-    _logfile=$1
+    logfile=$1
 else
-    _logfile=/dev/null
+    logfile=/dev/null
 fi
 
 # Explicit wait time to ensure Disk is online and available for Hyper Backup task
 time_wait=30
-echo -e "___TXT_BACKUP_WAIT_FOR_START___" >> "$_logfile"
-echo -e "___TXT_BACKUP_WAIT_TIME___: $time_wait\n" >> "$_logfile"
+echo -e "___TXT_BACKUP_WAIT_FOR_START___" >> "$logfile"
+echo -e "___TXT_BACKUP_WAIT_TIME___: $time_wait\n" >> "$logfile"
 sleep "$time_wait"
 
 # Start Backup Process
 # --------------------------------------------------------------
 /var/packages/HyperBackup/target/bin/dsmbackup --backup ___TASK_ID___
-echo -e "___TXT_BACKUP_IN_PROGRESS___\n" >> "$_logfile"
+echo -e "___TXT_BACKUP_IN_PROGRESS___\n" >> "$logfile"
 
-_start=$(date +%s)
+timestamp_start=$(date +%s)
 loopMaxSecs=30                                  # Set maximum time (duration) for loop in s>
 loopEndTime=$(( $(date +%s) + loopMaxSecs ))    # Calculate end time of loop.
 pid=""
-echo "___TXT_BACKUP_PID_SEARCH___" >> "$_logfile"
-while [ -z "${pid}" ] && [ $(date +%s) -lt $loopEndTime ]; do
+echo "___TXT_BACKUP_PID_SEARCH___" >> "$logfile"
+while [ -z "${pid}" ] && [ "$(date +%s)" -lt $loopEndTime ]; do
     pid=$(ps aux | grep -v grep | grep -E "/var/packages/HyperBackup/target/bin/(img_backup|dsmbackup|synoimgbkptool|synolocalbkp|synonetbkp|updatebackup).+-k ___TASK_ID___" | awk '{print $2}')
     sleep 0.1
 done
-echo -e "___TXT_BACKUP_PID_SEARCH_FINISHED___" >> "$_logfile"
+echo -e "___TXT_BACKUP_PID_SEARCH_FINISHED___" >> "$logfile"
 
 if [ -n "${pid}" ]; then
-    echo "___TXT_BACKUP_PID___: $pid" >> "$_logfile"
+    echo "___TXT_BACKUP_PID___: $pid" >> "$logfile"
     while ps -p $pid > /dev/null
     do
         sleep 0.1
     done
-    echo -e "___TXT_BACKUP_FINISHED___" >> "$_logfile"
-    duration="$(($(date +%s) - _start))"
-    echo -e "___TXT_BACKUP_DURATION___: "$(printf '%dh:%dm:%ds\n' $((duration/3600)) $((duration%3600/60)) $((duration%60)))"\n" >> "$_logfile"
+    echo -e "___TXT_BACKUP_FINISHED___" >> "$logfile"
+    duration="$(($(date +%s) - timestamp_start))"
+    echo -e "___TXT_BACKUP_DURATION___: "$(printf '%dh:%dm:%ds\n' $((duration/3600)) $((duration%3600/60)) $((duration%60)))"\n" >> "$logfile"
 else
-    echo -e "___TXT_BACKUP_PID_NOT_FOUND___\n" >> "$_logfile"
+    echo -e "___TXT_BACKUP_PID_NOT_FOUND___\n" >> "$logfile"
 fi
 
 # Detect Cleanup Process
 # --------------------------------------------------------------
-_start=$(date +%s)
+timestamp_start=$(date +%s)
 loopMaxSecs=30                                  # Set maximum time (duration) for loop in seconds.
 loopEndTime=$(( $(date +%s) + loopMaxSecs ))    # Calculate end time of loop.
 pid=""
-echo "___TXT_PURGE_PID_SEARCH___" >> "$_logfile"
-while [ -z "${pid}" ] && [ $(date +%s) -lt $loopEndTime ]; do
+echo "___TXT_PURGE_PID_SEARCH___" >> "$logfile"
+while [ -z "${pid}" ] && [ "$(date +%s)" -lt $loopEndTime ]; do
     pid=$(ps aux | grep -v grep | grep -E "/var/packages/HyperBackup/target/bin/(img_backup|dsmbackup|synoimgbkptool|synolocalbkp|synonetbkp|updatebackup).+-k ___TASK_ID___" | awk '{print $2}')
     sleep 0.1
 done
-echo "___TXT_PURGE_PID_SEARCH_FINISHED___" >> "$_logfile"
+echo "___TXT_PURGE_PID_SEARCH_FINISHED___" >> "$logfile"
 
 if [ -n "${pid}" ]; then
-    echo "___TXT_PURGE_PID___: $pid" >> "$_logfile"
-    echo "___TXT_PURGE_IN_PROGRESS___" >> "$_logfile"
+    echo "___TXT_PURGE_PID___: $pid" >> "$logfile"
+    echo "___TXT_PURGE_IN_PROGRESS___" >> "$logfile"
     while ps -p "$pid" > /dev/null
     do
         sleep 0.1
     done
-    echo "___TXT_PURGE_FINISHED___" >> "$_logfile"
-    duration="$(($(date +%s) - _start))"
-    echo -e "___TXT_PURGE_DURATION___: "$(printf '%dh:%dm:%ds\n' $((duration/3600)) $((duration%3600/60)) $((duration%60)))"\n" >> "$_logfile"
+    echo "___TXT_PURGE_FINISHED___" >> "$logfile"
+    duration="$(($(date +%s) - timestamp_start))"
+    echo -e "___TXT_PURGE_DURATION___: "$(printf '%dh:%dm:%ds\n' $((duration/3600)) $((duration%3600/60)) $((duration%60)))"\n" >> "$logfile"
 else
-    echo -e "___TXT_PURGE_PID_NOT_FOUND___\n" >> "$_logfile"
+    echo -e "___TXT_PURGE_PID_NOT_FOUND___\n" >> "$logfile"
 fi
 
 exit 0
