@@ -2,5 +2,18 @@
 # Execute a Basic Backup job
 # Job name: ___JOB_NAME___
 
-/usr/syno/synoman/webman/3rdparty/BasicBackup/rsync.sh --job-name="___JOB_NAME___"
-exit ${?}
+# Check if argument given for log, otherwise redirect to /dev/null
+if [ -n "$1" ]; then
+    logfile=$1
+else
+    logfile=/dev/null
+fi
+
+echo -e "___TXT_BACKUP_IN_PROGRESS___\n" >> "$logfile"
+timestamp_start=$(date +%s)
+/usr/syno/synoman/webman/3rdparty/BasicBackup/rsync.sh --job-name="___JOB_NAME___" >> "$logfile"
+result=$?
+
+duration="$(($(date +%s) - timestamp_start))"
+echo -e "___TXT_BACKUP_DURATION___: "$(printf '%dh:%dm:%ds\n' $((duration/3600)) $((duration%3600/60)) $((duration%60)))"\n" >> "$logfile"
+exit "$result"

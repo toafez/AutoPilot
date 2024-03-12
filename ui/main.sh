@@ -515,6 +515,8 @@ if [[ "${get[page]}" == "main" && "${get[section]}" == "start" ]]; then
 
 													basic_backup_script_tmp_file="${app_home}/temp/basic_backup_script_${id}.tmp"
 													sed -e "s/___JOB_NAME___/${backupjob}/g" \
+														-e "s/___TXT_BACKUP_IN_PROGRESS___/${txt_backup_in_progress}/g" \
+														-e "s/___TXT_BACKUP_DURATION___/${txt_backup_duration}/g" \
 														"${app_home}"/modules/basic_backup_script.template > "${basic_backup_script_tmp_file}"
 													echo '
 													<pre style="overflow-x:auto;">
@@ -925,7 +927,10 @@ if [[ "${get[page]}" == "main" && "${post[section]}" == "basicbackup" ]]; then
 	# Create AutoPilot script file
 	if [ -f "${scriptfile}" ]; then
 		# Generate script file from template by replacing language specific keywords.
-		sed -e "s/___JOB_NAME___/${jobname}/g" "${app_home}"/modules/basic_backup_script.template > "${scriptfile}"
+		sed -e "s/___JOB_NAME___/${jobname}/g" \
+			-e "s/___TXT_BACKUP_IN_PROGRESS___/${txt_backup_in_progress}/g" \
+			-e "s/___TXT_BACKUP_DURATION___/${txt_backup_duration}/g" \
+			"${app_home}"/modules/basic_backup_script.template > "${scriptfile}"
 		[ -f "${get_request}" ] && rm "${get_request}"
 		[ -f "${post_request}" ] && rm "${post_request}"
 		echo '<meta http-equiv="refresh" content="0; url=index.cgi?page=main&section=start">'
