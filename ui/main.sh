@@ -664,7 +664,7 @@ exit ${?}
 										</div>
 									</div>
 								</div>'
-								id=$[${id}+1]
+								id=$((id+1))
 							done
 							IFS="${backupIFS}"
 							echo '
