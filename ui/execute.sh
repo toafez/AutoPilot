@@ -212,7 +212,7 @@ if [ -h "/usr/local/bin/${app}" ] && [[ "${result}" =~ "running" ]]; then
 				synodsmnotify -c SYNO.SDS.${app}.Application @administrators ${app}:app:subtitle ${app}:app:autopilot_start "${mountpoint}"
 
 				# Execute autopilot script
-				${scriptfile}
+				${scriptfile} "${log}"
 				exit_script=${?}
 
 				# Check again if mount still exists for the device. It could be the reason that a Hyper Backup Task has already ejected the disk.

@@ -161,6 +161,26 @@ txt_hyperbackup_title_view_script="View AutoPilot script file for this Hyper Bac
 txt_hyperbackup_package_name="Package name"
 txt_hyperbackup_job_name="Job name"
 
+# Hyper Backup script log - Backup
+txt_backup_wait_for_start="Wait to ensure backup destination is available"
+txt_backup_start_wait_time="Wait time in seconds"
+txt_backup_in_progress="Backup has started"
+txt_backup_pid_search="Search process identifier (PID) of backup job for a maximum of 30 seconds"
+txt_backup_pid_search_finished="Search process identifier (PID) of backup job finished"
+txt_backup_pid="Process identifier (PID) of backup job"
+txt_backup_finished="Backup completed"
+txt_backup_duration="Duration of backup job"
+txt_backup_pid_not_found="No process identifier (PID) found for backup job"
+
+# Hyper Backup script log - Purge
+txt_purge_pid_search="Search process identifier (PID) of cleanup job for max 30 seconds"
+txt_purge_pid_search_finished="Search process identifier (PID) of cleanup job finished"
+txt_purge_pid="Process identifier (PID) of cleanup job"
+txt_purge_in_progress="Cleanup is in progress"
+txt_purge_finished="Cleanup completed"
+txt_purge_duration="Duration of cleanup job"
+txt_purge_pid_not_found="No process identifier (PID) found for cleanup job"
+
 # udev_device_driver.sh
 # ------------------------------------------------- -------------
 txt_help_status_install_terminal="Install device drivers via console"
