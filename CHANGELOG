@@ -3,16 +3,18 @@ AutoPilot Release Notes
 Previously unpublished release Version
 
  - Deutsch
+    - Update Bootstrap Framework auf 5.3.3
     - Es wird vermieden, dass die Hyper Backup Aufgabe hängen bleibt nachdem der Bereinigungsprozess gestartet hat.
     - Die Hyper Backup-Skriptdatei verwendet jetzt die AutoPilot-Protokolldatei für zusätzliche Informationen.
-    - Die Hyper Backup-Skriptdatei wird jetzt aus einer Vorlagendatei erstellt.
+    - Die Hyper Backup Skriptdatei sowie die Basic Backup Scriptdatei wird jetzt aus einer Vorlagendatei erstellt.
     - Neue Textbausteine welche für die Protokollierung verwendet werden.
     - Verwendung der Variablen „app_home“ anstelle der Variable „dir“ in der Datei „main.sh“.
 
  - English
+    - Update Bootstrap Framework to 5.3.3
    - It prevents the Hyper Backup task from getting stuck after the cleanup process has started.
    - Hyper Backup script file now uses AutoPilot log file for additional information.
-   - Hyper Backup script file is now created from a template file.
+   - Hyper Backup script file and Basic Backup script file is now created from a template file.
    - New text modules which are used for logging.
    - Using app_home variable instead of dir variable in main.sh file.
 
