@@ -432,6 +432,8 @@ if [[ "${get[page]}" == "main" && "${get[section]}" == "start" ]]; then
 							backupconfigs=$(find "/var/packages/BasicBackup/target/ui/usersettings/backupjobs" -type f -name "*.config" -maxdepth 1 | sort -f )
 							if [ -n "$backupconfigs" ]; then
 								id=0
+								# Delete temporary Basic Backup files
+								find "${app_home}/temp" -type f -iname "basic_backup_script_*" | xargs rm -rf
 								IFS="
 								"
 								for backupconfig in ${backupconfigs}; do
@@ -504,20 +506,24 @@ if [[ "${get[page]}" == "main" && "${get[section]}" == "start" ]]; then
 											</script>
 										</div>
 										<div id="loop-collapse'${id}'" class="accordion-collapse collapse" data-bs-parent="#accordionLoop02">
-												<div class="accordion-body">
-<pre style="overflow-x:auto;">
-<code>#!/bin/bash
-# Execute a Basic Backup job
-# Job name: '${backupjob}'
+                                        <div class="accordion-body">'
 
-/usr/syno/synoman/webman/3rdparty/BasicBackup/rsync.sh --job-name="'${backupjob}'"
-exit ${?}
-</code>
-</pre>
+													basic_backup_script_tmp_file="${app_home}/temp/basic_backup_script_${id}.tmp"
+													sed -e "s/___JOB_NAME___/${backupjob}/g" \
+														-e "s/___TXT_BACKUP_IN_PROGRESS___/${txt_backup_in_progress}/g" \
+														-e "s/___TXT_BACKUP_DURATION___/${txt_backup_duration}/g" \
+														"${app_home}"/modules/basic_backup_script.template > "${basic_backup_script_tmp_file}"
+													echo '
+													<pre style="overflow-x:auto;">
+														<code>'
+															cat "${basic_backup_script_tmp_file}"
+														echo '
+														</code>
+													</pre>
 												</div>
 											</div>
 									</div>'
-									id=$[${id}+1]
+									id=$((id+1))
 								done
 								IFS="${backupIFS}"
 								unset backupjob
@@ -668,7 +674,7 @@ exit ${?}
                                         </div>
 									</div>
 								</div>'
-								id=$[${id}+1]
+								id=$((id+1))
 							done
 							IFS="${backupIFS}"
 							echo '
@@ -930,12 +936,11 @@ if [[ "${get[page]}" == "main" && "${post[section]}" == "basicbackup" ]]; then
 
 	# Create AutoPilot script file
 	if [ -f "${scriptfile}" ]; then
-		echo "#!/bin/bash" > "${scriptfile}"
-		echo "# Execute a Basic Backup job" >> "${scriptfile}"
-		echo "# Job name: ${jobname}" >> "${scriptfile}"
-		echo "" >> "${scriptfile}"
-		echo "/usr/syno/synoman/webman/3rdparty/BasicBackup/rsync.sh --job-name=\"${jobname}\"" >> "${scriptfile}"
-		echo "exit \${?}" >> "${scriptfile}"
+		# Generate script file from template by replacing language specific keywords.
+		sed -e "s/___JOB_NAME___/${jobname}/g" \
+			-e "s/___TXT_BACKUP_IN_PROGRESS___/${txt_backup_in_progress}/g" \
+			-e "s/___TXT_BACKUP_DURATION___/${txt_backup_duration}/g" \
+			"${app_home}"/modules/basic_backup_script.template > "${scriptfile}"
 		[ -f "${get_request}" ] && rm "${get_request}"
 		[ -f "${post_request}" ] && rm "${post_request}"
 		echo '<meta http-equiv="refresh" content="0; url=index.cgi?page=main&section=start">'

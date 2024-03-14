@@ -17,6 +17,17 @@ Previously unpublished release Version
    - Using app_home variable instead of dir variable in main.sh file.
 
 
+Previously unpublished release Version
+
+ - Deutsch
+    - Das Script für eine Basic Backup Aufgabe wird nun aus einer Template Datei erstellt.
+    - Zusätzliche Informationen werden in dem AutoPilot Log während der Abarbeitung zur Verfügung gestellt.
+
+ - English
+   - Script for Basic Backup Tasks will be created from a template file.
+   - Additional Information is provided to AutoPilot log file during the progress.
+
+
 Version 1.1-500 vom 18.02.2024
 
  - Deutsch
