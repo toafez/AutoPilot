@@ -29,6 +29,9 @@
 	app_name="AutoPilot"
 	app_home=$(echo /volume*/@appstore/${app_name}/ui)
 	app_link=$(echo /webman/3rdparty/${app_name})
+	dsm_major=$(synogetkeyvalue /etc.defaults/VERSION majorversion)
+	dsm_minor=$(synogetkeyvalue /etc.defaults/VERSION minorversion)
+	hyperbackup_version=$(cat "/var/packages/HyperBackup/INFO" | grep ^version | cut -d '"' -f2)
 	[ ! -d "${app_home}" ] && exit
 
 	# Read the version of the AutoPilot app from the INFO.sh file

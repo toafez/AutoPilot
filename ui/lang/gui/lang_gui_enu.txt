@@ -157,6 +157,7 @@ txt_basicbackup_job_name="Job name"
 
 # Hyper Backup
 txt_hyperbackup_header="Hyper Backup Tasks"
+txt_hyperbackup_required="Hyper Backup 4, which was released together with DiskStation Manager 7.2, is required for the display and further processing of tasks. You are currently using DiskStation Manager ${dsm_major}.${dsm_minor} in conjunction with Hyper Backup ${hyperbackup_version%%.*}."
 txt_hyperbackup_title_view_script="View AutoPilot script file for this Hyper Backup task"
 txt_hyperbackup_package_name="Package name"
 txt_hyperbackup_job_name="Job name"
@@ -238,6 +239,7 @@ txt_help_setup_step_2="From the second line onwards, individual shell script ins
 txt_help_setup_step_3="After the shell script instruction has been executed, a so-called exit code is usually passed to the system, the numerical value of which is given via a"
 txt_help_setup_step_4="can be read. If the result is 0, the last executed shell script instruction was executed without errors. In this case, AutoPilot would automatically eject the external disk. However, if you get a numerical value between 1 and 255, this indicates a note, a warning, an error or an abort of the last executed shell script statement. In this case, the external storage medium would not be automatically ejected by AutoPilot. This basic behavior can be individually adjusted in the AutoPilot settings. Alternatively, instead of the exit code passed by the system, this can also be done an own and thus permanently set exit code can be passed to AutoPilot, whereby a "
 txt_help_setup_step_5="AutoPilot informs that, regardless of the exit code actually passed, the external disk is always ejected. Below is the complete example script."
+
 
 
 

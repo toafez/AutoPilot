@@ -506,22 +506,17 @@ if [[ "${get[page]}" == "main" && "${get[section]}" == "start" ]]; then
 											</script>
 										</div>
 										<div id="loop-collapse'${id}'" class="accordion-collapse collapse" data-bs-parent="#accordionLoop02">
-                                        <div class="accordion-body">'
-
-													basic_backup_script_tmp_file="${app_home}/temp/basic_backup_script_${id}.tmp"
-													sed -e "s/___JOB_NAME___/${backupjob}/g" \
-														-e "s/___TXT_BACKUP_IN_PROGRESS___/${txt_backup_in_progress}/g" \
-														-e "s/___TXT_BACKUP_DURATION___/${txt_backup_duration}/g" \
-														"${app_home}"/modules/basic_backup_script.template > "${basic_backup_script_tmp_file}"
-													echo '
-													<pre style="overflow-x:auto;">
-														<code>'
-															cat "${basic_backup_script_tmp_file}"
-														echo '
-														</code>
-													</pre>
-												</div>
+											<div class="accordion-body">'
+												basic_backup_script_tmp_file="${app_home}/temp/basic_backup_script_${id}.tmp"
+												sed -e "s/___JOB_NAME___/${backupjob}/g" \
+													-e "s/___TXT_BACKUP_IN_PROGRESS___/${txt_backup_in_progress}/g" \
+													-e "s/___TXT_BACKUP_DURATION___/${txt_backup_duration}/g" \
+													"${app_home}"/modules/basic_backup_script.template > "${basic_backup_script_tmp_file}"
+												echo -n '<pre style="overflow-x:auto;"><code>'
+												cat "${basic_backup_script_tmp_file}"
+												echo -n '</code></pre>
 											</div>
+										</div>
 									</div>'
 									id=$((id+1))
 								done
@@ -549,134 +544,132 @@ if [[ "${get[page]}" == "main" && "${get[section]}" == "start" ]]; then
 				<div id="flush-collapse-03" class="accordion-collapse collapse" data-bs-parent="#accordionFlush01">
 					<div class="accordion-body bg-light">
 						<div class="accordion accordion-flush" id="accordionLoop03">'
-							IFS="
-							"
-							declare -A hyper_backup_job=()
-							loop_idx=0
-							idx=0
-							for item in $(sed -nE '/^[task_[0-9]+]$/,/^[repo_[0-9]+]$/p' /usr/syno/etc/packages/HyperBackup/synobackup.conf \
-								| grep -E "task_[0-9]+|name=" \
-								| sed -E 's/\[task_([0-9]+)\]/\1/' \
-								| sed -E 's/name="(.+)"/\1/'); do
+							if [[ "${hyperbackup_version%%.*}" -le 3 ]]; then
+								echo '<p>'${txt_hyperbackup_required}'</p>'
+							else
+								IFS="
+								"
+								declare -A hyper_backup_job=()
+								loop_idx=0
+								idx=0
+								for item in $(sed -nE '/^[task_[0-9]+]$/,/^[repo_[0-9]+]$/p' /usr/syno/etc/packages/HyperBackup/synobackup.conf \
+									| grep -E "task_[0-9]+|name=" \
+									| sed -E 's/\[task_([0-9]+)\]/\1/' \
+									| sed -E 's/name="(.+)"/\1/'); do
 
-								if ! (( "$loop_idx" % 2 )); then
-									hyper_backup_job[$idx]="$item"
-								else
-									hyper_backup_job[$idx]="${hyper_backup_job[$idx]}""=""$item"
-									idx=$((idx+1))
-								fi
-								loop_idx=$((loop_idx+1))
-							done
-							id=0
+									if ! (( "$loop_idx" % 2 )); then
+										hyper_backup_job[$idx]="$item"
+									else
+										hyper_backup_job[$idx]="${hyper_backup_job[$idx]}""=""$item"
+										idx=$((idx+1))
+									fi
+									loop_idx=$((loop_idx+1))
+								done
+								id=0
 
-							# Delete temporary Hyper Backup files
-							find "${app_home}/temp" -type f -iname "hyper_backup_script_*" | xargs rm -rf
+								# Delete temporary Hyper Backup files
+								find "${app_home}/temp" -type f -iname "hyper_backup_script_*" | xargs rm -rf
 
-							# Output line by line via loop over all elements
-							for ((i=0; i < ${#hyper_backup_job[@]}; i++ )); do
-								echo '
-								<div class="accordion-item bg-light pt-2 pb-3 ps-1 ms-4">
-									'${hyper_backup_job[$i]#*=}'
-									<div class="float-end">
+								# Output line by line via loop over all elements
+								for ((i=0; i < ${#hyper_backup_job[@]}; i++ )); do
+									echo '
+									<div class="accordion-item bg-light pt-2 pb-3 ps-1 ms-4">
+										'${hyper_backup_job[$i]#*=}'
+										<div class="float-end">
 
-										<!-- Script Button -->
-										<button class="btn btn-sm text-dark py-0 collapsed" style="background-color: #e6e6e6;" type="button" data-bs-toggle="collapse" data-bs-target="#loop-collapse'${id}'" aria-expanded="false" aria-controls="loop-collapse'${id}'">
-											<i class="bi bi-terminal-fill" style="font-size: 1.2rem;" title="'${txt_hyperbackup_title_view_script}'"></i>
-										</button>
+											<!-- Script Button -->
+											<button class="btn btn-sm text-dark py-0 collapsed" style="background-color: #e6e6e6;" type="button" data-bs-toggle="collapse" data-bs-target="#loop-collapse'${id}'" aria-expanded="false" aria-controls="loop-collapse'${id}'">
+												<i class="bi bi-terminal-fill" style="font-size: 1.2rem;" title="'${txt_hyperbackup_title_view_script}'"></i>
+											</button>
 
-										<!-- Modal Button-->
-										<button type="button" class="btn btn-sm text-dark py-0" style="background-color: #e6e6e6;" data-bs-toggle="modal" data-bs-target="#HyperBackup'${id}'">
-											<i class="bi bi-link-45deg text-success" style="font-size: 1.2rem;" title="'${txt_autopilot_create_this_script}'"></i>
-										</button>
+											<!-- Modal Button-->
+											<button type="button" class="btn btn-sm text-dark py-0" style="background-color: #e6e6e6;" data-bs-toggle="modal" data-bs-target="#HyperBackup'${id}'">
+												<i class="bi bi-link-45deg text-success" style="font-size: 1.2rem;" title="'${txt_autopilot_create_this_script}'"></i>
+											</button>
 
-										<!-- Modal Popup-->
-										<div class="modal fade" id="HyperBackup'${id}'" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="HyperBackup'${id}'Label" aria-hidden="true">
-											<div class="modal-dialog">
-												<div class="modal-content">
-													<div class="modal-header bg-light">
-														<h1 class="modal-title align-baseline fs-5" style="color: #FF8C00;" id="HyperBackup'${id}'Label">'${txt_autopilot_create_script}'</h1>
-														<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-													</div>
-													<form action="index.cgi?page=main" method="post" id="form'${id}'" autocomplete="on">
-														<div class="modal-body">
-															'${txt_hyperbackup_package_name}': <span class="text-secondary">Hyper Backup</span><br />
-															Task ID: <span class="text-secondary">'${hyper_backup_job[$i]%=*}'</span><br />
-															'${txt_hyperbackup_job_name}': <span class="text-secondary">'${hyper_backup_job[$i]#*=}'</span><br />
-															<br />
-															<div class="row mb-3 px-1">
-																<div class="col">
-																	<label for="filename" class="form-label">'${txt_autopilot_filename_label}'</label>
-																		<select id="filename" name="filename" class="form-select form-select-sm" required>
-																			<option value="" class="text-secondary" selected disabled></option>'
-																				uuidfile="${usr_devices}"
-																				scriptfiles=$(grep -irw scriptpath ${uuidfile}/* | cut -d '"' -f2)
-																				for scriptfile in ${scriptfiles}; do
-																					if [ -f "${scriptfile}" ]; then
-																						echo '
-																						<option value="'${scriptfile}'" class="text-secondary">'${scriptfile##*/}'</option>'
-																					fi
-																				done
-																				echo '
-																		</select>
-																</div>
-																<div class="text-center pt-2">
-																	<small>'${txt_autopilot_note_script_overwrite}'</small>
+											<!-- Modal Popup-->
+											<div class="modal fade" id="HyperBackup'${id}'" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="HyperBackup'${id}'Label" aria-hidden="true">
+												<div class="modal-dialog">
+													<div class="modal-content">
+														<div class="modal-header bg-light">
+															<h1 class="modal-title align-baseline fs-5" style="color: #FF8C00;" id="HyperBackup'${id}'Label">'${txt_autopilot_create_script}'</h1>
+															<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+														</div>
+														<form action="index.cgi?page=main" method="post" id="form'${id}'" autocomplete="on">
+															<div class="modal-body">
+																'${txt_hyperbackup_package_name}': <span class="text-secondary">Hyper Backup</span><br />
+																Task ID: <span class="text-secondary">'${hyper_backup_job[$i]%=*}'</span><br />
+																'${txt_hyperbackup_job_name}': <span class="text-secondary">'${hyper_backup_job[$i]#*=}'</span><br />
+																<br />
+																<div class="row mb-3 px-1">
+																	<div class="col">
+																		<label for="filename" class="form-label">'${txt_autopilot_filename_label}'</label>
+																			<select id="filename" name="filename" class="form-select form-select-sm" required>
+																				<option value="" class="text-secondary" selected disabled></option>'
+																					uuidfile="${usr_devices}"
+																					scriptfiles=$(grep -irw scriptpath ${uuidfile}/* | cut -d '"' -f2)
+																					for scriptfile in ${scriptfiles}; do
+																						if [ -f "${scriptfile}" ]; then
+																							echo '
+																							<option value="'${scriptfile}'" class="text-secondary">'${scriptfile##*/}'</option>'
+																						fi
+																					done
+																					echo '
+																			</select>
+																	</div>
+																	<div class="text-center pt-2">
+																		<small>'${txt_autopilot_note_script_overwrite}'</small>
+																	</div>
 																</div>
 															</div>
-														</div>
-														<div class="modal-footer bg-light">
-															<input type="hidden" name="jobname" value="'${hyper_backup_job[$i]#*=}'">
-															<input type="hidden" name="taskid" value="'${hyper_backup_job[$i]%=*}'">
-															<button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">'${txt_button_Cancel}'</button><br />
-															<button class="btn btn-secondary btn-sm" type="submit" name="section" value="hyperbackup">'${txt_button_Save}'</button>
-														</div>
-													</form>
+															<div class="modal-footer bg-light">
+																<input type="hidden" name="jobname" value="'${hyper_backup_job[$i]#*=}'">
+																<input type="hidden" name="taskid" value="'${hyper_backup_job[$i]%=*}'">
+																<button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">'${txt_button_Cancel}'</button><br />
+																<button class="btn btn-secondary btn-sm" type="submit" name="section" value="hyperbackup">'${txt_button_Save}'</button>
+															</div>
+														</form>
+													</div>
 												</div>
 											</div>
+											<script type="text/javascript">
+												$(window).on("load", function() {
+													$("#popup-validation").modal("show");
+												});
+											</script>
 										</div>
-										<script type="text/javascript">
-											$(window).on("load", function() {
-												$("#popup-validation").modal("show");
-											});
-										</script>
-									</div>
-									<div id="loop-collapse'${id}'" class="accordion-collapse collapse" data-bs-parent="#accordionLoop03">
-                                        <div class="accordion-body">'
-
-                                            hyper_backup_script_tmp_file="${app_home}/temp/hyper_backup_script_${id}.tmp"
-                                            sed -e "s/___TASK_ID___/${hyper_backup_job[$i]%=*}/g" \
-                                                -e "s/___JOB_NAME___/${hyper_backup_job[$i]#*=}/g" \
-                                                -e "s/___TXT_BACKUP_WAIT_FOR_START___/${txt_backup_wait_for_start}/g" \
-                                                -e "s/___TXT_BACKUP_WAIT_TIME___/${txt_backup_start_wait_time}/g" \
-                                                -e "s/___TXT_BACKUP_IN_PROGRESS___/${txt_backup_in_progress}/g" \
-                                                -e "s/___TXT_BACKUP_PID_SEARCH___/${txt_backup_pid_search}/g" \
-                                                -e "s/___TXT_BACKUP_PID_SEARCH_FINISHED___/${txt_backup_pid_search_finished}/g" \
-                                                -e "s/___TXT_BACKUP_PID___/${txt_backup_pid}/g" \
-                                                -e "s/___TXT_BACKUP_FINISHED___/${txt_backup_finished}/g" \
-                                                -e "s/___TXT_BACKUP_DURATION___/${txt_backup_duration}/g" \
-                                                -e "s/___TXT_BACKUP_PID_NOT_FOUND___/${txt_backup_pid_not_found}/g" \
-                                                -e "s/___TXT_PURGE_PID_SEARCH___/${txt_purge_pid_search}/g" \
-                                                -e "s/___TXT_PURGE_PID_SEARCH_FINISHED___/${txt_purge_pid_search_finished}/g" \
-                                                -e "s/___TXT_PURGE_PID___/${txt_purge_pid}/g" \
-                                                -e "s/___TXT_PURGE_IN_PROGRESS___/${txt_purge_in_progress}/g" \
-                                                -e "s/___TXT_PURGE_FINISHED___/${txt_purge_finished}/g" \
-                                                -e "s/___TXT_PURGE_DURATION___/${txt_purge_duration}/g" \
-                                                -e "s/___TXT_PURGE_PID_NOT_FOUND___/${txt_purge_pid_not_found}/g" \
-                                                "${app_home}"/modules/hyper_backup_script.template > "${hyper_backup_script_tmp_file}"
-
-                                            echo '
-                                            <pre style="overflow-x:auto;">
-                                                <code>'
-                                                    cat "${hyper_backup_script_tmp_file}"
-                                                echo '
-                                                </code>
-                                            </pre>
-                                        </div>
-									</div>
-								</div>'
-								id=$((id+1))
-							done
-							IFS="${backupIFS}"
+										<div id="loop-collapse'${id}'" class="accordion-collapse collapse" data-bs-parent="#accordionLoop03">
+											<div class="accordion-body">'
+												hyper_backup_script_tmp_file="${app_home}/temp/hyper_backup_script_${id}.tmp"
+												sed -e "s/___TASK_ID___/${hyper_backup_job[$i]%=*}/g" \
+													-e "s/___JOB_NAME___/${hyper_backup_job[$i]#*=}/g" \
+													-e "s/___TXT_BACKUP_WAIT_FOR_START___/${txt_backup_wait_for_start}/g" \
+													-e "s/___TXT_BACKUP_WAIT_TIME___/${txt_backup_start_wait_time}/g" \
+													-e "s/___TXT_BACKUP_IN_PROGRESS___/${txt_backup_in_progress}/g" \
+													-e "s/___TXT_BACKUP_PID_SEARCH___/${txt_backup_pid_search}/g" \
+													-e "s/___TXT_BACKUP_PID_SEARCH_FINISHED___/${txt_backup_pid_search_finished}/g" \
+													-e "s/___TXT_BACKUP_PID___/${txt_backup_pid}/g" \
+													-e "s/___TXT_BACKUP_FINISHED___/${txt_backup_finished}/g" \
+													-e "s/___TXT_BACKUP_DURATION___/${txt_backup_duration}/g" \
+													-e "s/___TXT_BACKUP_PID_NOT_FOUND___/${txt_backup_pid_not_found}/g" \
+													-e "s/___TXT_PURGE_PID_SEARCH___/${txt_purge_pid_search}/g" \
+													-e "s/___TXT_PURGE_PID_SEARCH_FINISHED___/${txt_purge_pid_search_finished}/g" \
+													-e "s/___TXT_PURGE_PID___/${txt_purge_pid}/g" \
+													-e "s/___TXT_PURGE_IN_PROGRESS___/${txt_purge_in_progress}/g" \
+													-e "s/___TXT_PURGE_FINISHED___/${txt_purge_finished}/g" \
+													-e "s/___TXT_PURGE_DURATION___/${txt_purge_duration}/g" \
+													-e "s/___TXT_PURGE_PID_NOT_FOUND___/${txt_purge_pid_not_found}/g" \
+													"${app_home}"/modules/hyper_backup_script.template > "${hyper_backup_script_tmp_file}"
+												echo -n '<pre style="overflow-x:auto;"><code>'
+												cat "${hyper_backup_script_tmp_file}"
+												echo -n '</code></pre>
+											</div>
+										</div>
+									</div>'
+									id=$((id+1))
+								done
+								IFS="${backupIFS}"
+							fi
 							echo '
 						</div>
 					</div>

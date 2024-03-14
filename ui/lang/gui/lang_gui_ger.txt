@@ -157,6 +157,7 @@ txt_basicbackup_job_name="Auftragsname"
 
 # Hyper Backup
 txt_hyperbackup_header="Hyper Backup Aufgaben"
+txt_hyperbackup_required="Für die Anzeige und Weiterverarbeitung von Aufgaben wird Hyper Backup 4 benötigt, das zusammen mit dem DiskStation Manager 7.2 veröffentlicht wurde. Du verwendest derzeit den DiskStation Manager ${dsm_major}.${dsm_minor} in Verbindung mit Hyper Backup ${hyperbackup_version%%.*}."
 txt_hyperbackup_title_view_script="AutoPilot Scriptdatei für diese Hyper Backup Aufgabe ansehen"
 txt_hyperbackup_package_name="Paketname"
 txt_hyperbackup_job_name="Auftragsname"
@@ -238,6 +239,7 @@ txt_help_setup_step_2="Ab der zweiten Zeile folgen individuelle Shellscript Anwe
 txt_help_setup_step_3="Nachdem die Shellscript Anweisung ausgeführt wurde, wird in der Regel ein sogenannter Exit-Code an das System übergeben, dessen Zahlenwert über ein"
 txt_help_setup_step_4="ausgelesen werden kann. Ist das Ergebnis 0, wurde die zuletzt ausgeführte Shellscript Anweisung fehlerfrei ausgeführt. AutoPilot würde in diesem Fall den externen Datenträger automatisch auszuwerfen. Erhält man hingegen einen Zahlenwert zwischen 1 und 255 deutet dies auf einen Hinweis, eine Warnung, einen Fehler oder einen Abbruch der zuletzt ausgeführten Shellscript Anweisung hin. In diesem Fall würde der externe Datenträger von AutoPilot nicht automatisch ausgeworfen. Dieses grundlegende Verhalten kann in den AutoPilot Einstellungen individuell angepasst werden. Alternativ dazu kann anstelle des vom System übergebenen Exit-Code, auch ein eigener und damit fest eingestellter Exit-Code an AutoPilot übergeben werden, wobei ein"
 txt_help_setup_step_5="AutoPilot mitteilt, das unabhängig vom tatsächlich übergebenen Exit-Code, der externe Datenträger immer ausgeworfen wird. Nachfolgend nochmal das komplette Beispiel-Script."
+
 
 
 
