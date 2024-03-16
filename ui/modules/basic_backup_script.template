@@ -9,11 +9,15 @@ else
     logfile=/dev/null
 fi
 
-echo -e "___TXT_BACKUP_IN_PROGRESS___\n" >> "$logfile"
+echo -e "___TXT_BASICBACKUP_EXECUTE___" >> "$logfile"
+echo -e "___TXT_BASICBACKUP_TASKNAME___\n" >> "$logfile"
+echo -e "___TXT_BASICBACKUP_IN_PROGRESS___" >> "$logfile"
 timestamp_start=$(date +%s)
-/usr/syno/synoman/webman/3rdparty/BasicBackup/rsync.sh --job-name="___JOB_NAME___" >> "$logfile"
+/usr/syno/synoman/webman/3rdparty/BasicBackup/rsync.sh --job-name="___JOB_NAME___"
 result=$?
 
+echo -e "___TXT_BASICBACKUP_FINISHED___" >> "$logfile"
+
 duration="$(($(date +%s) - timestamp_start))"
-echo -e "___TXT_BACKUP_DURATION___: "$(printf '%dh:%dm:%ds\n' $((duration/3600)) $((duration%3600/60)) $((duration%60)))"\n" >> "$logfile"
+echo -e "___TXT_BASICBACKUP_DURATION___: "$(printf '%dh:%dm:%ds\n' $((duration/3600)) $((duration%3600/60)) $((duration%60)))"\n" >> "$logfile"
 exit "$result"

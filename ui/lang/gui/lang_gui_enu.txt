@@ -149,38 +149,48 @@ txt_autopilot_note_script_overwrite="<span class=\"text-danger\">Note: </span>On
 txt_autopilot_change_note_step_1="<span class=\"text-danger fst-italic\">Important note:</span> From AutoPilot version 1.1-000 <span class=\"text-danger fst-italic\">the content of the autopilot script file is no longer executed</span>, but only checked whether there is an empty file with the name autopilot on the external storage medium."
 txt_autopilot_change_note_step_2="Please move the contents of the current autopilot script file to a location within a shared folder on your DiskStation, give the file a new, unique name and make sure to use <span class=\"text-danger fst-italic\"> as the file extension .sh</span>. Then delete the autopilot script file from this external storage medium."
 
+txt_autopilot_updateinfo_disable="Hide information"
+txt_autopilot_update_scriptcontent="Script content has been revised. Please resubmit selected jobs to a shell script."
+
 # Basic backup
 txt_basicbackup_header="Basic Backup jobs"
 txt_basicbackup_title_view_script="View AutoPilot script file for this basic backup job"
 txt_basicbackup_package_name="Package name"
 txt_basicbackup_job_name="Job name"
 
+# Basic Backup script log
+txt_basicbackup_execute="A basic backup job is being executed"
+txt_basicbackup_taskname="Name of the job: "
+txt_basicbackup_in_progress="Backup has started"
+txt_basicbackup_finished="Backup completed"
+txt_basicbackup_duration="Duration of backup job"
+
 # Hyper Backup
 txt_hyperbackup_header="Hyper Backup Tasks"
 txt_hyperbackup_required="Hyper Backup 4, which was released together with DiskStation Manager 7.2, is required for the display and further processing of tasks. You are currently using DiskStation Manager ${dsm_major}.${dsm_minor} in conjunction with Hyper Backup ${hyperbackup_version%%.*}."
+txt_hyperbackup_config_not_found="The Hyper Backup configuration file <code>/usr/syno/etc/packages/HyperBackup/synobackup.conf</code> could not be located or evaluated."
 txt_hyperbackup_title_view_script="View AutoPilot script file for this Hyper Backup task"
 txt_hyperbackup_package_name="Package name"
 txt_hyperbackup_job_name="Job name"
 
 # Hyper Backup script log - Backup
-txt_backup_wait_for_start="Wait to ensure backup destination is available"
-txt_backup_start_wait_time="Wait time in seconds"
-txt_backup_in_progress="Backup has started"
-txt_backup_pid_search="Search process identifier (PID) of backup job for a maximum of 30 seconds"
-txt_backup_pid_search_finished="Search process identifier (PID) of backup job finished"
-txt_backup_pid="Process identifier (PID) of backup job"
-txt_backup_finished="Backup completed"
-txt_backup_duration="Duration of backup job"
-txt_backup_pid_not_found="No process identifier (PID) found for backup job"
+txt_hyperbackup_execute="A Hyper Backup task is being executed"
+txt_hyperbackup_taskname="Name of the task: "
+txt_hyperbackup_wait_for_start="Wait \$time_wait seconds to ensure that the backup target is available"
+txt_hyperbackup_in_progress="Backup has started"
+txt_hyperbackup_pid_search="Search process identifier (PID) of backup job for a maximum of 30 seconds"
+txt_hyperbackup_pid="The process identifier (PID) of the backup job is"
+txt_hyperbackup_finished="Backup completed"
+txt_hyperbackup_duration="Duration of backup job"
+txt_hyperbackup_pid_not_found="No process identifier (PID) found for backup job"
 
 # Hyper Backup script log - Purge
-txt_purge_pid_search="Search process identifier (PID) of cleanup job for max 30 seconds"
-txt_purge_pid_search_finished="Search process identifier (PID) of cleanup job finished"
-txt_purge_pid="Process identifier (PID) of cleanup job"
-txt_purge_in_progress="Cleanup is in progress"
-txt_purge_finished="Cleanup completed"
-txt_purge_duration="Duration of cleanup job"
-txt_purge_pid_not_found="No process identifier (PID) found for cleanup job"
+txt_hyperbackup_purge_pid_search="Search process identifier (PID) of cleanup job for max 30 seconds"
+txt_hyperbackup_purge_pid="The process identifier (PID) of the cleanup is"
+txt_hyperbackup_purge_in_progress="Cleanup is in progress"
+txt_hyperbackup_purge_finished="Cleanup completed"
+txt_hyperbackup_purge_duration="Duration of cleanup job"
+txt_hyperbackup_purge_pid_not_found="No process identifier (PID) found for cleanup job"
 
 # udev_device_driver.sh
 # ------------------------------------------------- -------------

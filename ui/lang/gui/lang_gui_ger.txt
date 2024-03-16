@@ -149,38 +149,49 @@ txt_autopilot_note_script_overwrite="<span class=\"text-danger\">Hinweis: </span
 txt_autopilot_change_note_step_1="<span class=\"text-danger fst-italic\">Wichtiger Hinweis:</span> Ab AutoPilot Version 1.1-000 <span class=\"text-danger fst-italic\">wird der Inhalt der autopilot Scriptdatei nicht mehr ausgeführt</span>, sondern nur noch geprüft, ob sich eine leere Datei mit dem Namen autopilot auf dem externen Datenträger befindet."
 txt_autopilot_change_note_step_2="Verschiebe daher bitte den Inhalt der aktuellen autopilot Scriptdatei an einen Ort innerhalb eines freigegebenen Ordners deiner DiskStation, gib der Datei einen neuen, eindeutigen Namen und verwende als Dateiendung zwingend <span class=\"text-danger fst-italic\">.sh</span>. Lösche anschließend die autopilot Scriptdatei von diesem externen Datenträger."
 
+txt_autopilot_updateinfo_disable="Information ausblenden"
+txt_autopilot_update_scriptcontent="Scriptinhalte wurden überarbeitet. Ausgewählte Aufträge bitte erneut an ein Shell-Script übergeben."
+
 # Basic Backup
 txt_basicbackup_header="Basic Backup Aufträge"
 txt_basicbackup_title_view_script="AutoPilot Scriptdatei für diesen Basic Backup Auftrag ansehen"
 txt_basicbackup_package_name="Paketname"
 txt_basicbackup_job_name="Auftragsname"
 
+
+# Basic Backup script log
+txt_basicbackup_execute="Es wird ein Basic Backup Auftrag ausgeführt"
+txt_basicbackup_taskname="Name des Auftrages: "
+txt_basicbackup_in_progress="Sicherung wurde gestartet"
+txt_basicbackup_finished="Sicherung abgeschlossen"
+txt_basicbackup_duration="Dauer der Sicherung"
+
 # Hyper Backup
 txt_hyperbackup_header="Hyper Backup Aufgaben"
 txt_hyperbackup_required="Für die Anzeige und Weiterverarbeitung von Aufgaben wird Hyper Backup 4 benötigt, das zusammen mit dem DiskStation Manager 7.2 veröffentlicht wurde. Du verwendest derzeit den DiskStation Manager ${dsm_major}.${dsm_minor} in Verbindung mit Hyper Backup ${hyperbackup_version%%.*}."
+txt_hyperbackup_config_not_found="Die Hyper Backup Konfigurationsdatei <code>/usr/syno/etc/packages/HyperBackup/synobackup.conf</code> konnte nicht lokalisiert oder ausgewertet werden."
 txt_hyperbackup_title_view_script="AutoPilot Scriptdatei für diese Hyper Backup Aufgabe ansehen"
 txt_hyperbackup_package_name="Paketname"
 txt_hyperbackup_job_name="Auftragsname"
 
 # Hyper Backup script log - Backup
-txt_backup_wait_for_start="Warte um sicherzugehen, dass das Sicherungsziel zur Verfügung steht"
-txt_backup_start_wait_time="Wartezeit in Sekunden"
-txt_backup_in_progress="Sicherung wurde gestartet"
-txt_backup_pid_search="Suche nach Prozess Bezeichner (PID) der Sicherung für maximal 30 Sekunden"
-txt_backup_pid_search_finished="Suche nach Prozess Bezeichner (PID) der Sicherung beendet"
-txt_backup_pid="Prozess Bezeichner (PID) der Sicherung"
-txt_backup_finished="Sicherung abgeschlossen"
-txt_backup_duration="Dauer der Sicherung"
-txt_backup_pid_not_found="Keinen Prozess Bezeichner (PID) der Sicherung gefunden"
+txt_hyperbackup_execute="Es wird eine Hyper Backup Aufgabe ausgeführt"
+txt_hyperbackup_taskname="Name der Aufgabe: "
+txt_hyperbackup_wait_for_start="Warte \$time_wait Sekunden um sicherzugehen, dass das Sicherungsziel zur Verfügung steht"
+txt_hyperbackup_in_progress="Sicherung wurde gestartet"
+txt_hyperbackup_pid_search="Suche maximal 30 Sekunden nach der Prozesskennung (PID) der Sicherung"
+txt_hyperbackup_pid="Die Prozesskennung (PID) der Sicherung lautet"
+txt_hyperbackup_finished="Sicherung abgeschlossen"
+txt_hyperbackup_duration="Dauer der Sicherung"
+txt_hyperbackup_pid_not_found="Keine Prozesskennung (PID) der Sicherung gefunden"
 
 # Hyper Backup script log - Purge
-txt_purge_pid_search="Suche nach Prozess Bezeichner (PID) der Bereinigung für max 30 Sekunden"
-txt_purge_pid_search_finished="Suche nach Prozess Bezeichner (PID) der Bereinigung beendet"
-txt_purge_pid="Prozess Bezeichner (PID) Bereinigung"
-txt_purge_in_progress="Bereinig läuft"
-txt_purge_finished="Bereinigung abgeschlossen"
-txt_purge_duration="Dauer der Bereinigung"
-txt_purge_pid_not_found="Keinen Prozess Bezeichner (PID) der Bereinigung gefunden"
+txt_hyperbackup_purge_pid_search="Suche maximal 30 Sekunden nach der Prozesskennung (PID) der Bereinigung"
+txt_hyperbackup_purge_pid="Die Prozesskennung (PID) der Bereinigung lautet"
+txt_hyperbackup_purge_in_progress="Bereinigung läuft"
+txt_hyperbackup_purge_finished="Bereinigung abgeschlossen"
+txt_hyperbackup_purge_duration="Dauer der Bereinigung"
+txt_hyperbackup_purge_pid_not_found="Keine Prozesskennung (PID) der Bereinigung gefunden"
 
 # udev_device_driver.sh
 # --------------------------------------------------------------

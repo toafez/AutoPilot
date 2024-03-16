@@ -29,13 +29,17 @@
 	app_name="AutoPilot"
 	app_home=$(echo /volume*/@appstore/${app_name}/ui)
 	app_link=$(echo /webman/3rdparty/${app_name})
-	dsm_major=$(synogetkeyvalue /etc.defaults/VERSION majorversion)
-	dsm_minor=$(synogetkeyvalue /etc.defaults/VERSION minorversion)
-	hyperbackup_version=$(cat "/var/packages/HyperBackup/INFO" | grep ^version | cut -d '"' -f2)
 	[ ! -d "${app_home}" ] && exit
 
-	# Read the version of the AutoPilot app from the INFO.sh file
-	app_version=$(cat "/var/packages/${app_name}/INFO" | grep ^version | cut -d '"' -f2)
+	# Read the version of AutoPilot
+	app_version=$(synogetkeyvalue /var/packages/${app_name}/INFO version)
+
+	# Read the major and minor version of DiskStation Manager 
+	dsm_major=$(synogetkeyvalue /etc.defaults/VERSION majorversion)
+	dsm_minor=$(synogetkeyvalue /etc.defaults/VERSION minorversion)
+
+	# Read the version of Hyper Backup
+	hyperbackup_version=$(synogetkeyvalue /var/packages/HyperBackup/INFO version)
 
 # Evaluate app authentication
 # --------------------------------------------------------------

@@ -87,14 +87,13 @@ if [[ "${get[page]}" == "main" && "${get[section]}" == "start" ]]; then
 
 	# Checking the app version level
 	# --------------------------------------------------------------
-	local_version=$(cat "/var/packages/${app_name}/INFO" | grep ^version | cut -d '"' -f2)
 	git_version=$(wget --no-check-certificate --timeout=60 --tries=1 -q -O- "https://raw.githubusercontent.com/toafez/${app_name}/main/INFO.sh" | grep ^version | cut -d '"' -f2)		
-	if [ -n "${git_version}" ] && [ -n "${local_version}" ]; then
-		if dpkg --compare-versions ${git_version} gt ${local_version}; then
+	if [ -n "${git_version}" ] && [ -n "${app_version}" ]; then
+		if dpkg --compare-versions ${git_version} gt ${app_version}; then
 			echo '
 			<div class="card">
 				<div class="card-header bg-danger-subtle"><strong>'${txt_update_available}'</strong></div>
-				<div class="card-body">'${txt_update_from}'<span class="text-danger"> '${local_version}' </span>'${txt_update_to}'<span class="text-success"> '${git_version}'</span>
+				<div class="card-body">'${txt_update_from}'<span class="text-danger"> '${app_version}' </span>'${txt_update_to}'<span class="text-success"> '${git_version}'</span>
 					<div class="float-end">
 						<a href="https://github.com/toafez/'${app_name}'/releases" class="btn btn-sm text-dark text-decoration-none" style="background-color: #e6e6e6;" target="_blank">Update</a>
 					</div>
@@ -131,10 +130,12 @@ if [[ "${get[page]}" == "main" && "${get[section]}" == "start" ]]; then
 		</div><br />'
 	fi
 
-	# External disks
-	# --------------------------------------------------------------
 	echo '
-	<div class="accordion accordion-flush" id="accordionFlush01">
+	<div class="accordion accordion-flush" id="accordionFlush01">'
+
+		# External disks
+		# --------------------------------------------------------------
+		echo '
 		<div class="accordion-item border-0">
 			<div class="accordion-header bg-light p-2">
 				<button class="btn btn-sm text-dark py-0 collapsed" style="background-color: #e6e6e6;" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse-01" aria-expanded="false" aria-controls="flush-collapse-01">
@@ -424,7 +425,18 @@ if [[ "${get[page]}" == "main" && "${get[section]}" == "start" ]]; then
 					<button class="btn btn-sm text-dark py-0 collapsed" style="background-color: #e6e6e6;" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse-02" aria-expanded="false" aria-controls="flush-collapse-02">
 						<i class="bi bi-caret-down-fill pe-2" style="font-size: 0.9rem;"></i><span class="fs-5 pe-1">|</span><i class="bi bi-list py-2" style="font-size: 1.2rem;"></i>
 					</button>
-					<span class="ps-2">'${txt_basicbackup_header}'</span>
+					<span class="ps-2">'${txt_basicbackup_header}'&nbsp;&nbsp;'
+						if [ -z "${basicbackup_updateinfo}"] || [[ "${basicbackup_updateinfo}" != "${app_version}" ]]; then
+							echo '
+							<sup class="text-danger align-middle">
+								<a href="index.cgi?page=main&section=settings&switch=basicbackup_updateinfo&query='${app_version}'" class="link-success" style="text-decoration:none;">
+									<i class="bi bi-info-square text-primary align-middle" style="font-size: 1.1rem;" title="'${txt_autopilot_updateinfo_disable}'"></i>
+								</a>&nbsp;
+								'${txt_autopilot_update_scriptcontent}'
+							</sup>'
+						fi
+						echo '
+					</span>
 				</div>
 				<div id="flush-collapse-02" class="accordion-collapse collapse" data-bs-parent="#accordionFlush01">
 					<div class="accordion-body bg-light">
@@ -472,18 +484,18 @@ if [[ "${get[page]}" == "main" && "${get[section]}" == "start" ]]; then
 																<div class="row mb-3 px-1">
 																	<div class="col">
 																		<label for="filename" class="form-label">'${txt_autopilot_filename_label}'</label>
-																			<select id="filename" name="filename" class="form-select form-select-sm" required>
-																				<option value="" class="text-secondary" selected disabled></option>'
-																					uuidfile="${usr_devices}"
-																					scriptfiles=$(grep -irw scriptpath ${uuidfile}/* | cut -d '"' -f2)
-																					for scriptfile in ${scriptfiles}; do
-																						if [ -f "${scriptfile}" ]; then
-																							echo '
-																							<option value="'${scriptfile}'" class="text-secondary">'${scriptfile##*/}'</option>'
-																						fi
-																					done
-																					echo '
-																			</select>
+																		<select id="filename" name="filename" class="form-select form-select-sm" required>
+																			<option value="" class="text-secondary" selected disabled></option>'
+																				uuidfile="${usr_devices}"
+																				scriptfiles=$(grep -irw scriptpath ${uuidfile}/* | cut -d '"' -f2)
+																				for scriptfile in ${scriptfiles}; do
+																					if [ -f "${scriptfile}" ]; then
+																						echo '
+																						<option value="'${scriptfile}'" class="text-secondary">'${scriptfile##*/}'</option>'
+																					fi
+																				done
+																				echo '
+																		</select>
 																	</div>
 																	<div class="text-center pt-2">
 																		<small>'${txt_autopilot_note_script_overwrite}'</small>
@@ -509,8 +521,11 @@ if [[ "${get[page]}" == "main" && "${get[section]}" == "start" ]]; then
 											<div class="accordion-body">'
 												basic_backup_script_tmp_file="${app_home}/temp/basic_backup_script_${id}.tmp"
 												sed -e "s/___JOB_NAME___/${backupjob}/g" \
-													-e "s/___TXT_BACKUP_IN_PROGRESS___/${txt_backup_in_progress}/g" \
-													-e "s/___TXT_BACKUP_DURATION___/${txt_backup_duration}/g" \
+													-e "s/___TXT_BASICBACKUP_EXECUTE___/${txt_basicbackup_execute}/g" \
+													-e "s/___TXT_BASICBACKUP_TASKNAME___/${txt_basicbackup_taskname}${backupjob}/g" \
+													-e "s/___TXT_BASICBACKUP_IN_PROGRESS___/${txt_basicbackup_in_progress}/g" \
+													-e "s/___TXT_BASICBACKUP_FINISHED___/${txt_basicbackup_finished}/g" \
+													-e "s/___TXT_BASICBACKUP_DURATION___/${txt_basicbackup_duration}/g" \
 													"${app_home}"/modules/basic_backup_script.template > "${basic_backup_script_tmp_file}"
 												echo -n '<pre style="overflow-x:auto;"><code>'
 												cat "${basic_backup_script_tmp_file}"
@@ -539,14 +554,25 @@ if [[ "${get[page]}" == "main" && "${get[section]}" == "start" ]]; then
 					<button class="btn btn-sm text-dark py-0 collapsed" style="background-color: #e6e6e6;" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse-03" aria-expanded="false" aria-controls="flush-collapse-03">
 						<i class="bi bi-caret-down-fill pe-2" style="font-size: 0.9rem;"></i><span class="fs-5 pe-1">|</span><i class="bi bi-list py-2" style="font-size: 1.2rem;"></i>
 					</button>
-					<span class="ps-2">'${txt_hyperbackup_header}'</span>
+					<span class="ps-2">'${txt_hyperbackup_header}'&nbsp;&nbsp;'
+						if [ -z "${hyperbackup_updateinfo}"] || [[ "${hyperbackup_updateinfo}" != "${app_version}" ]]; then
+							echo '
+							<sup class="text-danger align-middle">
+								<a href="index.cgi?page=main&section=settings&switch=hyperbackup_updateinfo&query='${app_version}'" class="link-success" style="text-decoration:none;">
+									<i class="bi bi-info-square text-primary align-middle" style="font-size: 1.1rem;" title="'${txt_autopilot_updateinfo_disable}'"></i>
+								</a>&nbsp;
+								'${txt_autopilot_update_scriptcontent}'
+							</sup>'
+						fi
+						echo '
+					</span>
 				</div>
 				<div id="flush-collapse-03" class="accordion-collapse collapse" data-bs-parent="#accordionFlush01">
 					<div class="accordion-body bg-light">
 						<div class="accordion accordion-flush" id="accordionLoop03">'
-							if [[ "${hyperbackup_version%%.*}" -le 3 ]]; then
+							if [ "${hyperbackup_version%%.*}" -le 3 ]; then
 								echo '<p>'${txt_hyperbackup_required}'</p>'
-							else
+							elif [ -f /usr/syno/etc/packages/HyperBackup/synobackup.conf ]; then
 								IFS="
 								"
 								declare -A hyper_backup_job=()
@@ -604,18 +630,18 @@ if [[ "${get[page]}" == "main" && "${get[section]}" == "start" ]]; then
 																<div class="row mb-3 px-1">
 																	<div class="col">
 																		<label for="filename" class="form-label">'${txt_autopilot_filename_label}'</label>
-																			<select id="filename" name="filename" class="form-select form-select-sm" required>
-																				<option value="" class="text-secondary" selected disabled></option>'
-																					uuidfile="${usr_devices}"
-																					scriptfiles=$(grep -irw scriptpath ${uuidfile}/* | cut -d '"' -f2)
-																					for scriptfile in ${scriptfiles}; do
-																						if [ -f "${scriptfile}" ]; then
-																							echo '
-																							<option value="'${scriptfile}'" class="text-secondary">'${scriptfile##*/}'</option>'
-																						fi
-																					done
-																					echo '
-																			</select>
+																		<select id="filename" name="filename" class="form-select form-select-sm" required>
+																			<option value="" class="text-secondary" selected disabled></option>'
+																				uuidfile="${usr_devices}"
+																				scriptfiles=$(grep -irw scriptpath ${uuidfile}/* | cut -d '"' -f2)
+																				for scriptfile in ${scriptfiles}; do
+																					if [ -f "${scriptfile}" ]; then
+																						echo '
+																						<option value="'${scriptfile}'" class="text-secondary">'${scriptfile##*/}'</option>'
+																					fi
+																				done
+																				echo '
+																		</select>
 																	</div>
 																	<div class="text-center pt-2">
 																		<small>'${txt_autopilot_note_script_overwrite}'</small>
@@ -643,22 +669,21 @@ if [[ "${get[page]}" == "main" && "${get[section]}" == "start" ]]; then
 												hyper_backup_script_tmp_file="${app_home}/temp/hyper_backup_script_${id}.tmp"
 												sed -e "s/___TASK_ID___/${hyper_backup_job[$i]%=*}/g" \
 													-e "s/___JOB_NAME___/${hyper_backup_job[$i]#*=}/g" \
-													-e "s/___TXT_BACKUP_WAIT_FOR_START___/${txt_backup_wait_for_start}/g" \
-													-e "s/___TXT_BACKUP_WAIT_TIME___/${txt_backup_start_wait_time}/g" \
-													-e "s/___TXT_BACKUP_IN_PROGRESS___/${txt_backup_in_progress}/g" \
-													-e "s/___TXT_BACKUP_PID_SEARCH___/${txt_backup_pid_search}/g" \
-													-e "s/___TXT_BACKUP_PID_SEARCH_FINISHED___/${txt_backup_pid_search_finished}/g" \
-													-e "s/___TXT_BACKUP_PID___/${txt_backup_pid}/g" \
-													-e "s/___TXT_BACKUP_FINISHED___/${txt_backup_finished}/g" \
-													-e "s/___TXT_BACKUP_DURATION___/${txt_backup_duration}/g" \
-													-e "s/___TXT_BACKUP_PID_NOT_FOUND___/${txt_backup_pid_not_found}/g" \
-													-e "s/___TXT_PURGE_PID_SEARCH___/${txt_purge_pid_search}/g" \
-													-e "s/___TXT_PURGE_PID_SEARCH_FINISHED___/${txt_purge_pid_search_finished}/g" \
-													-e "s/___TXT_PURGE_PID___/${txt_purge_pid}/g" \
-													-e "s/___TXT_PURGE_IN_PROGRESS___/${txt_purge_in_progress}/g" \
-													-e "s/___TXT_PURGE_FINISHED___/${txt_purge_finished}/g" \
-													-e "s/___TXT_PURGE_DURATION___/${txt_purge_duration}/g" \
-													-e "s/___TXT_PURGE_PID_NOT_FOUND___/${txt_purge_pid_not_found}/g" \
+													-e "s/___TXT_HYPERBACKUP_EXECUTE___/${txt_hyperbackup_execute}/g" \
+													-e "s/___TXT_HYPERBACKUP_TASKNAME___/${txt_hyperbackup_taskname}${hyper_backup_job[$i]#*=}/g" \
+													-e "s/___TXT_HYPERBACKUP_WAIT_FOR_START___/${txt_hyperbackup_wait_for_start}/g" \
+													-e "s/___TXT_HYPERBACKUP_IN_PROGRESS___/${txt_hyperbackup_in_progress}/g" \
+													-e "s/___TXT_HYPERBACKUP_PID_SEARCH___/${txt_hyperbackup_pid_search}/g" \
+													-e "s/___TXT_HYPERBACKUP_PID___/${txt_hyperbackup_pid}/g" \
+													-e "s/___TXT_HYPERBACKUP_FINISHED___/${txt_hyperbackup_finished}/g" \
+													-e "s/___TXT_HYPERBACKUP_DURATION___/${txt_hyperbackup_duration}/g" \
+													-e "s/___TXT_HYPERBACKUP_PID_NOT_FOUND___/${txt_hyperbackup_pid_not_found}/g" \
+													-e "s/___TXT_HYPERBACKUP_PURGE_PID_SEARCH___/${txt_hyperbackup_purge_pid_search}/g" \
+													-e "s/___TXT_HYPERBACKUP_PURGE_PID___/${txt_hyperbackup_purge_pid}/g" \
+													-e "s/___TXT_HYPERBACKUP_PURGE_IN_PROGRESS___/${txt_hyperbackup_purge_in_progress}/g" \
+													-e "s/___TXT_HYPERBACKUP_PURGE_FINISHED___/${txt_hyperbackup_purge_finished}/g" \
+													-e "s/___TXT_HYPERBACKUP_PURGE_DURATION___/${txt_hyperbackup_purge_duration}/g" \
+													-e "s/___TXT_HYPERBACKUP_PURGE_PID_NOT_FOUND___/${txt_hyperbackup_purge_pid_not_found}/g" \
 													"${app_home}"/modules/hyper_backup_script.template > "${hyper_backup_script_tmp_file}"
 												echo -n '<pre style="overflow-x:auto;"><code>'
 												cat "${hyper_backup_script_tmp_file}"
@@ -669,6 +694,9 @@ if [[ "${get[page]}" == "main" && "${get[section]}" == "start" ]]; then
 									id=$((id+1))
 								done
 								IFS="${backupIFS}"
+								unset scriptfiles
+							else
+								echo '<p>'${txt_hyperbackup_config_not_found}'</p>'
 							fi
 							echo '
 						</div>
@@ -677,7 +705,8 @@ if [[ "${get[page]}" == "main" && "${get[section]}" == "start" ]]; then
 			</div>'
 		fi
 		echo '
-	</div>'
+	</div>
+	<div class="accordion accordion-flush" id="accordionFlush02">'
 
 		# AutoPilot settings
 		# --------------------------------------------------
@@ -801,8 +830,7 @@ if [[ "${get[page]}" == "main" && "${get[section]}" == "start" ]]; then
 					</tbody>
 				</table>
 			</div>
-		</div>'
-		echo '
+		</div>
 	</div><br />'
 fi
 
@@ -931,8 +959,11 @@ if [[ "${get[page]}" == "main" && "${post[section]}" == "basicbackup" ]]; then
 	if [ -f "${scriptfile}" ]; then
 		# Generate script file from template by replacing language specific keywords.
 		sed -e "s/___JOB_NAME___/${jobname}/g" \
-			-e "s/___TXT_BACKUP_IN_PROGRESS___/${txt_backup_in_progress}/g" \
-			-e "s/___TXT_BACKUP_DURATION___/${txt_backup_duration}/g" \
+			-e "s/___TXT_BASICBACKUP_EXECUTE___/${txt_basicbackup_execute}/g" \
+			-e "s/___TXT_BASICBACKUP_TASKNAME___/${txt_basicbackup_taskname}${jobname}/g" \
+			-e "s/___TXT_BASICBACKUP_IN_PROGRESS___/${txt_basicbackup_in_progress}/g" \
+			-e "s/___TXT_BASICBACKUP_FINISHED___/${txt_basicbackup_finished}/g" \
+			-e "s/___TXT_BASICBACKUP_DURATION___/${txt_basicbackup_duration}/g" \
 			"${app_home}"/modules/basic_backup_script.template > "${scriptfile}"
 		[ -f "${get_request}" ] && rm "${get_request}"
 		[ -f "${post_request}" ] && rm "${post_request}"
@@ -952,22 +983,21 @@ if [[ "${get[page]}" == "main" && "${post[section]}" == "hyperbackup" ]]; then
 		# Generate script file from template by replacing language specific keywords.
 		sed -e "s/___TASK_ID___/${taskid}/g" \
 			-e "s/___JOB_NAME___/${jobname}/g" \
-			-e "s/___TXT_BACKUP_WAIT_FOR_START___/${txt_backup_wait_for_start}/g" \
-			-e "s/___TXT_BACKUP_WAIT_TIME___/${txt_backup_start_wait_time}/g" \
-			-e "s/___TXT_BACKUP_IN_PROGRESS___/${txt_backup_in_progress}/g" \
-			-e "s/___TXT_BACKUP_PID_SEARCH___/${txt_backup_pid_search}/g" \
-			-e "s/___TXT_BACKUP_PID_SEARCH_FINISHED___/${txt_backup_pid_search_finished}/g" \
-			-e "s/___TXT_BACKUP_PID___/${txt_backup_pid}/g" \
-			-e "s/___TXT_BACKUP_FINISHED___/${txt_backup_finished}/g" \
-			-e "s/___TXT_BACKUP_DURATION___/${txt_backup_duration}/g" \
-			-e "s/___TXT_BACKUP_PID_NOT_FOUND___/${txt_backup_pid_not_found}/g" \
-			-e "s/___TXT_PURGE_PID_SEARCH___/${txt_purge_pid_search}/g" \
-			-e "s/___TXT_PURGE_PID_SEARCH_FINISHED___/${txt_purge_pid_search_finished}/g" \
-			-e "s/___TXT_PURGE_PID___/${txt_purge_pid}/g" \
-			-e "s/___TXT_PURGE_IN_PROGRESS___/${txt_purge_in_progress}/g" \
-			-e "s/___TXT_PURGE_FINISHED___/${txt_purge_finished}/g" \
-			-e "s/___TXT_PURGE_DURATION___/${txt_purge_duration}/g" \
-			-e "s/___TXT_PURGE_PID_NOT_FOUND___/${txt_purge_pid_not_found}/g" \
+			-e "s/___TXT_HYPERBACKUP_EXECUTE___/${txt_hyperbackup_execute}/g" \
+			-e "s/___TXT_HYPERBACKUP_TASKNAME___/${txt_hyperbackup_taskname}${jobname}/g" \
+			-e "s/___TXT_HYPERBACKUP_WAIT_FOR_START___/${txt_hyperbackup_wait_for_start}/g" \
+			-e "s/___TXT_HYPERBACKUP_IN_PROGRESS___/${txt_hyperbackup_in_progress}/g" \
+			-e "s/___TXT_HYPERBACKUP_PID_SEARCH___/${txt_hyperbackup_pid_search}/g" \
+			-e "s/___TXT_HYPERBACKUP_PID___/${txt_hyperbackup_pid}/g" \
+			-e "s/___TXT_HYPERBACKUP_FINISHED___/${txt_hyperbackup_finished}/g" \
+			-e "s/___TXT_HYPERBACKUP_DURATION___/${txt_hyperbackup_duration}/g" \
+			-e "s/___TXT_HYPERBACKUP_PID_NOT_FOUND___/${txt_hyperbackup_pid_not_found}/g" \
+			-e "s/___TXT_HYPERBACKUP_PURGE_PID_SEARCH___/${txt_hyperbackup_purge_pid_search}/g" \
+			-e "s/___TXT_HYPERBACKUP_PURGE_PID___/${txt_hyperbackup_purge_pid}/g" \
+			-e "s/___TXT_HYPERBACKUP_PURGE_IN_PROGRESS___/${txt_hyperbackup_purge_in_progress}/g" \
+			-e "s/___TXT_HYPERBACKUP_PURGE_FINISHED___/${txt_hyperbackup_purge_finished}/g" \
+			-e "s/___TXT_HYPERBACKUP_PURGE_DURATION___/${txt_hyperbackup_purge_duration}/g" \
+			-e "s/___TXT_HYPERBACKUP_PURGE_PID_NOT_FOUND___/${txt_hyperbackup_purge_pid_not_found}/g" \
 			"${app_home}"/modules/hyper_backup_script.template > "${scriptfile}"
 
 		[ -f "${get_request}" ] && rm "${get_request}"
@@ -985,5 +1015,7 @@ if [[ "${get[page]}" == "main" && "${get[section]}" == "settings" ]]; then
 	[[ "${get[switch]}" == "connect" ]] && "${set_keyvalue}" "${usr_autoconfig}" "connect" "${get[query]}"
 	[[ "${get[switch]}" == "disconnect" ]] && "${set_keyvalue}" "${usr_autoconfig}" "disconnect" "${get[query]}"
 	[[ "${get[switch]}" == "signal" ]] && "${set_keyvalue}" "${usr_autoconfig}" "signal" "${get[query]}"
+	[[ "${get[switch]}" == "basicbackup_updateinfo" ]] && "${set_keyvalue}" "${usr_autoconfig}" "basicbackup_updateinfo" "${get[query]}"
+	[[ "${get[switch]}" == "hyperbackup_updateinfo" ]] && "${set_keyvalue}" "${usr_autoconfig}" "hyperbackup_updateinfo" "${get[query]}"
 	echo '<meta http-equiv="refresh" content="0; url=index.cgi?page=main&section=start">'
 fi

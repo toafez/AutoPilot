@@ -1,35 +1,28 @@
 AutoPilot Release Notes
 
-Previously unpublished release Version
+Version 1.1-600 (Unpublished version)
 
  - Deutsch
     - Update Bootstrap Framework auf 5.3.3
+    - Es werden in der GUI an den betreffenden Stellen temporäre Updateinformationen angezeigt, die nach einer Lesebestätigung ausgeblendet werden.
     - Hyper Backup 4 sowie DSM 7.2 wurde als Mindestanforderungen für die Anzeige und Weiterverarbeitung von Hyper Backup Aufgaben festgelegt.
+    - Es wird geprüft, ob der korrekte Konfigurationspfad zum auslesen der Hyper Backup Aufgaben existiert.   
     - Es wird vermieden, dass die Hyper Backup Aufgabe hängen bleibt nachdem der Bereinigungsprozess gestartet hat.
     - Die Hyper Backup sowie Basic Backup Skriptdatei verwendet jetzt die AutoPilot-Protokolldatei für zusätzliche Informationen.
-    - Die Hyper Backup sowie Basic Backup Scriptdatei wird jetzt aus einer Vorlagendatei erstellt.
-    - Neue Textbausteine welche für die Protokollierung verwendet werden.
-    - Verwendung der Variablen „app_home“ anstelle der Variable „dir“ in der Datei „main.sh“.
+    - Die Hyper Backup sowie Basic Backup Scriptdatei wird jetzt aus einer Templatedatei erstellt.
+    - Es werden weitere, zusätzliche Informationen in dem AutoPilot Log während der Abarbeitung zur Verfügung gestellt.
+    - Allgemeine Detailverbesserungen und Fehlerbereinigungen vorgenommen.
 
  - English
     - Update Bootstrap Framework to 5.3.3
+    - Temporary update information is displayed in the GUI at the relevant points, which is hidden after a read confirmation.
     - Hyper Backup 4 and DSM 7.2 have been defined as the minimum requirements for displaying and processing Hyper Backup tasks.
+    - It is checked whether the correct configuration path for reading out the Hyper Backup tasks exists.
     - It prevents the Hyper Backup task from getting stuck after the cleanup process has started.
     - Hyper Backup and Basic Backup script file now uses AutoPilot log file for additional information.
     - Hyper Backup and Basic Backup script file is now created from a template file.
-    - New text modules which are used for logging.
-    - Using app_home variable instead of dir variable in main.sh file.
-
-
-Previously unpublished release Version
-
- - Deutsch
-    - Das Script für eine Basic Backup Aufgabe wird nun aus einer Template Datei erstellt.
-    - Zusätzliche Informationen werden in dem AutoPilot Log während der Abarbeitung zur Verfügung gestellt.
-
- - English
-   - Script for Basic Backup Tasks will be created from a template file.
-   - Additional Information is provided to AutoPilot log file during the progress.
+    - Further, additional information is provided in the AutoPilot log during processing.
+    - General detail improvements and bug fixes made.
 
 
 Version 1.1-500 vom 18.02.2024
