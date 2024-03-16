@@ -488,12 +488,15 @@ if [[ "${get[page]}" == "main" && "${get[section]}" == "start" ]]; then
 																			<option value="" class="text-secondary" selected disabled></option>'
 																				uuidfile="${usr_devices}"
 																				scriptfiles=$(grep -irw scriptpath ${uuidfile}/* | cut -d '"' -f2)
+																				IFS="
+																				"
 																				for scriptfile in ${scriptfiles}; do
 																					if [ -f "${scriptfile}" ]; then
 																						echo '
 																						<option value="'${scriptfile}'" class="text-secondary">'${scriptfile##*/}'</option>'
 																					fi
 																				done
+																				IFS="${backupIFS}"
 																				echo '
 																		</select>
 																	</div>
@@ -634,12 +637,15 @@ if [[ "${get[page]}" == "main" && "${get[section]}" == "start" ]]; then
 																			<option value="" class="text-secondary" selected disabled></option>'
 																				uuidfile="${usr_devices}"
 																				scriptfiles=$(grep -irw scriptpath ${uuidfile}/* | cut -d '"' -f2)
+																				IFS="
+																				"
 																				for scriptfile in ${scriptfiles}; do
 																					if [ -f "${scriptfile}" ]; then
 																						echo '
 																						<option value="'${scriptfile}'" class="text-secondary">'${scriptfile##*/}'</option>'
 																					fi
 																				done
+																				IFS="${backupIFS}"
 																				echo '
 																		</select>
 																	</div>
