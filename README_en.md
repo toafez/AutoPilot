@@ -3,10 +3,10 @@ English | [Deutsch](README.md)
 # ![Package icon](/ui/images/icon_24.png) AutoPilot for external drives
 AutoPilot allows you to execute any shell script instructions that are automatically executed after connecting an external disk to your Synology DiskStation. Existing Basic Backup tasks and Hyper Backup tasks (from version 4) are clearly displayed in AutoPilot and can be linked to pre-configured shell scripts and thus also executed. After execution, the external disk can be ejected automatically if desired.
 
-# Set up an external disk
+## Set up an external disk
 To identify an external disk later, the UUID (Universally Unique Identifier) of the selected partition or the file system on it is read out in an initial setup. An empty file with the name autopilot (without file extension) is then stored in the root directory of the previously selected partition. In the next step, the name and location of the shell script to be executed must be specified, which should ideally be located in a shared folder on the DiskStation. Finally, the UUID determined in this way is permanently linked to the details of the shell script. This completes the initial setup.
 
-# How AutoPilot works
+## How AutoPilot works
 The prepared external disk can be identified by AutoPilot in the future when it is connected to your Synology DiskStation. A so-called UDEV rule searches the external disk for the empty autopilot file. If the search was successful, the determined UUID of the externally connected disk is compared with the internally stored UUID and, if it matches, connected to the associated shell script and executed.
 
 # System requirements
