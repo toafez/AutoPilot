@@ -1,10 +1,16 @@
 [English](README_en.md) | Deutsch
 
 # ![Package icon](/ui/images/icon_24.png) AutoPilot für externe Datenträger
-AutoPilot ermöglicht das Ausführen von Shell-Script Anweisungen, die nach dem Anschluss eines externen Datenträgers an eine Synology DiskStation automatisch ausgeführt werden. Nach der Ausführung kann der externe Datenträger auf Wunsch wieder automatisch ausgeworfen werden.
+AutoPilot ermöglicht das Ausführen von beliebigen Shellscript Anweisungen, die nach dem Anschluss eines externen Datenträgers an deine Synology DiskStation automatisch ausgeführt werden. Vorhandene Basic Backup Aufträge sowie Hyper Backup Aufgaben (ab Version 4) werden dabei in AutoPilot übersichtlich angezeigt und lassen sich mit bereits vorkonfigurierten Shellscripts  verbinden und somit ebenfalls ausführen. Nach der Ausführung kann der externe Datenträger auf Wunsch wieder automatisch ausgeworfen werden.
+
+# Einen externen Datenträger einrichten
+Zur späteren Identifizierung eines externen Datenträgers wird in einer Ersteinrichtung die UUID (Universally Unique Identifier) der ausgewählten Partition bzw. des sich darauf befindlichen Dateisystems ausgelesen. Anschließend wird eine leere Datei mit dem Namen autopilot (ohne Dateiendung) im Wurzelverzeichnis der zuvor ausgewählten Partition abgelegt. Im nächsten Schritt muss der Name und der Speicherort des auszuführenden Shellscripts angegeben werden, welches sich idealerweise in einem gemeinsamen Ordner der DiskStation befinden sollte. Abschließend wird die so ermittelte UUID mit den Angaben zum Shellscript fest miteinander verknüpft. Damit ist die Ersteinrichtung abgeschlossen.
+
+# So funktioniert AutoPilot
+Der so präparierte externe Datenträger kann zukünftig beim anschließen an deine Synology DiskStation durch AutoPilot identifiziert werden. Dabei durchsucht eine sogenannte UDEV-Regel den externen Datenträger nach der leeren Datei autopilot. War die Suche erfolgreich, wird die ermittelte UUID des extern angeschlossenen Datenträgers mit der intern gespeicherten UUID verglichen und bei Übereinstimmung mit dem damit verknüpften Shellscript verbundenen und ausgeführt.
 
 # Systemvoraussetzungen
-**AutoPilot für externe Datenträger** wurde speziell für die Verwendung auf **Synology NAS Systemen** entwickelt die das Betriebsystem **DiskStation Mangager 7** oder höher verwenden.
+**AutoPilot für externe Datenträger** wurde speziell für die Verwendung auf **Synology NAS Systemen** entwickelt die das Betriebsystem **DiskStation Mangager 7.0** oder höher verwenden. Für die Anzeige und Weiterverarbeitung von **Hyper Backup Aufgaben wird die Version 4** von Hyper Backup **benötigt**, die zusammen mit dem **DiskStation Manager 7.2** veröffentlicht wurde.
 
 # Installationshinweise
 Lade dir die **jeweils aktuellste Version** von AutoPilot aus dem Bereich [Releases](https://github.com/toafez/AutoPilot/releases) herunter. Öffne anschließend im **DiskStation Manager (DSM)** das **Paket-Zentrum**, wähle oben rechts die Schaltfläche **Manuelle Installation** aus und folge dem **Assistenten**, um das neue **Paket** bzw. die entsprechende **.spk-Datei** hochzuladen und zu installieren. Dieser Vorgang ist sowohl für eine Erstinstallation als auch für die Durchführung eines Updates identisch.
