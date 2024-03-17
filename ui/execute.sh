@@ -33,6 +33,12 @@ logpath="${dir}/usersettings/logfiles"
 devpath="${dir}/usersettings/devices"
 logfile="${scriptname}.log"
 
+# Securing the Internal Field Separator (IFS) as well as the separation
+if [ -z "${backupIFS}" ]; then
+	backupIFS="${IFS}"
+	readonly backupIFS
+fi
+
 # Read the version of the AutoPilot app from the INFO.sh file
 # ----------------------------------------------------------
 app_version=$(cat "/var/packages/${app}/INFO" | grep ^version | cut -d '"' -f2)
@@ -212,8 +218,11 @@ if [ -h "/usr/local/bin/${app}" ] && [[ "${result}" =~ "running" ]]; then
 				synodsmnotify -c SYNO.SDS.${app}.Application @administrators ${app}:app:subtitle ${app}:app:autopilot_start "${mountpoint}"
 
 				# Execute autopilot script
+				IFS="
+				"
 				${scriptfile} "${log}"
 				exit_script=${?}
+				IFS="${backupIFS}"
 
 				# Check again if mount still exists for the device. It could be the reason that a Hyper Backup Task has already ejected the disk.
 				mountpoint=$(mount -l | grep "${device}" | awk '{print $3}')

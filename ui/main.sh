@@ -69,6 +69,43 @@ function external_target()
 	unset volume share
 }
 
+# Function: Generate Basic Backup Script
+# --------------------------------------------------------------
+function basic_backup_script ()
+{
+	sed -e "s/___JOB_NAME___/${1}/g" \
+		-e "s/___TXT_BASICBACKUP_EXECUTE___/${txt_basicbackup_execute}/g" \
+		-e "s/___TXT_BASICBACKUP_TASKNAME___/${txt_basicbackup_taskname}${1}/g" \
+		-e "s/___TXT_BASICBACKUP_IN_PROGRESS___/${txt_basicbackup_in_progress}/g" \
+		-e "s/___TXT_BASICBACKUP_FINISHED___/${txt_basicbackup_finished}/g" \
+		-e "s/___TXT_BASICBACKUP_DURATION___/${txt_basicbackup_duration}/g" \
+		"${app_home}"/modules/basic_backup_script.template > "${2}"
+}
+
+# Function: Generate Hyper Backup Script
+# --------------------------------------------------------------
+function hyper_backup_script ()
+{
+	sed -e "s/___TASK_ID___/${1}/g" \
+		-e "s/___JOB_NAME___/${2}/g" \
+		-e "s/___TXT_HYPERBACKUP_EXECUTE___/${txt_hyperbackup_execute}/g" \
+		-e "s/___TXT_HYPERBACKUP_TASKNAME___/${txt_hyperbackup_taskname}${2}/g" \
+		-e "s/___TXT_HYPERBACKUP_WAIT_FOR_START___/${txt_hyperbackup_wait_for_start}/g" \
+		-e "s/___TXT_HYPERBACKUP_IN_PROGRESS___/${txt_hyperbackup_in_progress}/g" \
+		-e "s/___TXT_HYPERBACKUP_PID_SEARCH___/${txt_hyperbackup_pid_search}/g" \
+		-e "s/___TXT_HYPERBACKUP_PID___/${txt_hyperbackup_pid}/g" \
+		-e "s/___TXT_HYPERBACKUP_FINISHED___/${txt_hyperbackup_finished}/g" \
+		-e "s/___TXT_HYPERBACKUP_DURATION___/${txt_hyperbackup_duration}/g" \
+		-e "s/___TXT_HYPERBACKUP_PID_NOT_FOUND___/${txt_hyperbackup_pid_not_found}/g" \
+		-e "s/___TXT_HYPERBACKUP_PURGE_PID_SEARCH___/${txt_hyperbackup_purge_pid_search}/g" \
+		-e "s/___TXT_HYPERBACKUP_PURGE_PID___/${txt_hyperbackup_purge_pid}/g" \
+		-e "s/___TXT_HYPERBACKUP_PURGE_IN_PROGRESS___/${txt_hyperbackup_purge_in_progress}/g" \
+		-e "s/___TXT_HYPERBACKUP_PURGE_FINISHED___/${txt_hyperbackup_purge_finished}/g" \
+		-e "s/___TXT_HYPERBACKUP_PURGE_DURATION___/${txt_hyperbackup_purge_duration}/g" \
+		-e "s/___TXT_HYPERBACKUP_PURGE_PID_NOT_FOUND___/${txt_hyperbackup_purge_pid_not_found}/g" \
+		"${app_home}"/modules/hyper_backup_script.template > "${3}"
+}
+
 # Load library function for byte conversion
 # --------------------------------------------------------------
 [ -f "${app_home}/modules/bytes2human.sh" ] && source "${app_home}/modules/bytes2human.sh"
@@ -130,6 +167,8 @@ if [[ "${get[page]}" == "main" && "${get[section]}" == "start" ]]; then
 		</div><br />'
 	fi
 
+	# Main menu
+	# --------------------------------------------------------------
 	echo '
 	<div class="accordion accordion-flush" id="accordionFlush01">'
 
@@ -441,25 +480,25 @@ if [[ "${get[page]}" == "main" && "${get[section]}" == "start" ]]; then
 				<div id="flush-collapse-02" class="accordion-collapse collapse" data-bs-parent="#accordionFlush01">
 					<div class="accordion-body bg-light">
 						<div class="accordion accordion-flush" id="accordionLoop02">'
-							backupconfigs=$(find "/var/packages/BasicBackup/target/ui/usersettings/backupjobs" -type f -name "*.config" -maxdepth 1 | sort -f )
-							if [ -n "$backupconfigs" ]; then
+							basic_backup_jobs=$(find "/var/packages/BasicBackup/target/ui/usersettings/backupjobs" -type f -name "*.config" -maxdepth 1 | sort -f )
+							if [ -n "$basic_backup_jobs" ]; then
 								id=0
 								# Delete temporary Basic Backup files
 								find "${app_home}/temp" -type f -iname "basic_backup_script_*" | xargs rm -rf
 								IFS="
 								"
-								for backupconfig in ${backupconfigs}; do
-									IFS="$backupIFS"
-									[ -f "${backupconfig}" ] && source "${backupconfig}"
-									backupjob=$(echo "${backupconfig##*/}")
-									backupjob=$(echo "${backupjob%.*}")
+								for basic_backup_job in ${basic_backup_jobs}; do
+									IFS="${backupIFS}"
+									[ -f "${basic_backup_job}" ] && source "${basic_backup_job}"
+									basic_backup_job=$(echo "${basic_backup_job##*/}")
+									basic_backup_job=$(echo "${basic_backup_job%.*}")
 									echo '
 									<div class="accordion-item bg-light pt-2 pb-3 ps-1 ms-4">
-										'${backupjob}'
+										'${basic_backup_job}'
 										<div class="float-end">
 
 											<!-- Script Button -->
-											<button class="btn btn-sm text-dark py-0 collapsed" style="background-color: #e6e6e6;" type="button" data-bs-toggle="collapse" data-bs-target="#loop-collapse'${id}'" aria-expanded="false" aria-controls="loop-collapse'${id}'">
+											<button class="btn btn-sm text-dark py-0 collapsed" style="background-color: #e6e6e6;" type="button" data-bs-toggle="collapse" data-bs-target="#loop-collapse-02-'${id}'" aria-expanded="false" aria-controls="loop-collapse-02-'${id}'">
 												<i class="bi bi-terminal-fill" style="font-size: 1.2rem;" title="'${txt_basicbackup_title_view_script}'"></i>
 											</button>
 
@@ -479,7 +518,7 @@ if [[ "${get[page]}" == "main" && "${get[section]}" == "start" ]]; then
 														<form action="index.cgi?page=main" method="post" id="form'${id}'" autocomplete="on">
 															<div class="modal-body text-start">
 																'${txt_basicbackup_package_name}': <span class="text-secondary">Basic Backup</span><br />
-																'${txt_basicbackup_job_name}': <span class="text-secondary">'${backupjob}'</span><br />
+																'${txt_basicbackup_job_name}': <span class="text-secondary">'${basic_backup_job}'</span><br />
 																<br />
 																<div class="row mb-3 px-1">
 																	<div class="col">
@@ -491,12 +530,12 @@ if [[ "${get[page]}" == "main" && "${get[section]}" == "start" ]]; then
 																				IFS="
 																				"
 																				for scriptfile in ${scriptfiles}; do
+																					IFS="${backupIFS}"
 																					if [ -f "${scriptfile}" ]; then
 																						echo '
 																						<option value="'${scriptfile}'" class="text-secondary">'${scriptfile##*/}'</option>'
 																					fi
 																				done
-																				IFS="${backupIFS}"
 																				echo '
 																		</select>
 																	</div>
@@ -506,7 +545,7 @@ if [[ "${get[page]}" == "main" && "${get[section]}" == "start" ]]; then
 																</div>
 															</div>
 															<div class="modal-footer bg-light">
-																<input type="hidden" name="jobname" value="'${backupjob}'">
+																<input type="hidden" name="jobname" value="'${basic_backup_job}'">
 																<button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">'${txt_button_Cancel}'</button><br />
 																<button class="btn btn-secondary btn-sm" type="submit" name="section" value="basicbackup">'${txt_button_Save}'</button>
 															</div>
@@ -520,16 +559,13 @@ if [[ "${get[page]}" == "main" && "${get[section]}" == "start" ]]; then
 												});
 											</script>
 										</div>
-										<div id="loop-collapse'${id}'" class="accordion-collapse collapse" data-bs-parent="#accordionLoop02">
+										<div id="loop-collapse-02-'${id}'" class="accordion-collapse collapse" data-bs-parent="#accordionLoop02">
 											<div class="accordion-body">'
 												basic_backup_script_tmp_file="${app_home}/temp/basic_backup_script_${id}.tmp"
-												sed -e "s/___JOB_NAME___/${backupjob}/g" \
-													-e "s/___TXT_BASICBACKUP_EXECUTE___/${txt_basicbackup_execute}/g" \
-													-e "s/___TXT_BASICBACKUP_TASKNAME___/${txt_basicbackup_taskname}${backupjob}/g" \
-													-e "s/___TXT_BASICBACKUP_IN_PROGRESS___/${txt_basicbackup_in_progress}/g" \
-													-e "s/___TXT_BASICBACKUP_FINISHED___/${txt_basicbackup_finished}/g" \
-													-e "s/___TXT_BASICBACKUP_DURATION___/${txt_basicbackup_duration}/g" \
-													"${app_home}"/modules/basic_backup_script.template > "${basic_backup_script_tmp_file}"
+
+												# Function: Generate Basic Backup Script
+												basic_backup_script "${basic_backup_job}" "${basic_backup_script_tmp_file}"
+
 												echo -n '<pre style="overflow-x:auto;"><code>'
 												cat "${basic_backup_script_tmp_file}"
 												echo -n '</code></pre>
@@ -538,8 +574,7 @@ if [[ "${get[page]}" == "main" && "${get[section]}" == "start" ]]; then
 									</div>'
 									id=$((id+1))
 								done
-								IFS="${backupIFS}"
-								unset backupjob
+								unset basic_backup_job
 							fi
 							echo '
 						</div>
@@ -586,6 +621,7 @@ if [[ "${get[page]}" == "main" && "${get[section]}" == "start" ]]; then
 									| sed -E 's/\[task_([0-9]+)\]/\1/' \
 									| sed -E 's/name="(.+)"/\1/'); do
 
+									IFS="${backupIFS}"
 									if ! (( "$loop_idx" % 2 )); then
 										hyper_backup_job[$idx]="$item"
 									else
@@ -600,14 +636,17 @@ if [[ "${get[page]}" == "main" && "${get[section]}" == "start" ]]; then
 								find "${app_home}/temp" -type f -iname "hyper_backup_script_*" | xargs rm -rf
 
 								# Output line by line via loop over all elements
+								IFS="
+								"
 								for ((i=0; i < ${#hyper_backup_job[@]}; i++ )); do
+									IFS="${backupIFS}"
 									echo '
 									<div class="accordion-item bg-light pt-2 pb-3 ps-1 ms-4">
 										'${hyper_backup_job[$i]#*=}'
 										<div class="float-end">
 
 											<!-- Script Button -->
-											<button class="btn btn-sm text-dark py-0 collapsed" style="background-color: #e6e6e6;" type="button" data-bs-toggle="collapse" data-bs-target="#loop-collapse'${id}'" aria-expanded="false" aria-controls="loop-collapse'${id}'">
+											<button class="btn btn-sm text-dark py-0 collapsed" style="background-color: #e6e6e6;" type="button" data-bs-toggle="collapse" data-bs-target="#loop-collapse-03-'${id}'" aria-expanded="false" aria-controls="loop-collapse-03-'${id}'">
 												<i class="bi bi-terminal-fill" style="font-size: 1.2rem;" title="'${txt_hyperbackup_title_view_script}'"></i>
 											</button>
 
@@ -640,12 +679,12 @@ if [[ "${get[page]}" == "main" && "${get[section]}" == "start" ]]; then
 																				IFS="
 																				"
 																				for scriptfile in ${scriptfiles}; do
+																					IFS="${backupIFS}"
 																					if [ -f "${scriptfile}" ]; then
 																						echo '
 																						<option value="'${scriptfile}'" class="text-secondary">'${scriptfile##*/}'</option>'
 																					fi
 																				done
-																				IFS="${backupIFS}"
 																				echo '
 																		</select>
 																	</div>
@@ -670,27 +709,13 @@ if [[ "${get[page]}" == "main" && "${get[section]}" == "start" ]]; then
 												});
 											</script>
 										</div>
-										<div id="loop-collapse'${id}'" class="accordion-collapse collapse" data-bs-parent="#accordionLoop03">
+										<div id="loop-collapse-03-'${id}'" class="accordion-collapse collapse" data-bs-parent="#accordionLoop03">
 											<div class="accordion-body">'
 												hyper_backup_script_tmp_file="${app_home}/temp/hyper_backup_script_${id}.tmp"
-												sed -e "s/___TASK_ID___/${hyper_backup_job[$i]%=*}/g" \
-													-e "s/___JOB_NAME___/${hyper_backup_job[$i]#*=}/g" \
-													-e "s/___TXT_HYPERBACKUP_EXECUTE___/${txt_hyperbackup_execute}/g" \
-													-e "s/___TXT_HYPERBACKUP_TASKNAME___/${txt_hyperbackup_taskname}${hyper_backup_job[$i]#*=}/g" \
-													-e "s/___TXT_HYPERBACKUP_WAIT_FOR_START___/${txt_hyperbackup_wait_for_start}/g" \
-													-e "s/___TXT_HYPERBACKUP_IN_PROGRESS___/${txt_hyperbackup_in_progress}/g" \
-													-e "s/___TXT_HYPERBACKUP_PID_SEARCH___/${txt_hyperbackup_pid_search}/g" \
-													-e "s/___TXT_HYPERBACKUP_PID___/${txt_hyperbackup_pid}/g" \
-													-e "s/___TXT_HYPERBACKUP_FINISHED___/${txt_hyperbackup_finished}/g" \
-													-e "s/___TXT_HYPERBACKUP_DURATION___/${txt_hyperbackup_duration}/g" \
-													-e "s/___TXT_HYPERBACKUP_PID_NOT_FOUND___/${txt_hyperbackup_pid_not_found}/g" \
-													-e "s/___TXT_HYPERBACKUP_PURGE_PID_SEARCH___/${txt_hyperbackup_purge_pid_search}/g" \
-													-e "s/___TXT_HYPERBACKUP_PURGE_PID___/${txt_hyperbackup_purge_pid}/g" \
-													-e "s/___TXT_HYPERBACKUP_PURGE_IN_PROGRESS___/${txt_hyperbackup_purge_in_progress}/g" \
-													-e "s/___TXT_HYPERBACKUP_PURGE_FINISHED___/${txt_hyperbackup_purge_finished}/g" \
-													-e "s/___TXT_HYPERBACKUP_PURGE_DURATION___/${txt_hyperbackup_purge_duration}/g" \
-													-e "s/___TXT_HYPERBACKUP_PURGE_PID_NOT_FOUND___/${txt_hyperbackup_purge_pid_not_found}/g" \
-													"${app_home}"/modules/hyper_backup_script.template > "${hyper_backup_script_tmp_file}"
+
+												# Function: Generate Hyper Backup Script
+												hyper_backup_script "${hyper_backup_job[$i]%=*}" "${hyper_backup_job[$i]#*=}" "${hyper_backup_script_tmp_file}"
+
 												echo -n '<pre style="overflow-x:auto;"><code>'
 												cat "${hyper_backup_script_tmp_file}"
 												echo -n '</code></pre>
@@ -699,7 +724,6 @@ if [[ "${get[page]}" == "main" && "${get[section]}" == "start" ]]; then
 									</div>'
 									id=$((id+1))
 								done
-								IFS="${backupIFS}"
 								unset scriptfiles
 							else
 								echo '<p>'${txt_hyperbackup_config_not_found}'</p>'
@@ -964,13 +988,9 @@ if [[ "${get[page]}" == "main" && "${post[section]}" == "basicbackup" ]]; then
 	# Create AutoPilot script file
 	if [ -f "${scriptfile}" ]; then
 		# Generate script file from template by replacing language specific keywords.
-		sed -e "s/___JOB_NAME___/${jobname}/g" \
-			-e "s/___TXT_BASICBACKUP_EXECUTE___/${txt_basicbackup_execute}/g" \
-			-e "s/___TXT_BASICBACKUP_TASKNAME___/${txt_basicbackup_taskname}${jobname}/g" \
-			-e "s/___TXT_BASICBACKUP_IN_PROGRESS___/${txt_basicbackup_in_progress}/g" \
-			-e "s/___TXT_BASICBACKUP_FINISHED___/${txt_basicbackup_finished}/g" \
-			-e "s/___TXT_BASICBACKUP_DURATION___/${txt_basicbackup_duration}/g" \
-			"${app_home}"/modules/basic_backup_script.template > "${scriptfile}"
+		# Function: Generate Basic Backup Script
+		basic_backup_script "${jobname}" "${scriptfile}"
+
 		[ -f "${get_request}" ] && rm "${get_request}"
 		[ -f "${post_request}" ] && rm "${post_request}"
 		echo '<meta http-equiv="refresh" content="0; url=index.cgi?page=main&section=start">'
@@ -987,24 +1007,8 @@ if [[ "${get[page]}" == "main" && "${post[section]}" == "hyperbackup" ]]; then
 
 	if [ -f "${scriptfile}" ]; then
 		# Generate script file from template by replacing language specific keywords.
-		sed -e "s/___TASK_ID___/${taskid}/g" \
-			-e "s/___JOB_NAME___/${jobname}/g" \
-			-e "s/___TXT_HYPERBACKUP_EXECUTE___/${txt_hyperbackup_execute}/g" \
-			-e "s/___TXT_HYPERBACKUP_TASKNAME___/${txt_hyperbackup_taskname}${jobname}/g" \
-			-e "s/___TXT_HYPERBACKUP_WAIT_FOR_START___/${txt_hyperbackup_wait_for_start}/g" \
-			-e "s/___TXT_HYPERBACKUP_IN_PROGRESS___/${txt_hyperbackup_in_progress}/g" \
-			-e "s/___TXT_HYPERBACKUP_PID_SEARCH___/${txt_hyperbackup_pid_search}/g" \
-			-e "s/___TXT_HYPERBACKUP_PID___/${txt_hyperbackup_pid}/g" \
-			-e "s/___TXT_HYPERBACKUP_FINISHED___/${txt_hyperbackup_finished}/g" \
-			-e "s/___TXT_HYPERBACKUP_DURATION___/${txt_hyperbackup_duration}/g" \
-			-e "s/___TXT_HYPERBACKUP_PID_NOT_FOUND___/${txt_hyperbackup_pid_not_found}/g" \
-			-e "s/___TXT_HYPERBACKUP_PURGE_PID_SEARCH___/${txt_hyperbackup_purge_pid_search}/g" \
-			-e "s/___TXT_HYPERBACKUP_PURGE_PID___/${txt_hyperbackup_purge_pid}/g" \
-			-e "s/___TXT_HYPERBACKUP_PURGE_IN_PROGRESS___/${txt_hyperbackup_purge_in_progress}/g" \
-			-e "s/___TXT_HYPERBACKUP_PURGE_FINISHED___/${txt_hyperbackup_purge_finished}/g" \
-			-e "s/___TXT_HYPERBACKUP_PURGE_DURATION___/${txt_hyperbackup_purge_duration}/g" \
-			-e "s/___TXT_HYPERBACKUP_PURGE_PID_NOT_FOUND___/${txt_hyperbackup_purge_pid_not_found}/g" \
-			"${app_home}"/modules/hyper_backup_script.template > "${scriptfile}"
+		# Function: Generate Hyper Backup Script
+		hyper_backup_script "${taskid}" "${jobname}" "${scriptfile}"
 
 		[ -f "${get_request}" ] && rm "${get_request}"
 		[ -f "${post_request}" ] && rm "${post_request}"

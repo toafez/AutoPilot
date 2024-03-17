@@ -3,26 +3,30 @@ AutoPilot Release Notes
 Version 1.1-600 (Unpublished version)
 
  - Deutsch
-    - Update Bootstrap Framework auf 5.3.3
-    - Es werden in der GUI an den betreffenden Stellen temporäre Updateinformationen angezeigt, die nach einer Lesebestätigung ausgeblendet werden.
+    - Update Bootstrap Framework auf 5.3.3 
     - Hyper Backup 4 sowie DSM 7.2 wurde als Mindestanforderungen für die Anzeige und Weiterverarbeitung von Hyper Backup Aufgaben festgelegt.
     - Es wird geprüft, ob der korrekte Konfigurationspfad zum auslesen der Hyper Backup Aufgaben existiert.   
     - Es wird vermieden, dass die Hyper Backup Aufgabe hängen bleibt nachdem der Bereinigungsprozess gestartet hat.
     - Die Hyper Backup sowie Basic Backup Skriptdatei verwendet jetzt die AutoPilot-Protokolldatei für zusätzliche Informationen.
     - Die Hyper Backup sowie Basic Backup Scriptdatei wird jetzt aus einer Templatedatei erstellt.
     - Es werden weitere, zusätzliche Informationen in dem AutoPilot Log während der Abarbeitung zur Verfügung gestellt.
-    - Allgemeine Detailverbesserungen und Fehlerbereinigungen vorgenommen.
+    - Es werden in der GUI an den betreffenden Stellen temporäre Updateinformationen angezeigt, die nach einer Lesebestätigung ausgeblendet werden.
+    - Es wurde (mal wieder) ein Leerzeichen Problem behoben, welches in Zusammenhang mit der Pfadangabe und der Shellscript Ausführung bestand.
+    - Allgemeine Detailverbesserungen, Codeoptimierungen und Fehlerbereinigungen vorgenommen.
+    - Ein ganz besonderer Dank geht an luddi bzw. luddinho, der mich bei diesem Projekt mit sehr viel Engagement und Herzblut unterstützt.
 
  - English
     - Update Bootstrap Framework to 5.3.3
-    - Temporary update information is displayed in the GUI at the relevant points, which is hidden after a read confirmation.
     - Hyper Backup 4 and DSM 7.2 have been defined as the minimum requirements for displaying and processing Hyper Backup tasks.
     - It is checked whether the correct configuration path for reading out the Hyper Backup tasks exists.
     - It prevents the Hyper Backup task from getting stuck after the cleanup process has started.
     - Hyper Backup and Basic Backup script file now uses AutoPilot log file for additional information.
     - Hyper Backup and Basic Backup script file is now created from a template file.
     - Further, additional information is provided in the AutoPilot log during processing.
-    - General detail improvements and bug fixes made.
+    - Temporary update information is displayed in the GUI at the relevant points, which is hidden after a read confirmation.
+    - Fixed (again) a whitespace problem related to the path specification and the shell script execution.
+    - General detail improvements, code optimizations and bug fixes.
+    - A very special thanks goes to luddi or luddinho, who is supporting me in this project with a great deal of commitment and passion.
 
 
 Version 1.1-500 vom 18.02.2024
