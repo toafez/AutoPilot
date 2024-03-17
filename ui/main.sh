@@ -69,42 +69,9 @@ function external_target()
 	unset volume share
 }
 
-# Function: Generate Basic Backup Script
+# Load library function to generate script files of tempalte
 # --------------------------------------------------------------
-function basic_backup_script ()
-{
-	sed -e "s/___JOB_NAME___/${1}/g" \
-		-e "s/___TXT_BASICBACKUP_EXECUTE___/${txt_basicbackup_execute}/g" \
-		-e "s/___TXT_BASICBACKUP_TASKNAME___/${txt_basicbackup_taskname}${1}/g" \
-		-e "s/___TXT_BASICBACKUP_IN_PROGRESS___/${txt_basicbackup_in_progress}/g" \
-		-e "s/___TXT_BASICBACKUP_FINISHED___/${txt_basicbackup_finished}/g" \
-		-e "s/___TXT_BASICBACKUP_DURATION___/${txt_basicbackup_duration}/g" \
-		"${app_home}"/modules/basic_backup_script.template > "${2}"
-}
-
-# Function: Generate Hyper Backup Script
-# --------------------------------------------------------------
-function hyper_backup_script ()
-{
-	sed -e "s/___TASK_ID___/${1}/g" \
-		-e "s/___JOB_NAME___/${2}/g" \
-		-e "s/___TXT_HYPERBACKUP_EXECUTE___/${txt_hyperbackup_execute}/g" \
-		-e "s/___TXT_HYPERBACKUP_TASKNAME___/${txt_hyperbackup_taskname}${2}/g" \
-		-e "s/___TXT_HYPERBACKUP_WAIT_FOR_START___/${txt_hyperbackup_wait_for_start}/g" \
-		-e "s/___TXT_HYPERBACKUP_IN_PROGRESS___/${txt_hyperbackup_in_progress}/g" \
-		-e "s/___TXT_HYPERBACKUP_PID_SEARCH___/${txt_hyperbackup_pid_search}/g" \
-		-e "s/___TXT_HYPERBACKUP_PID___/${txt_hyperbackup_pid}/g" \
-		-e "s/___TXT_HYPERBACKUP_FINISHED___/${txt_hyperbackup_finished}/g" \
-		-e "s/___TXT_HYPERBACKUP_DURATION___/${txt_hyperbackup_duration}/g" \
-		-e "s/___TXT_HYPERBACKUP_PID_NOT_FOUND___/${txt_hyperbackup_pid_not_found}/g" \
-		-e "s/___TXT_HYPERBACKUP_PURGE_PID_SEARCH___/${txt_hyperbackup_purge_pid_search}/g" \
-		-e "s/___TXT_HYPERBACKUP_PURGE_PID___/${txt_hyperbackup_purge_pid}/g" \
-		-e "s/___TXT_HYPERBACKUP_PURGE_IN_PROGRESS___/${txt_hyperbackup_purge_in_progress}/g" \
-		-e "s/___TXT_HYPERBACKUP_PURGE_FINISHED___/${txt_hyperbackup_purge_finished}/g" \
-		-e "s/___TXT_HYPERBACKUP_PURGE_DURATION___/${txt_hyperbackup_purge_duration}/g" \
-		-e "s/___TXT_HYPERBACKUP_PURGE_PID_NOT_FOUND___/${txt_hyperbackup_purge_pid_not_found}/g" \
-		"${app_home}"/modules/hyper_backup_script.template > "${3}"
-}
+[ -f "${app_home}/modules/create_script_file.sh" ] && source "${app_home}/modules/create_script_file.sh"
 
 # Load library function for byte conversion
 # --------------------------------------------------------------
