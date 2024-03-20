@@ -30,7 +30,7 @@ function basic_backup_script ()
 
 	sed -e "s/___JOB_NAME___/${basic_backup_job}/g" \
 		-e "s/___TXT_BASICBACKUP_EXECUTE___/${txt_basicbackup_execute}/g" \
-		-e "s/___TXT_BASICBACKUP_TASKNAME___/${txt_basicbackup_taskname}${1}/g" \
+		-e "s/___TXT_BASICBACKUP_TASKNAME___/${txt_basicbackup_taskname}${basic_backup_job}/g" \
 		-e "s/___TXT_BASICBACKUP_IN_PROGRESS___/${txt_basicbackup_in_progress}/g" \
 		-e "s/___TXT_BASICBACKUP_FINISHED___/${txt_basicbackup_finished}/g" \
 		-e "s/___TXT_BASICBACKUP_DURATION___/${txt_basicbackup_duration}/g" \
