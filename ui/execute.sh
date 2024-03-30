@@ -220,7 +220,7 @@ if [ -h "/usr/local/bin/${app}" ] && [[ "${result}" =~ "running" ]]; then
 				# Execute autopilot script
 				IFS="
 				"
-				${scriptfile} "${log}"
+				${scriptfile} "${log}" "${device}" "${mountpoint}" "${uuid}"
 				exit_script=${?}
 				IFS="${backupIFS}"
 

@@ -48,7 +48,7 @@ function hyper_backup_script ()
 	sed -e "s/___TASK_ID___/${hyper_backup_job_id}/g" \
 		-e "s/___JOB_NAME___/${hyper_backup_job_name}/g" \
 		-e "s/___TXT_HYPERBACKUP_EXECUTE___/${txt_hyperbackup_execute}/g" \
-		-e "s/___TXT_HYPERBACKUP_TASKNAME___/${txt_hyperbackup_taskname}${2}/g" \
+		-e "s/___TXT_HYPERBACKUP_TASKNAME___/${txt_hyperbackup_taskname}${hyper_backup_job_name}/g" \
 		-e "s/___TXT_HYPERBACKUP_WAIT_FOR_START___/${txt_hyperbackup_wait_for_start}/g" \
 		-e "s/___TXT_HYPERBACKUP_IN_PROGRESS___/${txt_hyperbackup_in_progress}/g" \
 		-e "s/___TXT_HYPERBACKUP_PID_SEARCH___/${txt_hyperbackup_pid_search}/g" \
@@ -63,4 +63,27 @@ function hyper_backup_script ()
 		-e "s/___TXT_HYPERBACKUP_PURGE_DURATION___/${txt_hyperbackup_purge_duration}/g" \
 		-e "s/___TXT_HYPERBACKUP_PURGE_PID_NOT_FOUND___/${txt_hyperbackup_purge_pid_not_found}/g" \
 		"${app_home}"/modules/hyper_backup_script.template > "${hyper_backup_script_tmp_file}"
+}
+
+# Function: Generate simple custom script 
+# --------------------------------------------------------------
+function custom_script_simple ()
+{
+	custom_script_name="$1"
+	custom_script_simple_tmp_file="$2"
+
+	sed -e "s/___SCRIPT_NAME___/${custom_script_name}/g" \
+		-e "s/___TXT_CUSTOMSCRIPTS_EXECUTE___/${txt_customscripts_execute}/g" \
+		-e "s/___TXT_CUSTOMSCRIPTS_DISK_READ_OUT___/${txt_customscripts_disk_read_out}/g" \
+		-e "s/___TXT_CUSTOMSCRIPTS_SCRIPT_EVALUTION___/${txt_customscripts_script_evaluation}/g" \
+		-e "s/___TXT_CUSTOMSCRIPTS_CHECK_LOGFILE___/${txt_customscripts_check_logfile}/g" \
+		-e "s/___TXT_CUSTOMSCRIPTS_CHECK_DEVICE___/${txt_customscripts_check_device}/g" \
+		-e "s/___TXT_CUSTOMSCRIPTS_CHECK_MOUNTPOINT___/${txt_customscripts_check_mountpoint}/g" \
+		-e "s/___TXT_CUSTOMSCRIPTS_CHECK_UUID___/${txt_customscripts_check_uuid}/g" \
+		-e "s/___TXT_CUSTOMSCRIPTS_CHECK_EXAMPLE___/${txt_customscripts_check_example}/g" \
+		-e "s/___TXT_CUSTOMSCRIPTS_BEGIN_SCRIPT___/${txt_customscripts_begin_script}/g" \
+		-e "s/___TXT_CUSTOMSCRIPTS_NO_CHANGES___/${txt_customscripts_no_changes}/g" \
+		-e "s/___TXT_CUSTOMSCRIPTS_FINISHED___/${txt_customscripts_finished}/g" \
+		-e "s/___TXT_CUSTOMSCRIPTS_DURATION___/${txt_customscripts_duration}/g" \
+		"${app_home}"/modules/custom_script_simple.template > "${custom_script_simple_tmp_file}"
 }

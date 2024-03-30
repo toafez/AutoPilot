@@ -1,0 +1,71 @@
+#!/bin/bash
+# Execute a AutoPilot custom script
+# Script name: ___SCRIPT_NAME___
+
+# -----------------------------------------------------------------------------
+# ___TXT_CUSTOMSCRIPTS_DISK_READ_OUT___
+#          ___TXT_CUSTOMSCRIPTS_NO_CHANGES___
+# -----------------------------------------------------------------------------
+
+    # ___TXT_CUSTOMSCRIPTS_CHECK_LOGFILE___ /dev/null
+    if [ -n "$1" ]; then
+        logfile=$1
+    else
+        logfile=/dev/null
+    fi
+
+    # ___TXT_CUSTOMSCRIPTS_CHECK_DEVICE___
+    if [ -n "$2" ]; then
+        # ___TXT_CUSTOMSCRIPTS_CHECK_EXAMPLE___ device="/dev/usb1p1"
+        device="$2"
+    else
+        exit 1
+    fi
+
+    # ___TXT_CUSTOMSCRIPTS_CHECK_MOUNTPOINT___
+    if [ -n "$3" ]; then
+        # ___TXT_CUSTOMSCRIPTS_CHECK_EXAMPLE___ mountpoint="/volumeUSB1/usbshare"
+        mountpoint="$3"
+    else
+        exit 1
+    fi
+
+    # ___TXT_CUSTOMSCRIPTS_CHECK_UUID___
+    if [ -n "$4" ]; then
+        # ___TXT_CUSTOMSCRIPTS_CHECK_EXAMPLE___ uuid="550e8400-e29b-11d4-a716-446655440000"
+        uuid="$4"
+    else
+        exit 1
+    fi
+
+    echo -e "___TXT_CUSTOMSCRIPTS_EXECUTE___" >> "$logfile"
+    timestamp_start=$(date +%s)
+# -----------------------------------------------------------------------------
+
+
+# -----------------------------------------------------------------------------
+# ___TXT_CUSTOMSCRIPTS_BEGIN_SCRIPT___
+# -----------------------------------------------------------------------------
+    # .
+    # ..
+    # ___TXT_CUSTOMSCRIPTS_CHECK_EXAMPLE___
+    echo -e "Path to the log: $logfile" >> "$logfile"
+    echo -e "Device name of the connected disk: $device" >> "$logfile"
+    echo -e "Mountpoint of the connected disk: $mountpoint" >> "$logfile"
+    echo -e "UUID of the connected disk: $uuid" >> "$logfile"
+    # ..
+    #.
+# -----------------------------------------------------------------------------
+result=$?
+
+
+# -----------------------------------------------------------------------------
+# ___TXT_CUSTOMSCRIPTS_SCRIPT_EVALUTION___
+#          ___TXT_CUSTOMSCRIPTS_NO_CHANGES___
+# -----------------------------------------------------------------------------
+    echo -e "___TXT_CUSTOMSCRIPTS_FINISHED___" >> "$logfile"
+
+    duration="$(($(date +%s) - timestamp_start))"
+    echo -e "___TXT_CUSTOMSCRIPTS_DURATION___: "$(printf '%dh:%dm:%ds\n' $((duration/3600)) $((duration%3600/60)) $((duration%60)))"\n" >> "$logfile"
+# -----------------------------------------------------------------------------
+exit "$result"

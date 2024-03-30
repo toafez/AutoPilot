@@ -57,7 +57,7 @@ txt_help_permissions_expand_terminal="App-Berechtigungen über die Konsole erwei
 txt_help_permissions_revoke_terminal="App-Berechtigungen über die Konsole zurücknehmen"
 txt_help_permissions_expand_dsm="App-Berechtigungen über den DSM Aufgabenplaner erweitern"
 txt_help_permissions_revoke_dsm="App-Berechtigungen über den DSM Aufgabenplaner zurücknehmen"
-txt_help_permissions_step_1="Melde dich als Benutzer <span class=\"text-danger fst-italic\">root</span> auf der Konsole deiner DiskStation an und führe folgenden Befehl aus"
+txt_help_permissions_step_1="Melde dich als Benutzer <span class=\"text-danger fst-italic\">root</span> auf der Konsole deiner Synology NAS an und führe folgenden Befehl aus"
 txt_help_permissions_step_2="Öffne im DSM unter <span class=\"text-danger fst-italic\">Hauptmenü</span> > <span class=\"text-danger fst-italic\">Systemsteuerung</span> den <span class=\"text-danger fst-italic\">Aufgabenplaner</span>."
 txt_help_permissions_step_3="Wähle im Aufgabenplaner über die Schaltfläche <span class=\"text-danger fst-italic\">Erstellen</span> > <span class=\"text-danger fst-italic\">Geplante Aufgabe</span> > <span class=\"text-danger fst-italic\">Benutzerdefiniertes Script</span> aus."
 txt_help_permissions_step_4="In dem sich nun öffnenden Pop-up-Fenster gibst du im Reiter <span class=\"text-danger fst-italic\">Allgemein</span> > <span class=\"text-danger fst-italic\">Allgemeine Einstellungen</span> der Aufgabe einen individuellen Namen und wählst als Benutzer <span class=\"text-danger fst-italic\">root</span> aus. Anschließend entfernst du noch den Haken bei <span class=\"text-danger fst-italic\">Aktiviert</span>."
@@ -107,7 +107,7 @@ txt_autopilot_is_not_installed="nicht installiert"
 
 txt_autopilot_create_disk_01="Im Folgenden wird zur automatischen Erkennung und Ausführung von <span class=\"text-secondary\">Shell-Scripten</span> zunächst eine leere Datei mit dem Namen <span class=\"text-secondary\"> autopilot</span> auf dem ext. Datenträger <span class=\"text-secondary\">"
 txt_autopilot_create_disk_02="</span> angelegt. Anhand seiner Datenträger-Identifikationsnummer <span class=\"text-secondary\">"
-txt_autopilot_create_disk_03="</span> wird anschließend eine eindeutige Verbindung zum eigentlich auszuführenden <span class=\"text-secondary\">Shell-Script</span> hergestellt, dessen Name und Pfad im unteren Formular anzugeben ist. Befindet sich das <span class=\"text-secondary\">Shell-Script</span> dabei auf einem internen Volume der DiskStation ist sichergestellt, das für Unbefugte weder der Inhalt einsehbar, noch manipulierbar ist."
+txt_autopilot_create_disk_03="</span> wird anschließend eine eindeutige Verbindung zum eigentlich auszuführenden <span class=\"text-secondary\">Shell-Script</span> hergestellt, dessen Name und Pfad im unteren Formular anzugeben ist. Befindet sich das <span class=\"text-secondary\">Shell-Script</span> dabei auf einem internen Volume der Synology NAS ist sichergestellt, das für Unbefugte weder der Inhalt einsehbar, noch manipulierbar ist."
 txt_autopilot_sharedfolder_label="Freigegebener Ordner"
 txt_autopilot_targetfolder_label="Zielverzeichnis (optional)"
 txt_autopilot_targetfolder_note="Es kann ein weiteres Zielverzeichnis angegeben werden. Die Verwendung weiterer Unterverzeichnisse, die durch einen <span class=\"text-blue\">/</span> (Slash) getrennt werden, ist möglich. Ist das Zielverzeichnis nicht vorhanden, wird es automatisch angelegt. Ungültige Zeichen in Verzeichnisnamen sind <span class=\"text-blue\">~ &#34; &#35; &#37; &#38; &#42; &#58; &#60; &#62; &#63; &#47; &#92; &#123; &#124; &#125;</span>"
@@ -133,7 +133,7 @@ txt_autopilot_disconnect="Nach der Ausführung der verknüpften Shell-Scriptdate
 txt_autopilot_disconnect_never="niemals auswerfen"
 txt_autopilot_disconnect_auto="nur auswerfen, wenn die Aufgabe durch einen <span class=\"text-success\">exit 0</span> Rückgabewert fehlerfrei abgearbeitet wurde"
 txt_autopilot_disconnect_manual="immer auswerfen, wenn die Aufgabe durch einen <span class=\"text-success\">exit 100</span> Rückgabewert manuell beendet wurde"
-txt_autopilot_signal="Optische und akustische Signalausgaben deiner DiskStation während der Ausführung von AutoPilot auslösen"
+txt_autopilot_signal="Optische und akustische Signalausgaben deiner Synology NAS während der Ausführung von AutoPilot auslösen"
 
 txt_external_disks_header="Externe Datenträger"
 txt_external_disks_not_found="Es ist kein externer Datenträger angeschlossen"
@@ -147,17 +147,17 @@ txt_autopilot_select_external_disk="Externen Datenträger auswählen"
 txt_autopilot_note_script_overwrite="<span class=\"text-danger\">Hinweis: </span>Es können nur Shell-Scripte ausgewählt werden, die im Vorfeld mit einem externen Datenträger verbunden wurden. Bereits <span class=\"text-danger fst-italic\">vorhandene Dateiinhalte werden</span> ohne Nachfrage <span class=\"text-danger fst-italic\">überschrieben</span>!"
 
 txt_autopilot_change_note_step_1="<span class=\"text-danger fst-italic\">Wichtiger Hinweis:</span> Ab AutoPilot Version 1.1-000 <span class=\"text-danger fst-italic\">wird der Inhalt der autopilot Scriptdatei nicht mehr ausgeführt</span>, sondern nur noch geprüft, ob sich eine leere Datei mit dem Namen autopilot auf dem externen Datenträger befindet."
-txt_autopilot_change_note_step_2="Verschiebe daher bitte den Inhalt der aktuellen autopilot Scriptdatei an einen Ort innerhalb eines freigegebenen Ordners deiner DiskStation, gib der Datei einen neuen, eindeutigen Namen und verwende als Dateiendung zwingend <span class=\"text-danger fst-italic\">.sh</span>. Lösche anschließend die autopilot Scriptdatei von diesem externen Datenträger."
+txt_autopilot_change_note_step_2="Verschiebe daher bitte den Inhalt der aktuellen autopilot Scriptdatei an einen Ort innerhalb eines freigegebenen Ordners deiner Synology NAS, gib der Datei einen neuen, eindeutigen Namen und verwende als Dateiendung zwingend <span class=\"text-danger fst-italic\">.sh</span>. Lösche anschließend die autopilot Scriptdatei von diesem externen Datenträger."
 
 txt_autopilot_updateinfo_disable="Information ausblenden"
 txt_autopilot_update_scriptcontent="Scriptinhalte wurden überarbeitet. Ausgewählte Aufträge bitte erneut an ein Shell-Script übergeben."
+txt_autopilot_update_custom_scriptcontent="Template Inhalte wurden überarbeitet."
 
 # Basic Backup
 txt_basicbackup_header="Basic Backup Aufträge"
 txt_basicbackup_title_view_script="AutoPilot Scriptdatei für diesen Basic Backup Auftrag ansehen"
 txt_basicbackup_package_name="Paketname"
 txt_basicbackup_job_name="Auftragsname"
-
 
 # Basic Backup script log
 txt_basicbackup_execute="Es wird ein Basic Backup Auftrag ausgeführt"
@@ -193,13 +193,36 @@ txt_hyperbackup_purge_finished="Bereinigung abgeschlossen"
 txt_hyperbackup_purge_duration="Dauer der Bereinigung"
 txt_hyperbackup_purge_pid_not_found="Keine Prozesskennung (PID) der Bereinigung gefunden"
 
+# Custom Template Scripts
+txt_customscripts_header="Benutzerdefinierte Script Templates"
+txt_customscripts_simple="Ein einfaches AutoPilot Script Template"
+txt_customscripts_title_view_script="AutoPilot Scriptdatei für dieses benutzerdefinierte Script Template ansehen"
+txt_customscripts_package_name="Paketname"
+txt_customscripts_create_this_script="Dieses Script Template zur weiteren Bearbeitung an ein Shell-Script übergeben"
+
+# Custom Template script log - Gerneral
+txt_customscripts_execute="Es wird ein benutzerdefiniertes Script ausgeführt"
+txt_customscripts_script_name="Scriptname"
+txt_customscripts_disk_read_out="Achtung! Der mit diesem Skript verbundene externe Datenträger wird ausgelesen."
+txt_customscripts_check_logfile="Prüfen, ob ein Argument für das Protokoll übergeben wurde, ansonsten Umleitung nach"
+txt_customscripts_check_device="Prüfen, ob das Argument für den Gerätenamen des externen Datenträgers übergeben wurde, andernfalls Abbruch des Skripts."
+txt_customscripts_check_mountpoint="Prüfen, ob das Argument für den Einhängepunkt des externen Datenträgers übergeben wurde, andernfalls Abbruch des Skripts."
+txt_customscripts_check_uuid="Prüfen, ob das Argument für die uuid des externen Datenträges übergeben wurde, andernfalls Abbruch des Skripts."
+txt_customscripts_check_example="Zum Beispiel:"
+txt_customscripts_begin_script="Beginne hier mit der Eingabe deines benutzerdefinierten Skripts"
+txt_customscripts_script_evaluation="Achtung! Das Ergebnis der Skriptausführung wird ausgewertet."
+txt_customscripts_no_changes="Hier bitte keine Änderungen vornehmen."
+txt_customscripts_finished="Das benutzerdefinierte Script wurde ausgeführt"
+txt_customscripts_duration="Dauer der Ausführung"
+
+
 # udev_device_driver.sh
 # --------------------------------------------------------------
 txt_help_status_install_terminal="Gerätetreiber über die Konsole installieren"
 txt_help_status_uninstall_terminal="Gerätetreiber über die Konsole deinstallieren"
 txt_help_status_install_dsm="Gerätetreiber über den DSM Aufgabenplaner installieren"
 txt_help_status_uninstall_dsm="Gerätetreiber über den DSM Aufgabenplaner deinstallieren"
-txt_help_status_step_1="Melde dich als Benutzer <span class=\"text-danger fst-italic\">root</span> auf der Konsole deiner DiskStation an und führe folgenden Befehl aus"
+txt_help_status_step_1="Melde dich als Benutzer <span class=\"text-danger fst-italic\">root</span> auf der Konsole deiner Synology NAS an und führe folgenden Befehl aus"
 txt_help_status_step_2="Öffne im DSM unter <span class=\"text-danger fst-italic\">Hauptmenü</span> > <span class=\"text-danger fst-italic\">Systemsteuerung</span> den <span class=\"text-danger fst-italic\">Aufgabenplaner</span>."
 txt_help_status_step_3="Wähle im Aufgabenplaner über die Schaltfläche <span class=\"text-danger fst-italic\">Erstellen</span> > <span class=\"text-danger fst-italic\">Geplante Aufgabe</span> > <span class=\"text-danger fst-italic\">Benutzerdefiniertes Script</span> aus."
 txt_help_status_step_4="In dem sich nun öffnenden Pop-up-Fenster gibst du im Reiter <span class=\"text-danger fst-italic\">Allgemein</span> > <span class=\"text-danger fst-italic\">Allgemeine Einstellungen</span> der Aufgabe einen individuellen Namen und wählst als Benutzer <span class=\"text-danger fst-italic\">root</span> aus. Anschließend entfernst du noch den Haken bei <span class=\"text-danger fst-italic\">Aktiviert</span>."
@@ -225,7 +248,7 @@ txt_popup_delete_logfile="Soll der Inhalt des Protokolls wirklich gelöscht werd
 # --------------------------------------------------------------
 txt_help_setup_dsm_step_1="Installiere dir den <span class=\"text-danger fst-italic\">Text-Editor</span> aus dem DSM Paket-Zentrum."
 txt_help_setup_dsm_step_2="Öffne den Text-Editor und erstelle über die Schaltfläche <span class=\"text-danger fst-italic\">Datei</span> > <span class=\"text-danger fst-italic\">Neu</span> eine neue Text- bzw. <span class=\"text-danger fst-italic\">Shell-Scriptdatei</span>. Beginne nun mit dem schreiben des eigentlichen Shellscriptes."
-txt_help_setup_dsm_step_3="Speicher anschließend die grade erstellte Shell-Scriptdatei über die Schaltfläche <span class=\"text-danger fst-italic\">Datei</span> > <span class=\"text-danger fst-italic\">Speichern unter...</span>, wähle einen Ort innerhalb eines freigegebenen Ordners deiner DiskStation aus, gib der Datei einen eindeutigen Namen und verwende als Dateiendung zwingend <span class=\"text-danger fst-italic\">.sh</span> . Bestätige deine Eingaben durch drücken der Schaltfläche <span class=\"text-danger fst-italic\">Speichern</span>."
+txt_help_setup_dsm_step_3="Speicher anschließend die grade erstellte Shell-Scriptdatei über die Schaltfläche <span class=\"text-danger fst-italic\">Datei</span> > <span class=\"text-danger fst-italic\">Speichern unter...</span>, wähle einen Ort innerhalb eines freigegebenen Ordners deiner Synology NAS aus, gib der Datei einen eindeutigen Namen und verwende als Dateiendung zwingend <span class=\"text-danger fst-italic\">.sh</span> . Bestätige deine Eingaben durch drücken der Schaltfläche <span class=\"text-danger fst-italic\">Speichern</span>."
 txt_help_setup_dsm_step_4="Um sicherzustellen, das die Shell-Scriptdatei das Attribut <span class=\"text-danger fst-italic\">Ausführen</span> besitzt, öffne die <span class=\"text-danger fst-italic\">File Station</span> und wechsel zu dem entsprechenden Speicherort. Ruf durch einen Rechtsklick auf die Datei das <span class=\"text-danger fst-italic\">Kontextmenü</span> auf und wähle dort den Punkt <span class=\"text-danger fst-italic\">Eigenschaften</span> aus."
 txt_help_setup_dsm_step_5="Werden dir im Reiter <span class=\"text-danger fst-italic\">Berechtigung</span> mehrere Checkboxen angeboten, worüber du die <span class=\"text-danger fst-italic\">Lese-, Schreib- und Ausführberechtigung</span> für <span class=\"text-danger fst-italic\">Besitzer, Gruppe und Sonstige</span> festlegen kannst, dann stell sicher, das <span class=\"text-danger fst-italic\">alle</span> Checkboxen angehakt sind. Speicher mögliche Änderungen im Anschluss über die Schaltfläche <span class=\"text-danger fst-italic\">Speichern</span>."
 txt_help_setup_dsm_step_6="Werden dir im Reiter <span class=\"text-danger fst-italic\">Berechtigung</span> die grade genannten Checkboxen nicht angeboten, dann erstelle über die Schaltfläche <span class=\"text-danger fst-italic\">Erstellen</span> eine neue Berechtigung. Wähle aus dem Auswahlmenü unter dem Punkt <span class=\"text-danger fst-italic\">Benutzer oder Gruppe</span>, Everyone und unter dem Punkt <span class=\"text-danger fst-italic\">Typ</span>, Zulassen aus. Hake unter dem Punkt <span class=\"text-danger fst-italic\">Berechtigungen</span> alle Checkboxen für <span class=\"text-danger fst-italic\">Administration, Lesen und Schreiben</span> an und klicke auf die Schaltfläche <span class=\"text-danger fst-italic\">Fertig</span>. Speicher deine Änderungen im Anschluss über die Schaltfläche <span class=\"text-danger fst-italic\">Speichern</span>."
@@ -234,8 +257,8 @@ txt_help_setup_dsm_step_8="Werfe den externen Datenträger über den DSM aus. Be
 
 # setup_via_terminal.sh
 # --------------------------------------------------------------
-txt_help_setup_terminal_step_1="Melde dich  mit einem Benutzer aus der Gruppe der <span class=\"text-danger fst-italic\">Administratoren</span> oder als Benutzer <span class=\"text-danger fst-italic\">root</span> auf der Konsole deiner DiskStation an."
-txt_help_setup_terminal_step_2="Wechsel zu einen Ort innerhalb eines freigegebenen Ordners deiner DiskStation z.B."
+txt_help_setup_terminal_step_1="Melde dich  mit einem Benutzer aus der Gruppe der <span class=\"text-danger fst-italic\">Administratoren</span> oder als Benutzer <span class=\"text-danger fst-italic\">root</span> auf der Konsole deiner Synology NAS an."
+txt_help_setup_terminal_step_2="Wechsel zu einen Ort innerhalb eines freigegebenen Ordners deiner Synology NAS z.B."
 txt_help_setup_terminal_step_3="Erstelle eine neue Shell-Scriptdatei, gib der Datei einen eindeutigen Namen, verwende als Dateiendung zwingend <span class=\"text-danger fst-italic\">.sh</span> und passe die Dateirechte entsprechend an. (Wichtig: Die Shell-Scriptdatei muss in jedem Fall das <span class=\"text-danger fst-italic\">Attribut Ausführen</span> besitzen)."
 txt_help_setup_terminal_step_4="Um nun die Shell-Scriptdatei mit Inhalten zu füllen stehen mehrere Möglichkeiten zur Verfügung. Eine davon wäre die Verwendung des Editors <span class=\"text-danger fst-italic\">vim</span>."
 txt_help_setup_terminal_step_5="Nach dem Aufruf von vim befindest du dich zunächst im Kommandomodus. Daher wird dir der Inhalt der noch leeren Datei autopilot nur angezeigt. Um nun Text eingeben zu können musst du mit der Taste [<span class=\"text-danger\"> i </span>] in den Insert-Modus, also dem Texteinfüge-Modus wechseln (<span class=\"text-danger fst-italic\">Wichtig:</span> vorher keinen Text eingeben!). Beginne nun mit der Eingabe." 
@@ -250,6 +273,7 @@ txt_help_setup_step_2="Ab der zweiten Zeile folgen individuelle Shellscript Anwe
 txt_help_setup_step_3="Nachdem die Shellscript Anweisung ausgeführt wurde, wird in der Regel ein sogenannter Exit-Code an das System übergeben, dessen Zahlenwert über ein"
 txt_help_setup_step_4="ausgelesen werden kann. Ist das Ergebnis 0, wurde die zuletzt ausgeführte Shellscript Anweisung fehlerfrei ausgeführt. AutoPilot würde in diesem Fall den externen Datenträger automatisch auszuwerfen. Erhält man hingegen einen Zahlenwert zwischen 1 und 255 deutet dies auf einen Hinweis, eine Warnung, einen Fehler oder einen Abbruch der zuletzt ausgeführten Shellscript Anweisung hin. In diesem Fall würde der externe Datenträger von AutoPilot nicht automatisch ausgeworfen. Dieses grundlegende Verhalten kann in den AutoPilot Einstellungen individuell angepasst werden. Alternativ dazu kann anstelle des vom System übergebenen Exit-Code, auch ein eigener und damit fest eingestellter Exit-Code an AutoPilot übergeben werden, wobei ein"
 txt_help_setup_step_5="AutoPilot mitteilt, das unabhängig vom tatsächlich übergebenen Exit-Code, der externe Datenträger immer ausgeworfen wird. Nachfolgend nochmal das komplette Beispiel-Script."
+
 
 
 

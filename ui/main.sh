@@ -69,6 +69,36 @@ function external_target()
 	unset volume share
 }
 
+# Function: Select Script destination
+# --------------------------------------------------------------
+function script_target ()
+{
+	echo '
+	<div class="row mb-3 px-1">
+		<div class="col">
+			<label for="filename" class="form-label">'${txt_autopilot_filename_label}'</label>
+			<select id="filename" name="filename" class="form-select form-select-sm" required>
+				<option value="" class="text-secondary" selected disabled></option>'
+					uuidfile="${usr_devices}"
+					scriptfiles=$(grep -irw scriptpath ${uuidfile}/* | cut -d '"' -f2)
+					IFS="
+					"
+					for scriptfile in ${scriptfiles}; do
+						IFS="${backupIFS}"
+						if [ -f "${scriptfile}" ]; then
+							echo '
+							<option value="'${scriptfile}'" class="text-secondary">'${scriptfile##*/}'</option>'
+						fi
+					done
+					echo '
+			</select>
+		</div>
+		<div class="text-center pt-2">
+			<small>'${txt_autopilot_note_script_overwrite}'</small>
+		</div>
+	</div>'
+}
+
 # Load library function to generate script files of tempalte
 # --------------------------------------------------------------
 [ -f "${app_home}/modules/create_script_file.sh" ] && source "${app_home}/modules/create_script_file.sh"
@@ -432,7 +462,7 @@ if [[ "${get[page]}" == "main" && "${get[section]}" == "start" ]]; then
 						<i class="bi bi-caret-down-fill pe-2" style="font-size: 0.9rem;"></i><span class="fs-5 pe-1">|</span><i class="bi bi-list py-2" style="font-size: 1.2rem;"></i>
 					</button>
 					<span class="ps-2">'${txt_basicbackup_header}'&nbsp;&nbsp;'
-						if [ -z "${basicbackup_updateinfo}"] || [[ "${basicbackup_updateinfo}" != "${app_version}" ]]; then
+						if [[ "${basicbackup_updateinfo}" != "${app_version}" ]]; then
 							echo '
 							<sup class="text-danger align-middle">
 								<a href="index.cgi?page=main&section=settings&switch=basicbackup_updateinfo&query='${app_version}'" class="link-success" style="text-decoration:none;">
@@ -485,31 +515,11 @@ if [[ "${get[page]}" == "main" && "${get[section]}" == "start" ]]; then
 														<form action="index.cgi?page=main" method="post" id="form'${id}'" autocomplete="on">
 															<div class="modal-body text-start">
 																'${txt_basicbackup_package_name}': <span class="text-secondary">Basic Backup</span><br />
-																'${txt_basicbackup_job_name}': <span class="text-secondary">'${basic_backup_job}'</span><br />
-																<br />
-																<div class="row mb-3 px-1">
-																	<div class="col">
-																		<label for="filename" class="form-label">'${txt_autopilot_filename_label}'</label>
-																		<select id="filename" name="filename" class="form-select form-select-sm" required>
-																			<option value="" class="text-secondary" selected disabled></option>'
-																				uuidfile="${usr_devices}"
-																				scriptfiles=$(grep -irw scriptpath ${uuidfile}/* | cut -d '"' -f2)
-																				IFS="
-																				"
-																				for scriptfile in ${scriptfiles}; do
-																					IFS="${backupIFS}"
-																					if [ -f "${scriptfile}" ]; then
-																						echo '
-																						<option value="'${scriptfile}'" class="text-secondary">'${scriptfile##*/}'</option>'
-																					fi
-																				done
-																				echo '
-																		</select>
-																	</div>
-																	<div class="text-center pt-2">
-																		<small>'${txt_autopilot_note_script_overwrite}'</small>
-																	</div>
-																</div>
+																'${txt_basicbackup_job_name}': <span class="text-secondary">'${basic_backup_job}'</span><br /><br />'
+
+																script_target
+
+																echo '
 															</div>
 															<div class="modal-footer bg-light">
 																<input type="hidden" name="jobname" value="'${basic_backup_job}'">
@@ -560,7 +570,7 @@ if [[ "${get[page]}" == "main" && "${get[section]}" == "start" ]]; then
 						<i class="bi bi-caret-down-fill pe-2" style="font-size: 0.9rem;"></i><span class="fs-5 pe-1">|</span><i class="bi bi-list py-2" style="font-size: 1.2rem;"></i>
 					</button>
 					<span class="ps-2">'${txt_hyperbackup_header}'&nbsp;&nbsp;'
-						if [ -z "${hyperbackup_updateinfo}"] || [[ "${hyperbackup_updateinfo}" != "${app_version}" ]]; then
+						if [[ "${hyperbackup_updateinfo}" != "${app_version}" ]]; then
 							echo '
 							<sup class="text-danger align-middle">
 								<a href="index.cgi?page=main&section=settings&switch=hyperbackup_updateinfo&query='${app_version}'" class="link-success" style="text-decoration:none;">
@@ -634,31 +644,11 @@ if [[ "${get[page]}" == "main" && "${get[section]}" == "start" ]]; then
 															<div class="modal-body">
 																'${txt_hyperbackup_package_name}': <span class="text-secondary">Hyper Backup</span><br />
 																Task ID: <span class="text-secondary">'${hyper_backup_job[$i]%=*}'</span><br />
-																'${txt_hyperbackup_job_name}': <span class="text-secondary">'${hyper_backup_job[$i]#*=}'</span><br />
-																<br />
-																<div class="row mb-3 px-1">
-																	<div class="col">
-																		<label for="filename" class="form-label">'${txt_autopilot_filename_label}'</label>
-																		<select id="filename" name="filename" class="form-select form-select-sm" required>
-																			<option value="" class="text-secondary" selected disabled></option>'
-																				uuidfile="${usr_devices}"
-																				scriptfiles=$(grep -irw scriptpath ${uuidfile}/* | cut -d '"' -f2)
-																				IFS="
-																				"
-																				for scriptfile in ${scriptfiles}; do
-																					IFS="${backupIFS}"
-																					if [ -f "${scriptfile}" ]; then
-																						echo '
-																						<option value="'${scriptfile}'" class="text-secondary">'${scriptfile##*/}'</option>'
-																					fi
-																				done
-																				echo '
-																		</select>
-																	</div>
-																	<div class="text-center pt-2">
-																		<small>'${txt_autopilot_note_script_overwrite}'</small>
-																	</div>
-																</div>
+																'${txt_hyperbackup_job_name}': <span class="text-secondary">'${hyper_backup_job[$i]#*=}'</span><br /><br />'
+
+																script_target
+
+																echo '
 															</div>
 															<div class="modal-footer bg-light">
 																<input type="hidden" name="jobname" value="'${hyper_backup_job[$i]#*=}'">
@@ -701,6 +691,109 @@ if [[ "${get[page]}" == "main" && "${get[section]}" == "start" ]]; then
 				</div>
 			</div>'
 		fi
+
+		# Costum Script tasks
+		# --------------------------------------------------------------
+		if [[ "${permissions}" == "true" ]]; then
+			echo '
+			<div class="accordion-item border-0 mt-3">
+				<div class="accordion-header bg-light p-2">
+					<button class="btn btn-sm text-dark py-0 collapsed" style="background-color: #e6e6e6;" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse-04" aria-expanded="false" aria-controls="flush-collapse-04">
+						<i class="bi bi-caret-down-fill pe-2" style="font-size: 0.9rem;"></i><span class="fs-5 pe-1">|</span><i class="bi bi-list py-2" style="font-size: 1.2rem;"></i>
+					</button>
+					<span class="ps-2">'${txt_customscripts_header}'&nbsp;&nbsp;'
+						if [[ "${customscripts_updateinfo}" != "${app_version}" ]]; then
+							echo '
+							<sup class="text-danger align-middle">
+								<a href="index.cgi?page=main&section=settings&switch=customscripts_updateinfo&query='${app_version}'" class="link-success" style="text-decoration:none;">
+									<i class="bi bi-info-square text-primary align-middle" style="font-size: 1.1rem;" title="'${txt_autopilot_updateinfo_disable}'"></i>
+								</a>&nbsp;
+								'${txt_autopilot_update_custom_scriptcontent}'
+							</sup>'
+						fi
+						echo '
+					</span>
+				</div>
+				<div id="flush-collapse-04" class="accordion-collapse collapse" data-bs-parent="#accordionFlush01">
+					<div class="accordion-body bg-light">
+						<div class="accordion accordion-flush" id="accordionLoop04">'
+
+							# Simple custom script 
+							# --------------------------------------------------------------
+								echo '
+								<div class="accordion-item bg-light pt-2 pb-3 ps-1 ms-4">'
+									if [[ "${customscripts_updateinfo}" != "${app_version}" ]]; then
+										echo ''${txt_customscripts_simple}' <sup class="text-danger align-middle">Update</sup>'
+									else
+										echo ''${txt_customscripts_simple}''
+									fi
+									echo '
+									<div class="float-end">
+
+										<!-- Script Button -->
+										<button class="btn btn-sm text-dark py-0 collapsed" style="background-color: #e6e6e6;" type="button" data-bs-toggle="collapse" data-bs-target="#loop-collapse-04" aria-expanded="false" aria-controls="loop-collapse-04">
+											<i class="bi bi-terminal-fill" style="font-size: 1.2rem;" title="'${txt_customscripts_title_view_script}'"></i>
+										</button>
+
+										<!-- Modal Button-->
+										<button type="button" class="btn btn-sm text-dark py-0" style="background-color: #e6e6e6;" data-bs-toggle="modal" data-bs-target="#CustomScriptSimple">
+											<i class="bi bi-link-45deg text-success" style="font-size: 1.2rem;" title="'${txt_customscripts_create_this_script}'"></i>
+										</button>
+
+										<!-- Modal Popup-->
+										<div class="modal fade" id="CustomScriptSimple" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="CustomScriptSimpleLabel" aria-hidden="true">
+											<div class="modal-dialog">
+												<div class="modal-content">
+													<div class="modal-header bg-light">
+														<h1 class="modal-title align-baseline fs-5" style="color: #FF8C00;" id="CustomScriptSimpleLabel">'${txt_autopilot_create_script}'</h1>
+														<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+													</div>
+													<form action="index.cgi?page=main" method="post" id="form'${id}'" autocomplete="on">
+														<div class="modal-body text-start">
+															'${txt_customscripts_package_name}': <span class="text-secondary">AutoPilot</span><br />
+															'${txt_customscripts_script_name}': <span class="text-secondary">'${txt_customscripts_simple}'</span><br /><br />'
+
+															script_target
+
+															echo '
+														</div>
+														<div class="modal-footer bg-light">
+															<input type="hidden" name="scriptname" value="'${txt_customscripts_simple}'">
+															<button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">'${txt_button_Cancel}'</button><br />
+															<button class="btn btn-secondary btn-sm" type="submit" name="section" value="custom_script_simple">'${txt_button_Save}'</button>
+														</div>
+													</form>
+												</div>
+											</div>
+										</div>
+										<script type="text/javascript">
+											$(window).on("load", function() {
+												$("#popup-validation").modal("show");
+											});
+										</script>
+									</div>
+									<div id="loop-collapse-04" class="accordion-collapse collapse" data-bs-parent="#accordionLoop04">
+										<div class="accordion-body">'
+											custom_script_simple_tmp_file="${app_home}/temp/custom_script_simple.tmp"
+
+											# Function: Generate Custom Script File
+											custom_script_simple "${txt_customscripts_simple}" "${custom_script_simple_tmp_file}"
+
+											echo -n '<pre style="overflow-x:auto;"><code>'
+											cat "${custom_script_simple_tmp_file}"
+											echo -n '</code></pre>
+										</div>
+									</div>
+								</div>'
+							# --------------------------------------------------------------
+
+							echo '
+						</div>
+					</div>
+				</div>
+			</div>'
+		fi
+
 		echo '
 	</div>
 	<div class="accordion accordion-flush" id="accordionFlush02">'
@@ -710,12 +803,12 @@ if [[ "${get[page]}" == "main" && "${get[section]}" == "start" ]]; then
 		echo '
 		<div class="accordion-item border-0 mt-3">
 			<div class="accordion-header bg-light p-2">
-				<button class="btn btn-sm text-dark py-0 collapsed" style="background-color: #e6e6e6;" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse-04" aria-expanded="true" aria-controls="flush-collapse-04">
+				<button class="btn btn-sm text-dark py-0 collapsed" style="background-color: #e6e6e6;" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse-00" aria-expanded="true" aria-controls="flush-collapse-00">
 					<i class="bi bi-caret-down-fill pe-2" style="font-size: 0.9rem;"></i><span class="fs-5 pe-1">|</span><i class="bi bi-gear-fill py-2" style="font-size: 1.2rem;"></i>
 				</button>
 				<span class="ps-2">'${txt_autopilot_options_header}'</span>
 			</div>
-		<div id="flush-collapse-04" class="accordion-collapse collapse show" data-bs-parent="#accordionFlush01">
+		<div id="flush-collapse-00" class="accordion-collapse collapse show" data-bs-parent="#accordionFlush01">
 			<div class="accordion-body bg-light px-3 ps-5">
 				<table class="table table-borderless table-sm table-light ps-0">
 					<thead></thead>
@@ -983,6 +1076,24 @@ if [[ "${get[page]}" == "main" && "${post[section]}" == "hyperbackup" ]]; then
 	fi
 fi
 
+# Create Custom Script
+# --------------------------------------------------------------
+if [[ "${get[page]}" == "main" && "${post[section]}" == "custom_script_simple" ]]; then
+
+	scriptname="${post[scriptname]}"
+	scriptfile="${post[filename]}"
+
+	if [ -f "${scriptfile}" ]; then
+		# Generate script file from template by replacing language specific keywords.
+		# Function: Generate Hyper Backup Script
+		custom_script_simple "${scriptname}" "${scriptfile}"
+
+		[ -f "${get_request}" ] && rm "${get_request}"
+		[ -f "${post_request}" ] && rm "${post_request}"
+		echo '<meta http-equiv="refresh" content="0; url=index.cgi?page=main&section=start">'
+	fi
+fi
+
 # Save AutoPilot configuration
 # --------------------------------------------------------------
 if [[ "${get[page]}" == "main" && "${get[section]}" == "settings" ]]; then
@@ -994,5 +1105,6 @@ if [[ "${get[page]}" == "main" && "${get[section]}" == "settings" ]]; then
 	[[ "${get[switch]}" == "signal" ]] && "${set_keyvalue}" "${usr_autoconfig}" "signal" "${get[query]}"
 	[[ "${get[switch]}" == "basicbackup_updateinfo" ]] && "${set_keyvalue}" "${usr_autoconfig}" "basicbackup_updateinfo" "${get[query]}"
 	[[ "${get[switch]}" == "hyperbackup_updateinfo" ]] && "${set_keyvalue}" "${usr_autoconfig}" "hyperbackup_updateinfo" "${get[query]}"
+	[[ "${get[switch]}" == "customscripts_updateinfo" ]] && "${set_keyvalue}" "${usr_autoconfig}" "customscripts_updateinfo" "${get[query]}"
 	echo '<meta http-equiv="refresh" content="0; url=index.cgi?page=main&section=start">'
 fi

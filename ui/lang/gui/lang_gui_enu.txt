@@ -57,7 +57,7 @@ txt_help_permissions_expand_terminal="Expand app permissions using the console"
 txt_help_permissions_revoke_terminal="Revoke app permissions via the console"
 txt_help_permissions_expand_dsm="Expand app permissions via DSM Task Scheduler"
 txt_help_permissions_revoke_dsm="Revoke app permissions via DSM Task Scheduler"
-txt_help_permissions_step_1="Login to your DiskStations console as user <span class=\"text-danger fst-italic\">root</span> and run the following command"
+txt_help_permissions_step_1="Login to your Synology NAS console as user <span class=\"text-danger fst-italic\">root</span> and run the following command"
 txt_help_permissions_step_2="In DSM under <span class=\"text-danger fst-italic\">Main Menu</span> > <span class=\"text-danger fst-italic\">Control Panel</span> open the <span class=\"text-danger fst-italic\">Task Scheduler</span>."
 txt_help_permissions_step_3="In the task scheduler, use the <span class=\"text-danger fst-italic\">Create</span> > <span class=\"text-danger fst-italic\">Scheduled Task</span> > <span class=\"text-danger fst-italic\">Custom Script</span> off."
 txt_help_permissions_step_4="In the pop-up window that opens, enter <span class=\"text-danger fst-italic\">General</span> > <span class=\"text-danger fst-italic \">General settings</span> for the task and select <span class=\"text-danger fst-italic\">root</span> as the user. Then uncheck <span classS=\"text-danger fst-italic\">Enabled</span>."
@@ -107,7 +107,7 @@ txt_autopilot_is_not_installed="not installed"
 
 txt_autopilot_create_disk_01="In the following, an empty file with the name <span class=\"text-secondary\">autopilot</span> is first created for the automatic detection and execution of <span class=\"text-secondary\">shell scripts</span> on the external disk <span class=\"text-secondary\">"
 txt_autopilot_create_disk_02="</span>. The disk identification number <span class=\"text-secondary\">"
-txt_autopilot_create_disk_03="</span> is used to establish a unique connection to the <span class=\"text-secondary\">shell script</span> that is actually to be executed, whose name and path must be specified in the following form. If the <span class=\"text-secondary\">Shell script</span> on an internal volume of the DiskStation ensures that the content cannot be viewed or manipulated by unauthorized persons."
+txt_autopilot_create_disk_03="</span> is used to establish a unique connection to the <span class=\"text-secondary\">shell script</span> that is actually to be executed, whose name and path must be specified in the following form. If the <span class=\"text-secondary\">Shell script</span> on an internal volume of the Synology NAS ensures that the content cannot be viewed or manipulated by unauthorized persons."
 txt_autopilot_sharedfolder_label="Shared Folder"
 txt_autopilot_targetfolder_label="Target folder (optional)"
 txt_autopilot_targetfolder_note="An additional target directory can be specified. The use of additional subdirectories, which are separated by a <span class=\"text-blue\">/</span> (slash), is possible. If the target directory does not exist , it will be created automatically. Invalid characters in directory names are <span class=\"text-blue\">~ &#34; &#35; &#37; &#38; &#42; &#58; &# 60; &#62; &#63; &#47; &#92; &#123; &#124; &#125;</span>"
@@ -133,7 +133,7 @@ txt_autopilot_disconnect="After executing the linked shell script file, remove t
 txt_autopilot_disconnect_never="never eject"
 txt_autopilot_disconnect_auto="only eject if the task was processed without errors by an <span class=\"text-success\">exit 0</span> return value"
 txt_autopilot_disconnect_manual="always eject if the task was manually terminated by an <span class=\"text-success\">exit 100</span> return value"
-txt_autopilot_signal="Trigger visual and audible signals from your DiskStation while AutoPilot is running"
+txt_autopilot_signal="Trigger visual and audible signals from your Synology NAS while AutoPilot is running"
 
 txt_external_disks_header="External disks"
 txt_external_disks_not_found="No external disk connected"
@@ -147,10 +147,11 @@ txt_autopilot_select_external_disk="Select external disk"
 txt_autopilot_note_script_overwrite="<span class=\"text-danger\">Note: </span>Only shell scripts can be selected that have been previously connected to an external storage medium. <span class=\"text-danger fst-italic\">Already existing file contents will be overwritten without asking!</span>"
 
 txt_autopilot_change_note_step_1="<span class=\"text-danger fst-italic\">Important note:</span> From AutoPilot version 1.1-000 <span class=\"text-danger fst-italic\">the content of the autopilot script file is no longer executed</span>, but only checked whether there is an empty file with the name autopilot on the external storage medium."
-txt_autopilot_change_note_step_2="Please move the contents of the current autopilot script file to a location within a shared folder on your DiskStation, give the file a new, unique name and make sure to use <span class=\"text-danger fst-italic\"> as the file extension .sh</span>. Then delete the autopilot script file from this external storage medium."
+txt_autopilot_change_note_step_2="Please move the contents of the current autopilot script file to a location within a shared folder on your Synology NAS, give the file a new, unique name and make sure to use <span class=\"text-danger fst-italic\"> as the file extension .sh</span>. Then delete the autopilot script file from this external storage medium."
 
 txt_autopilot_updateinfo_disable="Hide information"
 txt_autopilot_update_scriptcontent="Script content has been revised. Please resubmit selected jobs to a shell script."
+txt_autopilot_update_custom_scriptcontent="Template content has been revised."
 
 # Basic backup
 txt_basicbackup_header="Basic Backup jobs"
@@ -192,13 +193,35 @@ txt_hyperbackup_purge_finished="Cleanup completed"
 txt_hyperbackup_purge_duration="Duration of cleanup job"
 txt_hyperbackup_purge_pid_not_found="No process identifier (PID) found for cleanup job"
 
+# Custom Template Scripts
+txt_customscripts_header="Custom Script Templates"
+txt_customscripts_simple="A simple AutoPilot Script Template"
+txt_customscripts_title_view_script="View AutoPilot script file for this custom script template"
+txt_customscripts_package_name="Package name"
+txt_customscripts_create_this_script="Pass this script template to a shell script for further processing"
+
+# Custom Template script log - General
+txt_customscripts_execute="A custom script is executed"
+txt_customscripts_script_name="Scriptname"
+txt_customscripts_disk_read_out="Attention: The external disk bound to this script is read out."
+txt_customscripts_check_logfile="Check if argument given for log, otherwise redirect to"
+txt_customscripts_check_device="Check if argument given for the device name of the external disk, otherwise abort script"
+txt_customscripts_check_mountpoint="Check if argument given for the mountpoint of the external disk, otherwise abort script"
+txt_customscripts_check_uuid="Check if argument given for the uuid of the external disk, otherwise abort script"
+txt_customscripts_check_example="For example:"
+txt_customscripts_begin_script="Start entering your custom script here"
+txt_customscripts_script_evaluation="Attention: The result of the script execution is evaluated."
+txt_customscripts_no_changes="Please do not make any changes here."
+txt_customscripts_finished="The custom script has been executed"
+txt_customscripts_duration="Duration of execution"
+
 # udev_device_driver.sh
 # ------------------------------------------------- -------------
 txt_help_status_install_terminal="Install device drivers via console"
 txt_help_status_uninstall_terminal="Uninstall device drivers via console"
 txt_help_status_install_dsm="Install device drivers via DSM Task Scheduler"
 txt_help_status_uninstall_dsm="Uninstall device drivers via DSM Task Scheduler"
-txt_help_status_step_1="Log in as user <span class=\"text-danger fst-italic\">root</span> on your DiskStations console and run the following command"
+txt_help_status_step_1="Log in as user <span class=\"text-danger fst-italic\">root</span> on your Synology NAS console and run the following command"
 txt_help_status_step_2="Open in the DSM under <span class=\"text-danger fst-italic\">Main Menu</span> > <span class=\"text-danger fst-italic\">Control Panel</span> > <span class=\"text-danger fst-italic\">Task Scheduler</span>."
 txt_help_status_step_3="In the task planner, select <span class=\"text-danger fst-italic\">Create</span> > <span class=\"text-danger fst-italic\">Scheduled task</span> > <span class=\"text-danger fst-italic\">Custom script</span>."
 txt_help_status_step_4="In the pop-up window that now opens, enter <span class=\"text-danger fst-italic\">General</span> > <span class=\"text-danger fst-italic \">General Settings</span> give the task an individual name and select <span class=\"text-danger fst-italic\">root</span> as the user. Then you uncheck the <span class =\"text-danger fst-italic\">Enabled</span>."
@@ -224,7 +247,7 @@ txt_popup_delete_logfile="Do you really want to delete the contents of the log?"
 # ------------------------------------------------- -------------
 txt_help_setup_dsm_step_1="Install the <span class=\"text-danger fst-italic\">Text Editor</span> from the DSM Package Center."
 txt_help_setup_dsm_step_2="Open the text editor and use the button to create <span class=\"text-danger fst-italic\">File</span> > <span class=\"text-danger fst-italic\">New </span> a new text or <span class=\"text-danger fst-italic\">shell script file</span>. Now start writing the actual shell script."
-txt_help_setup_dsm_step_3="Then save the shell script file you just created using the <span class=\"text-danger fst-italic\">File</span> > <span class=\"text-danger fst-italic\"> button Save as...</span>, select a location within a shared folder on your DiskStation, give the file a unique name and use <span class=\"text-danger fst-italic\">.sh</span> as the file extension. Confirm your entries by pressing the <span class=\"text-danger fst-italic\">Save</span> button."
+txt_help_setup_dsm_step_3="Then save the shell script file you just created using the <span class=\"text-danger fst-italic\">File</span> > <span class=\"text-danger fst-italic\"> button Save as...</span>, select a location within a shared folder on your Synology NAS, give the file a unique name and use <span class=\"text-danger fst-italic\">.sh</span> as the file extension. Confirm your entries by pressing the <span class=\"text-danger fst-italic\">Save</span> button."
 txt_help_setup_dsm_step_4="To ensure that the shell script file has the <span class=\"text-danger fst-italic\">Run</span> attribute, open the <span class=\"text-danger fst-italic\">File Station</span> and switch to the corresponding storage location. By right-clicking on the file, call up the <span class=\"text-danger fst-italic\">context menu</span> and select the item <span class=\"text-danger fst-italic\">Properties</span>."
 txt_help_setup_dsm_step_5="You will be offered several checkboxes in the <span class=\"text-danger fst-italic\">Authorization</span> tab, which you can read about -, Write and Execute permission</span> for <span class=\"text-danger fst-italic\">Owner, Group and Other</span>, then make sure the <span class=\"text -danger fst-italic\">all</span> checkboxes are checked. Save possible changes afterwards using the <span class=\"text-danger fst-italic\">Save</span> button."
 txt_help_setup_dsm_step_6="If the checkboxes just mentioned are not offered to you in the <span class=\"text-danger fst-italic\">Authorization</span> tab, then create one using the button <span class=\"text-danger fst-italic\">Create</span> a new permission. Select from the selection menu under <span class=\"text-danger fst-italic\">User or Group</span>, Everyone and under <span class=\"text-danger fst-italic\">Type</span>, Allow. Check all checkboxes under Permissions <span class=\"text-danger fst-italic\">Administration, reading and writing</span> and click on the <span class=\"text-danger fst-italic\">Done</span> button. Then save your changes using the <span class=\"text-danger fst-italic\">Save</span> button."
@@ -233,8 +256,8 @@ txt_help_setup_dsm_step_8="Eject the external storage device via the DSM. The ne
 
 # setup_via_terminal.sh
 # ------------------------------------------------- -------------
-txt_help_setup_terminal_step_1="Log in as a user from the group of <span class=\"text-danger fst-italic\">administrators</span> or as a user <span class=\"text-danger fst-italic\"> root</span> on your DiskStations console."
-txt_help_setup_terminal_step_2="Switch to a location within a shared folder on your DiskStation e.g."
+txt_help_setup_terminal_step_1="Log in as a user from the group of <span class=\"text-danger fst-italic\">administrators</span> or as a user <span class=\"text-danger fst-italic\"> root</span> on your Synology NAS console."
+txt_help_setup_terminal_step_2="Switch to a location within a shared folder on your Synology NAS e.g."
 txt_help_setup_terminal_step_3="Create a new shell script file, give the file a unique name, use <span class=\"text-danger fst-italic\">.sh</span> as the file extension and adjust the file permissions accordingly. ( Important: The shell script file must always have the <span class=\"text-danger fst-italic\">Execute attribute</span>."
 txt_help_setup_terminal_step_4="There are several options available to fill the shell script file with content. One of them would be to use the editor <span class=\"text-danger fst-italic\">vim</span>."
 txt_help_setup_terminal_step_5="After calling vim, you will initially be in command mode. Therefore, the contents of the still empty file autopilot will only be displayed to you. In order to be able to enter text, you must press the [<span class=\"text-danger\"> i </span>] key. Switch to insert mode, i.e. text insertion mode (<span class=\"text-danger fst-italic\">Important:</span> do not enter any text beforehand!). Begin now with the input."
@@ -249,6 +272,7 @@ txt_help_setup_step_2="From the second line onwards, individual shell script ins
 txt_help_setup_step_3="After the shell script instruction has been executed, a so-called exit code is usually passed to the system, the numerical value of which is given via a"
 txt_help_setup_step_4="can be read. If the result is 0, the last executed shell script instruction was executed without errors. In this case, AutoPilot would automatically eject the external disk. However, if you get a numerical value between 1 and 255, this indicates a note, a warning, an error or an abort of the last executed shell script statement. In this case, the external storage medium would not be automatically ejected by AutoPilot. This basic behavior can be individually adjusted in the AutoPilot settings. Alternatively, instead of the exit code passed by the system, this can also be done an own and thus permanently set exit code can be passed to AutoPilot, whereby a "
 txt_help_setup_step_5="AutoPilot informs that, regardless of the exit code actually passed, the external disk is always ejected. Below is the complete example script."
+
 
 
 
