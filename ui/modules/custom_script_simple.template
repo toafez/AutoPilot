@@ -11,6 +11,7 @@
     if [ -n "$1" ]; then
         logfile=$1
     else
+        echo -e "___TXT_CUSTOMSCRIPTS_ERROR_LOGFILE___" >> "$logfile"
         logfile=/dev/null
     fi
 
@@ -19,6 +20,7 @@
         # ___TXT_CUSTOMSCRIPTS_CHECK_EXAMPLE___ device="/dev/usb1p1"
         device="$2"
     else
+        echo -e "___TXT_CUSTOMSCRIPTS_ERROR_DEVICE___" >> "$logfile"
         exit 1
     fi
 
@@ -27,6 +29,7 @@
         # ___TXT_CUSTOMSCRIPTS_CHECK_EXAMPLE___ mountpoint="/volumeUSB1/usbshare"
         mountpoint="$3"
     else
+        echo -e "___TXT_CUSTOMSCRIPTS_ERROR_MOUNTPOINT___" >> "$logfile"
         exit 1
     fi
 
@@ -35,6 +38,7 @@
         # ___TXT_CUSTOMSCRIPTS_CHECK_EXAMPLE___ uuid="550e8400-e29b-11d4-a716-446655440000"
         uuid="$4"
     else
+        echo -e "___TXT_CUSTOMSCRIPTS_ERROR_UUID___" >> "$logfile"
         exit 1
     fi
 
@@ -49,10 +53,10 @@
     # .
     # ..
     # ___TXT_CUSTOMSCRIPTS_CHECK_EXAMPLE___
-    echo -e "Path to the log: $logfile" >> "$logfile"
-    echo -e "Device name of the connected disk: $device" >> "$logfile"
-    echo -e "Mountpoint of the connected disk: $mountpoint" >> "$logfile"
-    echo -e "UUID of the connected disk: $uuid" >> "$logfile"
+    echo -e "___TXT_CUSTOMSCRIPTS_ECHO_LOGFILE___: $logfile" >> "$logfile"
+    echo -e "___TXT_CUSTOMSCRIPTS_ECHO_DEVICE___: $device" >> "$logfile"
+    echo -e "___TXT_CUSTOMSCRIPTS_ECHO_MOUNTPOINT___: $mountpoint" >> "$logfile"
+    echo -e "___TXT_CUSTOMSCRIPTS_ECHO_UUID___: $uuid" >> "$logfile"
     # ..
     #.
 # -----------------------------------------------------------------------------

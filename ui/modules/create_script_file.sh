@@ -77,11 +77,19 @@ function custom_script_simple ()
 		-e "s/___TXT_CUSTOMSCRIPTS_DISK_READ_OUT___/${txt_customscripts_disk_read_out}/g" \
 		-e "s/___TXT_CUSTOMSCRIPTS_SCRIPT_EVALUTION___/${txt_customscripts_script_evaluation}/g" \
 		-e "s/___TXT_CUSTOMSCRIPTS_CHECK_LOGFILE___/${txt_customscripts_check_logfile}/g" \
+		-e "s/___TXT_CUSTOMSCRIPTS_ERROR_LOGFILE___/${txt_customscripts_error_logfile}/g" \
 		-e "s/___TXT_CUSTOMSCRIPTS_CHECK_DEVICE___/${txt_customscripts_check_device}/g" \
+		-e "s/___TXT_CUSTOMSCRIPTS_ERROR_DEVICE___/${txt_customscripts_error_device}/g" \
 		-e "s/___TXT_CUSTOMSCRIPTS_CHECK_MOUNTPOINT___/${txt_customscripts_check_mountpoint}/g" \
+		-e "s/___TXT_CUSTOMSCRIPTS_ERROR_MOUNTPOINT___/${txt_customscripts_error_mountpoint}/g" \
 		-e "s/___TXT_CUSTOMSCRIPTS_CHECK_UUID___/${txt_customscripts_check_uuid}/g" \
+		-e "s/___TXT_CUSTOMSCRIPTS_ERROR_UUID___/${txt_customscripts_error_uuid}/g" \
 		-e "s/___TXT_CUSTOMSCRIPTS_CHECK_EXAMPLE___/${txt_customscripts_check_example}/g" \
 		-e "s/___TXT_CUSTOMSCRIPTS_BEGIN_SCRIPT___/${txt_customscripts_begin_script}/g" \
+		-e "s/___TXT_CUSTOMSCRIPTS_ECHO_LOGFILE___/${txt_customscripts_echo_logfile}/g" \
+		-e "s/___TXT_CUSTOMSCRIPTS_ECHO_DEVICE___/${txt_customscripts_echo_device}/g" \
+		-e "s/___TXT_CUSTOMSCRIPTS_ECHO_MOUNTPOINT___/${txt_customscripts_echo_mountpoint}/g" \
+		-e "s/___TXT_CUSTOMSCRIPTS_ECHO_UUID___/${txt_customscripts_echo_uuid}/g" \
 		-e "s/___TXT_CUSTOMSCRIPTS_NO_CHANGES___/${txt_customscripts_no_changes}/g" \
 		-e "s/___TXT_CUSTOMSCRIPTS_FINISHED___/${txt_customscripts_finished}/g" \
 		-e "s/___TXT_CUSTOMSCRIPTS_DURATION___/${txt_customscripts_duration}/g" \

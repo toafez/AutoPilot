@@ -466,7 +466,7 @@ if [[ "${get[page]}" == "main" && "${get[section]}" == "start" ]]; then
 							echo '
 							<sup class="text-danger align-middle">
 								<a href="index.cgi?page=main&section=settings&switch=basicbackup_updateinfo&query='${app_version}'" class="link-success" style="text-decoration:none;">
-									<i class="bi bi-info-square text-primary align-middle" style="font-size: 1.1rem;" title="'${txt_autopilot_updateinfo_disable}'"></i>
+									<i class="bi bi-bookmark-check text-primary align-middle" style="font-size: 1.1rem;" title="'${txt_autopilot_updateinfo_disable}'"></i>
 								</a>&nbsp;
 								'${txt_autopilot_update_scriptcontent}'
 							</sup>'
@@ -574,7 +574,7 @@ if [[ "${get[page]}" == "main" && "${get[section]}" == "start" ]]; then
 							echo '
 							<sup class="text-danger align-middle">
 								<a href="index.cgi?page=main&section=settings&switch=hyperbackup_updateinfo&query='${app_version}'" class="link-success" style="text-decoration:none;">
-									<i class="bi bi-info-square text-primary align-middle" style="font-size: 1.1rem;" title="'${txt_autopilot_updateinfo_disable}'"></i>
+									<i class="bi bi-bookmark-check text-primary align-middle" style="font-size: 1.1rem;" title="'${txt_autopilot_updateinfo_disable}'"></i>
 								</a>&nbsp;
 								'${txt_autopilot_update_scriptcontent}'
 							</sup>'
@@ -706,7 +706,7 @@ if [[ "${get[page]}" == "main" && "${get[section]}" == "start" ]]; then
 							echo '
 							<sup class="text-danger align-middle">
 								<a href="index.cgi?page=main&section=settings&switch=customscripts_updateinfo&query='${app_version}'" class="link-success" style="text-decoration:none;">
-									<i class="bi bi-info-square text-primary align-middle" style="font-size: 1.1rem;" title="'${txt_autopilot_updateinfo_disable}'"></i>
+									<i class="bi bi-bookmark-check text-primary align-middle" style="font-size: 1.1rem;" title="'${txt_autopilot_updateinfo_disable}'"></i>
 								</a>&nbsp;
 								'${txt_autopilot_update_custom_scriptcontent}'
 							</sup>'
@@ -723,7 +723,7 @@ if [[ "${get[page]}" == "main" && "${get[section]}" == "start" ]]; then
 								echo '
 								<div class="accordion-item bg-light pt-2 pb-3 ps-1 ms-4">'
 									if [[ "${customscripts_updateinfo}" != "${app_version}" ]]; then
-										echo ''${txt_customscripts_simple}' <sup class="text-danger align-middle">Update</sup>'
+										echo ''${txt_customscripts_simple}' <sup><span class="badge bg-danger text-uppercase">New</span></sup>'
 									else
 										echo ''${txt_customscripts_simple}''
 									fi
