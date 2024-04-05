@@ -462,15 +462,15 @@ if [[ "${get[page]}" == "main" && "${get[section]}" == "start" ]]; then
 						<i class="bi bi-caret-down-fill pe-2" style="font-size: 0.9rem;"></i><span class="fs-5 pe-1">|</span><i class="bi bi-list py-2" style="font-size: 1.2rem;"></i>
 					</button>
 					<span class="ps-2">'${txt_basicbackup_header}'&nbsp;&nbsp;'
-						if [[ "${basicbackup_updateinfo}" != "${app_version}" ]]; then
-							echo '
-							<sup class="text-danger align-middle">
-								<a href="index.cgi?page=main&section=settings&switch=basicbackup_updateinfo&query='${app_version}'" class="link-success" style="text-decoration:none;">
-									<i class="bi bi-bookmark-check text-primary align-middle" style="font-size: 1.1rem;" title="'${txt_autopilot_updateinfo_disable}'"></i>
-								</a>&nbsp;
-								'${txt_autopilot_update_scriptcontent}'
-							</sup>'
-						fi
+						#if [[ "${basicbackup_updateinfo}" != "${app_version}" ]]; then
+						#	echo '
+						#	<sup class="text-danger align-middle">
+						#		<a href="index.cgi?page=main&section=settings&switch=basicbackup_updateinfo&query='${app_version}'" class="link-success" style="text-decoration:none;">
+						#			<i class="bi bi-bookmark-check text-primary align-middle" style="font-size: 1.1rem;" title="'${txt_autopilot_updateinfo_disable}'"></i>
+						#		</a>&nbsp;
+						#		'${txt_autopilot_update_scriptcontent}'
+						#	</sup>'
+						#fi
 						echo '
 					</span>
 				</div>
@@ -570,15 +570,15 @@ if [[ "${get[page]}" == "main" && "${get[section]}" == "start" ]]; then
 						<i class="bi bi-caret-down-fill pe-2" style="font-size: 0.9rem;"></i><span class="fs-5 pe-1">|</span><i class="bi bi-list py-2" style="font-size: 1.2rem;"></i>
 					</button>
 					<span class="ps-2">'${txt_hyperbackup_header}'&nbsp;&nbsp;'
-						if [[ "${hyperbackup_updateinfo}" != "${app_version}" ]]; then
-							echo '
-							<sup class="text-danger align-middle">
-								<a href="index.cgi?page=main&section=settings&switch=hyperbackup_updateinfo&query='${app_version}'" class="link-success" style="text-decoration:none;">
-									<i class="bi bi-bookmark-check text-primary align-middle" style="font-size: 1.1rem;" title="'${txt_autopilot_updateinfo_disable}'"></i>
-								</a>&nbsp;
-								'${txt_autopilot_update_scriptcontent}'
-							</sup>'
-						fi
+						#if [[ "${hyperbackup_updateinfo}" != "${app_version}" ]]; then
+						#	echo '
+						#	<sup class="text-danger align-middle">
+						#		<a href="index.cgi?page=main&section=settings&switch=hyperbackup_updateinfo&query='${app_version}'" class="link-success" style="text-decoration:none;">
+						#			<i class="bi bi-bookmark-check text-primary align-middle" style="font-size: 1.1rem;" title="'${txt_autopilot_updateinfo_disable}'"></i>
+						#		</a>&nbsp;
+						#		'${txt_autopilot_update_scriptcontent}'
+						#	</sup>'
+						#fi
 						echo '
 					</span>
 				</div>
