@@ -1,6 +1,8 @@
 [English](README_en.md) | Deutsch
 
 # ![Package icon](/ui/images/icon_24.png) AutoPilot für externe Datenträger
+[![Hits](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2Ftoafez%2FAutoPilot&count_bg=%2379C83D&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=hits&edge_flat=false)](https://hits.seeyoufarm.com)
+
 AutoPilot ermöglicht das Ausführen von beliebigen Shellscript Anweisungen, die nach dem Anschluss eines externen Datenträgers an deine Synology DiskStation automatisch ausgeführt werden. Vorhandene Basic Backup Aufträge sowie Hyper Backup Aufgaben (ab Version 4) werden dabei in AutoPilot übersichtlich angezeigt und lassen sich mit bereits vorkonfigurierten Shellscripts verbinden und somit ebenfalls ausführen. Nach der Ausführung kann der externe Datenträger auf Wunsch wieder automatisch ausgeworfen werden.
 
 ## Einen externen Datenträger einrichten
