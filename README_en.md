@@ -1,6 +1,8 @@
 English | [Deutsch](README.md)
 
 # ![Package icon](/ui/images/icon_24.png) AutoPilot for external drives
+[![Hits](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2Ftoafez%2FAutoPilot&count_bg=%2379C83D&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=hits&edge_flat=false)](https://hits.seeyoufarm.com)
+
 AutoPilot allows you to execute any shell script instructions that are automatically executed after connecting an external disk to your Synology DiskStation. Existing Basic Backup tasks and Hyper Backup tasks (from version 4) are clearly displayed in AutoPilot and can be linked to pre-configured shell scripts and thus also executed. After execution, the external disk can be ejected automatically if desired.
 
 ## Set up an external disk
