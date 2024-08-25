@@ -62,7 +62,11 @@ function external_target()
 			if [[ "${share}" == "${3}" ]]; then
 				echo -n '<option value="'${share}'"'; \
 					[[ "${var[${2}]}" == "${share}" ]] && echo -n ' selected>' || echo -n '>'
-				echo ''${share##*/}'</option>'
+				if [[ "${share##*/}${4}" == usbshare[1-99] || "${share##*/}${4}" == satashare[1-99] ]]; then
+					echo ''${share##*/}${4}'</option>'
+				else
+					echo ''${share##*/}'</option>'
+				fi
 			fi
 		done <<< "$( find ${volume}/* -type d ! -path '*/lost\+found' ! -path '*/\@*' ! -path '*/\$RECYCLE.BIN' ! -path '*/Repair' ! -path '*/recovery Volume Information' -maxdepth 0 )"
 	done <<< "$( find ${1} -maxdepth 0 -type d )"
@@ -194,6 +198,7 @@ if [[ "${get[page]}" == "main" && "${get[section]}" == "start" ]]; then
 
 								# Reading out disk information
 								ext_mountpoint=$(mount | grep -E "${ext_volume}/${ext_share##*/}")
+								ext_disknumber=$(echo "${ext_share%/*}" | sed 's/[^0-9]*//g')
 								ext_dev=$(echo "${ext_mountpoint}" | awk '{print $1}')
 								ext_path=$(echo "${ext_mountpoint}" | awk '{print $3}')
 								ext_uuid=$(blkid -s UUID -o value ${ext_dev})
@@ -292,8 +297,8 @@ if [[ "${get[page]}" == "main" && "${get[section]}" == "start" ]]; then
 																					<label for="sharedfolder" class="form-label">'${txt_autopilot_sharedfolder_label}'</label>
 																						<select id="sharedfolder" name="sharedfolder" class="form-select form-select-sm" required>
 																							<option value="" class="text-secondary" selected disabled></option>'
-																								local_target "/volume[[:digit:]]*" "sharedfolder"
-																								external_target "${ext_volume}*" "sharedfolder" "${ext_share}"
+																								local_target "/volume[1-99]*" "sharedfolder"
+																								external_target "${ext_volume}*" "sharedfolder" "${ext_share}" "${ext_disknumber}"
 																								echo '
 																						</select>
 																				</div>
@@ -354,8 +359,13 @@ if [[ "${get[page]}" == "main" && "${get[section]}" == "start" ]]; then
 												</td>
 											</tr>
 											<tr>
-												<td class="bg-light ps-4 me-2">
-													<i class="bi bi-folder-fill text-warning me-2"></i>'${ext_share##*/}'
+												<td class="bg-light ps-4 me-2">'
+													if [[ "${ext_share##*/}${ext_disknumber}" == usbshare[1-99] || "${ext_share##*/}${ext_disknumber}" == satashare[1-99] ]]; then
+														echo '<i class="bi bi-folder-fill text-warning me-2"></i>'${ext_share##*/}''${ext_disknumber}''
+													else
+														echo '<i class="bi bi-folder-fill text-warning me-2"></i>'${ext_share##*/}''
+													fi
+													echo '
 												</td>
 												<td>'${txt_autopilot_disk_name}'</td>
 												<td colspan="3">'${ext_label}'</td>
@@ -428,15 +438,15 @@ if [[ "${get[page]}" == "main" && "${get[section]}" == "start" ]]; then
 						unset ext_volume ext_share
 
 						# Check if external disk is plugged in
-						if [[ "${1}" == "/volumeUSB[[:digit:]]" ]]; then
+						if [[ "${1}" == "/volumeUSB[1-99]" ]]; then
 							count_usb="${ext_id}"
-						elif [[ "${1}" == "/volumeSATA" ]] || [[ "${1}" == "/volumeSATA[[:digit:]]" ]]; then
+						elif [[ "${1}" == "/volumeSATA" ]] || [[ "${1}" == "/volumeSATA[1-99]" ]]; then
 							count_sata="${ext_id}"
 						fi
 					}
 
-					ext_sources "/volumeUSB[[:digit:]]"
-					ext_sources "/volumeSATA[[:digit:]]"
+					ext_sources "/volumeUSB[1-99]"
+					ext_sources "/volumeSATA[1-99]"
 					ext_sources "/volumeSATA"
 
 					# If no external disk is plugged in
