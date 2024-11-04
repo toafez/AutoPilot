@@ -60,7 +60,7 @@ done
 if [ -n "${pid}" ]; then
     echo "___TXT_HYPERBACKUP_PURGE_PID___: $pid" >> "$logfile"
     echo "___TXT_HYPERBACKUP_PURGE_IN_PROGRESS___" >> "$logfile"
-    while ps -p "$pid" > /dev/null
+    while ps -p $pid > /dev/null
     do
         sleep 0.1
     done
