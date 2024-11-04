@@ -3,10 +3,12 @@ AutoPilot Release Notes
 Previously unpublished release...
 
  - Deutsch
-    - Die Anzeige des freigegebenen Ordnernamens (usbshare1, usbshare2 etc.) eines externen Datenträgeres wurde angepasst.
+    - Die Anzeige des freigegebenen Ordnernamens (usbshare1, usbshare2 etc.) eines externen Datenträgers wurde angepasst.
+    - Die Befehlsreihenfolge beim Aushängen eines externen Datenträgers wurde geändert.
 
  - English
-    - The display of the shared folder name (usbshare1, usbshare2 etc.) of an external data carrier has been adjusted.
+    - The display of the shared folder name (usbshare1, usbshare2 etc.) of an external disk has been adjusted.
+    - The Command sequence changed when unmounting an external disk has been changed.
 
 
 Version 1.1-700 vom 05.04.2024

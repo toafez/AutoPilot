@@ -251,22 +251,22 @@ if [ -h "/usr/local/bin/${app}" ] && [[ "${result}" =~ "running" ]]; then
 					# Initiating disk ejection
 					if [[ "${disconnect}" == "auto" ]] || [[ "${disconnect}" == "manual" ]]; then
 
-						# Remove disk from the GUI list
-						sed -i "/^""${disk}""/d" /tmp/usbtab
-
 						# Write RAM buffer back to disk
 						sync
 						sleep 5
-
-						# Uncommented Synology command, but cleaning up always sounds good ;o)
-						# /usr/syno/bin/synousbdisk -rcclean
-						# sleep 5
 
 						# Unmount disk
 						unmount_disk=$(/usr/syno/bin/synousbdisk -umount "${disk}")
 						echo "${txt_disk_is_ejected}" >> "${log}"
 						echo "${txt_system_response}:~# ${unmount_disk}" >> "${log}"
 						sleep 10
+
+						# Remove disk from the GUI list
+						sed -i "/^""${disk}""/d" /tmp/usbtab
+
+						# Uncommented Synology command, but cleaning up always sounds good ;o)
+						# /usr/syno/bin/synousbdisk -rcclean
+						# sleep 5
 
 						# Check if unmount was successful
 						unmount_check=$(/usr/syno/bin/synousbdisk -enum | grep "${disk}")
