@@ -1,5 +1,3 @@
-[English](README_en.md) | Deutsch
-
 # ![Package icon](/ui/images/icon_24.png) AutoPilot für externe Datenträger
 ![GitHub Release](https://img.shields.io/github/v/release/toafez/AutoPilot?link=https%3A%2F%2Fgithub.com%2Ftoafez%2FAutoPilot%2Freleases)
 
