@@ -3,6 +3,21 @@ AutoPilot Release Notes
 Previously unpublished release...
 
 
+Version 1.1-900 vom 05.02.2026
+
+ -Deutsch
+    - Update Bootstrap Framework auf 5.3.8
+    - Update Bootstrap JavaScript auf 5.3.8
+    - Update Bootsrap Icons auf 1.13.1
+    - Update jQuery auf 4.0.0
+
+ - English
+    - Update Bootstrap Framework to 5.3.8
+    - Update Bootstrap JavaScript to 5.3.8
+    - Update Bootsrap Icons to 1.13.1
+    - Update jQuery to 4.0.0
+
+
 Version 1.1-800 vom 04.11.2024
 
  - Deutsch

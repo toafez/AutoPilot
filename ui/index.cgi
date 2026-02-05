@@ -3,7 +3,7 @@
 
 #                       AutoPilot
 #
-#        Copyright (C) 2024 by Tommes | License GNU GPLv3
+#        Copyright (C) 2026 by Tommes | License GNU GPLv3
 #         Member of the German Synology Community Forum
 #
 # Extract from  GPL3   https://www.gnu.org/licenses/gpl-3.0.html
@@ -204,14 +204,14 @@ if [ $(synogetkeyvalue /etc.defaults/VERSION majorversion) -ge 7 ]; then
 			<!-- Integrating my own CSS formatting -->
 			<link rel="stylesheet" href="template/css/stylesheet.css" />
 
-			<!-- Integrating bootstrap framework 5.3.3 -->
+			<!-- Integrating bootstrap framework 5.3.8 -->
 			<link rel="stylesheet" href="template/bootstrap/css/bootstrap.min.css" />
 
-			<!-- Integrating bootstrap Icons 1.11.3 -->
+			<!-- Integrating bootstrap Icons 1.13.1 -->
 			<link rel="stylesheet" href="template/bootstrap/font/bootstrap-icons.css" />
 
-			<!-- Integrating jQuery 3.7.1 -->
-			<script src="template/jquery/jquery-3.7.1.min.js"></script>
+			<!-- Integrating jQuery 4.0.0 -->
+			<script src="template/jquery/jquery-4.0.0.slim.min.js"></script>
 
 			<!-- Integrating highlight.js 11.9.0 (https://highlightjs.org/) -->
 			<link rel="stylesheet" href="template/js/highlight/styles/atom-one-light.min.css">
@@ -352,7 +352,7 @@ if [ $(synogetkeyvalue /etc.defaults/VERSION majorversion) -ge 7 ]; then
 				<!-- container -->
 			</article>
 
-			<!-- Integrating bootstrap JavaScript 5.3.3 -->
+			<!-- Integrating bootstrap JavaScript 5.3.8 -->
 			<script src="template/bootstrap/js/bootstrap.bundle.min.js"></script>
 
 			<!-- Integrating JavaScript bzw. jQuery functions in the HTML body  -->
