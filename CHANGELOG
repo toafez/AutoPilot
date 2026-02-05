@@ -11,6 +11,7 @@ Version 1.1-900 vom 05.02.2026
     - Update Bootsrap Icons auf 1.13.1
     - Update jQuery auf 4.0.0
     - Die Unterstützung für Basic Backup Skripte wurde eingestellt
+    - Die Spracheinstellungen wurden angepasst. Wenn die Anzeigesprache Deutsch ist, wird Deutsch ausgewählt. Bei jeder anderen Sprache wird Englisch ausgewählt.
 
  - English
     - Update Bootstrap Framework to 5.3.8
@@ -18,6 +19,7 @@ Version 1.1-900 vom 05.02.2026
     - Update Bootsrap Icons to 1.13.1
     - Update jQuery to 4.0.0
     - Support for Basic Backup scripts has been discontinued
+    - The language settings have been adjusted. If the display language is German, German will be selected. For any other language, English will be selected.
 
 
 Version 1.1-800 vom 04.11.2024
