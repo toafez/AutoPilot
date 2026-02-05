@@ -462,114 +462,6 @@ if [[ "${get[page]}" == "main" && "${get[section]}" == "start" ]]; then
 			</div>
 		</div>'
 
-		# Basic Backup tasks
-		# --------------------------------------------------------------
-		if [ -d /var/packages/BasicBackup ] && [[ "${permissions}" == "true" ]]; then
-			echo '
-			<div class="accordion-item border-0 mt-3">
-				<div class="accordion-header bg-light p-2">
-					<button class="btn btn-sm text-dark py-0 collapsed" style="background-color: #e6e6e6;" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse-02" aria-expanded="false" aria-controls="flush-collapse-02">
-						<i class="bi bi-caret-down-fill pe-2" style="font-size: 0.9rem;"></i><span class="fs-5 pe-1">|</span><i class="bi bi-list py-2" style="font-size: 1.2rem;"></i>
-					</button>
-					<span class="ps-2">'${txt_basicbackup_header}'&nbsp;&nbsp;'
-						#if [[ "${basicbackup_updateinfo}" != "${app_version}" ]]; then
-						#	echo '
-						#	<sup class="text-danger align-middle">
-						#		<a href="index.cgi?page=main&section=settings&switch=basicbackup_updateinfo&query='${app_version}'" class="link-success" style="text-decoration:none;">
-						#			<i class="bi bi-bookmark-check text-primary align-middle" style="font-size: 1.1rem;" title="'${txt_autopilot_updateinfo_disable}'"></i>
-						#		</a>&nbsp;
-						#		'${txt_autopilot_update_scriptcontent}'
-						#	</sup>'
-						#fi
-						echo '
-					</span>
-				</div>
-				<div id="flush-collapse-02" class="accordion-collapse collapse" data-bs-parent="#accordionFlush01">
-					<div class="accordion-body bg-light">
-						<div class="accordion accordion-flush" id="accordionLoop02">'
-							basic_backup_jobs=$(find "/var/packages/BasicBackup/target/ui/usersettings/backupjobs" -type f -name "*.config" -maxdepth 1 | sort -f )
-							if [ -n "$basic_backup_jobs" ]; then
-								id=0
-								# Delete temporary Basic Backup files
-								find "${app_home}/temp" -type f -iname "basic_backup_script_*" | xargs rm -rf
-								IFS="
-								"
-								for basic_backup_job in ${basic_backup_jobs}; do
-									IFS="${backupIFS}"
-									[ -f "${basic_backup_job}" ] && source "${basic_backup_job}"
-									basic_backup_job=$(echo "${basic_backup_job##*/}")
-									basic_backup_job=$(echo "${basic_backup_job%.*}")
-									echo '
-									<div class="accordion-item bg-light pt-2 pb-3 ps-1 ms-4">
-										'${basic_backup_job}'
-										<div class="float-end">
-
-											<!-- Script Button -->
-											<button class="btn btn-sm text-dark py-0 collapsed" style="background-color: #e6e6e6;" type="button" data-bs-toggle="collapse" data-bs-target="#loop-collapse-02-'${id}'" aria-expanded="false" aria-controls="loop-collapse-02-'${id}'">
-												<i class="bi bi-terminal-fill" style="font-size: 1.2rem;" title="'${txt_basicbackup_title_view_script}'"></i>
-											</button>
-
-											<!-- Modal Button-->
-											<button type="button" class="btn btn-sm text-dark py-0" style="background-color: #e6e6e6;" data-bs-toggle="modal" data-bs-target="#BasicBackup'${id}'">
-												<i class="bi bi-link-45deg text-success" style="font-size: 1.2rem;" title="'${txt_autopilot_create_this_script}'"></i>
-											</button>
-
-											<!-- Modal Popup-->
-											<div class="modal fade" id="BasicBackup'${id}'" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="BasicBackup'${id}'Label" aria-hidden="true">
-												<div class="modal-dialog">
-													<div class="modal-content">
-														<div class="modal-header bg-light">
-															<h1 class="modal-title align-baseline fs-5" style="color: #FF8C00;" id="BasicBackup'${id}'Label">'${txt_autopilot_create_script}'</h1>
-															<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-														</div>
-														<form action="index.cgi?page=main" method="post" id="form'${id}'" autocomplete="on">
-															<div class="modal-body text-start">
-																'${txt_basicbackup_package_name}': <span class="text-secondary">Basic Backup</span><br />
-																'${txt_basicbackup_job_name}': <span class="text-secondary">'${basic_backup_job}'</span><br /><br />'
-
-																script_target
-
-																echo '
-															</div>
-															<div class="modal-footer bg-light">
-																<input type="hidden" name="jobname" value="'${basic_backup_job}'">
-																<button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">'${txt_button_Cancel}'</button><br />
-																<button class="btn btn-secondary btn-sm" type="submit" name="section" value="basicbackup">'${txt_button_Save}'</button>
-															</div>
-														</form>
-													</div>
-												</div>
-											</div>
-											<script type="text/javascript">
-												$(window).on("load", function() {
-													$("#popup-validation").modal("show");
-												});
-											</script>
-										</div>
-										<div id="loop-collapse-02-'${id}'" class="accordion-collapse collapse" data-bs-parent="#accordionLoop02">
-											<div class="accordion-body">'
-												basic_backup_script_tmp_file="${app_home}/temp/basic_backup_script_${id}.tmp"
-
-												# Function: Generate Basic Backup Script
-												basic_backup_script "${basic_backup_job}" "${basic_backup_script_tmp_file}"
-
-												echo -n '<pre style="overflow-x:auto;"><code>'
-												cat "${basic_backup_script_tmp_file}"
-												echo -n '</code></pre>
-											</div>
-										</div>
-									</div>'
-									id=$((id+1))
-								done
-								unset basic_backup_job
-							fi
-							echo '
-						</div>
-					</div>
-				</div>
-			</div>'
-		fi
-
 		# Hyper Backup tasks
 		# --------------------------------------------------------------
 		if [ -d /var/packages/HyperBackup ] && [[ "${permissions}" == "true" ]]; then
@@ -1048,25 +940,6 @@ if [[ "${get[page]}" == "main" && "${get[section]}" == "delete" ]]; then
 	echo '<meta http-equiv="refresh" content="0; url=index.cgi?page=main&section=start">'
 fi
 
-# Create Basic Backup script
-# --------------------------------------------------------------
-if [[ "${get[page]}" == "main" && "${post[section]}" == "basicbackup" ]]; then
-
-	jobname="${post[jobname]}"
-	scriptfile="${post[filename]}"
-
-	# Create AutoPilot script file
-	if [ -f "${scriptfile}" ]; then
-		# Generate script file from template by replacing language specific keywords.
-		# Function: Generate Basic Backup Script
-		basic_backup_script "${jobname}" "${scriptfile}"
-
-		[ -f "${get_request}" ] && rm "${get_request}"
-		[ -f "${post_request}" ] && rm "${post_request}"
-		echo '<meta http-equiv="refresh" content="0; url=index.cgi?page=main&section=start">'
-	fi
-fi
-
 # Create Hyper Backup Script
 # --------------------------------------------------------------
 if [[ "${get[page]}" == "main" && "${post[section]}" == "hyperbackup" ]]; then
@@ -1113,7 +986,6 @@ if [[ "${get[page]}" == "main" && "${get[section]}" == "settings" ]]; then
 	[[ "${get[switch]}" == "connect" ]] && "${set_keyvalue}" "${usr_autoconfig}" "connect" "${get[query]}"
 	[[ "${get[switch]}" == "disconnect" ]] && "${set_keyvalue}" "${usr_autoconfig}" "disconnect" "${get[query]}"
 	[[ "${get[switch]}" == "signal" ]] && "${set_keyvalue}" "${usr_autoconfig}" "signal" "${get[query]}"
-	[[ "${get[switch]}" == "basicbackup_updateinfo" ]] && "${set_keyvalue}" "${usr_autoconfig}" "basicbackup_updateinfo" "${get[query]}"
 	[[ "${get[switch]}" == "hyperbackup_updateinfo" ]] && "${set_keyvalue}" "${usr_autoconfig}" "hyperbackup_updateinfo" "${get[query]}"
 	[[ "${get[switch]}" == "customscripts_updateinfo" ]] && "${set_keyvalue}" "${usr_autoconfig}" "customscripts_updateinfo" "${get[query]}"
 	echo '<meta http-equiv="refresh" content="0; url=index.cgi?page=main&section=start">'

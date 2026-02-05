@@ -153,18 +153,6 @@ txt_autopilot_updateinfo_disable="Information ausblenden"
 txt_autopilot_update_scriptcontent="Scriptinhalte wurden überarbeitet. Ausgewählte Aufträge bitte erneut an ein Shell-Script übergeben."
 txt_autopilot_update_custom_scriptcontent="Template Inhalte wurden überarbeitet."
 
-# Basic Backup
-txt_basicbackup_header="Basic Backup Aufträge"
-txt_basicbackup_title_view_script="AutoPilot Scriptdatei für diesen Basic Backup Auftrag ansehen"
-txt_basicbackup_package_name="Paketname"
-txt_basicbackup_job_name="Auftragsname"
-
-# Basic Backup script log
-txt_basicbackup_execute="Es wird ein Basic Backup Auftrag ausgeführt"
-txt_basicbackup_taskname="Name des Auftrages: "
-txt_basicbackup_in_progress="Sicherung wurde gestartet"
-txt_basicbackup_finished="Sicherung abgeschlossen"
-txt_basicbackup_duration="Dauer der Sicherung"
 
 # Hyper Backup
 txt_hyperbackup_header="Hyper Backup Aufgaben"
@@ -277,7 +265,7 @@ txt_help_setup_terminal_step_8="Werfe den externen Datenträger über den DSM au
 # setup_via_dsm.sh and setup_via_terminal.sh
 # --------------------------------------------------------------
 txt_help_setup_step_1="Jedes Shellscript beginnt mit der Shebang, also der Angabe des zu verwendeten Interpreter bzw. der zu verwendeten Shell."
-txt_help_setup_step_2="Ab der zweiten Zeile folgen individuelle Shellscript Anweisungen, die AutoPilot ausführen soll. Im nachfolgenden Beispiel soll über das Programm rsync eine Datensicherung ausgeführt werden. An dieser Stelle könnte z.B. auch ein Basic Backup oder Hyper Backup Auftrag ausgeführt werden."
+txt_help_setup_step_2="Ab der zweiten Zeile folgen individuelle Shellscript Anweisungen, die AutoPilot ausführen soll. Im nachfolgenden Beispiel soll über das Programm rsync eine Datensicherung ausgeführt werden. An dieser Stelle könnte z.B. auch ein Hyper Backup Auftrag ausgeführt werden."
 txt_help_setup_step_3="Nachdem die Shellscript Anweisung ausgeführt wurde, wird in der Regel ein sogenannter Exit-Code an das System übergeben, dessen Zahlenwert über ein"
 txt_help_setup_step_4="ausgelesen werden kann. Ist das Ergebnis 0, wurde die zuletzt ausgeführte Shellscript Anweisung fehlerfrei ausgeführt. AutoPilot würde in diesem Fall den externen Datenträger automatisch auszuwerfen. Erhält man hingegen einen Zahlenwert zwischen 1 und 255 deutet dies auf einen Hinweis, eine Warnung, einen Fehler oder einen Abbruch der zuletzt ausgeführten Shellscript Anweisung hin. In diesem Fall würde der externe Datenträger von AutoPilot nicht automatisch ausgeworfen. Dieses grundlegende Verhalten kann in den AutoPilot Einstellungen individuell angepasst werden. Alternativ dazu kann anstelle des vom System übergebenen Exit-Code, auch ein eigener und damit fest eingestellter Exit-Code an AutoPilot übergeben werden, wobei ein"
 txt_help_setup_step_5="AutoPilot mitteilt, das unabhängig vom tatsächlich übergebenen Exit-Code, der externe Datenträger immer ausgeworfen wird. Nachfolgend nochmal das komplette Beispiel-Script."

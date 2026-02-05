@@ -10,12 +10,14 @@ Version 1.1-900 vom 05.02.2026
     - Update Bootstrap JavaScript auf 5.3.8
     - Update Bootsrap Icons auf 1.13.1
     - Update jQuery auf 4.0.0
+    - Die Unterstützung für Basic Backup Skripte wurde eingestellt
 
  - English
     - Update Bootstrap Framework to 5.3.8
     - Update Bootstrap JavaScript to 5.3.8
     - Update Bootsrap Icons to 1.13.1
     - Update jQuery to 4.0.0
+    - Support for Basic Backup scripts has been discontinued
 
 
 Version 1.1-800 vom 04.11.2024

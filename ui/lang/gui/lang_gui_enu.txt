@@ -153,19 +153,6 @@ txt_autopilot_updateinfo_disable="Hide information"
 txt_autopilot_update_scriptcontent="Script content has been revised. Please resubmit selected jobs to a shell script."
 txt_autopilot_update_custom_scriptcontent="Template content has been revised."
 
-# Basic backup
-txt_basicbackup_header="Basic Backup jobs"
-txt_basicbackup_title_view_script="View AutoPilot script file for this basic backup job"
-txt_basicbackup_package_name="Package name"
-txt_basicbackup_job_name="Job name"
-
-# Basic Backup script log
-txt_basicbackup_execute="A basic backup job is being executed"
-txt_basicbackup_taskname="Name of the job: "
-txt_basicbackup_in_progress="Backup has started"
-txt_basicbackup_finished="Backup completed"
-txt_basicbackup_duration="Duration of backup job"
-
 # Hyper Backup
 txt_hyperbackup_header="Hyper Backup Tasks"
 txt_hyperbackup_required="Hyper Backup 4, which was released together with DiskStation Manager 7.2, is required for the display and further processing of tasks. You are currently using DiskStation Manager ${dsm_major}.${dsm_minor} in conjunction with Hyper Backup ${hyperbackup_version%%.*}."
@@ -276,7 +263,7 @@ txt_help_setup_terminal_step_8="Eject the external storage device via the DSM. T
 # setup_via_dsm.sh and setup_via_terminal.sh
 # ------------------------------------------------- -------------
 txt_help_setup_step_1="Every shell script begins with the shebang, i.e. the specification of the interpreter or shell to be used."
-txt_help_setup_step_2="From the second line onwards, individual shell script instructions follow that AutoPilot should execute. In the following example, a data backup should be carried out using the rsync program. At this point, for example, a Basic Backup or hyper backup job could also be carried out."
+txt_help_setup_step_2="From the second line onwards, individual shell script instructions follow that AutoPilot should execute. In the following example, a data backup should be carried out using the rsync program. At this point, for example, a hyper backup job could also be carried out."
 txt_help_setup_step_3="After the shell script instruction has been executed, a so-called exit code is usually passed to the system, the numerical value of which is given via a"
 txt_help_setup_step_4="can be read. If the result is 0, the last executed shell script instruction was executed without errors. In this case, AutoPilot would automatically eject the external disk. However, if you get a numerical value between 1 and 255, this indicates a note, a warning, an error or an abort of the last executed shell script statement. In this case, the external storage medium would not be automatically ejected by AutoPilot. This basic behavior can be individually adjusted in the AutoPilot settings. Alternatively, instead of the exit code passed by the system, this can also be done an own and thus permanently set exit code can be passed to AutoPilot, whereby a "
 txt_help_setup_step_5="AutoPilot informs that, regardless of the exit code actually passed, the external disk is always ejected. Below is the complete example script."
